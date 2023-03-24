@@ -1,10 +1,6 @@
-﻿using Sandbox;
-using System;
-using System.Linq;
+﻿namespace GameJam;
 
-namespace Sandbox;
-
-partial class Pawn : AnimatedEntity
+public class Pawn : AnimatedEntity
 {
 	/// <summary>
 	/// Called when the entity is first created 
