@@ -2,7 +2,7 @@
   "Title": "ThreeThievesJam2023",
   "Type": "game",
   "Org": "local",
-  "Ident": "threethievesjam2023",
+  "Ident": "ttjam2023",
   "Tags": null,
   "Schema": 1,
   "HasAssets": true,
@@ -21,6 +21,7 @@
     "RankType": "None",
     "PerMapRanking": false,
     "LeaderboardType": "None",
-    "ProjectTemplate": null
+    "ProjectTemplate": null,
+    "CsProjName": ""
   }
 }
