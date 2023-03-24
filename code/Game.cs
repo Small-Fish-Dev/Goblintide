@@ -5,6 +5,7 @@ global using System.Linq;
 
 namespace GameJam;
 
+// TODO(gio): rename GameMgr when we have an actual idea! 
 public partial class GameMgr : GameManager
 {
 	public GameMgr()
