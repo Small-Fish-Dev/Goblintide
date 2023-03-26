@@ -152,11 +152,12 @@ public partial class BaseNPC
 			RecalculateTargetNav();
 
 		if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
-		{
 			ComputeAttack( CurrentTarget );
-		}
 		else
 			RecalculateTargetNav();
+
+		if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) )
+			CurrentTarget = null;
 	}
 
 	public virtual void ComputeLookForTargets()
