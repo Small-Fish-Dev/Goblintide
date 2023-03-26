@@ -16,7 +16,7 @@ public partial class GameMgr : GameManager
 	{
 		base.ClientJoined( client );
 
-		var pawn = new Pawn();
+		var pawn = new Lord();
 		client.Pawn = pawn;
 
 		if ( All.OfType<SpawnPoint>().MinBy( x => Guid.NewGuid() ) is not { } spawn )
