@@ -39,11 +39,11 @@ public partial class BaseNPC
 		get { return currentTarget; }
 		set
 		{
-			if ( currentTarget != null && currentTarget.IsValid() )
-				currentTarget.AttackedBy--;
+			if ( currentTarget.IsValid() )
+				currentTarget.TotalAttackers--;
 			currentTarget = value;
-			if ( currentTarget != null && currentTarget.IsValid() )
-				currentTarget.AttackedBy++;
+			if ( currentTarget.IsValid() )
+				currentTarget.TotalAttackers++;
 		}
 	}
 	public Vector3 CurrentTargetBestPosition { get; set; } = Vector3.Zero;
@@ -70,7 +70,7 @@ public partial class BaseNPC
 		var validEntities = Entity.All
 			.OfType<BaseCharacter>()
 			.Where( x => x.Faction != FactionType.None && x.Faction != Faction )
-			.Where( x => x.AttackedBy < 3 );
+			.Where( x => x.TotalAttackers < 3 );
 
 		var radiusSquared = (float)Math.Pow( radius, 2 );
 
@@ -126,8 +126,14 @@ public partial class BaseNPC
 			target.Damage( AttackPower, this );
 
 			SetAnimParameter( "b_attack", true );
+		}
+	}
 
-			//Log.Error( $"{this} - Dealt {AttackPower} damage to {target}" );
+	public void ComputeRevenge()
+	{
+		if ( !CurrentTarget.IsValid() && LastAttackedBy.IsValid() && LastAttackedBy != CurrentTarget )
+		{
+			CurrentTarget = LastAttackedBy;
 		}
 	}
 
@@ -175,21 +181,21 @@ public partial class BaseNPC
 			nextTargetSearch = 1f;
 
 			CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
-			if ( CurrentTarget != null )
+			if ( CurrentTarget.IsValid() )
 				RecalculateTargetNav();
 		}
 	}
 
 	public virtual void RaiderBehaviour()
 	{
-		if ( CurrentTarget == null || !CurrentTarget.IsValid() )
+		if ( !CurrentTarget.IsValid() )
 		{
 			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
 				CurrentSubBehaviour = BaseSubBehaviour;
 
 			ComputeLookForTargets();
 		}
-		else if ( CurrentTarget.IsValid() )
+		else
 		{
 			AttackingSubBehaviour();
 		}
@@ -197,7 +203,7 @@ public partial class BaseNPC
 
 	public virtual void DefenderBehaviour()
 	{
-		if ( CurrentTarget == null || !CurrentTarget.IsValid() )
+		if ( !CurrentTarget.IsValid() )
 		{
 			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
 				CurrentSubBehaviour = BaseSubBehaviour;
@@ -209,7 +215,7 @@ public partial class BaseNPC
 
 			ComputeLookForTargets();
 		}
-		else if ( CurrentTarget.IsValid() )
+		else
 		{
 			AttackingSubBehaviour();
 		}

@@ -46,7 +46,7 @@ public partial class BaseNPC : BaseCharacter
 	public override void Kill()
 	{
 		if ( CurrentTarget != null )
-			CurrentTarget.AttackedBy--;
+			CurrentTarget.TotalAttackers--;
 
 		base.Kill();
 	}

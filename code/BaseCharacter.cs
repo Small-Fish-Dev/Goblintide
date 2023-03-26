@@ -13,7 +13,9 @@ public partial class BaseCharacter : AnimatedEntity
 
 	public virtual float HitPoints { get; set; } = 6f;
 	public virtual FactionType Faction { get; set; }
-	public int AttackedBy { get; set; } = 0;
+	public int TotalAttackers { get; set; } = 0;
+	public BaseCharacter LastAttackedBy { get; set; } = null;
+	public TimeSince LastAttacked { get; set; } = 0f;
 
 	public virtual float CollisionWidth { get; set; } = 20f;
 	public virtual float CollisionHeight { get; set; } = 40f;
@@ -39,6 +41,8 @@ public partial class BaseCharacter : AnimatedEntity
 	public virtual void Damage( float amount, BaseCharacter attacker )
 	{
 		HitPoints = Math.Max( HitPoints - amount, 0 );
+		LastAttacked = 0f;
+		LastAttackedBy = attacker;
 
 		if ( HitPoints <= 0 )
 		{
