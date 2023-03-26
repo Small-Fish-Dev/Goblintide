@@ -47,7 +47,9 @@ public partial class BaseNPC
 		}
 	}
 	public Vector3 CurrentTargetBestPosition { get; set; } = Vector3.Zero;
-	public Vector3 LastKnownTargetPosition {  get; set; } = Vector3.Zero;
+	public Vector3 LastKnownTargetPosition { get; set; } = Vector3.Zero;
+	public Vector3 DefendingPosition { get; set; } = Vector3.Zero;
+	public float DefendingPositionRange { get; set; } = 500f;
 
 	public virtual void ComputeBehaviour()
 	{
@@ -59,6 +61,8 @@ public partial class BaseNPC
 			RaiderBehaviour();
 		else if ( CurrentBehaviour == Behaviour.Victim )
 			VictimBehaviour();
+		else
+			NoneBehaviour();
 	}
 
 	public virtual BaseCharacter FindBestTarget( float radius = 300f, bool closestFirst = true )
@@ -112,6 +116,32 @@ public partial class BaseNPC
 
 	TimeUntil nextTargetSearch { get; set; } = 0f;
 	TimeUntil nextIdleMove { get; set; } = 0f;
+	TimeUntil nextAttack { get; set; } = 0f;
+
+	public void ComputeAttack( BaseCharacter target )
+	{
+		if ( nextAttack )
+		{
+			nextAttack = 1 / AttackSpeed;
+			Log.Error( $"{this} - Dealt {AttackPower} damage to {target}" );
+		}
+	}
+
+	public void ComputeIdling()
+	{
+		if ( nextIdleMove )
+		{
+			nextIdleMove = Game.Random.Float( 2, 4 );
+
+			var randomPositionAround = DefendingPosition + Vector3.Random.WithZ( 0 ) * DefendingPositionRange;
+			NavigateTo( randomPositionAround );
+		}
+	}
+
+	public virtual void NoneBehaviour()
+	{
+		ComputeIdling();
+	}
 
 	public virtual void RaiderBehaviour()
 	{
@@ -139,7 +169,7 @@ public partial class BaseNPC
 
 			if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
 			{
-				Log.Info( "I AM ATTACKING YOU" );
+				ComputeAttack( CurrentTarget );
 			}
 			else
 				RecalculateTargetNav();
@@ -154,13 +184,7 @@ public partial class BaseNPC
 
 			if ( CurrentSubBehaviour == SubBehaviour.Guarding || CurrentSubBehaviour == SubBehaviour.None )
 			{
-				if ( nextIdleMove )
-				{
-					nextIdleMove = Game.Random.Float( 2, 4 );
-
-					var randomPositionAround = Position + Vector3.Random.WithZ( 0 ) * 300f;
-					NavigateTo( randomPositionAround );
-				}
+				ComputeIdling();
 			}
 
 			if ( nextTargetSearch )
@@ -182,7 +206,7 @@ public partial class BaseNPC
 
 			if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
 			{
-				Log.Info( "I AM ATTACKING YOU" );
+				ComputeAttack( CurrentTarget );
 			}
 			else
 				RecalculateTargetNav();
@@ -190,6 +214,6 @@ public partial class BaseNPC
 	}
 	public virtual void VictimBehaviour()
 	{
-		Log.Info( "I'm victm!" );
+		ComputeIdling();
 	}
 }

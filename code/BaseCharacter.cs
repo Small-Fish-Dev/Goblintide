@@ -35,4 +35,18 @@ public partial class BaseCharacter : AnimatedEntity
 		Tags.Add( "Pushable" );
 		Tags.Add( Faction.ToString() );
 	}
+
+	public virtual void Damage( float amount, BaseCharacter attacker )
+	{
+		HitPoints = Math.Max( HitPoints - amount, 0 );
+
+		if ( HitPoints <= 0 )
+		{
+			Kill();
+		}
+	}
+
+	public virtual void Kill()
+	{
+	}
 }

@@ -43,7 +43,7 @@ public partial class BaseNPC : BaseCharacter
 		CurrentSubBehaviour = BaseSubBehaviour;
 	}
 
-	public virtual void Kill()
+	public override void Kill()
 	{
 		if ( CurrentTarget != null )
 			CurrentTarget.AttackedBy--;
@@ -68,6 +68,8 @@ public partial class BaseNPC : BaseCharacter
 		ComputeAnimations();
 		ComputeBehaviour();
 
+		if ( Position != Vector3.Zero && DefendingPosition == Vector3.Zero )
+			DefendingPosition = Position;
 	}
 
 
