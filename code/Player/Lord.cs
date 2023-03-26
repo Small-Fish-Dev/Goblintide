@@ -3,7 +3,9 @@
 public partial class Lord : AnimatedEntity
 {
 
-	public BBox CollisionBox => new BBox( new Vector3( -12f, -12f, 0f ), new Vector3( 12f, 12f, 48f ) );
+	public float CollisionWidth { get; set; } = 20f;
+	public float CollisionHeight { get; set; } = 40f;
+	public BBox CollisionBox => new( new Vector3( -CollisionWidth / 2f, -CollisionWidth / 2f, 0f ), new Vector3( CollisionWidth / 2f, CollisionWidth / 2f, CollisionHeight ) );
 
 	public override void Spawn()
 	{
@@ -12,7 +14,11 @@ public partial class Lord : AnimatedEntity
 		SetModel( "models/citizen/citizen.vmdl" );
 		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, CollisionBox.Mins, CollisionBox.Maxs );
 
+		Tags.Add( "Player" );
+		Tags.Add( "Pushable" );
+
 		EnableDrawing = true;
+		EnableTouch = true;
 	}
 
 	// An example BuildInput method within a player's Pawn class.
@@ -42,6 +48,7 @@ public partial class Lord : AnimatedEntity
 	{
 		base.FrameSimulate( cl );
 
+		SimulateController(); // Smooth push
 		SimulateCamera();
 		SimulateAnimations();
 	}

@@ -40,8 +40,10 @@ public partial class BaseNPC : AnimatedEntity
 
 		EnableAllCollisions = true;
 		EnableDrawing = true;
+		EnableTouch = true;
 
 		Tags.Add( "NPC" );
+		Tags.Add( "Pushable" );
 	}
 
 	public static BaseNPC FromPrefab( string prefabName )
@@ -82,7 +84,7 @@ public partial class BaseNPC : AnimatedEntity
 		for( int i = 0; i < amount; i++ )
 		{
 			var guy = BaseNPC.FromPrefab( $"prefabs/npcs/{type}.prefab" );
-			guy.Position = player.Position;
+			guy.Position = player.Position + Vector3.Random.WithZ( 0 ) * 100f;
 		}
 	}
 }

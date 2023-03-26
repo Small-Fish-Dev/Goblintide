@@ -11,7 +11,7 @@ public partial class GameMgr : GameManager
 {
 	public GameMgr()
 	{
-		Game.TickRate = 15;
+		Game.TickRate = 30;
 	}
 
 	public override void ClientJoined( IClient client )

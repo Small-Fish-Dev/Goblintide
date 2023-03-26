@@ -19,11 +19,22 @@ public partial class BaseNPC
 		Velocity = Vector3.Lerp( Velocity, WishVelocity, Time.Delta * 5f )
 			.WithZ( Velocity.z );
 
-		var helper = new MoveHelper( Position, Velocity );
+		var pushOffset = Vector3.Zero;
+
+		foreach ( var toucher in touchingEntities )
+		{
+			var direction = (Position - toucher.Position).WithZ(0).Normal;
+			var distance = Position.DistanceSquared( toucher.Position );
+			var maxDistance = 250f;
+
+			pushOffset = direction * Math.Max( maxDistance - distance, 0f ) * Time.Delta * 3f;
+		}
+
+		var helper = new MoveHelper( Position, Velocity + pushOffset );
 
 		helper.Trace = helper.Trace
 						.Size( CollisionBox.Mins, CollisionBox.Maxs )
-						.WithoutTags( "NPC" )
+						.WithoutTags( "NPC", "Player" )
 						.Ignore( this );
 
 		helper.TryMove( Time.Delta );
@@ -31,6 +42,29 @@ public partial class BaseNPC
 		Position = helper.Position;
 		Velocity = helper.Velocity;
 
+	}
+
+	internal List<ModelEntity> touchingEntities = new();
+
+	public override void StartTouch( Entity other )
+	{
+		base.Touch( other );
+
+		if ( !Game.IsServer ) return;
+
+		if ( other is ModelEntity toucher && other.Tags.Has( "Pushable" ) )
+			touchingEntities.Add( toucher );
+	}
+
+
+	public override void EndTouch( Entity other )
+	{
+		base.Touch( other );
+
+		if ( !Game.IsServer ) return;
+
+		if ( other is ModelEntity toucher && touchingEntities.Contains( toucher ) )
+			touchingEntities.Remove( toucher );
 	}
 }
 

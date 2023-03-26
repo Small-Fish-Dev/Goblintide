@@ -44,7 +44,13 @@
       "_scale": {
         "Value": "1"
       },
-      "_tags": {}
+      "_tags": {
+        "Value": "\u0022\u0022"
+      },
+      "CollisionHeight": {
+        "Type": "Single",
+        "Value": "72"
+      }
     }
   }
 }

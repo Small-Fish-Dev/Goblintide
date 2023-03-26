@@ -22,7 +22,7 @@
         "Value": "\u00220,0,0\u0022"
       },
       "_scale": {
-        "Value": "0.5882511"
+        "Value": "0.66705525"
       },
       "_tags": {
         "Value": "\u0022\u0022"
@@ -34,6 +34,10 @@
       "RenderColor": {
         "Type": "Color",
         "Value": "\u00220,1,0.0885,1\u0022"
+      },
+      "CollisionWidth": {
+        "Type": "Single",
+        "Value": "10"
       }
     }
   }
