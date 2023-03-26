@@ -2,9 +2,11 @@
 
 public static class GoblinNames
 {
-	private static readonly string[] PartOne = { "gl", "bl", "gr", "pr" };
-	private static readonly string[] PartTwo = { "imb", "umb", "erg", "arp" };
-	private static readonly string[] PartThree = { "y", "o", "e" };
+	private static readonly string[] PartOne = { "gl", "bl", "gr", "pr", "sk", "sn", "z", "zo" };
+	private static readonly string[] PartTwo = { "imb", "umb", "erg", "arp", "org", "arz", "ax" };
+	private static readonly string[] PartThree = { "y", "o", "e", "k", "it", "ax", "ik", "tz", "wort", "fist", "ly" };
+	private static readonly string[] RandomSeparatorOne = { "", "", "ar", "", "", "", "ir", "", "" };
+	private static readonly string[] RandomSeparatorTwo = { "-", "", "", "", "", "", "", "", "" };
 
 	public struct Creator
 	{
@@ -30,9 +32,22 @@ public static class GoblinNames
 			return this;
 		}
 
+		public Creator AddSeparatorOne()
+		{
+			Output += GetRandomWord( RandomSeparatorOne );
+			return this;
+		}
+
+		public Creator AddSeparatorTwo()
+		{
+			Output += GetRandomWord( RandomSeparatorTwo );
+			return this;
+		}
+
 		public Creator MakeProper()
 		{
-			Output = Output.ToTitleCase();
+			var str = Output;
+			Output = $"{str[..1].ToUpper() + str[1..]}";
 			return this;
 		}
 	}
@@ -45,7 +60,9 @@ public static class GoblinNames
 	{
 		return new Creator()
 			.AddStart()
+			.AddSeparatorOne()
 			.AddMiddle()
+			.AddSeparatorTwo()
 			.AddEnd()
 			.MakeProper()
 			.Output;
