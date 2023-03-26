@@ -7,7 +7,7 @@ public partial class BaseNPC
 	public NavAgentHull Agent => NavAgentHull.Default;
 
 	NavPath currentPath;
-	Vector3 currentTargetPosition = 0;
+	public Vector3 CurrentTargetPosition = 0;
 	int currentPathIndex { get; set; } = 0;
 	public bool IsFollowingPath { get; set; } = false;
 	NavPathSegment latestPathPoint => currentPath.Segments[currentPathIndex];
@@ -33,9 +33,16 @@ public partial class BaseNPC
 		currentPath = pathBuilt;
 		currentPathIndex = 0;
 		IsFollowingPath = true;
-		currentTargetPosition = targetPosition;
+		CurrentTargetPosition = targetPosition;
 
 		return true;
+	}
+
+	public virtual bool NavigateTo( BaseCharacter target )
+	{
+		var targetPosition = FindBestTargetPosition( target );
+
+		return NavigateTo( targetPosition, true );
 	}
 
 	public virtual void ComputeNavigation()
@@ -53,7 +60,7 @@ public partial class BaseNPC
 			currentPathIndex++;
 
 		if ( distanceFromIdealPath >= 50f )
-			NavigateTo( currentTargetPosition );
+			NavigateTo( CurrentTargetPosition );
 
 		if ( currentPathIndex >= currentPathCount )
 		{

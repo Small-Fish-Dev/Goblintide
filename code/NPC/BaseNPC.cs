@@ -10,11 +10,15 @@ public partial class BaseNPC : BaseCharacter
 	public virtual float AttackPower { get; set; } = 0.5f;
 	[Prefab, Category( "Stats" )]
 	public virtual float AttackSpeed { get; set; } = 0.5f;
+	[Prefab, Category( "Stats" )]
+	public virtual float AttackRange { get; set; } = 60f;
+	[Prefab, Category( "Stats" )]
+	public virtual float DetectRange { get; set; } = 300f;
 	[Prefab, Category( "Stats" )] 
 	public virtual float WalkSpeed { get; set; } = 120f;
 
 	[Prefab, Category( "Character" )]
-	public override FactionType Faction { get; set; }
+	public override FactionType Faction { get; set; } = FactionType.None;
 
 	[Prefab, Category( "Character" )]
 	public override float CollisionWidth { get; set; } = 20f;
