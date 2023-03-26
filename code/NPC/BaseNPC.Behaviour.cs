@@ -143,6 +143,34 @@ public partial class BaseNPC
 		ComputeIdling();
 	}
 
+	public virtual void AttackingSubBehaviour()
+	{
+		Rotation = Rotation.LookAt( CurrentTarget.Position - Position );
+
+		// Maybe make these checks once every 0.5 second if they prove laggy
+		if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) ) // If the target moved
+			RecalculateTargetNav();
+
+		if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
+		{
+			ComputeAttack( CurrentTarget );
+		}
+		else
+			RecalculateTargetNav();
+	}
+
+	public virtual void ComputeLookForTargets()
+	{
+		if ( nextTargetSearch )
+		{
+			nextTargetSearch = 1f;
+
+			CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
+			if ( CurrentTarget != null )
+				RecalculateTargetNav();
+		}
+	}
+
 	public virtual void RaiderBehaviour()
 	{
 		if ( CurrentTarget == null )
@@ -150,31 +178,14 @@ public partial class BaseNPC
 			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
 				CurrentSubBehaviour = BaseSubBehaviour;
 
-			if ( nextTargetSearch )
-			{
-				nextTargetSearch = 1f;
-
-				CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
-				if ( CurrentTarget != null )
-					RecalculateTargetNav();
-			}
+			ComputeLookForTargets();
 		}
 		else
 		{
-			Rotation = Rotation.LookAt( CurrentTarget.Position - Position );
-
-			// Maybe make these checks once every 0.5 second if they prove laggy
-			if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) ) // If the target moved
-				RecalculateTargetNav();
-
-			if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
-			{
-				ComputeAttack( CurrentTarget );
-			}
-			else
-				RecalculateTargetNav();
+			AttackingSubBehaviour();
 		}
 	}
+
 	public virtual void DefenderBehaviour()
 	{
 		if ( CurrentTarget == null )
@@ -187,29 +198,11 @@ public partial class BaseNPC
 				ComputeIdling();
 			}
 
-			if ( nextTargetSearch )
-			{
-				nextTargetSearch = 1f;
-
-				CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
-				if ( CurrentTarget != null )
-					RecalculateTargetNav();
-			}
+			ComputeLookForTargets();
 		}
 		else
 		{
-			Rotation = Rotation.LookAt( CurrentTarget.Position - Position );
-
-			// Maybe make these checks once every 0.5 second if they prove laggy
-			if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) ) // If the target moved
-				RecalculateTargetNav();
-
-			if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
-			{
-				ComputeAttack( CurrentTarget );
-			}
-			else
-				RecalculateTargetNav();
+			AttackingSubBehaviour();
 		}
 	}
 	public virtual void VictimBehaviour()
