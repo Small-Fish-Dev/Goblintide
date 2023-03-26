@@ -4,6 +4,7 @@ public partial class Lord : BaseCharacter
 {
 	public override float HitPoints { get; set; } = 6f;
 	public override FactionType Faction { get; set; } = FactionType.Goblins;
+	public float WalkSpeed => 140f;
 
 	public override float CollisionWidth { get; set; } = 20f;
 	public override float CollisionHeight { get; set; } = 40f;

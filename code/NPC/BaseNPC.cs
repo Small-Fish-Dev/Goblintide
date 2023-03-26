@@ -44,8 +44,6 @@ public partial class BaseNPC : BaseCharacter
 		return null;
 	}
 
-	public Vector2 TimeBetweenIdleMove => new Vector2( 1f, 3f );
-	internal TimeUntil nextIdleMode { get; set; } = 0f;
 
 	[Event.Tick.Server]
 	public virtual void Think()
@@ -54,14 +52,7 @@ public partial class BaseNPC : BaseCharacter
 		ComputeMotion();
 		ComputeAnimations();
 		ComputeBehaviour();
-		
-		if ( nextIdleMode )
-		{
-			var randomSpot = Position + Vector3.Random.WithZ(0) * 200f ;
 
-			NavigateTo( randomSpot );
-			nextIdleMode = Game.Random.Float( TimeBetweenIdleMove.x, TimeBetweenIdleMove.y );
-		}
 	}
 
 
@@ -74,6 +65,7 @@ public partial class BaseNPC : BaseCharacter
 		{
 			var guy = BaseNPC.FromPrefab( $"prefabs/npcs/{type}.prefab" );
 			guy.Position = player.Position + Vector3.Random.WithZ( 0 ) * 100f;
+			guy.CurrentBehaviour = Behaviour.Raider;
 		}
 	}
 }

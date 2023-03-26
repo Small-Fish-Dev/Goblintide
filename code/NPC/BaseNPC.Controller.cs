@@ -25,7 +25,7 @@ public partial class BaseNPC
 		{
 			var direction = (Position - toucher.Position).WithZ(0).Normal;
 			var distance = Position.DistanceSquared( toucher.Position );
-			var maxDistance = 250f;
+			var maxDistance = 500f;
 
 			pushOffset = direction * Math.Max( maxDistance - distance, 0f ) * Time.Delta * 3f;
 		}

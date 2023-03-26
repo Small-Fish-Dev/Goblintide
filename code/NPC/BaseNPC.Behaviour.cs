@@ -33,16 +33,7 @@ public partial class BaseNPC
 		{ Behaviour.Victim, ( npc ) => { npc.VictimBehaviour(); } }
 	};
 	*/
-	public BaseCharacter CurrentTarget
-	{
-		get { return CurrentTarget; }
-		set
-		{
-			CurrentTarget = value;
-			CurrentTargetBestPosition = FindBestTargetPosition( CurrentTarget, AttackRange / 2 );
-			LastKnownTargetPosition = CurrentTarget.Position;
-		}
-	} = null;
+	public BaseCharacter CurrentTarget { get; set; } = null;
 	public Vector3 CurrentTargetBestPosition { get; set; } = Vector3.Zero;
 	public Vector3 LastKnownTargetPosition {  get; set; } = Vector3.Zero;
 
@@ -64,7 +55,7 @@ public partial class BaseNPC
 	{
 		var validEntities = Entity.All
 			.OfType<BaseCharacter>()
-			.Where( x => x.Faction != Faction );
+			.Where( x => x.Faction != FactionType.None && x.Faction != Faction );
 
 		var radiusSquared = (float)Math.Pow( radius, 2 );
 
@@ -73,7 +64,7 @@ public partial class BaseNPC
 			validEntities.OrderBy( x => x.Position.DistanceSquared( Position ) );
 
 			if ( validEntities.FirstOrDefault() != null )
-				if ( validEntities.Position.DistanceSquared( Position ) <= radiusSquared )
+				if ( validEntities.FirstOrDefault().Position.DistanceSquared( Position ) <= radiusSquared )
 					return validEntities.FirstOrDefault();
 		}
 		else
@@ -92,6 +83,14 @@ public partial class BaseNPC
 		return target.Position + directionFromTarget * totalBestDistance;
 	}
 
+	public void RecalculateTargetNav()
+	{
+		LastKnownTargetPosition = CurrentTarget.Position;
+		CurrentTargetBestPosition = FindBestTargetPosition( CurrentTarget, AttackRange / 2 );
+
+		NavigateTo( CurrentTargetBestPosition );
+	}
+
 	public virtual void RaiderBehaviour()
 	{
 		if ( CurrentTarget == null )
@@ -101,13 +100,15 @@ public partial class BaseNPC
 				nextTargetSearch = 1f;
 
 				CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
+				if ( CurrentTarget != null )
+					RecalculateTargetNav();
 			}
 		}
 		else
 		{
-			if ( CurrentTargetBestPosition.DistanceSquared( Position ) >= (float)Math.Pow( AttackRange, 2 ) )
+			if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) )
 			{
-				CurrentTargetBestPosition = FindBestTargetPosition( AttackRange / 2 );
+				RecalculateTargetNav();
 			}
 		}
 	}
