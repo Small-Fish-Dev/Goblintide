@@ -48,5 +48,6 @@ public partial class BaseCharacter : AnimatedEntity
 
 	public virtual void Kill()
 	{
+		Delete();
 	}
 }

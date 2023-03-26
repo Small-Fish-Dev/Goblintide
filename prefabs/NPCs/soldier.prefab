@@ -22,7 +22,7 @@
       },
       "AttackPower": {
         "Type": "Single",
-        "Value": "5"
+        "Value": "3"
       },
       "WalkSpeed": {
         "Type": "Single",

@@ -39,10 +39,10 @@ public partial class BaseNPC
 		get { return currentTarget; }
 		set
 		{
-			if ( currentTarget != null )
+			if ( currentTarget != null && currentTarget.IsValid() )
 				currentTarget.AttackedBy--;
 			currentTarget = value;
-			if ( currentTarget != null )
+			if ( currentTarget != null && currentTarget.IsValid() )
 				currentTarget.AttackedBy++;
 		}
 	}
@@ -123,6 +123,8 @@ public partial class BaseNPC
 		if ( nextAttack )
 		{
 			nextAttack = 1 / AttackSpeed;
+			target.Damage( AttackPower, this );
+
 			Log.Error( $"{this} - Dealt {AttackPower} damage to {target}" );
 		}
 	}
@@ -174,14 +176,14 @@ public partial class BaseNPC
 
 	public virtual void RaiderBehaviour()
 	{
-		if ( CurrentTarget == null )
+		if ( CurrentTarget == null || !CurrentTarget.IsValid() )
 		{
 			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
 				CurrentSubBehaviour = BaseSubBehaviour;
 
 			ComputeLookForTargets();
 		}
-		else
+		else if ( CurrentTarget.IsValid() )
 		{
 			AttackingSubBehaviour();
 		}
@@ -189,7 +191,7 @@ public partial class BaseNPC
 
 	public virtual void DefenderBehaviour()
 	{
-		if ( CurrentTarget == null )
+		if ( CurrentTarget == null || !CurrentTarget.IsValid() )
 		{
 			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
 				CurrentSubBehaviour = BaseSubBehaviour;
@@ -201,7 +203,7 @@ public partial class BaseNPC
 
 			ComputeLookForTargets();
 		}
-		else
+		else if ( CurrentTarget.IsValid() )
 		{
 			AttackingSubBehaviour();
 		}
