@@ -1,17 +1,33 @@
 ﻿namespace GameJam;
 
+public enum Faction
+{
+	None,
+	Goblins,
+	Humans,
+	Nature
+}
+
 [Prefab, Category( "NPC" )]
 public partial class BaseNPC : AnimatedEntity
 {
 
-	[Property, Category( "Character" )] 
-	public string TypeName { get; set; } = "Base NPC";
-	[Property, Category( "Character" )] 
+	[Prefab, Category( "Stats" )]
+	public float HitPoints { get; set; } = 6f;
+	[Prefab, Category( "Stats" )]
+	public float AttackPower { get; set; } = 0.5f;
+	[Prefab, Category( "Stats" )]
+	public float AttackSpeed { get; set; } = 0.5f;
+	[Prefab, Category( "Stats" )] 
+	public float WalkSpeed { get; set; } = 120f;
+
+	[Prefab, Category( "Character" )]
+	public Faction Faction { get; set; }
+
+	[Prefab, Category( "Character" )]
 	public float CollisionWidth { get; set; } = 20f;
-	[Property, Category( "Character" )] 
+	[Prefab, Category( "Character" )]
 	public float CollisionHeight { get; set; } = 40f;
-	[Property, Category( "Character" )] 
-	public float WalkSpeed { get; set; } = 160f;
 	public BBox CollisionBox => new( new Vector3( -CollisionWidth / 2f, -CollisionWidth / 2f, 0f ), new Vector3( CollisionWidth / 2f, CollisionWidth / 2f, CollisionHeight ) );
 
 	public BaseNPC() {}

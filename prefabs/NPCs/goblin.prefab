@@ -22,9 +22,19 @@
         "Value": "\u00220,0,0\u0022"
       },
       "_scale": {
-        "Value": "0.6559012"
+        "Value": "0.5882511"
       },
-      "_tags": {}
+      "_tags": {
+        "Value": "\u0022\u0022"
+      },
+      "Faction": {
+        "Type": "Faction",
+        "Value": "\u0022Goblins\u0022"
+      },
+      "RenderColor": {
+        "Type": "Color",
+        "Value": "\u00220,1,0.0885,1\u0022"
+      }
     }
   }
 }
