@@ -13,6 +13,7 @@ public partial class BaseCharacter : AnimatedEntity
 
 	public virtual float HitPoints { get; set; } = 6f;
 	public virtual FactionType Faction { get; set; }
+	public int AttackedBy { get; set; } = 0;
 
 	public virtual float CollisionWidth { get; set; } = 20f;
 	public virtual float CollisionHeight { get; set; } = 40f;

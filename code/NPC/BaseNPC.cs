@@ -34,6 +34,11 @@ public partial class BaseNPC : BaseCharacter
 		Tags.Add( "NPC" );
 	}
 
+	public virtual void Kill()
+	{
+		CurrentTarget?.AttackedBy--;
+	}
+
 	public static BaseNPC FromPrefab( string prefabName )
 	{
 		if ( PrefabLibrary.TrySpawn<BaseNPC>( prefabName, out var settler ) )

@@ -55,7 +55,8 @@ public partial class BaseNPC
 	{
 		var validEntities = Entity.All
 			.OfType<BaseCharacter>()
-			.Where( x => x.Faction != FactionType.None && x.Faction != Faction );
+			.Where( x => x.Faction != FactionType.None && x.Faction != Faction )
+			.Where( x => x.AttackedBy < 3 );
 
 		var radiusSquared = (float)Math.Pow( radius, 2 );
 
@@ -101,7 +102,10 @@ public partial class BaseNPC
 
 				CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
 				if ( CurrentTarget != null )
+				{
 					RecalculateTargetNav();
+					CurrentTarget.AttackedBy++;
+				}
 			}
 		}
 		else

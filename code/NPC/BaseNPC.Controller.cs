@@ -27,7 +27,7 @@ public partial class BaseNPC
 			var distance = Position.DistanceSquared( toucher.Position );
 			var maxDistance = 500f;
 
-			pushOffset = direction * Math.Max( maxDistance - distance, 0f ) * Time.Delta * 3f;
+			pushOffset = direction * Math.Max( maxDistance - distance, 0f ) * Time.Delta * 10f;
 		}
 
 		var helper = new MoveHelper( Position, Velocity + pushOffset );
@@ -40,7 +40,7 @@ public partial class BaseNPC
 		helper.TryMove( Time.Delta );
 
 		Position = helper.Position;
-		Velocity = helper.Velocity;
+		Velocity = helper.Velocity.WithZ( 0 );
 
 	}
 
