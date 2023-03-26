@@ -1,0 +1,80 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "bc83492b-2129-4caa-b119-30a5dc043d9c",
+    "Class": "BaseNPC",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/citizen/citizen.vmdl\u0022"
+      },
+      "BaseSubBehaviour": {
+        "Type": "SubBehaviour",
+        "Value": "\u0022Guarding\u0022"
+      },
+      "BaseBehaviour": {
+        "Type": "Behaviour",
+        "Value": "\u0022Defender\u0022"
+      },
+      "CollisionHeight": {
+        "Type": "Single",
+        "Value": "300"
+      },
+      "CollisionWidth": {
+        "Type": "Single",
+        "Value": "40"
+      },
+      "Faction": {
+        "Type": "FactionType",
+        "Value": "\u0022Goblins\u0022"
+      },
+      "WalkSpeed": {
+        "Type": "Single",
+        "Value": "600"
+      },
+      "AttackSpeed": {
+        "Type": "Single",
+        "Value": "5"
+      },
+      "AttackPower": {
+        "Type": "Single",
+        "Value": "10"
+      },
+      "HitPoints": {
+        "Type": "Single",
+        "Value": "100"
+      },
+      "RenderColor": {
+        "Type": "Color",
+        "Value": "\u00220.55317,0.72254,0.20458,1\u0022"
+      },
+      "_name": {
+        "Value": "\u0022Ogre\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1.4517968"
+      },
+      "_tags": {
+        "Value": "\u0022\u0022"
+      },
+      "DetectRange": {
+        "Type": "Single",
+        "Value": "1000"
+      },
+      "AttackRange": {
+        "Type": "Single",
+        "Value": "60"
+      }
+    }
+  }
+}
