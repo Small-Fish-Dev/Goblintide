@@ -28,6 +28,8 @@ public partial class GameMgr : GameManager
 		// Set the beginning state.
 		if ( Game.IsServer )
 			SetState<VillageState>();
+
+		Event.Run( nameof( GameEvents.Initialize ) );
 	}
 
 	public override void ClientJoined( IClient client )
