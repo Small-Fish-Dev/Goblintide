@@ -7,10 +7,21 @@ public enum Behaviour
 	Defender, // Will take the behaviour of the defender, moving closer to victims and attacking anyone of other factions
 	Victim // Will take the behaviour of the victim, randomly walking unless there's raiders of opposing faction, then they run around panicking
 }
+
+public enum SubBehaviour
+{
+	None,
+	Attacking,
+	Stealing,
+	Panicking,
+	Guarding,
+	Following
+}
 public partial class BaseNPC
 {
 
 	[Net] public Behaviour CurrentBehaviour { get; set; } = Behaviour.None;
+	[Net] public SubBehaviour CurrentSubBehaviour { get; set; } = SubBehaviour.None;
 	/* This is giving errors generating code :-//
 	public Dictionary<Behaviour, Action<BaseNPC>> BehaviourTree = new Dictionary<Behaviour, Action<BaseNPC>>()
 	{
@@ -33,9 +44,21 @@ public partial class BaseNPC
 			VictimBehaviour();
 	}
 
+	TimeUntil nextTargetSearch { get; set; } = 0f;
+
+	/*public virtual BaseCharacter FindBestTarget( float radius = 300f )
+	{
+		
+	}*/
+
 	public virtual void RaiderBehaviour()
 	{
-		Log.Info( "I'm raiding!" );
+		if ( nextTargetSearch )
+		{
+			nextTargetSearch = 1f;
+
+
+		}
 	}
 	public virtual void DefenderBehaviour()
 	{

@@ -1,24 +1,29 @@
 ﻿namespace GameJam;
 
-public partial class Lord : AnimatedEntity
+public partial class Lord : BaseCharacter
 {
+	public override float HitPoints { get; set; } = 6f;
+	public override float AttackPower { get; set; } = 0.5f;
+	public override float AttackSpeed { get; set; } = 0.5f;
+	public override float WalkSpeed { get; set; } = 120f;
 
-	public float CollisionWidth { get; set; } = 20f;
-	public float CollisionHeight { get; set; } = 40f;
-	public BBox CollisionBox => new( new Vector3( -CollisionWidth / 2f, -CollisionWidth / 2f, 0f ), new Vector3( CollisionWidth / 2f, CollisionWidth / 2f, CollisionHeight ) );
+	public override FactionType Faction { get; set; } = FactionType.Goblins;
+
+	public override float CollisionWidth { get; set; } = 20f;
+	public override float CollisionHeight { get; set; } = 40f;
 
 	public override void Spawn()
 	{
-		base.Spawn();
-
 		SetModel( "models/citizen/citizen.vmdl" );
 		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, CollisionBox.Mins, CollisionBox.Maxs );
 
-		Tags.Add( "Player" );
-		Tags.Add( "Pushable" );
-
+		EnableAllCollisions = true;
 		EnableDrawing = true;
 		EnableTouch = true;
+
+		Tags.Add( "Player" );
+		Tags.Add( "Pushable" );
+		Tags.Add( Faction.ToString() );
 	}
 
 	// An example BuildInput method within a player's Pawn class.

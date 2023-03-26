@@ -2,14 +2,12 @@
 
 public partial class Lord
 {
-	[Net] public float WalkSpeed { get; set; } = 120f;
-	[Net] public float RunSpeed { get; set; } = 200f;
 
 	public void SimulateController()
 	{
 		Rotation = Rotation.FromYaw( ViewAngles.yaw );
 
-		var wishVelocity = Rotation.FromYaw( Rotation.Yaw() ) * InputDirection.WithZ(0) * ( Input.Down( InputButton.Run ) ? RunSpeed : WalkSpeed );
+		var wishVelocity = Rotation.FromYaw( Rotation.Yaw() ) * InputDirection.WithZ(0) * WalkSpeed * ( Input.Down( InputButton.Run ) ? 1.5f : 1f );
 
 		Velocity = Vector3.Lerp( Velocity, wishVelocity, 15f * Time.Delta )
 			.WithZ( Velocity.z );
