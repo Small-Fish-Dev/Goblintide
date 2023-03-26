@@ -21,6 +21,12 @@ public partial class BaseNPC : BaseCharacter
 	public override FactionType Faction { get; set; } = FactionType.None;
 
 	[Prefab, Category( "Character" )]
+	public virtual Behaviour BaseBehaviour { get; set; } = Behaviour.None;
+
+	[Prefab, Category( "Character" )]
+	public virtual SubBehaviour BaseSubBehaviour { get; set; } = SubBehaviour.None;
+
+	[Prefab, Category( "Character" )]
 	public override float CollisionWidth { get; set; } = 20f;
 	[Prefab, Category( "Character" )]
 	public override float CollisionHeight { get; set; } = 40f;
@@ -32,11 +38,15 @@ public partial class BaseNPC : BaseCharacter
 		base.Spawn();
 
 		Tags.Add( "NPC" );
+
+		CurrentBehaviour = BaseBehaviour;
+		CurrentSubBehaviour = BaseSubBehaviour;
 	}
 
 	public virtual void Kill()
 	{
-		CurrentTarget?.AttackedBy--;
+		if ( CurrentTarget != null )
+			CurrentTarget.AttackedBy--;
 	}
 
 	public static BaseNPC FromPrefab( string prefabName )
@@ -70,7 +80,6 @@ public partial class BaseNPC : BaseCharacter
 		{
 			var guy = BaseNPC.FromPrefab( $"prefabs/npcs/{type}.prefab" );
 			guy.Position = player.Position + Vector3.Random.WithZ( 0 ) * 100f;
-			guy.CurrentBehaviour = Behaviour.Raider;
 		}
 	}
 }

@@ -33,7 +33,19 @@ public partial class BaseNPC
 		{ Behaviour.Victim, ( npc ) => { npc.VictimBehaviour(); } }
 	};
 	*/
-	public BaseCharacter CurrentTarget { get; set; } = null;
+	BaseCharacter currentTarget = null;
+	public BaseCharacter CurrentTarget
+	{
+		get { return currentTarget; }
+		set
+		{
+			if ( currentTarget != null )
+				currentTarget.AttackedBy--;
+			currentTarget = value;
+			if ( currentTarget != null )
+				currentTarget.AttackedBy++;
+		}
+	}
 	public Vector3 CurrentTargetBestPosition { get; set; } = Vector3.Zero;
 	public Vector3 LastKnownTargetPosition {  get; set; } = Vector3.Zero;
 
@@ -48,8 +60,6 @@ public partial class BaseNPC
 		else if ( CurrentBehaviour == Behaviour.Victim )
 			VictimBehaviour();
 	}
-
-	TimeUntil nextTargetSearch { get; set; } = 0f;
 
 	public virtual BaseCharacter FindBestTarget( float radius = 300f, bool closestFirst = true )
 	{
@@ -84,6 +94,14 @@ public partial class BaseNPC
 		return target.Position + directionFromTarget * totalBestDistance;
 	}
 
+	public bool FastRelativeInRangeCheck( BaseCharacter target, float distanceToCheck )
+	{
+		var combinedBodyWidth = CollisionWidth / 2 + target.CollisionWidth / 2;
+		var combinedDistanceSquared = (float)Math.Pow(combinedBodyWidth + distanceToCheck, 2);
+
+		return target.Position.DistanceSquared( Position ) <= combinedDistanceSquared;
+	}
+
 	public void RecalculateTargetNav()
 	{
 		LastKnownTargetPosition = CurrentTarget.Position;
@@ -92,33 +110,83 @@ public partial class BaseNPC
 		NavigateTo( CurrentTargetBestPosition );
 	}
 
+	TimeUntil nextTargetSearch { get; set; } = 0f;
+	TimeUntil nextIdleMove { get; set; } = 0f;
+
 	public virtual void RaiderBehaviour()
 	{
 		if ( CurrentTarget == null )
 		{
+			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
+				CurrentSubBehaviour = BaseSubBehaviour;
+
 			if ( nextTargetSearch )
 			{
 				nextTargetSearch = 1f;
 
 				CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
 				if ( CurrentTarget != null )
-				{
 					RecalculateTargetNav();
-					CurrentTarget.AttackedBy++;
-				}
 			}
 		}
 		else
 		{
-			if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) )
-			{
+			Rotation = Rotation.LookAt( CurrentTarget.Position - Position );
+
+			// Maybe make these checks once every 0.5 second if they prove laggy
+			if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) ) // If the target moved
 				RecalculateTargetNav();
+
+			if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
+			{
+				Log.Info( "I AM ATTACKING YOU" );
 			}
+			else
+				RecalculateTargetNav();
 		}
 	}
 	public virtual void DefenderBehaviour()
 	{
-		Log.Info( "I'm defending!" );
+		if ( CurrentTarget == null )
+		{
+			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
+				CurrentSubBehaviour = BaseSubBehaviour;
+
+			if ( CurrentSubBehaviour == SubBehaviour.Guarding || CurrentSubBehaviour == SubBehaviour.None )
+			{
+				if ( nextIdleMove )
+				{
+					nextIdleMove = Game.Random.Float( 2, 4 );
+
+					var randomPositionAround = Position + Vector3.Random.WithZ( 0 ) * 300f;
+					NavigateTo( randomPositionAround );
+				}
+			}
+
+			if ( nextTargetSearch )
+			{
+				nextTargetSearch = 1f;
+
+				CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
+				if ( CurrentTarget != null )
+					RecalculateTargetNav();
+			}
+		}
+		else
+		{
+			Rotation = Rotation.LookAt( CurrentTarget.Position - Position );
+
+			// Maybe make these checks once every 0.5 second if they prove laggy
+			if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) ) // If the target moved
+				RecalculateTargetNav();
+
+			if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
+			{
+				Log.Info( "I AM ATTACKING YOU" );
+			}
+			else
+				RecalculateTargetNav();
+		}
 	}
 	public virtual void VictimBehaviour()
 	{

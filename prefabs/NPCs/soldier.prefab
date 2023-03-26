@@ -50,6 +50,14 @@
       "CollisionHeight": {
         "Type": "Single",
         "Value": "72"
+      },
+      "BaseSubBehaviour": {
+        "Type": "SubBehaviour",
+        "Value": "\u0022Guarding\u0022"
+      },
+      "BaseBehaviour": {
+        "Type": "Behaviour",
+        "Value": "\u0022Defender\u0022"
       }
     }
   }
