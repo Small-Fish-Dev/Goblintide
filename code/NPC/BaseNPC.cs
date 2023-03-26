@@ -30,6 +30,7 @@ public partial class BaseNPC : AnimatedEntity
 	public float CollisionHeight { get; set; } = 40f;
 	public BBox CollisionBox => new( new Vector3( -CollisionWidth / 2f, -CollisionWidth / 2f, 0f ), new Vector3( CollisionWidth / 2f, CollisionWidth / 2f, CollisionHeight ) );
 
+
 	public BaseNPC() {}
 
 	public override void Spawn()
@@ -64,7 +65,8 @@ public partial class BaseNPC : AnimatedEntity
 	{
 		ComputeNavigation();
 		ComputeMotion();
-		ComputeAnimations(); 
+		ComputeAnimations();
+		ComputeBehaviour();
 		
 		if ( nextIdleMode )
 		{
