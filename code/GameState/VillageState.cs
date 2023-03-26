@@ -6,7 +6,6 @@ public partial class VillageState : GameState
 
 	public override void Initialize()
 	{
-		Log.Error( $"Hey! We are on {(Game.IsClient ? "client" : "server")}." );
 	}
 
 	[Event.Tick]
@@ -15,7 +14,6 @@ public partial class VillageState : GameState
 		if ( lastTicked < 2f )
 			return;
 
-		Log.Error( $"TICK: Hey! We are on {(Game.IsClient ? "client" : "server")}." );
 		lastTicked = 0f;
 	}
 }
