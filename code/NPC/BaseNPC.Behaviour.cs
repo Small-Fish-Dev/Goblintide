@@ -193,6 +193,7 @@ public partial class BaseNPC
 			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
 				CurrentSubBehaviour = BaseSubBehaviour;
 
+			ComputeRevenge();
 			ComputeLookForTargets();
 		}
 		else
@@ -213,6 +214,7 @@ public partial class BaseNPC
 				ComputeIdling();
 			}
 
+			ComputeRevenge();
 			ComputeLookForTargets();
 		}
 		else
