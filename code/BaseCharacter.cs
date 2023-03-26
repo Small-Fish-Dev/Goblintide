@@ -12,10 +12,6 @@ public partial class BaseCharacter : AnimatedEntity
 {
 
 	public virtual float HitPoints { get; set; } = 6f;
-	public virtual float AttackPower { get; set; } = 0.5f;
-	public virtual float AttackSpeed { get; set; } = 0.5f;
-	public virtual float WalkSpeed { get; set; } = 120f;
-
 	public virtual FactionType Faction { get; set; }
 
 	public virtual float CollisionWidth { get; set; } = 20f;

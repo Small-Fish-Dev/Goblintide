@@ -7,11 +7,11 @@ public partial class BaseNPC : BaseCharacter
 	[Prefab, Category( "Stats" )]
 	public override float HitPoints { get; set; } = 6f;
 	[Prefab, Category( "Stats" )]
-	public override float AttackPower { get; set; } = 0.5f;
+	public virtual float AttackPower { get; set; } = 0.5f;
 	[Prefab, Category( "Stats" )]
-	public override float AttackSpeed { get; set; } = 0.5f;
+	public virtual float AttackSpeed { get; set; } = 0.5f;
 	[Prefab, Category( "Stats" )] 
-	public override float WalkSpeed { get; set; } = 120f;
+	public virtual float WalkSpeed { get; set; } = 120f;
 
 	[Prefab, Category( "Character" )]
 	public override FactionType Faction { get; set; }
