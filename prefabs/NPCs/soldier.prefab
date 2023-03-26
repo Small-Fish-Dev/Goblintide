@@ -1,0 +1,50 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "6c3310c9-f319-468b-bb32-a3d3c2d3dce2",
+    "Class": "BaseNPC",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Faction": {
+        "Type": "Faction",
+        "Value": "\u0022Humans\u0022"
+      },
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/citizen/citizen.vmdl\u0022"
+      },
+      "HitPoints": {
+        "Type": "Single",
+        "Value": "50"
+      },
+      "AttackPower": {
+        "Type": "Single",
+        "Value": "5"
+      },
+      "WalkSpeed": {
+        "Type": "Single",
+        "Value": "140"
+      },
+      "AttackSpeed": {
+        "Type": "Single",
+        "Value": "0.3"
+      },
+      "_name": {
+        "Value": "\u0022Soldier\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {}
+    }
+  }
+}
