@@ -1,0 +1,36 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+
+@namespace GameJam
+@inherits RootPanel
+
+<style>
+	HUD {
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width: 100%;
+		height: 100%;
+		color: white;
+	}
+</style>
+
+<root>
+</root>
+
+@code {
+	public static HUD Instance { get; private set; }
+
+	public HUD()
+	{
+		Instance?.Delete( true );
+		Instance = this;
+	}
+
+	[Event.Hotload, GameEvents.Initialize]
+	private static void Refresh()
+	{
+		if ( Game.IsClient )
+			_ = new HUD();
+	}
+}
