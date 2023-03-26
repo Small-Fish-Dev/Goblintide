@@ -2,8 +2,8 @@
 
 public static class GoblinNames
 {
-	private static readonly string[] PartOne = { "gl", "bl", "gr" };
-	private static readonly string[] PartTwo = { "imb", "umb", "erg" };
+	private static readonly string[] PartOne = { "gl", "bl", "gr", "pr" };
+	private static readonly string[] PartTwo = { "imb", "umb", "erg", "arp" };
 	private static readonly string[] PartThree = { "y", "o", "e" };
 
 	public struct Creator
