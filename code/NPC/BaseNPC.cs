@@ -10,7 +10,7 @@ public partial class BaseNPC : AnimatedEntity
 	public float CollisionWidth { get; set; } = 20f;
 	[Property, Category( "Character" )] 
 	public float CollisionHeight { get; set; } = 40f;
-	[Net, Property, Category( "Character" )] 
+	[Property, Category( "Character" )] 
 	public float WalkSpeed { get; set; } = 160f;
 	public BBox CollisionBox => new( new Vector3( -CollisionWidth / 2f, -CollisionWidth / 2f, 0f ), new Vector3( CollisionWidth / 2f, CollisionWidth / 2f, CollisionHeight ) );
 
@@ -51,6 +51,7 @@ public partial class BaseNPC : AnimatedEntity
 		if ( nextIdleMode )
 		{
 			var randomSpot = Position + Vector3.Random.WithZ(0) * 200f ;
+
 			NavigateTo( randomSpot );
 			nextIdleMode = Game.Random.Float( TimeBetweenIdleMove.x, TimeBetweenIdleMove.y );
 		}

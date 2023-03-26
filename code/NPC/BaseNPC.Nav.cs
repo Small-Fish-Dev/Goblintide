@@ -30,6 +30,7 @@ public partial class BaseNPC
 
 		if ( pathBuilt == null || pathBuilt.Segments.Count == 0 ) return false;
 
+		currentPath = pathBuilt;
 		currentPathIndex = 0;
 		IsFollowingPath = true;
 		currentTargetPosition = targetPosition;
@@ -48,10 +49,10 @@ public partial class BaseNPC
 
 		Direction = (nextPathPoint.Position - Position).Normal;
 
-		if ( Position.DistanceSquared( nextPathPoint.Position ) >= 40f )
+		if ( Position.DistanceSquared( nextPathPoint.Position ) <= 20f )
 			currentPathIndex++;
 
-		if ( distanceFromIdealPath >= 100f )
+		if ( distanceFromIdealPath >= 50f )
 			NavigateTo( currentTargetPosition );
 
 		if ( currentPathIndex >= currentPathCount )
