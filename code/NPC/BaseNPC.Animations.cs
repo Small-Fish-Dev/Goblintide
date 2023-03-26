@@ -9,5 +9,12 @@ public partial class BaseNPC
 
 		SetAnimParameter( "move_x", Velocity.Dot( Rotation.Forward ) / Scale );
 		SetAnimParameter( "move_y", Velocity.Dot( Rotation.Right ) / Scale );
+
+		if ( CurrentSubBehaviour == SubBehaviour.Attacking )
+			SetAnimParameter( "holdtype", 5 );
+		else
+		{
+			SetAnimParameter( "holdtype", 0 );
+		}
 	}
 }

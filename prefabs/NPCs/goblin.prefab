@@ -22,7 +22,7 @@
         "Value": "\u00220,0,0\u0022"
       },
       "_scale": {
-        "Value": "0.66705525"
+        "Value": "0.6938137"
       },
       "_tags": {
         "Value": "\u0022\u0022"
@@ -38,6 +38,22 @@
       "CollisionWidth": {
         "Type": "Single",
         "Value": "10"
+      },
+      "DetectRange": {
+        "Type": "Single",
+        "Value": "200"
+      },
+      "AttackRange": {
+        "Type": "Single",
+        "Value": "20"
+      },
+      "BaseBehaviour": {
+        "Type": "Behaviour",
+        "Value": "\u0022Defender\u0022"
+      },
+      "BaseSubBehaviour": {
+        "Type": "SubBehaviour",
+        "Value": "\u0022Guarding\u0022"
       }
     }
   }

@@ -58,6 +58,10 @@
       "BaseBehaviour": {
         "Type": "Behaviour",
         "Value": "\u0022Defender\u0022"
+      },
+      "AttackRange": {
+        "Type": "Single",
+        "Value": "40"
       }
     }
   }

@@ -3,7 +3,7 @@
 public partial class Lord : BaseCharacter
 {
 	public override float HitPoints { get; set; } = 1500f; // Debug I don't wanna die
-	public override FactionType Faction { get; set; } = FactionType.Goblins;
+	public override FactionType Faction { get; set; } = FactionType.None; // None for now so they dont attack me haha, change back to goblins
 	public float WalkSpeed => 140f;
 
 	public override float CollisionWidth { get; set; } = 20f;

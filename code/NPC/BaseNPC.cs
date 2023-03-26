@@ -47,6 +47,8 @@ public partial class BaseNPC : BaseCharacter
 	{
 		if ( CurrentTarget != null )
 			CurrentTarget.AttackedBy--;
+
+		base.Kill();
 	}
 
 	public static BaseNPC FromPrefab( string prefabName )

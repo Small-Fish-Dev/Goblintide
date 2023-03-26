@@ -122,15 +122,19 @@ public partial class BaseNPC
 	{
 		if ( nextAttack )
 		{
-			nextAttack = 1 / AttackSpeed;
+			nextAttack = 1 / AttackSpeed + Game.Random.Float( -(1 / AttackSpeed / 10f ), 1 / AttackSpeed / 10f );
 			target.Damage( AttackPower, this );
 
-			Log.Error( $"{this} - Dealt {AttackPower} damage to {target}" );
+			SetAnimParameter( "b_attack", true );
+
+			//Log.Error( $"{this} - Dealt {AttackPower} damage to {target}" );
 		}
 	}
 
 	public void ComputeIdling()
 	{
+		CurrentSubBehaviour = SubBehaviour.None;
+
 		if ( nextIdleMove )
 		{
 			nextIdleMove = Game.Random.Float( 2, 4 );
@@ -147,6 +151,8 @@ public partial class BaseNPC
 
 	public virtual void AttackingSubBehaviour()
 	{
+		CurrentSubBehaviour = SubBehaviour.Attacking;
+
 		Rotation = Rotation.LookAt( CurrentTarget.Position - Position );
 
 		// Maybe make these checks once every 0.5 second if they prove laggy
