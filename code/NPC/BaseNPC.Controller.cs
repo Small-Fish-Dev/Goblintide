@@ -16,41 +16,21 @@ public partial class BaseNPC
 		else
 			WishSpeed = 0f;
 
-		Velocity = Vector3.Lerp( Velocity, WishVelocity, 15f * Time.Delta )
+		Velocity = Vector3.Lerp( Velocity, WishVelocity, Time.Delta * 5f )
 			.WithZ( Velocity.z );
 
-		if ( GroundEntity == null )
-			Velocity -= Vector3.Down * Game.PhysicsWorld.Gravity * Time.Delta;
-
-		var helper = new MoveHelper( Position, Velocity ) { MaxStandableAngle = MaxWalkableAngle };
+		var helper = new MoveHelper( Position, Velocity );
 
 		helper.Trace = helper.Trace
 						.Size( CollisionBox.Mins, CollisionBox.Maxs )
 						.WithoutTags( "NPC" )
 						.Ignore( this );
 
-		helper.TryUnstuck();
-		helper.TryMoveWithStep( Time.Delta, StepSize );
+		helper.TryMove( Time.Delta );
 
 		Position = helper.Position;
 		Velocity = helper.Velocity;
 
-		if ( Velocity.z <= StepSize )
-		{
-			var tr = helper.TraceDirection( Vector3.Down );
-
-			GroundEntity = tr.Entity;
-
-			if ( GroundEntity != null )
-			{
-				Position += tr.Distance * Vector3.Down;
-
-				if ( Velocity.z < 0.0f )
-					Velocity = Velocity.WithZ( 0 );
-			}
-		}
-		else
-			GroundEntity = null;
 	}
 }
 

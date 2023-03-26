@@ -57,4 +57,16 @@ public partial class BaseNPC : AnimatedEntity
 		}
 	}
 
+
+	[ConCmd.Admin("spawntest")]
+	public static void SpawnTest( int amount )
+	{
+		var player = ConsoleSystem.Caller.Pawn as Lord;
+
+		for( int i = 0; i < amount; i++ )
+		{
+			var guy = BaseNPC.FromPrefab( "prefabs/npcs/goblin.prefab" );
+			guy.Position = player.Position;
+		}
+	}
 }

@@ -49,7 +49,7 @@ public partial class BaseNPC
 
 		Direction = (nextPathPoint.Position - Position).Normal;
 
-		if ( Position.DistanceSquared( nextPathPoint.Position ) <= 20f )
+		if ( Position.DistanceSquared( nextPathPoint.Position ) <= 40f )
 			currentPathIndex++;
 
 		if ( distanceFromIdealPath >= 50f )
