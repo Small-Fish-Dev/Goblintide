@@ -1,51 +1,12 @@
-﻿global using Sandbox;
-global using System;
-global using Editor;
-global using System.Collections.Generic;
-global using System.Linq;
+﻿namespace GameJam;
 
-namespace GameJam;
-
-// TODO(gio): rename GameMgr when we have an actual idea! 
-public partial class GameMgr : GameManager
+partial class GameMgr
 {
-	/// <summary>
-	/// The singleton for GameManager.
-	/// </summary>
-	public static GameMgr Instance { get; private set; }
-
 	/// <summary>
 	/// The current GameState.
 	/// </summary>
 	public static GameState State => Instance.state;
 	[Net, Change( "gameStateChanged" )] private GameState state { get; set; }
-
-	public GameMgr()
-	{
-		Instance = this;
-		Game.TickRate = 30;
-
-		// Set the beginning state.
-		if ( Game.IsServer )
-			SetState<VillageState>();
-
-		Event.Run( nameof( GameEvents.Initialize ) );
-	}
-
-	public override void ClientJoined( IClient client )
-	{
-		base.ClientJoined( client );
-
-		var pawn = new Lord();
-		client.Pawn = pawn;
-
-		if ( All.OfType<SpawnPoint>().MinBy( x => Guid.NewGuid() ) is not { } spawn )
-			return;
-
-		var transform = spawn.Transform;
-		transform.Position += Vector3.Up * 50.0f;
-		pawn.Transform = transform;
-	}
 
 	/// <summary>
 	/// Set the current GameState to T : GameState.
