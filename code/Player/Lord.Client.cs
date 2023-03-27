@@ -31,8 +31,6 @@ public partial class Lord
 	private const float FollowStillRotationLerp = 0.5f;
 
 	private const float DistanceLerp = 15.0f;
-	private static Vector3 PostOffset => Vector3.Up * 1 + Camera.Rotation.Right * 15f;
-
 	private const float PitchBounds = 25.0f;
 
 	#endregion
@@ -79,6 +77,13 @@ public partial class Lord
 		return FollowRotationLerp;
 	}
 
+	private Vector3 GetPostOffset()
+	{
+		if ( !Pointing )
+			return Vector3.Up * 1 + Camera.Rotation.Right * 15f;
+		return Vector3.Up * 1 + Camera.Rotation.Right * 25f;
+	}
+
 	/// <summary> Figure out where we want the camera to be </summary>
 	private void CameraStageOne()
 	{
@@ -123,7 +128,7 @@ public partial class Lord
 
 		// Do a trace - get camera distance
 		_proposedCameraDistance = _proposedCameraDistance.LerpTo( CameraDistance, Time.Delta * DistanceLerp );
-		var trace = Trace.Ray( new Ray( EyePosition + PostOffset, Camera.Rotation.Backward ), _proposedCameraDistance )
+		var trace = Trace.Ray( new Ray( EyePosition, Camera.Rotation.Backward ), _proposedCameraDistance )
 			.Ignore( this )
 			.WithoutTags( "player", "npc" )
 			.Radius( 7 )
@@ -136,7 +141,7 @@ public partial class Lord
 			// Find camera position
 			var proposedCameraPosition = trace.EndPosition;
 
-			Camera.Position = proposedCameraPosition;
+			Camera.Position = proposedCameraPosition + GetPostOffset();
 		}
 
 		// note(gio): stole the below from stud jump! teehee!
