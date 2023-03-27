@@ -2,15 +2,32 @@
 
 public partial class Lord
 {
+	private void PointHead( Rotation rotation )
+	{
+		var angles = rotation.Angles();
+		angles.yaw = 0;
+		rotation = angles.ToRotation();
+		var direction = rotation.Forward;
+		SetAnimParameter( "aim_head", direction );
+	}
+
 	public void SimulateAnimations()
 	{
 		// note(gio): made the animations a bit more speedy - nicer to look at imo
 		SetAnimParameter( "move_x", Velocity.Dot( Rotation.Forward ) * 1.35f );
 		SetAnimParameter( "move_y", Velocity.Dot( Rotation.Right ) * 1.35f );
 
-		SetAnimParameter( "holdtype", (int)CitizenAnimationHelper.HoldTypes.None );
-
 		if ( Pointing )
+		{
 			SetAnimParameter( "holdtype", (int)CitizenAnimationHelper.HoldTypes.Pistol );
+			SetAnimParameter( "holdtype_handedness", (int)CitizenAnimationHelper.Hand.Left );
+			PointHead( LookDirection );
+		}
+		else
+		{
+			SetAnimParameter( "holdtype", (int)CitizenAnimationHelper.HoldTypes.None );
+			SetAnimParameter( "holdtype_holdedness", 0 );
+			PointHead( Rotation.Identity );
+		}
 	}
 }
