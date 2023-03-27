@@ -2,9 +2,9 @@
 
 public static class GoblinNames
 {
-	private static readonly string[] PartOne = { "gl", "bl", "gr", "pr", "sk", "sn", "z", "zo" };
-	private static readonly string[] PartTwo = { "imb", "umb", "erg", "arp", "org", "arz", "ax" };
-	private static readonly string[] PartThree = { "y", "o", "e", "k", "it", "ax", "ik", "tz", "wort", "fist", "ly" };
+	private static readonly string[] PartOne = { "gl", "bl", "gr", "pr", "sk", "sn", "z", "zo", "sh" };
+	private static readonly string[] PartTwo = { "imb", "umb", "erg", "arp", "org", "arz", "ax", "mor" };
+	private static readonly string[] PartThree = { "y", "o", "e", "k", "it", "ax", "ik", "tz", "wort", "fist", "ly", "by" };
 	private static readonly string[] RandomSeparatorOne = { "", "", "ar", "", "", "", "ir", "", "" };
 	private static readonly string[] RandomSeparatorTwo = { "-", "", "", "", "", "", "", "", "" };
 
