@@ -1,0 +1,308 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	RectangleSets = 
+	[
+		{
+			name = ""
+			properties = null
+			rectangles = 
+			[
+				{
+					min = [ 0, 0 ]
+					max = [ 0, 32768 ]
+					properties = null
+				},
+				{
+					min = [ 0, 0 ]
+					max = [ 2048, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 2048, 0 ]
+					max = [ 4096, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 4096, 0 ]
+					max = [ 8192, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 8192, 0 ]
+					max = [ 14336, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 14336, 0 ]
+					max = [ 16384, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 16384, 0 ]
+					max = [ 20480, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 20480, 0 ]
+					max = [ 22528, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 22528, 0 ]
+					max = [ 24576, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 24576, 0 ]
+					max = [ 28672, 4096 ]
+					properties = null
+				},
+				{
+					min = [ 24576, 4096 ]
+					max = [ 26624, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 26624, 4096 ]
+					max = [ 28672, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 28672, 4096 ]
+					max = [ 30720, 6144 ]
+					properties = null
+				},
+				{
+					min = [ 28672, 0 ]
+					max = [ 32768, 4096 ]
+					properties = null
+				},
+				{
+					min = [ 28672, 8192 ]
+					max = [ 32768, 16384 ]
+					properties = null
+				},
+				{
+					min = [ 24576, 8192 ]
+					max = [ 28672, 16384 ]
+					properties = null
+				},
+				{
+					min = [ 20480, 8192 ]
+					max = [ 24576, 16384 ]
+					properties = null
+				},
+				{
+					min = [ 16384, 8192 ]
+					max = [ 20480, 16384 ]
+					properties = null
+				},
+				{
+					min = [ 0, 8192 ]
+					max = [ 16384, 10240 ]
+					properties = null
+				},
+				{
+					min = [ 0, 10240 ]
+					max = [ 8192, 12288 ]
+					properties = null
+				},
+				{
+					min = [ 8192, 10240 ]
+					max = [ 16384, 12288 ]
+					properties = null
+				},
+				{
+					min = [ 12288, 14336 ]
+					max = [ 16384, 16384 ]
+					properties = null
+				},
+				{
+					min = [ 8192, 14336 ]
+					max = [ 12288, 16384 ]
+					properties = null
+				},
+				{
+					min = [ 0, 14336 ]
+					max = [ 8192, 16384 ]
+					properties = null
+				},
+				{
+					min = [ 0, 16384 ]
+					max = [ 8192, 24576 ]
+					properties = null
+				},
+				{
+					min = [ 8192, 16384 ]
+					max = [ 16384, 24576 ]
+					properties = null
+				},
+				{
+					min = [ 16384, 16384 ]
+					max = [ 24576, 24576 ]
+					properties = null
+				},
+				{
+					min = [ 24576, 16384 ]
+					max = [ 32768, 24576 ]
+					properties = null
+				},
+				{
+					min = [ 16384, 24576 ]
+					max = [ 32768, 32768 ]
+					properties = null
+				},
+				{
+					min = [ 0, 24576 ]
+					max = [ 16384, 32768 ]
+					properties = null
+				},
+				{
+					min = [ 0, 0 ]
+					max = [ 0, 14336 ]
+					properties = null
+				},
+				{
+					min = [ 30720, 4096 ]
+					max = [ 31744, 5120 ]
+					properties = null
+				},
+				{
+					min = [ 31744, 4096 ]
+					max = [ 32768, 5120 ]
+					properties = null
+				},
+				{
+					min = [ 31744, 5120 ]
+					max = [ 32768, 6144 ]
+					properties = null
+				},
+				{
+					min = [ 30720, 5120 ]
+					max = [ 31744, 6144 ]
+					properties = null
+				},
+				{
+					min = [ 31744, 6144 ]
+					max = [ 32768, 7168 ]
+					properties = null
+				},
+				{
+					min = [ 28672, 6144 ]
+					max = [ 29184, 7168 ]
+					properties = null
+				},
+				{
+					min = [ 28672, 7168 ]
+					max = [ 29184, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 29696, 6144 ]
+					max = [ 30720, 6656 ]
+					properties = null
+				},
+				{
+					min = [ 29696, 6656 ]
+					max = [ 30720, 7168 ]
+					properties = null
+				},
+				{
+					min = [ 29696, 7168 ]
+					max = [ 30720, 7680 ]
+					properties = null
+				},
+				{
+					min = [ 29696, 7680 ]
+					max = [ 30720, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 30720, 7168 ]
+					max = [ 31744, 7680 ]
+					properties = null
+				},
+				{
+					min = [ 30720, 7680 ]
+					max = [ 31744, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 30720, 6144 ]
+					max = [ 31232, 7168 ]
+					properties = null
+				},
+				{
+					min = [ 31232, 6144 ]
+					max = [ 31744, 7168 ]
+					properties = null
+				},
+				{
+					min = [ 31744, 7168 ]
+					max = [ 32256, 7680 ]
+					properties = null
+				},
+				{
+					min = [ 32256, 7168 ]
+					max = [ 32768, 7680 ]
+					properties = null
+				},
+				{
+					min = [ 32256, 7680 ]
+					max = [ 32768, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 31744, 7680 ]
+					max = [ 32256, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 29184, 6144 ]
+					max = [ 29696, 6656 ]
+					properties = null
+				},
+				{
+					min = [ 29184, 6656 ]
+					max = [ 29696, 7168 ]
+					properties = null
+				},
+				{
+					min = [ 29184, 7168 ]
+					max = [ 29696, 7680 ]
+					properties = null
+				},
+				{
+					min = [ 29184, 7680 ]
+					max = [ 29696, 8192 ]
+					properties = null
+				},
+				{
+					min = [ 0, 12288 ]
+					max = [ 16384, 13312 ]
+					properties = null
+				},
+				{
+					min = [ 8192, 13312 ]
+					max = [ 16384, 14336 ]
+					properties = null
+				},
+				{
+					min = [ 0, 13312 ]
+					max = [ 8192, 13824 ]
+					properties = null
+				},
+				{
+					min = [ 0, 13824 ]
+					max = [ 8192, 14336 ]
+					properties = null
+				},
+				{
+					min = [ 0, 0 ]
+					max = [ 0, 4096 ]
+					properties = null
+				},
+			]
+		},
+	]
+}
