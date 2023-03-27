@@ -24,6 +24,9 @@ public partial class Lord
 	/// <summary> Lerp amount multiplier: used when following the player and the mouse is being moved </summary>
 	private const float FollowRotationLerp = 1.65f;
 
+	/// <summary> Lerp amount multiplier: used when following the player and a controller is being used </summary>
+	private const float FollowControllerRotationLerp = 1.65f;
+
 	/// <summary> Lerp amount multiplier: used when following the player and the mouse is still </summary>
 	private const float FollowStillRotationLerp = 0.5f;
 
@@ -67,6 +70,15 @@ public partial class Lord
 		return true;
 	}
 
+	private float GetFollowLerpMultiplier()
+	{
+		if ( Input.UsingController )
+			return FollowControllerRotationLerp;
+		if ( _analogLook == Angles.Zero )
+			return FollowStillRotationLerp;
+		return FollowRotationLerp;
+	}
+
 	/// <summary> Figure out where we want the camera to be </summary>
 	private void CameraStageOne()
 	{
@@ -86,7 +98,7 @@ public partial class Lord
 		var proposedCameraRotation =
 			_interimCameraRotation.Angles().WithYaw( InputDirection.EulerAngles.yaw ).ToRotation();
 
-		var lerp = Time.Delta * (_analogLook == Angles.Zero ? FollowStillRotationLerp : FollowRotationLerp);
+		var lerp = Time.Delta * GetFollowLerpMultiplier();
 
 		_interimCameraRotation = Rotation.Slerp( _interimCameraRotation, proposedCameraRotation,
 			lerp );
