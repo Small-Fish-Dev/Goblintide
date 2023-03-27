@@ -94,6 +94,9 @@ public partial class Lord
 	/// <summary> Figure out where we want the camera to be </summary>
 	private void CameraStageOne()
 	{
+		// Set camera distance
+		_proposedCameraDistance = Pointing ? 35 : 60;
+		
 		_interimCameraRotation *= _analogLook.WithRoll( 0 ).ToRotation();
 		{
 			var angles = _interimCameraRotation.Angles();
