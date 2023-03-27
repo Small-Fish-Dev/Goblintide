@@ -17,13 +17,15 @@ public partial class Lord
 	#region Camera Configuration
 
 	/// <summary> Max distance from camera to player </summary>
-	public float CameraDistance { get; protected set; } = 69f;
+	public float CameraDistance = 79f;
 
 	private const float CameraRotationLerp = 15.0f;
-	private const float MoveRotationLerp = 1.55f;
+	private const float MoveRotationLerp = 1.65f;
 	private const float MoveCoolRotationLerp = 0.5f;
 	private const float DistanceLerp = 15.0f;
-	private static readonly Vector3 PostOffset = Vector3.Up * 3;
+	private static readonly Vector3 PostOffset = Vector3.Up * 1;
+
+	private const float PitchBounds = 25.0f;
 
 	#endregion
 
@@ -43,9 +45,15 @@ public partial class Lord
 	private void CameraStageOne()
 	{
 		_interimCameraRotation *= _analogLook.WithRoll( 0 ).ToRotation();
-		var angles = _interimCameraRotation.Angles();
-		angles.roll = 0;
-		_interimCameraRotation = angles.ToRotation();
+		{
+			var angles = _interimCameraRotation.Angles();
+			angles.roll = 0;
+			angles.pitch = float.Min( angles.pitch, PitchBounds );
+			angles.pitch = float.Max( angles.pitch, -PitchBounds );
+
+
+			_interimCameraRotation = angles.ToRotation();
+		}
 
 		if ( _isMoving && !_isMovingBackwards )
 		{
@@ -126,5 +134,14 @@ public partial class Lord
 		_isMovingBackwards = direction.Normal.x < -0.8;
 
 		InputDirection = direction.x * Camera.Rotation.Forward.Normal + -(direction.y * Camera.Rotation.Right.Normal);
+
+		DebugOverlay.ScreenText( $"AnalogLook: {Input.AnalogLook}", Vector2.One * 20, 0,
+			Input.AnalogLook == Angles.Zero ? Color.Red : Color.Green );
+		DebugOverlay.ScreenText( $"AnalogMove: {Input.AnalogMove}", Vector2.One * 20, 1,
+			Input.AnalogMove.Length == 0 ? Color.Red : Color.Green );
+
+		DebugOverlay.ScreenText( $"Camera Position: {Camera.Position}", Vector2.One * 20, 3, Color.Cyan );
+		DebugOverlay.ScreenText( $"Camera Rotation: {Camera.Rotation}", Vector2.One * 20, 4, Color.Cyan );
+		DebugOverlay.ScreenText( $"Interim Rotation: {_interimCameraRotation}", Vector2.One * 20, 5, Color.Cyan );
 	}
 }

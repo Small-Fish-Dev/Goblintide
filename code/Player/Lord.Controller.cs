@@ -2,10 +2,39 @@
 
 public partial class Lord
 {
+	#region Rotation Configuration
+
+	private const float RotationLerpMultiplier = 4.0f;
+
+	#endregion
+
+	#region Rotation Variables
+
+	#endregion
+
+	private void SimulateRotation()
+	{
+		if ( InputDirection.Length == 0 )
+			return;
+
+		var direction = Rotation.LookAt( InputDirection );
+
+		var proposedRotation = Rotation.Slerp( Rotation, direction,
+			Velocity.Length / 170 * Time.Delta * RotationLerpMultiplier );
+		{
+			// Remove roll from lerped rotation
+			var angles = proposedRotation.Angles();
+			angles.roll = 0;
+			angles.pitch = 0;
+			proposedRotation = angles.ToRotation();
+		}
+
+		Rotation = proposedRotation;
+	}
 
 	public void SimulateController()
 	{
-		var wishVelocity = InputDirection.WithZ(0) * WalkSpeed * ( Input.Down( InputButton.Run ) ? 1.5f : 1f );
+		var wishVelocity = InputDirection.WithZ( 0 ) * WalkSpeed * (Input.Down( InputButton.Run ) ? 1.5f : 1f);
 
 		Velocity = Vector3.Lerp( Velocity, wishVelocity, 15f * Time.Delta )
 			.WithZ( Velocity.z );
@@ -31,8 +60,8 @@ public partial class Lord
 		var helper = new MoveHelper( Position, Velocity + pushOffset ) { MaxStandableAngle = 30f };
 
 		helper.Trace = helper.Trace
-						.Size( CollisionBox.Mins, CollisionBox.Maxs )
-						.Ignore( this );
+			.Size( CollisionBox.Mins, CollisionBox.Maxs )
+			.Ignore( this );
 
 		helper.TryUnstuck();
 		helper.TryMoveWithStep( Time.Delta, 16f );
@@ -56,6 +85,8 @@ public partial class Lord
 		}
 		else
 			GroundEntity = null;
+
+		SimulateRotation();
 	}
 
 	internal List<BaseCharacter> touchingEntities = new();
