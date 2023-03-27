@@ -54,7 +54,7 @@ public partial class Lord
 			_interimCameraRotation = angles.ToRotation();
 		}
 
-		if ( _isMoving && !_isMovingBackwards )
+		if ( _isMoving && !_isMovingBackwards && _analogLook == Angles.Zero )
 		{
 			var proposedCameraRotation =
 				_interimCameraRotation.Angles().WithYaw( InputDirection.EulerAngles.yaw ).ToRotation();
