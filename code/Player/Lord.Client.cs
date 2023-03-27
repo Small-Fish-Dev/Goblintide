@@ -51,7 +51,6 @@ public partial class Lord
 			angles.pitch = float.Min( angles.pitch, PitchBounds );
 			angles.pitch = float.Max( angles.pitch, -PitchBounds );
 
-
 			_interimCameraRotation = angles.ToRotation();
 		}
 
