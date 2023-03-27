@@ -50,6 +50,13 @@ public partial class Lord
 	[ClientInput]
 	public Vector3 InputDirection { get; protected set; }
 
+	/// <summary>
+	/// Direction player is looking
+	/// note(gio): is this needed???
+	/// </summary>
+	[ClientInput]
+	public Rotation LookDirection { get; protected set; }
+
 	private Angles _analogLook;
 
 	#endregion
@@ -178,6 +185,8 @@ public partial class Lord
 		InputDirection = direction.x * Camera.Rotation.Forward.Normal + -(direction.y * Camera.Rotation.Right.Normal);
 
 		Pointing = Input.Down( InputButton.SecondaryAttack );
+
+		LookDirection = Camera.Rotation;
 
 		DebugOverlay.ScreenText( $"AnalogLook: {Input.AnalogLook}", Vector2.One * 20, 0,
 			Input.AnalogLook == Angles.Zero ? Color.Red : Color.Green );

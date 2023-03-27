@@ -4,23 +4,30 @@ public partial class Lord
 {
 	#region Rotation Configuration
 
-	private const float RotationLerpMultiplier = 4.0f;
-
-	#endregion
-
-	#region Rotation Variables
+	private const float RotationLerp = 4.0f;
+	private const float RotationPointingLerp = 20.0f;
 
 	#endregion
 
 	private void SimulateRotation()
 	{
-		if ( InputDirection.Length == 0 )
+		Rotation proposedRotation;
+
+		if ( Pointing )
+		{
+			var direction = LookDirection;
+			proposedRotation = Rotation.Slerp( Rotation, direction,
+				Time.Delta * RotationPointingLerp );
+		}
+		else if ( InputDirection.Length != 0 )
+		{
+			var direction = Rotation.LookAt( InputDirection );
+			proposedRotation = Rotation.Slerp( Rotation, direction,
+				Velocity.Length / 170 * RotationLerp );
+		}
+		else
 			return;
 
-		var direction = Rotation.LookAt( InputDirection );
-
-		var proposedRotation = Rotation.Slerp( Rotation, direction,
-			Velocity.Length / 170 * Time.Delta * RotationLerpMultiplier );
 		{
 			// Remove roll from lerped rotation
 			var angles = proposedRotation.Angles();
@@ -34,11 +41,11 @@ public partial class Lord
 
 	public void SimulateController()
 	{
-		var wishVelocity = InputDirection.WithZ( 0 ).Normal 
-			* WalkSpeed 
-			* (Input.Down( InputButton.Run ) 
-				? 1.5f 
-				: 1f);
+		var wishVelocity = InputDirection.WithZ( 0 ).Normal
+		                   * WalkSpeed
+		                   * (Input.Down( InputButton.Run )
+			                   ? 1.5f
+			                   : 1f);
 
 		Velocity = Vector3.Lerp( Velocity, wishVelocity, 15f * Time.Delta )
 			.WithZ( Velocity.z );
@@ -98,7 +105,7 @@ public partial class Lord
 	{
 		base.Touch( other );
 
-		if ( !Game.IsServer ) 
+		if ( !Game.IsServer )
 			return;
 
 		if ( other is BaseCharacter toucher && other.Tags.Has( "Pushable" ) )
@@ -110,7 +117,7 @@ public partial class Lord
 	{
 		base.Touch( other );
 
-		if ( !Game.IsServer ) 
+		if ( !Game.IsServer )
 			return;
 
 		if ( other is BaseCharacter toucher && touchingEntities.Contains( toucher ) )
