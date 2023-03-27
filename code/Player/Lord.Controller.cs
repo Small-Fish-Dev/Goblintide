@@ -4,48 +4,32 @@ public partial class Lord
 {
 	#region Rotation Configuration
 
-	private const float RotationLerp = 4.0f;
+	private const float RotationLerp = 10.0f;
 	private const float RotationPointingLerp = 20.0f;
 
 	#endregion
 
 	private void SimulateRotation()
 	{
-		Rotation proposedRotation;
+		var targetRotation = Pointing
+			? LookDirection
+			: (InputDirection.Length != 0)
+				? Rotation.LookAt( InputDirection )
+				: Rotation;
 
-		if ( Pointing )
-		{
-			var direction = LookDirection;
-			proposedRotation = Rotation.Slerp( Rotation, direction,
-				Time.Delta * RotationPointingLerp );
-		}
-		else if ( InputDirection.Length != 0 )
-		{
-			var direction = Rotation.LookAt( InputDirection );
-			proposedRotation = Rotation.Slerp( Rotation, direction,
-				Velocity.Length / 170 * RotationLerp );
-		}
-		else
-			return;
-
-		{
-			// Remove roll from lerped rotation
-			var angles = proposedRotation.Angles();
-			angles.roll = 0;
-			angles.pitch = 0;
-			proposedRotation = angles.ToRotation();
-		}
-
-		Rotation = proposedRotation;
+		var delta = Pointing 
+			? RotationPointingLerp
+			: RotationLerp;
+		Rotation = Rotation.FromYaw( Rotation.Slerp( Rotation, targetRotation, delta * Time.Delta ).Yaw() );
 	}
 
 	public void SimulateController()
 	{
 		var wishVelocity = InputDirection.WithZ( 0 ).Normal
-		                   * WalkSpeed
-		                   * (Input.Down( InputButton.Run )
-			                   ? 1.5f
-			                   : 1f);
+			* WalkSpeed
+			* (Input.Down( InputButton.Run )
+			    ? 1.5f
+			    : 1f);
 
 		Velocity = Vector3.Lerp( Velocity, wishVelocity, 15f * Time.Delta )
 			.WithZ( Velocity.z );
