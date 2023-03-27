@@ -48,6 +48,20 @@ public partial class Lord
 
 	#endregion
 
+	/// <summary> Whether or not the camera should follow the player movement </summary>
+	private bool ShouldFollowMovement()
+	{
+		if ( !_isMoving )
+			return false;
+		if ( _isMovingBackwards )
+			return false;
+		if ( _analogLook != Angles.Zero )
+			return false;
+		if ( Pointing )
+			return false;
+		return true;
+	}
+
 	/// <summary> Figure out where we want the camera to be </summary>
 	private void CameraStageOne()
 	{
@@ -61,16 +75,16 @@ public partial class Lord
 			_interimCameraRotation = angles.ToRotation();
 		}
 
-		if ( _isMoving && !_isMovingBackwards && _analogLook == Angles.Zero )
-		{
-			var proposedCameraRotation =
-				_interimCameraRotation.Angles().WithYaw( InputDirection.EulerAngles.yaw ).ToRotation();
+		if ( !ShouldFollowMovement() )
+			return;
 
-			var lerp = Time.Delta * (_analogLook == Angles.Zero ? MoveCoolRotationLerp : MoveRotationLerp);
+		var proposedCameraRotation =
+			_interimCameraRotation.Angles().WithYaw( InputDirection.EulerAngles.yaw ).ToRotation();
 
-			_interimCameraRotation = Rotation.Slerp( _interimCameraRotation, proposedCameraRotation,
-				lerp );
-		}
+		var lerp = Time.Delta * (_analogLook == Angles.Zero ? MoveCoolRotationLerp : MoveRotationLerp);
+
+		_interimCameraRotation = Rotation.Slerp( _interimCameraRotation, proposedCameraRotation,
+			lerp );
 	}
 
 	/// <summary> Figure out where the camera should be now </summary>
