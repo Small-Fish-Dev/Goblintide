@@ -20,8 +20,13 @@ public partial class Lord
 	public float CameraDistance = 60f;
 
 	private const float CameraRotationLerp = 15.0f;
-	private const float MoveRotationLerp = 1.65f;
-	private const float MoveCoolRotationLerp = 0.5f;
+
+	/// <summary> Lerp amount multiplier: used when following the player and the mouse is being moved </summary>
+	private const float FollowRotationLerp = 1.65f;
+
+	/// <summary> Lerp amount multiplier: used when following the player and the mouse is still </summary>
+	private const float FollowStillRotationLerp = 0.5f;
+
 	private const float DistanceLerp = 15.0f;
 	private static Vector3 PostOffset => Vector3.Up * 1 + Camera.Rotation.Right * 15f;
 
@@ -81,7 +86,7 @@ public partial class Lord
 		var proposedCameraRotation =
 			_interimCameraRotation.Angles().WithYaw( InputDirection.EulerAngles.yaw ).ToRotation();
 
-		var lerp = Time.Delta * (_analogLook == Angles.Zero ? MoveCoolRotationLerp : MoveRotationLerp);
+		var lerp = Time.Delta * (_analogLook == Angles.Zero ? FollowStillRotationLerp : FollowRotationLerp);
 
 		_interimCameraRotation = Rotation.Slerp( _interimCameraRotation, proposedCameraRotation,
 			lerp );
