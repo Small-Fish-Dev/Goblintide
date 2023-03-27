@@ -38,7 +38,8 @@ public partial class Lord
 	#region Camera and Input Variables
 
 	private Rotation _interimCameraRotation = Rotation.Identity;
-	private float _proposedCameraDistance = 80.0f;
+	private float _proposedCameraDistance = 60f;
+	private Vector3 _cameraOffset;
 	private bool _isMovingBackwards;
 	private bool _isMoving;
 
@@ -91,12 +92,17 @@ public partial class Lord
 		return Vector3.Up * 1 + Camera.Rotation.Right * 25f;
 	}
 
+	private float GetTargetDistance()
+	{
+		if ( !Pointing )
+			return CameraDistance;
+		return CameraDistance / 2f;
+	}
+
 	/// <summary> Figure out where we want the camera to be </summary>
 	private void CameraStageOne()
 	{
-		// Set camera distance
-		_proposedCameraDistance = Pointing ? 35 : 60;
-		
+		// Set camera distance		
 		_interimCameraRotation *= _analogLook.WithRoll( 0 ).ToRotation();
 		{
 			var angles = _interimCameraRotation.Angles();
@@ -137,21 +143,23 @@ public partial class Lord
 		}
 
 		// Do a trace - get camera distance
-		_proposedCameraDistance = _proposedCameraDistance.LerpTo( CameraDistance, Time.Delta * DistanceLerp );
-		var trace = Trace.Ray( new Ray( EyePosition, Camera.Rotation.Backward ), _proposedCameraDistance )
+		var targetDistance = GetTargetDistance();
+
+		_cameraOffset = _cameraOffset.LerpTo( GetPostOffset(), Time.Delta * DistanceLerp );
+		var trace = Trace.Ray( EyePosition, EyePosition + Camera.Rotation.Backward * targetDistance + _cameraOffset )
 			.Ignore( this )
 			.WithoutTags( "player", "npc" )
 			.Radius( 7 )
 			.IncludeClientside()
 			.Run();
 
-		_proposedCameraDistance = trace.Distance;
-
 		{
 			// Find camera position
-			var proposedCameraPosition = trace.EndPosition;
+			_proposedCameraDistance = _proposedCameraDistance.LerpTo( MathF.Min( trace.Distance, targetDistance ), Time.Delta * DistanceLerp );
+			var proposedCameraPosition = trace.StartPosition 
+				+ trace.Direction * _proposedCameraDistance;
 
-			Camera.Position = proposedCameraPosition + GetPostOffset();
+			Camera.Position = proposedCameraPosition;
 		}
 
 		// note(gio): stole the below from stud jump! teehee!
