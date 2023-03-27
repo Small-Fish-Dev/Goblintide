@@ -5,9 +5,9 @@ public partial class Lord
 
 	public void SimulateController()
 	{
-		Rotation = Rotation.FromYaw( ViewAngles.yaw );
+		//Rotation = Vector3.;
 
-		var wishVelocity = Rotation.FromYaw( Rotation.Yaw() ) * InputDirection.WithZ(0) * WalkSpeed * ( Input.Down( InputButton.Run ) ? 1.5f : 1f );
+		var wishVelocity = InputDirection.WithZ(0) * WalkSpeed * ( Input.Down( InputButton.Run ) ? 1.5f : 1f );
 
 		Velocity = Vector3.Lerp( Velocity, wishVelocity, 15f * Time.Delta )
 			.WithZ( Velocity.z );

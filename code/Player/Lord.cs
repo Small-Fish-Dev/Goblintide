@@ -23,21 +23,6 @@ public partial class Lord : BaseCharacter
 		Tags.Add( Faction.ToString() );
 	}
 
-	// An example BuildInput method within a player's Pawn class.
-	[ClientInput] public Vector3 InputDirection { get; protected set; }
-	[ClientInput] public Angles ViewAngles { get; set; }
-
-	public override void BuildInput()
-	{
-		InputDirection = Input.AnalogMove;
-
-		var look = Input.AnalogLook;
-
-		var viewAngles = ViewAngles;
-		viewAngles += look;
-		ViewAngles = viewAngles.Normal;
-	}
-
 	public override void Simulate( IClient cl )
 	{
 		base.Simulate( cl );
