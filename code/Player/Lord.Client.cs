@@ -36,7 +36,14 @@ public partial class Lord
 	private bool _isMovingBackwards;
 	private bool _isMoving;
 
-	[ClientInput] public Vector3 InputDirection { get; protected set; }
+	/// <summary> Whether or not the player is holding the point button (RMB) </summary>
+	[ClientInput]
+	public bool Pointing { get; protected set; }
+
+	/// <summary> Direction player should move </summary>
+	[ClientInput]
+	public Vector3 InputDirection { get; protected set; }
+
 	private Angles _analogLook;
 
 	#endregion
@@ -133,6 +140,8 @@ public partial class Lord
 		_isMovingBackwards = direction.Normal.x < -0.8;
 
 		InputDirection = direction.x * Camera.Rotation.Forward.Normal + -(direction.y * Camera.Rotation.Right.Normal);
+
+		Pointing = Input.Down( InputButton.SecondaryAttack );
 
 		DebugOverlay.ScreenText( $"AnalogLook: {Input.AnalogLook}", Vector2.One * 20, 0,
 			Input.AnalogLook == Angles.Zero ? Color.Red : Color.Green );
