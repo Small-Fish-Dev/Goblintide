@@ -17,44 +17,68 @@ public partial class Lord
 	#region Camera Configuration
 
 	/// <summary> Max distance from camera to player </summary>
-	public float CameraDistance { get; protected set; } = 84f;
+	public float CameraDistance { get; protected set; } = 69f;
 
 	private const float CameraRotationLerp = 15.0f;
+	private const float MoveRotationLerp = 1.55f;
+	private const float MoveCoolRotationLerp = 0.5f;
 	private const float DistanceLerp = 15.0f;
 	private static readonly Vector3 PostOffset = Vector3.Up * 3;
 
 	#endregion
 
-	#region Camera Variables
+	#region Camera and Input Variables
 
 	private Rotation _interimCameraRotation = Rotation.Identity;
 	private float _proposedCameraDistance = 80.0f;
+	private bool _isMovingBackwards;
+	private bool _isMoving;
+
+	[ClientInput] public Vector3 InputDirection { get; protected set; }
+	private Angles _analogLook;
 
 	#endregion
 
 	/// <summary> Figure out where we want the camera to be </summary>
 	private void CameraStageOne()
 	{
-		_interimCameraRotation *= AnalogLook.WithRoll( 0 ).ToRotation();
+		_interimCameraRotation *= _analogLook.WithRoll( 0 ).ToRotation();
 		var angles = _interimCameraRotation.Angles();
 		angles.roll = 0;
 		_interimCameraRotation = angles.ToRotation();
+
+		if ( _isMoving && !_isMovingBackwards )
+		{
+			var proposedCameraRotation =
+				_interimCameraRotation.Angles().WithYaw( InputDirection.EulerAngles.yaw ).ToRotation();
+
+			var lerp = Time.Delta * (_analogLook == Angles.Zero ? MoveCoolRotationLerp : MoveRotationLerp);
+
+			_interimCameraRotation = Rotation.Slerp( _interimCameraRotation, proposedCameraRotation,
+				lerp );
+		}
 	}
 
 	/// <summary> Figure out where the camera should be now </summary>
 	private void CameraStageTwo()
 	{
-		var newCameraRotation =
-			Rotation.Slerp( Camera.Rotation, _interimCameraRotation, Time.Delta * CameraRotationLerp );
 		{
-			// Remove roll from lerped rotation
-			var angles = newCameraRotation.Angles();
-			angles.roll = 0;
-			newCameraRotation = angles.ToRotation();
+			// Find camera rotation
+			var proposedCameraRotation =
+				Rotation.Slerp( Camera.Rotation, _interimCameraRotation, Time.Delta * CameraRotationLerp );
+			{
+				// Remove roll from lerped rotation
+				var angles = proposedCameraRotation.Angles();
+				angles.roll = 0;
+				proposedCameraRotation = angles.ToRotation();
+			}
+
+			Camera.Rotation = proposedCameraRotation;
 		}
 
+		// Do a trace - get camera distance
 		_proposedCameraDistance = _proposedCameraDistance.LerpTo( CameraDistance, Time.Delta * DistanceLerp );
-		var trace = Trace.Ray( new Ray( EyePosition, Camera.Rotation.Backward ), _proposedCameraDistance )
+		var trace = Trace.Ray( new Ray( EyePosition + PostOffset, Camera.Rotation.Backward ), _proposedCameraDistance )
 			.Ignore( this )
 			.WithoutTags( "player" )
 			.Radius( 7 )
@@ -63,10 +87,12 @@ public partial class Lord
 
 		_proposedCameraDistance = trace.Distance;
 
-		Camera.Position = trace.EndPosition + PostOffset;
-		Camera.Rotation = newCameraRotation;
-		Camera.FirstPersonViewer = null;
-		Camera.ZNear = 4;
+		{
+			// Find camera position
+			var proposedCameraPosition = trace.EndPosition;
+
+			Camera.Position = proposedCameraPosition;
+		}
 
 		// note(gio): stole the below from stud jump! teehee!
 		var alpha = (Camera.Position.Distance( EyePosition ) / CameraDistance).Clamp( 0f, 1.1f ) - 0.1f;
@@ -79,6 +105,8 @@ public partial class Lord
 	/// <summary> Finish camera setup </summary>
 	private void CameraFinalize()
 	{
+		Camera.FirstPersonViewer = null;
+		Camera.ZNear = 4;
 		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Game.Preferences.FieldOfView );
 	}
 
@@ -89,13 +117,14 @@ public partial class Lord
 		CameraFinalize();
 	}
 
-	[ClientInput] public Vector3 InputDirection { get; protected set; }
-	private Angles AnalogLook;
-
 	public override void BuildInput()
 	{
-		AnalogLook = Input.AnalogLook;
+		_analogLook = Input.AnalogLook;
 		var direction = Input.AnalogMove;
+
+		_isMoving = direction.Length != 0.0f;
+		_isMovingBackwards = direction.Normal.x < -0.8;
+
 		InputDirection = direction.x * Camera.Rotation.Forward.Normal + -(direction.y * Camera.Rotation.Right.Normal);
 	}
 }
