@@ -34,7 +34,11 @@ public partial class Lord
 
 	public void SimulateController()
 	{
-		var wishVelocity = InputDirection.WithZ( 0 ) * WalkSpeed * (Input.Down( InputButton.Run ) ? 1.5f : 1f);
+		var wishVelocity = InputDirection.WithZ( 0 ).Normal 
+			* WalkSpeed 
+			* (Input.Down( InputButton.Run ) 
+				? 1.5f 
+				: 1f);
 
 		Velocity = Vector3.Lerp( Velocity, wishVelocity, 15f * Time.Delta )
 			.WithZ( Velocity.z );
@@ -58,7 +62,6 @@ public partial class Lord
 		}
 
 		var helper = new MoveHelper( Position, Velocity + pushOffset ) { MaxStandableAngle = 30f };
-
 		helper.Trace = helper.Trace
 			.Size( CollisionBox.Mins, CollisionBox.Maxs )
 			.Ignore( this );
@@ -95,7 +98,8 @@ public partial class Lord
 	{
 		base.Touch( other );
 
-		if ( !Game.IsServer ) return;
+		if ( !Game.IsServer ) 
+			return;
 
 		if ( other is BaseCharacter toucher && other.Tags.Has( "Pushable" ) )
 			touchingEntities.Add( toucher );
@@ -106,7 +110,8 @@ public partial class Lord
 	{
 		base.Touch( other );
 
-		if ( !Game.IsServer ) return;
+		if ( !Game.IsServer ) 
+			return;
 
 		if ( other is BaseCharacter toucher && touchingEntities.Contains( toucher ) )
 			touchingEntities.Remove( toucher );

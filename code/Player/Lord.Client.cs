@@ -17,13 +17,13 @@ public partial class Lord
 	#region Camera Configuration
 
 	/// <summary> Max distance from camera to player </summary>
-	public float CameraDistance = 79f;
+	public float CameraDistance = 60f;
 
 	private const float CameraRotationLerp = 15.0f;
 	private const float MoveRotationLerp = 1.65f;
 	private const float MoveCoolRotationLerp = 0.5f;
 	private const float DistanceLerp = 15.0f;
-	private static readonly Vector3 PostOffset = Vector3.Up * 1;
+	private static Vector3 PostOffset => Vector3.Up * 1 + Camera.Rotation.Right * 15f;
 
 	private const float PitchBounds = 25.0f;
 
