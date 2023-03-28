@@ -60,9 +60,9 @@ public partial class BaseNPC : BaseCharacter
 
 	public static BaseNPC FromPrefab( string prefabName )
 	{
-		if ( PrefabLibrary.TrySpawn<BaseNPC>( prefabName, out var settler ) )
+		if ( PrefabLibrary.TrySpawn<BaseNPC>( prefabName, out var npc ) )
 		{
-			return settler;
+			return npc;
 		}
 
 		return null;

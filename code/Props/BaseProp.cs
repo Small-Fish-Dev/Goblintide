@@ -8,7 +8,7 @@ public partial class BaseProp : BaseEntity
 	public override float HitPoints { get; set; } = 0.5f;
 
 	[Prefab, Category( "Stats" )]
-	public virtual RangedFloat GoldDropped { get; set; } = new RangedFloat(0f, 0f);
+	public virtual RangedFloat GoldDropped { get; set; } = new RangedFloat( 0f, 0f );
 	[Prefab, Category( "Stats" )]
 	public virtual RangedFloat WoodDropped { get; set; } = new RangedFloat( 0f, 0f );
 	[Prefab, Category( "Stats" )]
@@ -42,5 +42,15 @@ public partial class BaseProp : BaseEntity
 		}
 
 		base.Kill();
+	}
+
+	public static BaseProp FromPrefab( string prefabName )
+	{
+		if ( PrefabLibrary.TrySpawn<BaseProp>( prefabName, out var prop ) )
+		{
+			return prop;
+		}
+
+		return null;
 	}
 }
