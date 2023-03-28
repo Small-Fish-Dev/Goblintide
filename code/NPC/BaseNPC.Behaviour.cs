@@ -187,6 +187,11 @@ public partial class BaseNPC
 
 		if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
 			ComputeAttack( CurrentTarget );
+		else
+		{
+			if ( !IsFollowingPath )
+				RecalculateTargetNav();
+		}
 
 		if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) )
 			CurrentTarget = null;
