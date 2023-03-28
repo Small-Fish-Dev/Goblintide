@@ -10,6 +10,8 @@ public partial class BaseCharacter : BaseEntity
 	public override float GetWidth() => CollisionWidth;
 	public override float GetHeight() => CollisionHeight;
 
+	public override bool BlockNav { get; set; } = false;
+
 	public BaseCharacter() {}
 
 	public override void Spawn()
