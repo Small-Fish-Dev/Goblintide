@@ -1,0 +1,185 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "a09ca56d-668f-479d-9094-363227f127b3",
+    "Class": "model_entity",
+    "Entities": [
+      {
+        "Guid": "1312e0ed-1ebf-46c4-8894-da8e777f25f4",
+        "Class": "BaseProp",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "FoodDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "WoodDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "GoldDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/containers/bigcrate/big_crate.vmdl\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "08c64515-ddcf-4c80-a7e8-c5a1aa468a2b",
+        "Class": "BaseProp",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "FoodDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "WoodDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "GoldDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/containers/bigcrate/big_crate.vmdl\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u002253.80524,13.99624,-0.0001205874\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u0022-0,85.4098,0\u0022"
+          },
+          "_scale": {
+            "Value": "1.1873621"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "2150eb9d-06ef-4fc8-a519-96d5a6179841",
+        "Class": "BaseProp",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "FoodDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "WoodDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "GoldDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/containers/smallcrate/smallcrate.vmdl\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u002237.11528,-34.80509,-0.00002449348\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u0022-0,-50.7997,-0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "fbe69504-88cc-40db-884c-83bcbdd761d3",
+        "Class": "BaseProp",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "FoodDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "WoodDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "GoldDropped": {
+            "Type": "RangedFloat",
+            "Value": "\u00220.00,0.00,0\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u002212.36527,37.45599,-0.000005249011\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u0022-0,-70.0211,-0\u0022"
+          },
+          "_scale": {
+            "Value": "0.7232704"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          },
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/containers/smallcrate/smallcrate.vmdl\u0022"
+          }
+        }
+      }
+    ],
+    "Components": [],
+    "Keys": {
+      "_name": {
+        "Value": "\u0022Root Entity\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {
+        "Value": "\u0022\u0022"
+      }
+    }
+  }
+}
