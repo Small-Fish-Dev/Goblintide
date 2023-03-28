@@ -16,6 +16,11 @@ public partial class BaseNPC : BaseCharacter
 	public virtual float DetectRange { get; set; } = 300f;
 	[Prefab, Category( "Stats" )] 
 	public virtual float WalkSpeed { get; set; } = 120f;
+	[Prefab, Category( "Stats" ), Description( "How diligent they are towards enacting their BaseBehaviour tasks. 0 = Never, 1 = Always")]
+	public virtual float BaseDiligency { get; set; } = 0.5f;
+
+	[Prefab, Category( "Stats" ), Description( "How many seconds it makes diligency check which determines if they will do their BaseBehaviour tasks" )]
+	public virtual float DiligencyTimer { get; set; } = 3f;
 
 	[Prefab, Category( "Character" )]
 	public override FactionType Faction { get; set; } = FactionType.None;

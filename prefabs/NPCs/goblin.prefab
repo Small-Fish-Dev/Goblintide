@@ -54,6 +54,10 @@
       "BaseSubBehaviour": {
         "Type": "SubBehaviour",
         "Value": "\u0022None\u0022"
+      },
+      "BaseDiligency": {
+        "Type": "Single",
+        "Value": "0.1"
       }
     }
   }

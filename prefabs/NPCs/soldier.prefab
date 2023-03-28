@@ -62,6 +62,10 @@
       "AttackRange": {
         "Type": "Single",
         "Value": "40"
+      },
+      "BaseDiligency": {
+        "Type": "Single",
+        "Value": "0.8"
       }
     }
   }

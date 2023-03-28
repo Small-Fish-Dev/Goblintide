@@ -50,10 +50,12 @@ public partial class BaseNPC
 	public Vector3 LastKnownTargetPosition { get; set; } = Vector3.Zero;
 	public Vector3 DefendingPosition { get; set; } = Vector3.Zero;
 	public float DefendingPositionRange { get; set; } = 500f;
+	public bool IsDiligent { get; set; } = true;
 
 	public virtual void ComputeBehaviour()
 	{
 		//BehaviourTree[CurrentBehaviour].Invoke( this );
+		DiligencyCheck();
 
 		if ( CurrentBehaviour == Behaviour.Defender )
 			DefenderBehaviour();
@@ -140,6 +142,7 @@ public partial class BaseNPC
 	TimeUntil nextTargetSearch { get; set; } = 0f;
 	TimeUntil nextMove { get; set; } = 0f;
 	TimeUntil nextAttack { get; set; } = 0f;
+	TimeUntil nextDiligencyCheck { get; set; } = 0f;
 
 	public void ComputeAttack( BaseEntity target )
 	{
@@ -215,6 +218,16 @@ public partial class BaseNPC
 			CurrentTarget = null;
 	}
 
+	public virtual void DiligencyCheck()
+	{
+		if ( nextDiligencyCheck )
+		{
+			nextDiligencyCheck = DiligencyTimer;
+
+			IsDiligent = Game.Random.Float( 0f, 1f ) <= BaseDiligency;
+		}
+	}
+
 	public virtual void ComputeLookForTargets()
 	{
 		if ( CurrentTarget.IsValid() ) return;
@@ -251,8 +264,11 @@ public partial class BaseNPC
 			{
 				nextTargetSearch = 1f;
 
-				ComputeLookForTargets();
-				ComputeLookForProps();
+				if ( IsDiligent )
+				{
+					ComputeLookForTargets();
+					ComputeLookForProps();
+				}
 			}
 		}
 		else
@@ -278,8 +294,11 @@ public partial class BaseNPC
 			{
 				nextTargetSearch = 1f;
 
-				ComputeRevenge();
-				ComputeLookForTargets();
+				if ( IsDiligent )
+				{
+					ComputeRevenge();
+					ComputeLookForTargets();
+				}
 			}
 		}
 		else
@@ -299,9 +318,10 @@ public partial class BaseNPC
 
 			if ( nextTargetSearch )
 			{
-				nextTargetSearch = 1f;
-
-				CurrentTarget = FindBestTarget( DetectRange, false );
+				nextTargetSearch = 1f; 
+				
+				if ( IsDiligent )
+					CurrentTarget = FindBestTarget( DetectRange, false );
 			}
 		}
 		else

@@ -50,6 +50,10 @@
       },
       "_tags": {
         "Value": "\u0022\u0022"
+      },
+      "BaseDiligency": {
+        "Type": "Single",
+        "Value": "0.8"
       }
     }
   }
