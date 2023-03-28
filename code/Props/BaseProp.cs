@@ -19,6 +19,7 @@ public partial class BaseProp : BaseEntity
 		EnableDrawing = true;
 		EnableTouch = true;
 
+		Tags.Add( "Solid" );
 		Tags.Add( Faction.ToString() );
 	}
 

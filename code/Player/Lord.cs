@@ -8,6 +8,7 @@ public partial class Lord : BaseCharacter
 
 	public override float CollisionWidth { get; set; } = 20f;
 	public override float CollisionHeight { get; set; } = 40f;
+	public override bool BlockNav { get; set; } = true;
 
 	public override void Spawn()
 	{

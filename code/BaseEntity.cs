@@ -34,6 +34,7 @@ public partial class BaseEntity : AnimatedEntity
 		navBlocker.Position = Position;
 		navBlocker.Rotation = Rotation;
 		navBlocker.PhysicsEnabled = false;
+		navBlocker.EnableDrawing = false;
 		navBlocker.Enable();
 		navBlocker.SetParent( this );
 	}
