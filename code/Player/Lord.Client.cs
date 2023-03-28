@@ -20,6 +20,7 @@ public partial class Lord
 	public float CameraDistance = 60f;
 
 	private const float CameraRotationLerp = 15.0f;
+	private const float CameraRotationPointingLerp = 35.0f;
 
 	/// <summary> Lerp amount multiplier: used when following the player and the mouse is being moved </summary>
 	private const float FollowRotationLerp = 1.65f;
@@ -32,6 +33,7 @@ public partial class Lord
 
 	private const float DistanceLerp = 15.0f;
 	private const float PitchBounds = 25.0f;
+	private const float PitchBoundsPointing = 65.0f;
 
 	#endregion
 
@@ -99,6 +101,20 @@ public partial class Lord
 		return CameraDistance / 2f;
 	}
 
+	private float GetCameraRotationLerp()
+	{
+		if ( !Pointing )
+			return CameraRotationLerp;
+		return CameraRotationPointingLerp;
+	}
+
+	private float GetPitchBounds()
+	{
+		if ( !Pointing )
+			return PitchBounds;
+		return PitchBoundsPointing;
+	}
+
 	/// <summary> Figure out where we want the camera to be </summary>
 	private void CameraStageOne()
 	{
@@ -107,8 +123,8 @@ public partial class Lord
 		{
 			var angles = _interimCameraRotation.Angles();
 			angles.roll = 0;
-			angles.pitch = float.Min( angles.pitch, PitchBounds );
-			angles.pitch = float.Max( angles.pitch, -PitchBounds );
+			angles.pitch = float.Min( angles.pitch, GetPitchBounds() );
+			angles.pitch = float.Max( angles.pitch, -GetPitchBounds() );
 
 			_interimCameraRotation = angles.ToRotation();
 		}
@@ -131,7 +147,7 @@ public partial class Lord
 		{
 			// Find camera rotation
 			var proposedCameraRotation =
-				Rotation.Slerp( Camera.Rotation, _interimCameraRotation, Time.Delta * CameraRotationLerp );
+				Rotation.Slerp( Camera.Rotation, _interimCameraRotation, Time.Delta * GetCameraRotationLerp() );
 			{
 				// Remove roll from lerped rotation
 				var angles = proposedCameraRotation.Angles();
@@ -155,9 +171,10 @@ public partial class Lord
 
 		{
 			// Find camera position
-			_proposedCameraDistance = _proposedCameraDistance.LerpTo( MathF.Min( trace.Distance, targetDistance ), Time.Delta * DistanceLerp );
-			var proposedCameraPosition = trace.StartPosition 
-				+ trace.Direction * _proposedCameraDistance;
+			_proposedCameraDistance = _proposedCameraDistance.LerpTo( MathF.Min( trace.Distance, targetDistance ),
+				Time.Delta * DistanceLerp );
+			var proposedCameraPosition = trace.StartPosition
+			                             + trace.Direction * _proposedCameraDistance;
 
 			Camera.Position = proposedCameraPosition;
 		}
