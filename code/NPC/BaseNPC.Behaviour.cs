@@ -257,6 +257,9 @@ public partial class BaseNPC
 		}
 		else
 		{
+			if ( CurrentTarget is BaseProp ) // Respond to someone attacking you if you're busy attacking a prop
+				ComputeRevenge();
+
 			AttackingSubBehaviour();
 		}
 	}
