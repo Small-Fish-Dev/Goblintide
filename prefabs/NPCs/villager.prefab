@@ -1,0 +1,56 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "05ba1e9f-fc3d-4d20-a829-e49a62db739f",
+    "Class": "BaseNPC",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/citizen/citizen.vmdl\u0022"
+      },
+      "BaseBehaviour": {
+        "Type": "Behaviour",
+        "Value": "\u0022Victim\u0022"
+      },
+      "Faction": {
+        "Type": "FactionType",
+        "Value": "\u0022Humans\u0022"
+      },
+      "HitPoints": {
+        "Type": "Single",
+        "Value": "2"
+      },
+      "DetectRange": {
+        "Type": "Single",
+        "Value": "200"
+      },
+      "WalkSpeed": {
+        "Type": "Single",
+        "Value": "80"
+      },
+      "RenderColor": {
+        "Type": "Color",
+        "Value": "\u00221,1,1,1\u0022"
+      },
+      "_name": {
+        "Value": "\u0022Villager\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {
+        "Value": "\u0022\u0022"
+      }
+    }
+  }
+}

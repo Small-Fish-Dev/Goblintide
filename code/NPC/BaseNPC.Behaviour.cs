@@ -138,7 +138,7 @@ public partial class BaseNPC
 	}
 
 	TimeUntil nextTargetSearch { get; set; } = 0f;
-	TimeUntil nextIdleMove { get; set; } = 0f;
+	TimeUntil nextMove { get; set; } = 0f;
 	TimeUntil nextAttack { get; set; } = 0f;
 
 	public void ComputeAttack( BaseEntity target )
@@ -164,9 +164,9 @@ public partial class BaseNPC
 	{
 		CurrentSubBehaviour = SubBehaviour.None;
 
-		if ( nextIdleMove )
+		if ( nextMove )
 		{
-			nextIdleMove = Game.Random.Float( 2, 4 );
+			nextMove = Game.Random.Float( 2, 4 );
 
 			var randomPositionAround = DefendingPosition + Vector3.Random.WithZ( 0 ) * DefendingPositionRange;
 			NavigateTo( randomPositionAround );
@@ -182,7 +182,6 @@ public partial class BaseNPC
 	{
 		CurrentSubBehaviour = SubBehaviour.Attacking;
 
-		// Maybe make these checks once every 0.5 second if they prove laggy
 		if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) ) // If the target moved
 			RecalculateTargetNav();
 
@@ -190,6 +189,24 @@ public partial class BaseNPC
 			ComputeAttack( CurrentTarget );
 
 		if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) )
+			CurrentTarget = null;
+	}
+
+	public virtual void PanickingSubBehaviour()
+	{
+		CurrentSubBehaviour = SubBehaviour.Panicking;
+		
+		if ( FastRelativeInRangeCheck( CurrentTarget, DetectRange ) )
+		{
+			if ( nextMove )
+			{
+				nextMove = Game.Random.Float( 0.5f, 1f );
+
+				var randomPositionAround = DefendingPosition + Vector3.Random.WithZ( 0 ) * DefendingPositionRange;
+				NavigateTo( randomPositionAround );
+			}
+		}
+		else
 			CurrentTarget = null;
 	}
 
@@ -249,8 +266,13 @@ public partial class BaseNPC
 			if ( CurrentSubBehaviour == SubBehaviour.Guarding || CurrentSubBehaviour == SubBehaviour.None )
 				ComputeIdling();
 
-			ComputeRevenge();
-			ComputeLookForTargets();
+			if ( nextTargetSearch )
+			{
+				nextTargetSearch = 1f;
+
+				ComputeRevenge();
+				ComputeLookForTargets();
+			}
 		}
 		else
 		{
@@ -259,6 +281,24 @@ public partial class BaseNPC
 	}
 	public virtual void VictimBehaviour()
 	{
-		ComputeIdling();
+		if ( !CurrentTarget.IsValid() )
+		{
+			if ( CurrentSubBehaviour == SubBehaviour.Panicking )
+				CurrentSubBehaviour = BaseSubBehaviour;
+
+			if ( CurrentSubBehaviour == SubBehaviour.None )
+				ComputeIdling();
+
+			if ( nextTargetSearch )
+			{
+				nextTargetSearch = 1f;
+
+				CurrentTarget = FindBestTarget( DetectRange, false );
+			}
+		}
+		else
+		{
+			PanickingSubBehaviour();
+		}
 	}
 }
