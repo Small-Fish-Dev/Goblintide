@@ -159,16 +159,12 @@ public partial class BaseNPC
 	{
 		CurrentSubBehaviour = SubBehaviour.Attacking;
 
-		Rotation = Rotation.LookAt( CurrentTarget.Position - Position );
-
 		// Maybe make these checks once every 0.5 second if they prove laggy
 		if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) ) // If the target moved
 			RecalculateTargetNav();
 
 		if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
 			ComputeAttack( CurrentTarget );
-		else
-			RecalculateTargetNav();
 
 		if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) )
 			CurrentTarget = null;

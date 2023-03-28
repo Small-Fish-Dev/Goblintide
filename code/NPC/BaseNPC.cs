@@ -73,7 +73,7 @@ public partial class BaseNPC : BaseCharacter
 
 		if ( nextCheapThink )
 		{
-			nextCheapThink = 0.2f + Game.Random.Float( -0.1f, 0.1f );
+			nextCheapThink = 0.1f + Game.Random.Float( -0.03f, 0.03f );
 			CheapThink();
 		}
 	}
