@@ -35,7 +35,7 @@ public partial class BaseNPC
 
 	}
 
-	internal List<BaseCharacter> touchingEntities = new();
+	internal List<BaseEntity> touchingEntities = new();
 
 	public override void StartTouch( Entity other )
 	{
@@ -43,7 +43,7 @@ public partial class BaseNPC
 
 		if ( !Game.IsServer ) return;
 
-		if ( other is BaseCharacter toucher && other.Tags.Has( "Pushable" ) )
+		if ( other is BaseEntity toucher && other.Tags.Has( "Pushable" ) )
 			touchingEntities.Add( toucher );
 	}
 
@@ -54,7 +54,7 @@ public partial class BaseNPC
 
 		if ( !Game.IsServer ) return;
 
-		if ( other is BaseCharacter toucher && touchingEntities.Contains( toucher ) )
+		if ( other is BaseEntity toucher && touchingEntities.Contains( toucher ) )
 			touchingEntities.Remove( toucher );
 	}
 }

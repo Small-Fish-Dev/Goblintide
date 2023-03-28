@@ -33,8 +33,8 @@ public partial class BaseNPC
 		{ Behaviour.Victim, ( npc ) => { npc.VictimBehaviour(); } }
 	};
 	*/
-	BaseCharacter currentTarget = null;
-	public BaseCharacter CurrentTarget
+	BaseEntity currentTarget = null;
+	public BaseEntity CurrentTarget
 	{
 		get { return currentTarget; }
 		set
@@ -65,10 +65,10 @@ public partial class BaseNPC
 			NoneBehaviour();
 	}
 
-	public virtual BaseCharacter FindBestTarget( float radius = 300f, bool closestFirst = true )
+	public virtual BaseEntity FindBestTarget( float radius = 300f, bool closestFirst = true )
 	{
 		var validEntities = Entity.All
-			.OfType<BaseCharacter>()
+			.OfType<BaseEntity>()
 			.Where( x => x.Faction != FactionType.None && x.Faction != Faction )
 			.Where( x => x.TotalAttackers < 3 );
 
@@ -87,20 +87,20 @@ public partial class BaseNPC
 
 		return null;
 	}
-	public virtual Vector3 FindBestTargetPosition( BaseCharacter target, float distance = 0f )
+	public virtual Vector3 FindBestTargetPosition( BaseEntity target, float distance = 0f )
 	{
 		if ( CurrentTarget == null ) return Vector3.Zero;
 
 		var directionFromTarget = (Position - target.Position).WithZ( 0 ).Normal;
-		var combinedBodyWidth = CollisionWidth / 2 + target.CollisionWidth / 2;
+		var combinedBodyWidth = GetWidth() / 2 + target.GetWidth() / 2;
 		var totalBestDistance = combinedBodyWidth + distance;
 
 		return target.Position + directionFromTarget * totalBestDistance;
 	}
 
-	public bool FastRelativeInRangeCheck( BaseCharacter target, float distanceToCheck )
+	public bool FastRelativeInRangeCheck( BaseEntity target, float distanceToCheck )
 	{
-		var combinedBodyWidth = CollisionWidth / 2 + target.CollisionWidth / 2;
+		var combinedBodyWidth = GetWidth() / 2 + target.GetWidth() / 2;
 		var combinedDistanceSquared = (float)Math.Pow(combinedBodyWidth + distanceToCheck, 2);
 
 		return target.Position.DistanceSquared( Position ) <= combinedDistanceSquared;
@@ -118,7 +118,7 @@ public partial class BaseNPC
 	TimeUntil nextIdleMove { get; set; } = 0f;
 	TimeUntil nextAttack { get; set; } = 0f;
 
-	public void ComputeAttack( BaseCharacter target )
+	public void ComputeAttack( BaseEntity target )
 	{
 		if ( nextAttack )
 		{

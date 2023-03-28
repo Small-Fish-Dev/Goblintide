@@ -38,7 +38,7 @@ public partial class BaseNPC
 		return true;
 	}
 
-	public virtual bool NavigateTo( BaseCharacter target )
+	public virtual bool NavigateTo( BaseEntity target )
 	{
 		var targetPosition = FindBestTargetPosition( target );
 
