@@ -19,13 +19,10 @@ public partial class BaseNPC
 		SetAnimParameter( "move_y", Velocity.Dot( Rotation.Right ) / Scale );
 
 		if ( CurrentSubBehaviour == SubBehaviour.Attacking )
-			SetAnimParameter( "holdtype", 5 );
-		else
 		{
-			SetAnimParameter( "holdtype", 0 );
+			SetAnimParameter( "holdtype", 5 );
 		}
-
-		if ( CurrentSubBehaviour == SubBehaviour.Panicking )
+		else if ( CurrentSubBehaviour == SubBehaviour.Panicking )
 		{
 			// TODO: Proper panic when grod makes custom animgraph
 			SetAnimParameter( "duck", 0.3f );
