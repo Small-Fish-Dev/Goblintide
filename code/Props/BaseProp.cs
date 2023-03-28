@@ -21,4 +21,12 @@ public partial class BaseProp : BaseEntity
 
 		Tags.Add( Faction.ToString() );
 	}
+
+	public override void Kill()
+	{
+		var result = new Breakables.Result();
+		Breakables.Break( this, result );
+
+		base.Kill();
+	}
 }
