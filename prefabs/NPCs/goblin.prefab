@@ -49,11 +49,11 @@
       },
       "BaseBehaviour": {
         "Type": "Behaviour",
-        "Value": "\u0022Defender\u0022"
+        "Value": "\u0022Raider\u0022"
       },
       "BaseSubBehaviour": {
         "Type": "SubBehaviour",
-        "Value": "\u0022Guarding\u0022"
+        "Value": "\u0022None\u0022"
       }
     }
   }

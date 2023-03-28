@@ -1,0 +1,30 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "51eb2fca-c4b8-4bf1-b243-bda7e423f057",
+    "Class": "BaseProp",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/containers/bigcrate/big_crate.vmdl\u0022"
+      },
+      "_name": {
+        "Value": "\u0022Large Crate\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {}
+    }
+  }
+}
