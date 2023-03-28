@@ -65,10 +65,10 @@ public partial class BaseNPC
 			NoneBehaviour();
 	}
 
-	public virtual BaseEntity FindBestTarget( float radius = 300f, bool closestFirst = true )
+	public virtual BaseCharacter FindBestTarget( float radius = 300f, bool closestFirst = true )
 	{
 		var validEntities = Entity.All
-			.OfType<BaseEntity>()
+			.OfType<BaseCharacter>()
 			.Where( x => x.Faction != FactionType.None && x.Faction != Faction )
 			.Where( x => x.TotalAttackers < 3 );
 
@@ -87,6 +87,29 @@ public partial class BaseNPC
 
 		return null;
 	}
+
+	public virtual BaseProp FindBestProp( float radius = 300f, bool closestFirst = true )
+	{
+		var validEntities = Entity.All
+			.OfType<BaseProp>()
+			.Where( x => x.TotalAttackers < 3 );
+
+		var radiusSquared = (float)Math.Pow( radius, 2 );
+
+		if ( closestFirst )
+		{
+			validEntities.OrderBy( x => x.Position.DistanceSquared( Position ) );
+
+			if ( validEntities.FirstOrDefault() != null )
+				if ( validEntities.FirstOrDefault().Position.DistanceSquared( Position ) <= radiusSquared )
+					return validEntities.FirstOrDefault();
+		}
+		else
+			return validEntities.Where( x => x.Position.DistanceSquared( Position ) <= radiusSquared ).FirstOrDefault();
+
+		return null;
+	}
+
 	public virtual Vector3 FindBestTargetPosition( BaseEntity target, float distance = 0f )
 	{
 		if ( CurrentTarget == null ) return Vector3.Zero;
@@ -172,14 +195,22 @@ public partial class BaseNPC
 
 	public virtual void ComputeLookForTargets()
 	{
-		if ( nextTargetSearch )
-		{
-			nextTargetSearch = 1f;
+		if ( CurrentTarget.IsValid() ) return;
 
-			CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
-			if ( CurrentTarget.IsValid() )
-				RecalculateTargetNav();
-		}
+		CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
+
+		if ( CurrentTarget.IsValid() )
+			RecalculateTargetNav();
+	}
+
+	public virtual void ComputeLookForProps()
+	{
+		if ( CurrentTarget.IsValid() ) return;
+
+		CurrentTarget = FindBestProp( DetectRange, false ); // Any is fine, saves some computing
+
+		if ( CurrentTarget.IsValid() )
+			RecalculateTargetNav();
 	}
 
 	public virtual void RaiderBehaviour()
@@ -189,8 +220,18 @@ public partial class BaseNPC
 			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
 				CurrentSubBehaviour = BaseSubBehaviour;
 
+			if ( CurrentSubBehaviour == SubBehaviour.Guarding || CurrentSubBehaviour == SubBehaviour.None )
+				ComputeIdling();
+
 			ComputeRevenge();
-			ComputeLookForTargets();
+
+			if ( nextTargetSearch )
+			{
+				nextTargetSearch = 1f;
+
+				ComputeLookForTargets();
+				ComputeLookForProps();
+			}
 		}
 		else
 		{
@@ -206,9 +247,7 @@ public partial class BaseNPC
 				CurrentSubBehaviour = BaseSubBehaviour;
 
 			if ( CurrentSubBehaviour == SubBehaviour.Guarding || CurrentSubBehaviour == SubBehaviour.None )
-			{
 				ComputeIdling();
-			}
 
 			ComputeRevenge();
 			ComputeLookForTargets();
