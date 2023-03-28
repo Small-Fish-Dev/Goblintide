@@ -41,6 +41,8 @@ public partial class BaseNPC : BaseCharacter
 
 		CurrentBehaviour = BaseBehaviour;
 		CurrentSubBehaviour = BaseSubBehaviour;
+
+		Transmit = TransmitType.Pvs;
 	}
 
 	public override void Kill()
@@ -61,14 +63,26 @@ public partial class BaseNPC : BaseCharacter
 		return null;
 	}
 
+	TimeUntil nextCheapThink = 0f;
 
 	[Event.Tick.Server]
 	public virtual void Think()
 	{
-		ComputeNavigation();
 		ComputeMotion();
-		ComputeAnimations();
+		ComputeNavigation();
+
+		if ( nextCheapThink )
+		{
+			nextCheapThink = 0.2f + Game.Random.Float( -0.1f, 0.1f );
+			CheapThink();
+		}
+	}
+
+
+	public virtual void CheapThink()
+	{
 		ComputeBehaviour();
+		ComputeAnimations();
 
 		if ( Position != Vector3.Zero && DefendingPosition == Vector3.Zero )
 			DefendingPosition = Position;

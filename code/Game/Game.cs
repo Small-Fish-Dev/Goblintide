@@ -17,7 +17,7 @@ public partial class GameMgr : GameManager
 	public GameMgr()
 	{
 		Instance = this;
-		Game.TickRate = 30;
+		Game.TickRate = 15;
 
 		// Set the beginning state.
 		if ( Game.IsServer )
