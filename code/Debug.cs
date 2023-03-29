@@ -5,7 +5,18 @@ public static class Debug
 	[ConVar.Client( "gdbg_camera" )] private static bool ShowCameraInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_player" )] private static bool ShowPlayerInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_lord" )] private static bool ShowLordInfo { get; set; } = true;
+	[ConVar.Client( "gdbg_input" )] private static bool ShowInputInfo { get; set; } = true;
 
+	private static Vector3 _analogMove;
+	private static Angles _analogLook;
+
+	[Event.Client.BuildInput]
+	private static void BuildInput()
+	{
+		_analogMove = Input.AnalogMove;
+		_analogLook = Input.AnalogLook;
+	}
+	
 	[Event.Client.Frame]
 	private static void Frame()
 	{
@@ -46,15 +57,22 @@ public static class Debug
 		Space();
 
 		// Player info
-		Section( "Player Info", () =>
+		Section( "Game Info", () =>
 		{
 			var pawn = Game.LocalPawn;
 			ValueObject( "Position", pawn.Position );
 			ValueObject( "Rotation", pawn.Rotation );
 			ValueObject( "Steam ID", Game.LocalClient.SteamId );
+			ValueObject( "Entity Count", Entity.All.Count );
 		}, ShowPlayerInfo );
 
-		Section( "Lord Info", () =>
+		Section( "Input", () =>
+		{
+			ValueObject( "AnalogMove", _analogMove );
+			ValueObject( "AnalogLook", _analogLook );
+		}, ShowInputInfo );
+		
+		Section( "Lord", () =>
 		{
 			var lord = (Lord)Game.LocalPawn;
 			ValueObject( "Faction", lord.Faction );
@@ -68,5 +86,6 @@ public static class Debug
 			ValueObject( "Rotation", Camera.Rotation );
 			ValueObject( "Interim", lord.InterimCameraRotation );
 		}, ShowCameraInfo );
+		
 	}
 }
