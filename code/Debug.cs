@@ -6,17 +6,26 @@ namespace GameJam;
 public static class Debug
 {
 	private const string DrawEventName = "gdbg_event";
+	private const string PreDrawEventName = "gdbg_preevent";
 
 	public class DrawAttribute : EventAttribute
 	{
 		public DrawAttribute() : base( DrawEventName ) { }
 	}
 
+	public class PreDrawAttribute : EventAttribute
+	{
+		public PreDrawAttribute() : base( PreDrawEventName ) { }
+	}
+
+	[ConVar.Client( "gdbg" )] private static bool Enabled { get; set; } = true;
 	[ConVar.Client( "gdbg_camera" )] private static bool ShowCameraInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_player" )] private static bool ShowPlayerInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_lord" )] private static bool ShowLordInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_input" )] private static bool ShowInputInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_git" )] private static bool ShowGitInfo { get; set; } = true;
+
+	[ConVar.Client( "gdbg_ext_npc" )] private static bool ShowExtendedNpcData { get; set; } = true;
 
 	[ConVar.Client( "gdbg_git_shorttags" )]
 	private static bool ShortenTags { get; set; } = true;
@@ -62,12 +71,14 @@ public static class Debug
 		{
 			Header( name );
 			action.Invoke();
-			Space();
 		}
-		catch ( Exception )
+		catch ( Exception e )
 		{
 			// ignored
+			Log.Warning( e );
 		}
+
+		Space();
 	}
 
 	internal static void Value( string name, string value ) => Add( $"{name}: ", Color.Orange, value, Color.White );
@@ -79,11 +90,15 @@ public static class Debug
 	[Event.Client.Frame]
 	private static void Frame()
 	{
+		if ( !Enabled ) return;
+
+		Event.Run( PreDrawEventName );
+
 		_line = 0;
 
 		TryGitUpdate();
 
-		Add( "Small Fish Confidential - ", Color.Yellow, "Unauthorised distribution will end in death",
+		Add( "Small Fish Confidential - ", Color.Yellow, "Unauthorised distribution may result in death",
 			Color.Yellow );
 		Add( DateTime.Now.ToString( CultureInfo.InvariantCulture ), Color.White );
 
@@ -94,9 +109,9 @@ public static class Debug
 		if ( _branches.Count != 0 )
 			Section( "Commit", () =>
 			{
-				foreach ( var (branch, id) in _branches ) Value( $"{branch} (local)", ShortenTags ? id[..7] : id );
+				foreach ( var (branch, id, src) in _branches ) Value( $"{branch} ({src})", ShortenTags ? id[..7] : id );
 			}, ShowGitInfo );
-		
+
 		// Player info
 		Section( "Game Info", () =>
 		{
@@ -118,6 +133,7 @@ public static class Debug
 			var lord = (Lord)Game.LocalPawn;
 			Value( "Faction", lord.Faction );
 			Value( "Hit Points", lord.HitPoints );
+			Value( "Energy", lord.Energy.Value );
 		}, ShowLordInfo );
 
 		Section( "Camera", () =>
@@ -135,7 +151,7 @@ public static class Debug
 
 	#region Git
 
-	private static readonly List<(string, string)> _branches = new();
+	private static readonly List<(string, string, string)> _branches = new();
 	private static TimeUntil _gitUpdateTimer = 5;
 
 	private static void TryGitUpdate()
@@ -155,12 +171,39 @@ public static class Debug
 		try
 		{
 			var git = FileSystem.Mounted.CreateSubSystem( ".git" );
-			var contents = git.ReadAllText( "refs/heads/main" );
-			_branches.Add( ("main", contents) );
+			{
+				var contents = git.ReadAllText( "refs/heads/main" );
+				_branches.Add( ("main", contents, "local") );
+			}
+			{
+				var contents = git.ReadAllText( "FETCH_HEAD" );
+				_branches.Add( ("main", contents.Split( "\t" )[0], "fetched") );
+			}
 		}
 		catch ( Exception )
 		{
 			// ignored
+		}
+	}
+
+	#endregion
+
+	#region NPC Info
+
+	[PreDraw]
+	private static void DrawNpcInfo()
+	{
+		if ( !ShowExtendedNpcData ) return;
+		foreach ( var v in Entity.All.OfType<BaseNPC>() )
+		{
+			var pos = v.Position;
+			var line = 0;
+			DebugOverlay.Line( pos, pos + v.Direction * 32 );
+			DebugOverlay.Text( $"<3 {v.HitPoints}", pos, line++, Color.White );
+			DebugOverlay.Text( $"!  {v.CurrentBehaviour}", pos, line++, Color.White );
+
+			if ( v.CurrentTarget != null )
+				DebugOverlay.Text( $"-> {v.CurrentTarget}", pos, line++, Color.White );
 		}
 	}
 
