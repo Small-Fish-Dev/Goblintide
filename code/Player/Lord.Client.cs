@@ -41,6 +41,7 @@ public partial class Lord
 
 	private Rotation _interimCameraRotation = Rotation.Identity;
 	private float _proposedCameraDistance = 60f;
+	private float _lastTraceDistance;
 	private Vector3 _cameraOffset;
 	private bool _isMovingBackwards;
 	private bool _isMoving;
@@ -171,6 +172,7 @@ public partial class Lord
 
 		{
 			// Find camera position
+			_lastTraceDistance = trace.Distance;
 			_proposedCameraDistance = _proposedCameraDistance.LerpTo( MathF.Min( trace.Distance, targetDistance ),
 				Time.Delta * DistanceLerp );
 			var proposedCameraPosition = trace.StartPosition
@@ -180,7 +182,6 @@ public partial class Lord
 		}
 
 		// note(gio): stole the below from stud jump! teehee!
-
 		if ( Pointing )
 			RenderColor = Color.White.WithAlpha( 0.5f );
 		else
@@ -221,9 +222,9 @@ public partial class Lord
 
 		LookDirection = Camera.Rotation;
 	}
-	
+
 	[ConVar.Client( "gdbg_camera" )] private static bool ShowCameraInfo { get; set; } = true;
-	
+
 	[Debug.Draw]
 	private static void DebugDraw()
 	{
@@ -233,6 +234,7 @@ public partial class Lord
 			Debug.Value( "Position", Camera.Position );
 			Debug.Value( "Rotation", Camera.Rotation );
 			Debug.Value( "Rotation (interim)", lord._interimCameraRotation );
+			Debug.Value( "Trace Distance", lord._lastTraceDistance );
 			Debug.Value( "Proposed Distance", lord._proposedCameraDistance );
 			Debug.Value( "Offset", lord._cameraOffset );
 		}, ShowCameraInfo );
