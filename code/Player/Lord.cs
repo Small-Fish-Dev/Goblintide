@@ -3,12 +3,17 @@
 public partial class Lord : BaseCharacter
 {
 	public override float HitPoints { get; set; } = 1500f; // Debug I don't wanna die
-	public override FactionType Faction { get; set; } = FactionType.None; // None for now so they dont attack me haha, change back to goblins
+
+	public override FactionType Faction { get; set; } =
+		FactionType.None; // None for now so they dont attack me haha, change back to goblins
+
 	public float WalkSpeed => 140f;
 
 	public override float CollisionWidth { get; set; } = 20f;
 	public override float CollisionHeight { get; set; } = 40f;
 	public override bool BlockNav { get; set; } = true;
+
+	[BindComponent] public EnergyComponent Energy { get; }
 
 	public override void Spawn()
 	{
@@ -22,6 +27,8 @@ public partial class Lord : BaseCharacter
 		Tags.Add( "Player" );
 		Tags.Add( "Pushable" );
 		Tags.Add( Faction.ToString() );
+
+		Components.Create<EnergyComponent>();
 	}
 
 	public override void Simulate( IClient cl )

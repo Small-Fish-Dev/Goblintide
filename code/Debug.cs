@@ -71,12 +71,13 @@ public static class Debug
 		{
 			Header( name );
 			action.Invoke();
-			Space();
 		}
-		catch ( Exception )
+		catch ( Exception e )
 		{
 			// ignored
+			Log.Warning( e );
 		}
+		Space();
 	}
 
 	internal static void Value( string name, string value ) => Add( $"{name}: ", Color.Orange, value, Color.White );
@@ -131,6 +132,7 @@ public static class Debug
 			var lord = (Lord)Game.LocalPawn;
 			Value( "Faction", lord.Faction );
 			Value( "Hit Points", lord.HitPoints );
+			Value( "Energy", lord.Energy.Value );
 		}, ShowLordInfo );
 
 		Section( "Camera", () =>
