@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Sandbox.Utility;
+using System.IO;
 
 namespace GameJam;
 
@@ -20,7 +21,12 @@ public class Town
 
 	public Town() { }
 
-	public static Town GenerateTown( Vector3 position, float townSize = 100f, float density = 1f )
+	public float PerlinValue( float x = 0f, float y = 0f, float scale = 10f )
+	{
+		return Noise.Perlin( Seed / 1000f + x / scale, Seed / 1000f + y / scale );
+	}
+
+	public static Town GenerateTown( Vector3 position, float townSize = 100f, float density = 3f )
 	{
 		var generatedTown = new Town();
 		generatedTown.TownSize = townSize;
@@ -32,7 +38,7 @@ public class Town
 		{
 			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
 			{
-				if ( rand.Next( 10 ) < 2 )
+				if ( generatedTown.PerlinValue( x, y ) <= 0.4f )
 				{
 					var spawnedProp = BaseProp.FromPrefab( WeightedList.RandomKey( PlaceableProps ) );
 
