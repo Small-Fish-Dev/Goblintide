@@ -85,7 +85,7 @@ public partial class BaseNPC
 					return validEntities.FirstOrDefault();
 		}
 		else
-			return validEntities.Where( x => x.Position.DistanceSquared( Position ) <= radiusSquared ).FirstOrDefault();
+			return validEntities.FirstOrDefault( x => x.Position.DistanceSquared( Position ) <= radiusSquared );
 
 		return null;
 	}
@@ -107,7 +107,7 @@ public partial class BaseNPC
 					return validEntities.FirstOrDefault();
 		}
 		else
-			return validEntities.Where( x => x.Position.DistanceSquared( Position ) <= radiusSquared ).FirstOrDefault();
+			return validEntities.FirstOrDefault( x => x.Position.DistanceSquared( Position ) <= radiusSquared );
 
 		return null;
 	}
@@ -252,10 +252,10 @@ public partial class BaseNPC
 	{
 		if ( !CurrentTarget.IsValid() )
 		{
-			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
+			if ( CurrentSubBehaviour is SubBehaviour.Attacking or SubBehaviour.Following )
 				CurrentSubBehaviour = BaseSubBehaviour;
 
-			if ( CurrentSubBehaviour == SubBehaviour.Guarding || CurrentSubBehaviour == SubBehaviour.None )
+			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
 				ComputeIdling();
 
 			ComputeRevenge();
@@ -284,10 +284,10 @@ public partial class BaseNPC
 	{
 		if ( !CurrentTarget.IsValid() )
 		{
-			if ( CurrentSubBehaviour == SubBehaviour.Attacking || CurrentSubBehaviour == SubBehaviour.Following )
+			if ( CurrentSubBehaviour is SubBehaviour.Attacking or SubBehaviour.Following )
 				CurrentSubBehaviour = BaseSubBehaviour;
 
-			if ( CurrentSubBehaviour == SubBehaviour.Guarding || CurrentSubBehaviour == SubBehaviour.None )
+			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
 				ComputeIdling();
 
 			if ( nextTargetSearch )
