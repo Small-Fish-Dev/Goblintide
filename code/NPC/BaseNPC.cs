@@ -70,8 +70,8 @@ public partial class BaseNPC : BaseCharacter
 			&& Faction == FactionType.Goblins )
 		{
 			var input = deathStrings[Game.Random.Int( deathStrings.Length - 1 )]
-				.Replace( "%attacker", LastAttackedBy?.Name ?? "Unknown Entity" )
-				.Replace( "%target", Name );
+				.Replace( "%attacker", LastAttackedBy?.DisplayName ?? "Unknown Entity" )
+				.Replace( "%target", DisplayName );
 
 			EventLogger.Send( To.Everyone, $"<red>{input}", 3 );
 		}
