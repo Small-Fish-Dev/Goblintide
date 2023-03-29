@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text;
 
 namespace GameJam;
 
@@ -15,6 +16,10 @@ public static class Debug
 	[ConVar.Client( "gdbg_player" )] private static bool ShowPlayerInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_lord" )] private static bool ShowLordInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_input" )] private static bool ShowInputInfo { get; set; } = true;
+	[ConVar.Client( "gdbg_git" )] private static bool ShowGitInfo { get; set; } = true;
+
+	[ConVar.Client( "gdbg_git_shorttags" )]
+	private static bool ShortenTags { get; set; } = true;
 
 	#region Input Processing
 
@@ -76,6 +81,8 @@ public static class Debug
 	{
 		_line = 0;
 
+		TryGitUpdate();
+
 		Add( "Small Fish Confidential - ", Color.Yellow, "Unauthorised distribution will end in death",
 			Color.Yellow );
 		Add( DateTime.Now.ToString( CultureInfo.InvariantCulture ), Color.White );
@@ -84,6 +91,12 @@ public static class Debug
 
 		SetHeaderColor( Color.Yellow );
 
+		if ( _branches.Count != 0 )
+			Section( "Commit", () =>
+			{
+				foreach ( var (branch, id) in _branches ) Value( $"{branch} (local)", ShortenTags ? id[..7] : id );
+			}, ShowGitInfo );
+		
 		// Player info
 		Section( "Game Info", () =>
 		{
@@ -119,4 +132,37 @@ public static class Debug
 
 		Event.Run( DrawEventName );
 	}
+
+	#region Git
+
+	private static readonly List<(string, string)> _branches = new();
+	private static TimeUntil _gitUpdateTimer = 5;
+
+	private static void TryGitUpdate()
+	{
+		if ( !_gitUpdateTimer )
+			return;
+
+		GitUpdate();
+		_gitUpdateTimer = 5;
+	}
+
+	[Event.Hotload, GameEvents.Initialize]
+	private static void GitUpdate()
+	{
+		_branches.Clear();
+
+		try
+		{
+			var git = FileSystem.Mounted.CreateSubSystem( ".git" );
+			var contents = git.ReadAllText( "refs/heads/main" );
+			_branches.Add( ("main", contents) );
+		}
+		catch ( Exception )
+		{
+			// ignored
+		}
+	}
+
+	#endregion
 }
