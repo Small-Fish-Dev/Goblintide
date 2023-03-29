@@ -21,7 +21,7 @@ public partial class BaseNPC
 
 		foreach ( var toucher in touchingEntities )
 		{
-			if ( toucher == null || !toucher.IsValid )
+			if ( toucher is not { IsValid: true } )
 				continue;
 
 			var direction = (Position - toucher.Position).WithZ(0).Normal;
