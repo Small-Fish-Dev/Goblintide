@@ -53,9 +53,16 @@ public static class Debug
 	internal static void Section( string name, Action action, bool active = true )
 	{
 		if ( !active ) return;
-		Header( name );
-		action.Invoke();
-		Space();
+		try
+		{
+			Header( name );
+			action.Invoke();
+			Space();
+		}
+		catch ( Exception )
+		{
+			// ignored
+		}
 	}
 
 	internal static void Value( string name, string value ) => Add( $"{name}: ", Color.Orange, value, Color.White );
