@@ -166,6 +166,7 @@ public static class Debug
 				var contents = git.ReadAllText( "refs/heads/main" );
 				_branches.Add( ("main", contents, "local") );
 			}
+			if ( git.FileExists( "FETCH_HEAD" ) )
 			{
 				var contents = git.ReadAllText( "FETCH_HEAD" );
 				_branches.Add( ("main", contents.Split( "\t" )[0], "fetched") );
