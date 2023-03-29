@@ -17,7 +17,7 @@ public partial class Lord
 	#region Camera Configuration
 
 	/// <summary> Max distance from camera to player </summary>
-	public float CameraDistance = 60f;
+	public float CameraDistance = 70f;
 
 	private const float CameraRotationLerp = 15.0f;
 	private const float CameraRotationPointingLerp = 35.0f;
@@ -91,7 +91,7 @@ public partial class Lord
 	private Vector3 GetPostOffset()
 	{
 		if ( !Pointing )
-			return Vector3.Up * 1 + Camera.Rotation.Right * 15f;
+			return Vector3.Up * 1;
 		return Vector3.Up * 1 + Camera.Rotation.Right * 25f;
 	}
 
@@ -181,8 +181,13 @@ public partial class Lord
 		}
 
 		// note(gio): stole the below from stud jump! teehee!
-		var alpha = (Camera.Position.Distance( EyePosition ) / CameraDistance).Clamp( 0f, 1.1f ) - 0.1f;
-		RenderColor = Color.White.WithAlpha( alpha );
+
+		if ( Pointing )
+			RenderColor = Color.White.WithAlpha( 0.5f );
+		else
+			RenderColor =
+				Color.White.WithAlpha( (Camera.Position.Distance( EyePosition ) / CameraDistance).Clamp( 0f, 1.1f ) -
+				                       0.1f );
 		foreach ( var child in Children )
 			if ( child is ModelEntity ent )
 				ent.RenderColor = RenderColor;
