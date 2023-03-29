@@ -6,7 +6,22 @@
     "Guid": "05ba1e9f-fc3d-4d20-a829-e49a62db739f",
     "Class": "BaseNPC",
     "Entities": [],
-    "Components": [],
+    "Components": [
+      {
+        "Guid": "5a100d7b-3aba-4f03-af30-fef4a0983730",
+        "Class": "NamingComponent",
+        "Keys": {
+          "Type": {
+            "Type": "Type",
+            "Value": "\u0022Human\u0022"
+          },
+          "_name": {
+            "Value": "\u0022NamingComponent\u0022"
+          },
+          "_tags": {}
+        }
+      }
+    ],
     "Keys": {
       "Model": {
         "Type": "Model",
