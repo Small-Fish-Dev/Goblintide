@@ -5,7 +5,7 @@ partial class Lord
 	[ClientRpc]
 	public static void _addEventlog( string text, float time )
 	{
-		Eventlogger.Instance?.Append( text, time );
+		EventLogger.Instance?.Append( text, time );
 	}
 
 	[ConCmd.Server( "eventlog" )]
