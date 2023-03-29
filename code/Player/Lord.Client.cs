@@ -134,7 +134,7 @@ public partial class Lord
 			return;
 
 		var proposedCameraRotation =
-			_interimCameraRotation.Angles().WithYaw( InputDirection.EulerAngles.yaw ).ToRotation();
+			_interimCameraRotation.Angles().WithYaw( InputDirection.Normal.EulerAngles.yaw ).ToRotation();
 
 		var lerp = Time.Delta * GetFollowLerpMultiplier();
 
@@ -237,6 +237,8 @@ public partial class Lord
 			Debug.Value( "Trace Distance", lord._lastTraceDistance );
 			Debug.Value( "Proposed Distance", lord._proposedCameraDistance );
 			Debug.Value( "Offset", lord._cameraOffset );
+			Debug.Value( "Follow Lerp", lord.GetFollowLerpMultiplier() );
+			Debug.Value( "Rotation Lerp", lord.GetCameraRotationLerp() );
 		}, ShowCameraInfo );
 	}
 }
