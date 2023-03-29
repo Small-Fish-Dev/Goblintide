@@ -5,7 +5,7 @@
 @inherits Panel
 
 <style>
-	Eventlogger {
+	EventLogger {
 		position: absolute;
 		bottom: 25px;
 		right: 25px;
@@ -50,10 +50,10 @@
 	/// </summary>
 	public const int Limit = 5;
 
-	public static Eventlogger Instance { get; private set; }
+	public static EventLogger Instance { get; private set; }
 	private List<(Panel Panel, TimeUntil UntilDelete)?> events = new();
 
-	public Eventlogger()
+	public EventLogger()
 	{
 		Instance = this;
 	}

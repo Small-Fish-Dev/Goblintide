@@ -26,7 +26,7 @@ public partial class Lord
 	private const float FollowRotationLerp = 1.65f;
 
 	/// <summary> Lerp amount multiplier: used when following the player and a controller is being used </summary>
-	private const float FollowControllerRotationLerp = 1.65f;
+	private const float FollowControllerRotationLerp = 1.35f;
 
 	/// <summary> Lerp amount multiplier: used when following the player and the mouse is still </summary>
 	private const float FollowStillRotationLerp = 0.5f;
@@ -41,6 +41,7 @@ public partial class Lord
 
 	private Rotation _interimCameraRotation = Rotation.Identity;
 	private float _proposedCameraDistance = 60f;
+	private float _lastTraceDistance;
 	private Vector3 _cameraOffset;
 	private bool _isMovingBackwards;
 	private bool _isMoving;
@@ -133,7 +134,7 @@ public partial class Lord
 			return;
 
 		var proposedCameraRotation =
-			_interimCameraRotation.Angles().WithYaw( InputDirection.EulerAngles.yaw ).ToRotation();
+			_interimCameraRotation.Angles().WithYaw( InputDirection.Normal.EulerAngles.yaw ).ToRotation();
 
 		var lerp = Time.Delta * GetFollowLerpMultiplier();
 
@@ -161,8 +162,8 @@ public partial class Lord
 		// Do a trace - get camera distance
 		var targetDistance = GetTargetDistance();
 
-		_cameraOffset = _cameraOffset.LerpTo( GetPostOffset(), Time.Delta * DistanceLerp );
-		var trace = Trace.Ray( EyePosition, EyePosition + Camera.Rotation.Backward * targetDistance + _cameraOffset )
+		_cameraOffset = GetPostOffset(); // _cameraOffset.LerpTo( GetPostOffset(), Time.Delta * DistanceLerp );
+		var trace = Trace.Ray( EyePosition, EyePosition + Camera.Rotation.Backward * targetDistance )
 			.Ignore( this )
 			.WithoutTags( "player", "npc" )
 			.Radius( 7 )
@@ -171,16 +172,16 @@ public partial class Lord
 
 		{
 			// Find camera position
+			_lastTraceDistance = trace.Distance;
 			_proposedCameraDistance = _proposedCameraDistance.LerpTo( MathF.Min( trace.Distance, targetDistance ),
 				Time.Delta * DistanceLerp );
 			var proposedCameraPosition = trace.StartPosition
 			                             + trace.Direction * _proposedCameraDistance;
 
-			Camera.Position = proposedCameraPosition;
+			Camera.Position = proposedCameraPosition + _cameraOffset;
 		}
 
 		// note(gio): stole the below from stud jump! teehee!
-
 		if ( Pointing )
 			RenderColor = Color.White.WithAlpha( 0.5f );
 		else
@@ -221,9 +222,9 @@ public partial class Lord
 
 		LookDirection = Camera.Rotation;
 	}
-	
+
 	[ConVar.Client( "gdbg_camera" )] private static bool ShowCameraInfo { get; set; } = true;
-	
+
 	[Debug.Draw]
 	private static void DebugDraw()
 	{
@@ -233,8 +234,11 @@ public partial class Lord
 			Debug.Value( "Position", Camera.Position );
 			Debug.Value( "Rotation", Camera.Rotation );
 			Debug.Value( "Rotation (interim)", lord._interimCameraRotation );
+			Debug.Value( "Trace Distance", lord._lastTraceDistance );
 			Debug.Value( "Proposed Distance", lord._proposedCameraDistance );
 			Debug.Value( "Offset", lord._cameraOffset );
+			Debug.Value( "Follow Lerp", lord.GetFollowLerpMultiplier() );
+			Debug.Value( "Rotation Lerp", lord.GetCameraRotationLerp() );
 		}, ShowCameraInfo );
 	}
 }
