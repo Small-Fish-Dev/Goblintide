@@ -6,7 +6,22 @@
     "Guid": "6c3310c9-f319-468b-bb32-a3d3c2d3dce2",
     "Class": "BaseNPC",
     "Entities": [],
-    "Components": [],
+    "Components": [
+      {
+        "Guid": "86dd8d02-7690-40f2-b724-2a3eb6fe1930",
+        "Class": "NamingComponent",
+        "Keys": {
+          "Type": {
+            "Type": "Type",
+            "Value": "\u0022Human\u0022"
+          },
+          "_name": {
+            "Value": "\u0022NamingComponent\u0022"
+          },
+          "_tags": {}
+        }
+      }
+    ],
     "Keys": {
       "Faction": {
         "Type": "Faction",

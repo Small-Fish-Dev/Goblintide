@@ -6,7 +6,22 @@
     "Guid": "bc83492b-2129-4caa-b119-30a5dc043d9c",
     "Class": "BaseNPC",
     "Entities": [],
-    "Components": [],
+    "Components": [
+      {
+        "Guid": "7fdd9f8b-ea08-4eb2-8a37-aa6d07202f0f",
+        "Class": "NamingComponent",
+        "Keys": {
+          "Type": {
+            "Type": "Type",
+            "Value": "\u0022Goblin\u0022"
+          },
+          "_name": {
+            "Value": "\u0022NamingComponent\u0022"
+          },
+          "_tags": {}
+        }
+      }
+    ],
     "Keys": {
       "Model": {
         "Type": "Model",
