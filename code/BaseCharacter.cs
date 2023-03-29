@@ -24,5 +24,15 @@ public partial class BaseCharacter : BaseEntity
 
 		Tags.Add( "Pushable" );
 		Tags.Add( Faction.ToString() );
+
+		if ( Game.IsServer )
+			foreach ( var component in Components.GetAll<CharacterComponent>() )
+				component.Spawn();
+	}
+
+	public override void ClientSpawn()
+	{
+		foreach ( var component in Components.GetAll<CharacterComponent>() )
+			component.Spawn();
 	}
 }
