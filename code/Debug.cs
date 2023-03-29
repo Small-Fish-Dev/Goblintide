@@ -1,11 +1,22 @@
-﻿namespace GameJam;
+﻿using System.Globalization;
+
+namespace GameJam;
 
 public static class Debug
 {
+	private const string DrawEventName = "gdbg_event";
+
+	public class DrawAttribute : EventAttribute
+	{
+		public DrawAttribute() : base( DrawEventName ) { }
+	}
+
 	[ConVar.Client( "gdbg_camera" )] private static bool ShowCameraInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_player" )] private static bool ShowPlayerInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_lord" )] private static bool ShowLordInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_input" )] private static bool ShowInputInfo { get; set; } = true;
+
+	#region Input Processing
 
 	private static Vector3 _analogMove;
 	private static Angles _analogLook;
@@ -16,43 +27,47 @@ public static class Debug
 		_analogMove = Input.AnalogMove;
 		_analogLook = Input.AnalogLook;
 	}
-	
+
+	#endregion
+
+	#region Overlay Methods
+
+	private static int _line;
+	private static readonly Vector2 Pos = Vector2.One * 20;
+
+	internal static void Add( string text, Color color ) => DebugOverlay.ScreenText( text, Pos, _line++, color );
+
+	internal static void Add( string text, Color color, string text2, Color color2 )
+	{
+		DebugOverlay.ScreenText( text, Pos, _line, color );
+		DebugOverlay.ScreenText( $"{new string( ' ', text.Length )}{text2}", Pos, _line, color2 );
+		_line++;
+	}
+
+	internal static void Header( string name ) => Add( name, Color.Yellow );
+
+	internal static void Section( string name, Action action, bool active = true )
+	{
+		if ( !active ) return;
+		Header( name );
+		action.Invoke();
+		Space();
+	}
+
+	internal static void Value( string name, string value ) => Add( $"{name}: ", Color.Orange, value, Color.White );
+	internal static void Value( string name, object value ) => Value( name, value.ToString() );
+	internal static void Space( int amount = 1 ) => _line += amount;
+
+	#endregion
+
 	[Event.Client.Frame]
 	private static void Frame()
 	{
-		var pos = Vector2.One * 20;
-		var line = 0;
+		_line = 0;
 
-		#region Methods
-
-		void Add( string text, Color color ) => DebugOverlay.ScreenText( text, pos, line++, color );
-
-		void AddDual( string text, Color color, string text2, Color color2 )
-		{
-			DebugOverlay.ScreenText( text, pos, line, color );
-			DebugOverlay.ScreenText( $"{new string( ' ', text.Length )}{text2}", pos, line, color2 );
-			line++;
-		}
-
-		void Header( string name ) => Add( name, Color.Yellow );
-
-		void Section( string name, Action action, bool active = true )
-		{
-			if ( !active ) return;
-			Header( name );
-			action.Invoke();
-			Space();
-		}
-
-		void Value( string name, string value ) => AddDual( $"{name}: ", Color.Orange, value, Color.White );
-		void ValueObject( string name, object value ) => Value( name, value.ToString() );
-		void Space( int amount = 1 ) => line += amount;
-
-		#endregion
-
-		AddDual( "Small Fish Confidential - ", Color.Yellow, "Unauthorised distribution will end in death",
+		Add( "Small Fish Confidential - ", Color.Yellow, "Unauthorised distribution will end in death",
 			Color.Yellow );
-		Add( DateTime.Now.ToString(), Color.White );
+		Add( DateTime.Now.ToString( CultureInfo.InvariantCulture ), Color.White );
 
 		Space();
 
@@ -60,32 +75,33 @@ public static class Debug
 		Section( "Game Info", () =>
 		{
 			var pawn = Game.LocalPawn;
-			ValueObject( "Position", pawn.Position );
-			ValueObject( "Rotation", pawn.Rotation );
-			ValueObject( "Steam ID", Game.LocalClient.SteamId );
-			ValueObject( "Entity Count", Entity.All.Count );
+			Value( "Position", pawn.Position );
+			Value( "Rotation", pawn.Rotation );
+			Value( "Steam ID", Game.LocalClient.SteamId );
+			Value( "Entity Count", Entity.All.Count );
 		}, ShowPlayerInfo );
 
 		Section( "Input", () =>
 		{
-			ValueObject( "AnalogMove", _analogMove );
-			ValueObject( "AnalogLook", _analogLook );
+			Value( "AnalogMove", _analogMove );
+			Value( "AnalogLook", _analogLook );
 		}, ShowInputInfo );
-		
+
 		Section( "Lord", () =>
 		{
 			var lord = (Lord)Game.LocalPawn;
-			ValueObject( "Faction", lord.Faction );
-			ValueObject( "Hit Points", lord.HitPoints );
+			Value( "Faction", lord.Faction );
+			Value( "Hit Points", lord.HitPoints );
 		}, ShowLordInfo );
 
 		Section( "Camera", () =>
 		{
 			var lord = (Lord)Game.LocalPawn;
-			ValueObject( "Position", Camera.Position );
-			ValueObject( "Rotation", Camera.Rotation );
-			ValueObject( "Interim", lord.InterimCameraRotation );
+			Value( "Position", Camera.Position );
+			Value( "Rotation", Camera.Rotation );
+			Value( "Interim", lord.InterimCameraRotation );
 		}, ShowCameraInfo );
-		
+
+		Event.Run( DrawEventName );
 	}
 }
