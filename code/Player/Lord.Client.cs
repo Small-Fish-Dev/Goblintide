@@ -91,7 +91,7 @@ public partial class Lord
 	private Vector3 GetPostOffset()
 	{
 		if ( !Pointing )
-			return Vector3.Up * 1;
+			return Vector3.Up * 1 + Camera.Rotation.Right * 25f;
 		return Vector3.Up * 1 + Camera.Rotation.Right * 25f;
 	}
 
