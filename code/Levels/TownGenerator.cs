@@ -1,5 +1,6 @@
 ﻿using Sandbox.Utility;
 using System.IO;
+using System.Threading.Tasks;
 using static Sandbox.CitizenAnimationHelper;
 
 namespace GameJam;
@@ -70,7 +71,7 @@ public class Town
 		return false;
 	}
 
-	public static Town GenerateTown( Vector3 position, float townSize = 100f, float density = 3f )
+	public static async void GenerateTown( Vector3 position, float townSize = 100f, float density = 3f )
 	{
 		Current?.DeleteTown();
 
@@ -79,13 +80,28 @@ public class Town
 		var rand = new Random( Current.Seed );
 
 		float townWidth = 300f * (1f + townSize / 50f);
+
+		var delayCounter = 0;
 		
 		for( float x = -townWidth; x <= townWidth; x += 100f / density )
 		{
 			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
 			{
-				if ( Current.TryForProp( rand, position, x, y, density, 0.4f ) ) continue;
-				if ( Current.TryForNPCs( rand, position, x, y, density, 0.45f ) ) continue;
+				if ( delayCounter >= 10 )
+				{
+					delayCounter = 0;
+					await GameTask.Delay( 1 );
+				}
+				if ( Current.TryForProp( rand, position, x, y, density, 0.4f ) )
+				{
+					delayCounter++;
+					continue;
+				}
+				if ( Current.TryForNPCs( rand, position, x, y, density, 0.45f ) )
+				{
+					delayCounter++;
+					continue;
+				}
 			}
 		}
 
@@ -105,8 +121,6 @@ public class Town
 		}
 
 		Current.Bounds = maxBounds - minBounds;
-
-		return Current;
 	}
 
 	public void DeleteTown()
@@ -124,5 +138,6 @@ public class Town
 		var player = ConsoleSystem.Caller.Pawn as Lord;
 
 		Town.GenerateTown( player.Position, townSize, density );
+
 	}
 }
