@@ -10,12 +10,13 @@ public class Town
 	public int Seed => TownSize.GetHashCode();
 	internal List<BaseEntity> townEntities = new();
 
-	public static List<string> PlaceableProps { get; set; } = new()
+	public static Dictionary<string,float> PlaceableProps { get; set; } = new()
 	{
-		"prefabs/props/barrel.prefab",
-		"prefabs/props/largecrate.prefab",
-		"prefabs/props/smallcrate.prefab"
+		{ "prefabs/props/barrel.prefab", 1f },
+		{ "prefabs/props/largecrate.prefab", 2f },
+		{ "prefabs/props/smallcrate.prefab", 10f },
 	};
+
 
 	public Town() { }
 
@@ -33,9 +34,7 @@ public class Town
 			{
 				if ( rand.Next( 10 ) < 2 )
 				{
-					var randomPropId = rand.Next( PlaceableProps.Count );
-					var randomProp = PlaceableProps[randomPropId];
-					var spawnedProp = BaseProp.FromPrefab( randomProp );
+					var spawnedProp = BaseProp.FromPrefab( WeightedList.RandomKey( PlaceableProps ) );
 
 					var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
 					var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
