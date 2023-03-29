@@ -23,6 +23,9 @@ public partial class BaseNPC
 
 		foreach ( var toucher in touchingEntities )
 		{
+			if ( toucher == null || !toucher.IsValid )
+				continue;
+
 			var direction = (Position - toucher.Position).WithZ(0).Normal;
 			var distance = Position.DistanceSquared( toucher.Position );
 			var maxDistance = 500f;
