@@ -40,7 +40,6 @@ public partial class Lord
 	#region Camera and Input Variables
 
 	private Rotation _interimCameraRotation = Rotation.Identity;
-	internal Rotation InterimCameraRotation => _interimCameraRotation;
 	private float _proposedCameraDistance = 60f;
 	private Vector3 _cameraOffset;
 	private bool _isMovingBackwards;
@@ -221,5 +220,21 @@ public partial class Lord
 		Pointing = Input.Down( InputButton.SecondaryAttack );
 
 		LookDirection = Camera.Rotation;
+	}
+	
+	[ConVar.Client( "gdbg_camera" )] private static bool ShowCameraInfo { get; set; } = true;
+	
+	[Debug.Draw]
+	private static void DebugDraw()
+	{
+		Debug.Section( "Camera", () =>
+		{
+			var lord = (Lord)Game.LocalPawn;
+			Debug.Value( "Position", Camera.Position );
+			Debug.Value( "Rotation", Camera.Rotation );
+			Debug.Value( "Rotation (interim)", lord._interimCameraRotation );
+			Debug.Value( "Proposed Distance", lord._proposedCameraDistance );
+			Debug.Value( "Offset", lord._cameraOffset );
+		}, ShowCameraInfo );
 	}
 }
