@@ -5,6 +5,7 @@ namespace GameJam;
 
 public class Town
 {
+	public static Town Current { get; set; }
 	public float TownSize { get; set; } = 0f;
 	public Vector3 Position { get; set; } = Vector3.Zero;
 	public Vector2 Bounds { get; set; } = Vector2.Zero;
@@ -28,9 +29,11 @@ public class Town
 
 	public static Town GenerateTown( Vector3 position, float townSize = 100f, float density = 3f )
 	{
-		var generatedTown = new Town();
-		generatedTown.TownSize = townSize;
-		var rand = new Random( generatedTown.Seed );
+		Current?.DeleteTown();
+
+		Current = new Town();
+		Current.TownSize = townSize;
+		var rand = new Random( Current.Seed );
 
 		float townWidth = 300f * (1f + townSize / 50f);
 		
@@ -38,15 +41,15 @@ public class Town
 		{
 			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
 			{
-				if ( generatedTown.PerlinValue( x, y ) <= 0.4f )
+				if ( Current.PerlinValue( x, y ) <= 0.4f )
 				{
-					var spawnedProp = BaseProp.FromPrefab( WeightedList.RandomKey( PlaceableProps ) );
+					var spawnedProp = BaseProp.FromPrefab( WeightedList.RandomKey( rand, PlaceableProps ) );
 
 					var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
 					var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
 					spawnedProp.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
 					spawnedProp.Rotation = Rotation.FromYaw( rand.Next( 360 ) );
-					generatedTown.townEntities.Add( spawnedProp );
+					Current.townEntities.Add( spawnedProp );
 				}
 			}
 		}
@@ -54,7 +57,7 @@ public class Town
 		Vector2 minBounds = new();
 		Vector2 maxBounds = new();
 
-		foreach( var entity in generatedTown.townEntities )
+		foreach( var entity in Current.townEntities )
 		{
 			if ( entity.Position.x - position.x < minBounds.x )
 				minBounds.x = entity.Position.x;
@@ -66,9 +69,9 @@ public class Town
 				maxBounds.y = entity.Position.y;
 		}
 
-		generatedTown.Bounds = maxBounds - minBounds;
+		Current.Bounds = maxBounds - minBounds;
 
-		return generatedTown;
+		return Current;
 	}
 
 	public void DeleteTown()
