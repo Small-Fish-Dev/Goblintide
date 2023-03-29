@@ -1,0 +1,37 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/blendable.shader_c"
+
+	F_MULTIBLEND 1 // 2 Layers
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Material ----
+	TextureColor "materials/default/default_color.tga"
+	TextureTintMask "materials/default/default.tga"
+
+	//---- Material A ----
+	g_flTintColorA "[0.317647 0.317647 0.317647 0.000000]"
+	TextureAmbientOcclusionA "materials/plaster_a/plaster_a_ao.tga"
+	TextureBlendMaskA "materials/plaster_a/plaster_a_height.tga"
+	TextureColorA "materials/plaster_a/plaster_a_color.tga"
+	TextureMetalnessA "materials/default/default_metal.tga"
+	TextureNormalA "materials/plaster_a/plaster_a_normal.tga"
+	TextureRoughnessA "materials/plaster_a/plaster_a_rough.tga"
+	TextureTintMaskA "materials/plaster_a/plaster_a_mask.tga"
+
+	//---- Material B ----
+	g_flBlendSoftnessB "0.172"
+	g_flTintColorB "[0.145098 0.031373 0.031373 0.000000]"
+	g_vTexCoordScale2 "[1.000 1.000]"
+	TextureAmbientOcclusionB "materials/roof_tiles_a/roof_tiles_ao.tga"
+	TextureBlendMaskB "materials/roof_tiles_a/roof_tiles_height.tga"
+	TextureColorB "materials/roof_tiles_a/roof_tiles_color.tga"
+	TextureMetalnessB "materials/default/default_metal.tga"
+	TextureNormalB "materials/roof_tiles_a/roof_tiles_normal.tga"
+	TextureRoughnessB "materials/roof_tiles_a/roof_tiles_rough.tga"
+	TextureTintMaskB "materials/roof_tiles_a/roof_tiles_mask.tga"
+}
