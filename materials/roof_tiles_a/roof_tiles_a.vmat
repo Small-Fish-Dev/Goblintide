@@ -8,7 +8,7 @@
 	"g_flAmbientOcclusionDirectSpecular"		"0.000000"
 	"TextureAmbientOcclusion"		"materials/roof_tiles_a/roof_tiles_ao.tga"
 	"g_flModelTintAmount"		"1.000000"
-	"g_vColorTint"		"[0.650980 0.270588 0.270588 0.000000]"
+	"g_vColorTint"		"[1.000000 1.000000 1.000000 0.000000]"
 	"TextureColor"		"materials/roof_tiles_a/roof_tiles_color.tga"
 	"TextureTintMask"		"materials/roof_tiles_a/roof_tiles_mask.tga"
 	"g_flFadeExponent"		"1.000000"
