@@ -73,7 +73,7 @@ public partial class BaseNPC : BaseCharacter
 				.Replace( "%attacker", LastAttackedBy?.Name ?? "Unknown Entity" )
 				.Replace( "%target", Name );
 
-			Eventlogger.Send( To.Everyone, $"<red>{input}", 3 );
+			EventLogger.Send( To.Everyone, $"<red>{input}", 3 );
 		}
 
 		base.Kill();
