@@ -16,7 +16,7 @@
 </style>
 
 <root>
-	<eventlogger />
+	<eventlogger/>
 </root>
 
 @code {
@@ -24,6 +24,7 @@
 
 	public HUD()
 	{
+		Game.RootPanel = this;
 		Instance?.Delete( true );
 		Instance = this;
 	}
