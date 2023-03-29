@@ -25,6 +25,8 @@ public partial class GameMgr : GameManager
 			SetState<VillageState>();
 
 		Event.Run( nameof( GameEvents.Initialize ) );
+		
+		WorldMapHost.Start();
 	}
 
 	public override void ClientJoined( IClient client )
