@@ -34,4 +34,11 @@ Layer0
 	TextureNormalB "materials/roof_tiles_a/roof_tiles_normal.tga"
 	TextureRoughnessB "materials/roof_tiles_a/roof_tiles_rough.tga"
 	TextureTintMaskB "materials/roof_tiles_a/roof_tiles_mask.tga"
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "concrete"
+		WorldMappingWidth "128"
+		WorldMappingHeight "128"
+	}
 }
