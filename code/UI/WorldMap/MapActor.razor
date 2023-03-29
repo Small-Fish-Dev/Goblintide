@@ -1,0 +1,36 @@
+﻿@using Sandbox.UI;
+@namespace GameJam
+@inherits Panel
+
+@code {
+
+	private Vector2? _position;
+
+	internal Vector2 DragOffset;
+
+	public Vector2 Position
+	{
+		get
+		{
+			_position ??= GetInitialPosition();
+			return _position.Value;
+		}
+
+		set
+		{
+			_position = value;
+
+			Style.Left = Length.Pixels( value.x );
+			Style.Top = Length.Pixels( value.y );
+
+			StateHasChanged();
+		}
+	}
+
+	private Vector2 GetInitialPosition() => new()
+	{
+		x = Style.Left?.GetPixels( Parent.Box.Rect.Width ) ?? 0,
+		y = Style.Top?.GetPixels( Parent.Box.Rect.Height ) ?? 0
+	};
+
+}

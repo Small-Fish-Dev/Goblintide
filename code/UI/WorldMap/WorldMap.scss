@@ -1,0 +1,38 @@
+﻿WorldMap {
+	position: absolute;
+
+	width: 100%;
+	height: 100%;
+
+	align-items: center;
+	justify-content: center;
+
+	pointer-events: all;
+
+	.container {
+		width: 90%;
+		height: 90%;
+
+		background-color: yellow;
+
+		align-items: center;
+		justify-content: center;
+
+		overflow: hidden;
+
+		MapActor {
+			/* Item on world map */
+			position: relative;
+
+			&.level {
+				width: 100px;
+				height: 100px;
+
+				left: 20px;
+				top: 20px;
+
+				background-color: red;
+			}
+		}
+	}
+}
