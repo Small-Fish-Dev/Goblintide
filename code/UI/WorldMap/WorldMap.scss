@@ -20,4 +20,16 @@
 
 		overflow: hidden;
 	}
+	
+	transition: all 1s ease-in-out;
+	
+	&:outro {
+		transform: translateZ(300px);
+		opacity: 0;
+	}
+
+	&:intro {
+		transform: translateZ(300px);
+		opacity: 0;
+	}
 }
