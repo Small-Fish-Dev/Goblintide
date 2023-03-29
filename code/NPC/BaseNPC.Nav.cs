@@ -21,7 +21,8 @@ public partial class BaseNPC
 	{
 
 		var pathSettings = NavMesh.PathBuilder( Position )
-			.WithAgentHull( Agent );
+			.WithAgentHull( Agent )
+			.WithStartVelocity( Velocity );
 
 		if ( acceptIncomplete )
 			pathSettings.WithPartialPaths();
@@ -54,13 +55,13 @@ public partial class BaseNPC
 			return;
 		}
 
-		Direction = (nextPathPoint.Position - Position).Normal;
-
-		if ( Position.DistanceSquared( nextPathPoint.Position ) <= 40f )
+		if ( Position.DistanceSquared( nextPathPoint.Position ) <= 60f )
 			currentPathIndex++;
 
-		if ( distanceFromIdealPath >= 50f )
+		if ( distanceFromIdealPath >= 600f )
 			NavigateTo( CurrentTargetPosition );
+
+		Direction = (nextPathPoint.Position - Position).Normal;
 
 		if ( currentPathIndex >= currentPathCount )
 		{

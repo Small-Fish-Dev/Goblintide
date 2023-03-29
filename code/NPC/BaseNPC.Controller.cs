@@ -6,8 +6,6 @@ public partial class BaseNPC
 	[Net] public Vector3 Direction { get; set; } = Vector3.Zero;
 	public Vector3 WishVelocity => Direction.Normal * WishSpeed;
 	public Rotation WishRotation => Rotation.LookAt( Direction, Vector3.Up );
-	public float StepSize => 16f;
-	public float MaxWalkableAngle => 60f;
 
 	public virtual void ComputeMotion()
 	{
@@ -35,7 +33,6 @@ public partial class BaseNPC
 
 		Velocity += pushOffset;
 		Position += Velocity * Time.Delta;
-
 	}
 
 	internal List<BaseEntity> touchingEntities = new();
