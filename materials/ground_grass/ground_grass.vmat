@@ -4,6 +4,12 @@ Layer0
 {
 	shader "shaders/simple.shader_c"
 
+	//---- PBR ----
+	F_AMBIENT_OCCLUSION_TEXTURE 1
+
+	//---- Ambient Occlusion ----
+	TextureAmbientOcclusion "materials/ground_grass/ground_grass_ao.tga"
+
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
