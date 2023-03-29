@@ -1,6 +1,6 @@
 ﻿using Sandbox.UI;
 
-namespace GameJam;
+namespace GameJam.UI;
 
 public partial class WorldMap : Panel
 {

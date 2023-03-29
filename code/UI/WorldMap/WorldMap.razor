@@ -1,14 +1,11 @@
 ﻿@using Sandbox.UI;
 
-@namespace GameJam
+@namespace GameJam.UI
 @inherits Panel
 @attribute [StyleSheet( "/UI/WorldMap/WorldMap.scss" )]
 
 <root>
-	<div class="container" @ref=Container allow-translate>
-		@for ( var i = 0; i < 25; i++ )
-		{
-			<MapActor class="item level">hi</MapActor>
-		}
+	<div class="container" @ref=@Container allow-translate>
+		<Level class="item"></Level>
 	</div>
 </root>
