@@ -17,9 +17,9 @@ public partial class Lord
 	#region Camera Configuration
 
 	/// <summary> Max distance from camera to player </summary>
-	public float CameraDistance = 70f;
+	public const float CameraDistance = 70f;
 
-	private const float CameraRotationLerp = 15.0f;
+	private const float CameraRotationLerp = 20.0f;
 	private const float CameraRotationPointingLerp = 35.0f;
 
 	/// <summary> Lerp amount multiplier: used when following the player and the mouse is being moved </summary>
