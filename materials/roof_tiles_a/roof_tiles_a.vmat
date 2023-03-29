@@ -24,7 +24,7 @@
 	"SystemAttributes"
 	{
 		"PhysicsSurfaceProperties"		"concrete"
-		"WorldMappingWidth"		"128"
-		"WorldMappingHeight"		"128"
+		"WorldMappingWidth"		"512"
+		"WorldMappingHeight"		"512"
 	}
 }
