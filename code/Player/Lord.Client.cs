@@ -26,7 +26,7 @@ public partial class Lord
 	private const float FollowRotationLerp = 1.65f;
 
 	/// <summary> Lerp amount multiplier: used when following the player and a controller is being used </summary>
-	private const float FollowControllerRotationLerp = 1.65f;
+	private const float FollowControllerRotationLerp = 1.35f;
 
 	/// <summary> Lerp amount multiplier: used when following the player and the mouse is still </summary>
 	private const float FollowStillRotationLerp = 0.5f;
