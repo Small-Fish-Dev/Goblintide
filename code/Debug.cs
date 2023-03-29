@@ -19,7 +19,6 @@ public static class Debug
 	}
 
 	[ConVar.Client( "gdbg" )] private static bool Enabled { get; set; } = true;
-	[ConVar.Client( "gdbg_camera" )] private static bool ShowCameraInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_player" )] private static bool ShowPlayerInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_lord" )] private static bool ShowLordInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_input" )] private static bool ShowInputInfo { get; set; } = true;
@@ -135,14 +134,6 @@ public static class Debug
 			Value( "Hit Points", lord.HitPoints );
 			Value( "Energy", lord.Energy.Value );
 		}, ShowLordInfo );
-
-		Section( "Camera", () =>
-		{
-			var lord = (Lord)Game.LocalPawn;
-			Value( "Position", Camera.Position );
-			Value( "Rotation", Camera.Rotation );
-			Value( "Interim", lord.InterimCameraRotation );
-		}, ShowCameraInfo );
 
 		SetHeaderColor( Color.Green );
 
