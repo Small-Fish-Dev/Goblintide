@@ -29,6 +29,12 @@ public partial class Lord : BaseCharacter
 		Tags.Add( Faction.ToString() );
 
 		Components.Create<EnergyComponent>();
+
+		// Add obscured glow.
+		var glow = Components.GetOrCreate<Glow>();
+		glow.Enabled = true;
+		glow.ObscuredColor = Color.White;
+		glow.Color = Color.Transparent;
 	}
 
 	public override void Simulate( IClient cl )
