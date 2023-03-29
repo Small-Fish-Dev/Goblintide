@@ -1,0 +1,51 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/glass.shader_c"
+
+	//---- Glass ----
+	F_REFRACTION 1
+
+	g_flDirectionalLightmapMinZ "0.000"
+	g_flDirectionalLightmapStrength "0.000"
+
+	//---- Color ----
+	g_flModelTintAmount "1.000"
+	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
+	TextureAmbientOcclusion "materials/village_house/glass/houseglass_ao.png"
+	TextureColor "materials/village_house/glass/houseglass_color.png"
+	TextureMetalness "materials/village_house/glass/houseglass_metal.png"
+	TextureNormal "materials/village_house/glass/houseglass_normal.png"
+	TextureRoughness "materials/village_house/glass/houseglass_rough.png"
+	TextureTranslucency "materials/village_house/glass/houseglass_trans.png"
+
+	//---- Fade ----
+	g_flFadeExponent "1.000"
+
+	//---- Fresnel ----
+	g_bFresnel "1"
+	g_flEdgeColorFalloff "0.972"
+	g_flEdgeColorMaxOpacity "0.304"
+	g_flEdgeColorThickness "0.010"
+	g_vEdgeColor "[0.000000 0.000000 0.000000 0.000000]"
+
+	//---- Glass ----
+	g_bMultiplyTintColor "1"
+	g_flAlphaTestReference "0.429"
+	g_flOpacity "0.135"
+	GlassNormal "materials/village_house/glass/houseglass_normal.png"
+	GlassRoughness "materials/village_house/glass/houseglass_rough.png"
+	GlassTintColor "materials/village_house/glass/houseglass_color.png"
+
+	//---- Refraction ----
+	g_flRefractionStrength "0.022"
+	RefractionNormal "materials/village_house/glass/houseglass_normal.png"
+
+	//---- Texture Coordinates ----
+	g_nScaleTexCoordUByModelScaleAxis "0"
+	g_nScaleTexCoordVByModelScaleAxis "0"
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[1.000 1.000]"
+	g_vTexCoordScrollSpeed "[0.000 0.000]"
+}

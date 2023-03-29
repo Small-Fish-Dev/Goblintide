@@ -2,17 +2,17 @@
 
 Layer0
 {
-	shader "complex.shader"
+	shader "shaders/complex.shader_c"
 
 	//---- Ambient Occlusion ----
 	g_flAmbientOcclusionDirectDiffuse "0.000"
 	g_flAmbientOcclusionDirectSpecular "0.000"
-	TextureAmbientOcclusion "materials/village_house/village_house_wall_ao.tga"
+	TextureAmbientOcclusion "materials/village_house/walls/village_house_wall_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "materials/village_house/village_house_wall_color.tga"
+	TextureColor "materials/village_house/walls/village_house_wall_color.tga"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -24,10 +24,10 @@ Layer0
 	g_flMetalness "0.000"
 
 	//---- Normal ----
-	TextureNormal "materials/village_house/village_house_wall_normal.tga"
+	TextureNormal "materials/village_house/walls/village_house_wall_normal.tga"
 
 	//---- Roughness ----
-	TextureRoughness "materials/village_house/village_house_wall_rough.tga"
+	TextureRoughness "materials/village_house/walls/village_house_wall_rough.tga"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
@@ -38,6 +38,6 @@ Layer0
 
 	ToolAttributes
 	{
-		SubrectDefinition "materials/village_house/village_house_wall.rect"
+		SubrectDefinition "materials/village_house/walls/village_house_wall.rect"
 	}
 }
