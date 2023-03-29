@@ -1,0 +1,44 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "f919cbb7-735f-4eb0-ba00-68e81971ec5f",
+    "Class": "BaseCollectable",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Type": {
+        "Type": "Collectable",
+        "Value": "\u0022Wood\u0022"
+      },
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/dev/error.vmdl\u0022"
+      },
+      "Value": {
+        "Type": "Single",
+        "Value": "2"
+      },
+      "_name": {
+        "Value": "\u0022Wood\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {
+        "Value": "\u0022\u0022"
+      },
+      "CollisionBoxSize": {
+        "Type": "Single",
+        "Value": "30"
+      }
+    }
+  }
+}
