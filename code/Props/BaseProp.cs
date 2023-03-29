@@ -1,4 +1,6 @@
-﻿namespace GameJam;
+﻿using GameJam.Util;
+
+namespace GameJam;
 
 [Prefab, Category( "Prop" )]
 public partial class BaseProp : BaseEntity
@@ -8,11 +10,11 @@ public partial class BaseProp : BaseEntity
 	public override float HitPoints { get; set; } = 0.5f;
 
 	[Prefab, Category( "Stats" )]
-	public virtual RangedFloat GoldDropped { get; set; } = new RangedFloat( 0f, 0f );
+	public virtual RangedInt GoldDropped { get; set; } = new RangedInt( 0 );
 	[Prefab, Category( "Stats" )]
-	public virtual RangedFloat WoodDropped { get; set; } = new RangedFloat( 0f, 0f );
+	public virtual RangedInt WoodDropped { get; set; } = new RangedInt( 0 );
 	[Prefab, Category( "Stats" )]
-	public virtual RangedFloat FoodDropped { get; set; } = new RangedFloat( 0f, 0f );
+	public virtual RangedInt FoodDropped { get; set; } = new RangedInt( 0 );
 	[Prefab, Category( "Visual" )]
 	public virtual bool IsBreakable { get; set; } = true;
 
@@ -52,5 +54,18 @@ public partial class BaseProp : BaseEntity
 		}
 
 		return null;
+	}
+
+
+	[ConCmd.Admin( "prop" )]
+	public static void SpawnTest( string type = "barrel", int amount = 1 )
+	{
+		var player = ConsoleSystem.Caller.Pawn as Lord;
+
+		for ( int i = 0; i < amount; i++ )
+		{
+			var prop = BaseProp.FromPrefab( $"prefabs/props/{type}.prefab" );
+			prop.Position = player.Position + Vector3.Random.WithZ( 0 ) * 100f;
+		}
 	}
 }

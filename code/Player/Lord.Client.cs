@@ -165,7 +165,7 @@ public partial class Lord
 		_cameraOffset = GetPostOffset(); // _cameraOffset.LerpTo( GetPostOffset(), Time.Delta * DistanceLerp );
 		var trace = Trace.Ray( EyePosition, EyePosition + Camera.Rotation.Backward * targetDistance )
 			.Ignore( this )
-			.WithoutTags( "player", "npc" )
+			.WithoutTags( "player", "npc", "trigger" )
 			.Radius( 7 )
 			.IncludeClientside()
 			.Run();
