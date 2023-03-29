@@ -77,6 +77,7 @@ public static class Debug
 			// ignored
 			Log.Warning( e );
 		}
+
 		Space();
 	}
 
@@ -97,7 +98,7 @@ public static class Debug
 
 		TryGitUpdate();
 
-		Add( "Small Fish Confidential - ", Color.Yellow, "Unauthorised distribution will end in death",
+		Add( "Small Fish Confidential - ", Color.Yellow, "Unauthorised distribution may result in death",
 			Color.Yellow );
 		Add( DateTime.Now.ToString( CultureInfo.InvariantCulture ), Color.White );
 
@@ -108,7 +109,7 @@ public static class Debug
 		if ( _branches.Count != 0 )
 			Section( "Commit", () =>
 			{
-				foreach ( var (branch, id) in _branches ) Value( $"{branch} (local)", ShortenTags ? id[..7] : id );
+				foreach ( var (branch, id, src) in _branches ) Value( $"{branch} ({src})", ShortenTags ? id[..7] : id );
 			}, ShowGitInfo );
 
 		// Player info
@@ -150,7 +151,7 @@ public static class Debug
 
 	#region Git
 
-	private static readonly List<(string, string)> _branches = new();
+	private static readonly List<(string, string, string)> _branches = new();
 	private static TimeUntil _gitUpdateTimer = 5;
 
 	private static void TryGitUpdate()
@@ -170,8 +171,14 @@ public static class Debug
 		try
 		{
 			var git = FileSystem.Mounted.CreateSubSystem( ".git" );
-			var contents = git.ReadAllText( "refs/heads/main" );
-			_branches.Add( ("main", contents) );
+			{
+				var contents = git.ReadAllText( "refs/heads/main" );
+				_branches.Add( ("main", contents, "local") );
+			}
+			{
+				var contents = git.ReadAllText( "FETCH_HEAD" );
+				_branches.Add( ("main", contents.Split( "\t" )[0], "fetched") );
+			}
 		}
 		catch ( Exception )
 		{
