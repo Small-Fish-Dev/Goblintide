@@ -1,5 +1,6 @@
 ﻿using Sandbox.Utility;
 using System.IO;
+using static Sandbox.CitizenAnimationHelper;
 
 namespace GameJam;
 
@@ -19,12 +20,54 @@ public class Town
 		{ "prefabs/props/smallcrate.prefab", 10f },
 	};
 
+	public static Dictionary<string, float> PlaceablePeople { get; set; } = new()
+	{
+		{ "prefabs/npcs/soldier.prefab", 1f },
+		{ "prefabs/npcs/villager.prefab", 6f },
+	};
+
 
 	public Town() { }
 
 	public float PerlinValue( float x = 0f, float y = 0f, float scale = 10f )
 	{
 		return Noise.Perlin( Seed / 1000f + x / scale, Seed / 1000f + y / scale );
+	}
+
+	internal bool TryForProp( Random rand, Vector3 position, float x, float y, float density, float threshold )
+	{
+		if ( Current.PerlinValue( x, y ) <= threshold )
+		{
+			var spawnedProp = BaseProp.FromPrefab( WeightedList.RandomKey( rand, PlaceableProps ) );
+
+			var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+			var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+			spawnedProp.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
+			spawnedProp.Rotation = Rotation.FromYaw( rand.Next( 360 ) );
+			Current.townEntities.Add( spawnedProp );
+
+			return true;
+		}
+
+		return false;
+	}
+
+	internal bool TryForNPCs( Random rand, Vector3 position, float x, float y, float density, float threshold )
+	{
+		if ( Current.PerlinValue( x, y ) <= threshold )
+		{
+			var spawnedNPC = BaseNPC.FromPrefab( WeightedList.RandomKey( rand, PlaceablePeople ) );
+
+			var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+			var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+			spawnedNPC.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
+			spawnedNPC.Rotation = Rotation.FromYaw( rand.Next( 360 ) );
+			Current.townEntities.Add( spawnedNPC );
+
+			return true;
+		}
+
+		return false;
 	}
 
 	public static Town GenerateTown( Vector3 position, float townSize = 100f, float density = 3f )
@@ -41,16 +84,8 @@ public class Town
 		{
 			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
 			{
-				if ( Current.PerlinValue( x, y ) <= 0.4f )
-				{
-					var spawnedProp = BaseProp.FromPrefab( WeightedList.RandomKey( rand, PlaceableProps ) );
-
-					var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
-					var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
-					spawnedProp.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
-					spawnedProp.Rotation = Rotation.FromYaw( rand.Next( 360 ) );
-					Current.townEntities.Add( spawnedProp );
-				}
+				if ( Current.TryForProp( rand, position, x, y, density, 0.4f ) ) continue;
+				if ( Current.TryForNPCs( rand, position, x, y, density, 0.45f ) ) continue;
 			}
 		}
 
