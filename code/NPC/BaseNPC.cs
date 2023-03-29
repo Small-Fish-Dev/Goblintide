@@ -36,6 +36,16 @@ public partial class BaseNPC : BaseCharacter
 	[Prefab, Category( "Character" )]
 	public override float CollisionHeight { get; set; } = 40f;
 
+	// Array of random strings that will popup when your goblin dies.
+	private readonly string[] deathStrings = new string[]
+	{
+		"%attacker destroyed %target.",
+		"%target died to %attacker.",
+		"%target got chopped up by %attacker.",
+		"%attacker killed %target.",
+		"%target was killed by %attacker."
+	};
+
 	public BaseNPC() {}
 
 	public override void Spawn()
@@ -54,6 +64,17 @@ public partial class BaseNPC : BaseCharacter
 	{
 		if ( CurrentTarget != null )
 			CurrentTarget.TotalAttackers--;
+
+		// Log Gobblin DN deaths...
+		if ( Game.IsServer 
+			&& Faction == FactionType.Goblins )
+		{
+			var input = deathStrings[Game.Random.Int( deathStrings.Length - 1 )]
+				.Replace( "%attacker", LastAttackedBy?.Name ?? "Unknown Entity" )
+				.Replace( "%target", Name );
+
+			Eventlogger.Send( To.Everyone, $"<red>{input}", 3 );
+		}
 
 		base.Kill();
 	}
