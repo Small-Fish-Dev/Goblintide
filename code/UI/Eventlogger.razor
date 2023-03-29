@@ -193,4 +193,17 @@
 
 		Lord._addEventlog( target, text, time );
 	}
+	
+	[Debug.Draw]
+	private static void DebugDraw()
+	{
+		Debug.Section( "Event Logger", () =>
+		{
+			Debug.Value( "Event Count", $"{Instance.events.Count} / {Limit}" );
+			foreach ( var e in Instance.events )
+			{
+				Debug.Add( $"{e.Value.UntilDelete.Relative:0.00}s" );
+			}
+		} );
+	}
 }

@@ -34,8 +34,12 @@ public static class Debug
 
 	private static int _line;
 	private static readonly Vector2 Pos = Vector2.One * 20;
+	private static Color _headerColor = Color.Yellow;
+
+	private static void SetHeaderColor( Color color ) => _headerColor = color;
 
 	internal static void Add( string text, Color color ) => DebugOverlay.ScreenText( text, Pos, _line++, color );
+	internal static void Add( string text ) => DebugOverlay.ScreenText( text, Pos, _line++, Color.White );
 
 	internal static void Add( string text, Color color, string text2, Color color2 )
 	{
@@ -44,7 +48,7 @@ public static class Debug
 		_line++;
 	}
 
-	internal static void Header( string name ) => Add( name, Color.Yellow );
+	internal static void Header( string name ) => Add( name, _headerColor );
 
 	internal static void Section( string name, Action action, bool active = true )
 	{
@@ -70,6 +74,8 @@ public static class Debug
 		Add( DateTime.Now.ToString( CultureInfo.InvariantCulture ), Color.White );
 
 		Space();
+
+		SetHeaderColor( Color.Yellow );
 
 		// Player info
 		Section( "Game Info", () =>
@@ -101,6 +107,8 @@ public static class Debug
 			Value( "Rotation", Camera.Rotation );
 			Value( "Interim", lord.InterimCameraRotation );
 		}, ShowCameraInfo );
+
+		SetHeaderColor( Color.Green );
 
 		Event.Run( DrawEventName );
 	}
