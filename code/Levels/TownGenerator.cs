@@ -8,15 +8,6 @@ public class Town
 	public Vector3 Position { get; set; } = Vector3.Zero;
 	public Vector2 Bounds { get; set; } = Vector2.Zero;
 	public int Seed => TownSize.GetHashCode();
-	internal int currentGenerationSeed { get; set; } = 0;
-	public Random RandomFromSeed
-	{
-		get
-		{
-			currentGenerationSeed += 200;
-			return new Random( Seed + currentGenerationSeed );
-		}
-	}
 	internal List<BaseEntity> townEntities = new();
 
 	public static List<string> PlaceableProps { get; set; } = new()
@@ -32,22 +23,24 @@ public class Town
 	{
 		var generatedTown = new Town();
 		generatedTown.TownSize = townSize;
+		var rand = new Random( generatedTown.Seed );
+
 		float townWidth = 300f * (1f + townSize / 50f);
 		
 		for( float x = -townWidth; x <= townWidth; x += 100f / density )
 		{
 			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
 			{
-				if ( generatedTown.RandomFromSeed.Next( 10 ) < 2 )
+				if ( rand.Next( 10 ) < 2 )
 				{
-					var randomPropId = generatedTown.RandomFromSeed.Next( PlaceableProps.Count - 1 );
+					var randomPropId = rand.Next( PlaceableProps.Count );
 					var randomProp = PlaceableProps[randomPropId];
 					var spawnedProp = BaseProp.FromPrefab( randomProp );
 
-					var randomOffsetX = generatedTown.RandomFromSeed.Next( -(int)(50f / density), (int)(50f / density) );
-					var randomOffsetY = generatedTown.RandomFromSeed.Next( -(int)(50f / density), (int)(50f / density) );
+					var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+					var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
 					spawnedProp.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
-					spawnedProp.Rotation = Rotation.FromYaw( generatedTown.RandomFromSeed.Next( 360 ) );
+					spawnedProp.Rotation = Rotation.FromYaw( rand.Next( 360 ) );
 					generatedTown.townEntities.Add( spawnedProp );
 				}
 			}
