@@ -162,8 +162,8 @@ public partial class Lord
 		// Do a trace - get camera distance
 		var targetDistance = GetTargetDistance();
 
-		_cameraOffset = _cameraOffset.LerpTo( GetPostOffset(), Time.Delta * DistanceLerp );
-		var trace = Trace.Ray( EyePosition, EyePosition + Camera.Rotation.Backward * targetDistance + _cameraOffset )
+		_cameraOffset = GetPostOffset(); // _cameraOffset.LerpTo( GetPostOffset(), Time.Delta * DistanceLerp );
+		var trace = Trace.Ray( EyePosition, EyePosition + Camera.Rotation.Backward * targetDistance )
 			.Ignore( this )
 			.WithoutTags( "player", "npc" )
 			.Radius( 7 )
@@ -178,7 +178,7 @@ public partial class Lord
 			var proposedCameraPosition = trace.StartPosition
 			                             + trace.Direction * _proposedCameraDistance;
 
-			Camera.Position = proposedCameraPosition;
+			Camera.Position = proposedCameraPosition + _cameraOffset;
 		}
 
 		// note(gio): stole the below from stud jump! teehee!
