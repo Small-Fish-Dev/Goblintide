@@ -21,6 +21,8 @@ public class SingletonPanel<T> : Panel where T : Panel, new()
 		Instance = null;
 	}
 
+	public static void Delete() => Instance?.Delete( false );
+
 	public static void Create( Panel parent )
 	{
 		if ( !IsOpen )
@@ -30,7 +32,7 @@ public class SingletonPanel<T> : Panel where T : Panel, new()
 	public static void Toggle( Panel parent )
 	{
 		if ( IsOpen )
-			Instance.Delete();
+			Delete();
 		else
 			Create( parent );
 	}

@@ -3,3 +3,13 @@
 @namespace GameJam.UI
 @inherits SingletonPanel<RaidCompleted>
 @attribute [StyleSheet( "/UI/Raiding/Completed/RaidCompleted.scss" )]
+
+@code {
+
+	public RaidCompleted()
+	{
+		// Make sure RaidInProgress is gone
+		RaidInProgress.Delete();
+	}
+
+}
