@@ -10,6 +10,19 @@ public partial class WorldMap
 
 	private bool _dragging;
 
+	protected override void OnAfterTreeRender( bool firstTime )
+	{
+		base.OnAfterTreeRender( firstTime );
+
+		if ( !firstTime ) return;
+
+		foreach ( var entry in WorldMapHost.Entries )
+		{
+			if ( entry is WorldMapHost.Generator generator )
+				Container.AddChild( new GeneratorActor( generator ) );
+		}
+	}
+
 	/// <summary> Whether or not the world map can be translated </summary>
 	private static bool CanStartDragging( Panel target )
 	{
