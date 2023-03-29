@@ -2,7 +2,7 @@
 
 namespace GameJam.UI;
 
-public partial class WorldMap : Panel
+public partial class WorldMap
 {
 	private Panel Container { get; set; }
 
