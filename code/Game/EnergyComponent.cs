@@ -24,7 +24,7 @@ public partial class EnergyComponent : EntityComponent
 	[Event.Tick]
 	private void Update()
 	{
-		// note(gio): this is wrong please fix it
 		Value += MaxEnergy / RegenerateTime * Time.Delta;
+		Value = float.Min( Value, MaxEnergy );
 	}
 }
