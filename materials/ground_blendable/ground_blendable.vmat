@@ -4,7 +4,7 @@ Layer0
 {
 	shader "shaders/blendable.shader_c"
 
-	F_MULTIBLEND 1 // 2 Layers
+	F_MULTIBLEND 2 // 3 Layers
 
 	//---- Fog ----
 	g_bFogEnabled "1"
@@ -34,6 +34,18 @@ Layer0
 	TextureNormalB "materials/ground_grass/ground_grass_normal.tga"
 	TextureRoughnessB "materials/ground_grass/ground_grass_rough.tga"
 	TextureTintMaskB "materials/default/default.tga"
+
+	//---- Material C ----
+	g_flBlendSoftnessC "0.100"
+	g_flTintColorC "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordScale3 "[1.000 1.000]"
+	TextureAmbientOcclusionC "materials/ground_road/ground_road_ao.tga"
+	TextureBlendMaskC "materials/ground_road/ground_road_height.tga"
+	TextureColorC "materials/ground_road/ground_road_color.tga"
+	TextureMetalnessC "materials/default/default_metal.tga"
+	TextureNormalC "materials/ground_road/ground_road_normal.tga"
+	TextureRoughnessC "materials/ground_road/ground_road_rough.tga"
+	TextureTintMaskC "materials/default/default.tga"
 
 	SystemAttributes
 	{
