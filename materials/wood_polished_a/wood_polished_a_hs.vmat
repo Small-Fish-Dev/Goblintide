@@ -43,4 +43,9 @@ Layer0
 		WorldMappingWidth "128"
 		WorldMappingHeight "128"
 	}
+
+	ToolAttributes
+	{
+		SubrectDefinition "materials\wood_polished_a\wood_polished_a_hs.rect"
+	}
 }
