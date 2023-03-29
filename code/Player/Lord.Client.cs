@@ -40,6 +40,7 @@ public partial class Lord
 	#region Camera and Input Variables
 
 	private Rotation _interimCameraRotation = Rotation.Identity;
+	internal Rotation InterimCameraRotation => _interimCameraRotation;
 	private float _proposedCameraDistance = 60f;
 	private Vector3 _cameraOffset;
 	private bool _isMovingBackwards;
@@ -215,14 +216,5 @@ public partial class Lord
 		Pointing = Input.Down( InputButton.SecondaryAttack );
 
 		LookDirection = Camera.Rotation;
-
-		DebugOverlay.ScreenText( $"AnalogLook: {Input.AnalogLook}", Vector2.One * 20, 0,
-			Input.AnalogLook == Angles.Zero ? Color.Red : Color.Green );
-		DebugOverlay.ScreenText( $"AnalogMove: {Input.AnalogMove}", Vector2.One * 20, 1,
-			Input.AnalogMove.Length == 0 ? Color.Red : Color.Green );
-
-		DebugOverlay.ScreenText( $"Camera Position: {Camera.Position}", Vector2.One * 20, 3, Color.Cyan );
-		DebugOverlay.ScreenText( $"Camera Rotation: {Camera.Rotation}", Vector2.One * 20, 4, Color.Cyan );
-		DebugOverlay.ScreenText( $"Interim Rotation: {_interimCameraRotation}", Vector2.One * 20, 5, Color.Cyan );
 	}
 }
