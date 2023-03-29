@@ -1,0 +1,37 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/blendable.shader_c"
+
+	F_MULTIBLEND 1 // 2 Layers
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Material ----
+	TextureColor "materials/default/default_color.tga"
+	TextureTintMask "materials/default/default.tga"
+
+	//---- Material A ----
+	g_flTintColorA "[1.000000 1.000000 1.000000 0.000000]"
+	TextureAmbientOcclusionA "materials/bark_a/bark_a_ao.tga"
+	TextureBlendMaskA "materials/bark_a/bark_a_height.tga"
+	TextureColorA "materials/bark_a/bark_a_color.tga"
+	TextureMetalnessA "materials/default/default_metal.tga"
+	TextureNormalA "materials/bark_a/bark_a_normal.tga"
+	TextureRoughnessA "materials/bark_a/bark_a_rough.tga"
+	TextureTintMaskA "materials/default/default.tga"
+
+	//---- Material B ----
+	g_flBlendSoftnessB "0.199"
+	g_flTintColorB "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordScale2 "[1.000 1.000]"
+	TextureAmbientOcclusionB "materials/default/default_ao.tga"
+	TextureBlendMaskB "materials/bark_a/bark_a_height.tga"
+	TextureColorB "materials/bark_b/bark_b_color.tga"
+	TextureMetalnessB "materials/default/default_metal.tga"
+	TextureNormalB "materials/bark_b/bark_b_normal.tga"
+	TextureRoughnessB "materials/bark_b/bark_b_rough.tga"
+	TextureTintMaskB "materials/default/default.tga"
+}

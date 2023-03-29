@@ -11,6 +11,6 @@ public partial class NamingComponent : CharacterComponent
 		if ( !Game.IsServer )
 			return;
 		
-		Entity.Name = Names.Create( Type );
+		Entity.DisplayName = Names.Create( Type );
 	}
 }

@@ -20,11 +20,11 @@
 </root>
 
 @code {
+	
 	public static HUD Instance { get; private set; }
 
 	public HUD()
 	{
-		Game.RootPanel = this;
 		Instance?.Delete( true );
 		Instance = this;
 	}
@@ -35,4 +35,18 @@
 		if ( Game.IsClient )
 			_ = new HUD();
 	}
+
+	[Debug.Draw]
+	private void DebugDraw()
+	{
+		Debug.Section( "HUD", () =>
+		{
+			foreach ( var child in _children )
+			{
+				var focus = child.HasFocus ? "(focused) " : "";
+				Debug.Add($"{child} {focus}");
+			}
+		} );
+	}
+
 }

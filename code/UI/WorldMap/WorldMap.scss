@@ -19,20 +19,23 @@
 		justify-content: center;
 
 		overflow: hidden;
+	}
+	
+	transition: all 0.4s ease-in-out;
 
-		MapActor {
-			/* Item on world map */
-			position: relative;
+	transform: rotateY(0deg) rotate(0deg);
+	
+	&:outro {
+		top: 100%;
+		opacity: 0;
 
-			&.level {
-				width: 100px;
-				height: 100px;
+		transform: rotateY(60deg);
+	}
 
-				left: 20px;
-				top: 20px;
+	&:intro {
+		top: 100%;
+		opacity: 0;
 
-				background-color: red;
-			}
-		}
+		transform: rotateY(60deg) rotate(30deg);
 	}
 }

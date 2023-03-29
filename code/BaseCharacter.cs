@@ -2,6 +2,8 @@
 
 public partial class BaseCharacter : BaseEntity
 {
+	[Net, Prefab] 
+	public string DisplayName { get; set; }
 
 	public virtual float CollisionWidth { get; set; } = 20f;
 	public virtual float CollisionHeight { get; set; } = 40f;
