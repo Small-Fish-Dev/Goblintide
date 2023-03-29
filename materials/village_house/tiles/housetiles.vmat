@@ -1,0 +1,8 @@
+"Layer0"
+{
+	"shader"		"shaders/complex.shader_c"
+	"TextureColor"		"materials/village_house/tiles/housetiles_color.png"
+	"TextureAmbientOcclusion"		"materials/default/default_ao.tga"
+	"TextureNormal"		"materials/village_house/tiles/housetiles_normal.png"
+	"TextureRoughness"		"materials/village_house/tiles/housetiles_rough.png"
+}

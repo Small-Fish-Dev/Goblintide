@@ -2,45 +2,32 @@
 
 Layer0
 {
-	shader "shaders/glass.shader_c"
+	shader "shaders/complex.shader_c"
 
-	//---- Glass ----
-	F_REFRACTION 1
-
-	g_flDirectionalLightmapMinZ "0.000"
-	g_flDirectionalLightmapStrength "0.000"
+	//---- Ambient Occlusion ----
+	g_flAmbientOcclusionDirectDiffuse "0.000"
+	g_flAmbientOcclusionDirectSpecular "0.000"
+	TextureAmbientOcclusion "materials/village_house/glass/houseglass_ao.png"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureAmbientOcclusion "materials/village_house/glass/houseglass_ao.png"
 	TextureColor "materials/village_house/glass/houseglass_color.png"
-	TextureMetalness "materials/village_house/glass/houseglass_metal.png"
-	TextureNormal "materials/village_house/glass/houseglass_normal.png"
-	TextureRoughness "materials/village_house/glass/houseglass_rough.png"
-	TextureTranslucency "materials/village_house/glass/houseglass_trans.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
 
-	//---- Fresnel ----
-	g_bFresnel "1"
-	g_flEdgeColorFalloff "0.972"
-	g_flEdgeColorMaxOpacity "0.304"
-	g_flEdgeColorThickness "0.010"
-	g_vEdgeColor "[0.000000 0.000000 0.000000 0.000000]"
+	//---- Fog ----
+	g_bFogEnabled "1"
 
-	//---- Glass ----
-	g_bMultiplyTintColor "1"
-	g_flAlphaTestReference "0.429"
-	g_flOpacity "0.135"
-	GlassNormal "materials/village_house/glass/houseglass_normal.png"
-	GlassRoughness "materials/village_house/glass/houseglass_rough.png"
-	GlassTintColor "materials/village_house/glass/houseglass_color.png"
+	//---- Metalness ----
+	g_flMetalness "0.000"
 
-	//---- Refraction ----
-	g_flRefractionStrength "0.022"
-	RefractionNormal "materials/village_house/glass/houseglass_normal.png"
+	//---- Normal ----
+	TextureNormal "materials/village_house/glass/houseglass_normal.png"
+
+	//---- Roughness ----
+	TextureRoughness "materials/village_house/glass/houseglass_rough.png"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
