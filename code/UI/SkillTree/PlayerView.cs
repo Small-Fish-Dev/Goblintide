@@ -33,6 +33,7 @@ public class PlayerView : ScenePanel
 		}
 		
 		Model.CurrentSequence.Time = Pawn.CurrentSequence.Time;
+		Model.Rotation = Pawn.Rotation;
 		Model.Update( Time.Delta );
 
 		var main = Sandbox.Camera.Main;
