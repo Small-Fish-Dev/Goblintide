@@ -1,0 +1,46 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "5cc9057e-166b-4f7d-86fa-920d5b0921b3",
+    "Class": "BaseProp",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/waggon/waggon.vmdl\u0022"
+      },
+      "HitPoints": {
+        "Type": "Single",
+        "Value": "8"
+      },
+      "FoodDropped": {
+        "Type": "RangedFloat",
+        "Value": "\u00220.00,0.00,0\u0022"
+      },
+      "WoodDropped": {
+        "Type": "RangedFloat",
+        "Value": "\u00226.00,10.00,1\u0022"
+      },
+      "GoldDropped": {
+        "Type": "RangedFloat",
+        "Value": "\u00222.00,4.00,1\u0022"
+      },
+      "_name": {
+        "Value": "\u0022Waggon\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {}
+    }
+  }
+}

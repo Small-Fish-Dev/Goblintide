@@ -24,7 +24,25 @@
       "_scale": {
         "Value": "1"
       },
-      "_tags": {}
+      "_tags": {
+        "Value": "\u0022\u0022"
+      },
+      "FoodDropped": {
+        "Type": "RangedFloat",
+        "Value": "\u00222.00,5.00,1\u0022"
+      },
+      "WoodDropped": {
+        "Type": "RangedFloat",
+        "Value": "\u00221.00,2.00,1\u0022"
+      },
+      "GoldDropped": {
+        "Type": "RangedFloat",
+        "Value": "\u00220.00,0.00,0\u0022"
+      },
+      "HitPoints": {
+        "Type": "Single",
+        "Value": "1"
+      }
     }
   }
 }

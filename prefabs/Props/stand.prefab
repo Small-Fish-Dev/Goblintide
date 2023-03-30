@@ -3,17 +3,17 @@
   "Name": null,
   "Description": null,
   "Root": {
-    "Guid": "51eb2fca-c4b8-4bf1-b243-bda7e423f057",
+    "Guid": "3b94db9a-2fd4-4174-8950-34e3f657bd7d",
     "Class": "BaseProp",
     "Entities": [],
     "Components": [],
     "Keys": {
       "Model": {
         "Type": "Model",
-        "Value": "\u0022models/containers/bigcrate/big_crate.vmdl\u0022"
+        "Value": "\u0022models/stand/stand.vmdl\u0022"
       },
       "_name": {
-        "Value": "\u0022Large Crate\u0022"
+        "Value": "\u0022Stand\u0022"
       },
       "_localposition": {
         "Value": "\u00220,0,0\u0022"
@@ -33,15 +33,15 @@
       },
       "WoodDropped": {
         "Type": "RangedFloat",
-        "Value": "\u00224.00,6.00,1\u0022"
+        "Value": "\u00225.00,7.00,1\u0022"
       },
       "GoldDropped": {
         "Type": "RangedFloat",
-        "Value": "\u00220.00,2.00,1\u0022"
+        "Value": "\u00223.00,5.00,1\u0022"
       },
       "HitPoints": {
         "Type": "Single",
-        "Value": "4"
+        "Value": "6"
       }
     }
   }

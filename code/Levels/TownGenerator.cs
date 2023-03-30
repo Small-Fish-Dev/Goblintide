@@ -16,9 +16,11 @@ public class Town
 
 	public static Dictionary<string,float> PlaceableProps { get; set; } = new()
 	{
-		{ "prefabs/props/barrel.prefab", 1f },
+		{ "prefabs/props/barrel.prefab", 2f },
 		{ "prefabs/props/largecrate.prefab", 2f },
-		{ "prefabs/props/smallcrate.prefab", 10f },
+		{ "prefabs/props/smallcrate.prefab", 3f },
+		{ "prefabs/props/stand.prefab", 0.3f },
+		{ "prefabs/props/waggon.prefab", 0.5f },
 	};
 
 	public static Dictionary<string, float> PlaceablePeople { get; set; } = new()
