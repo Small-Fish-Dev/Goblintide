@@ -50,14 +50,53 @@ public partial class Lord
 							AddToCommanding( npc );
 					}
 				}
+
+				if ( PointingAt.IsValid() )
+				{
+					var nearestAlly = FindClosestAlly();
+
+					if ( nearestAlly.IsValid() )
+					{
+						nearestAlly.CurrentTarget = PointingAt;
+						nearestAlly.IsFollowingOrder = true;
+						nearestAlly.RecalculateTargetNav();
+					}
+				}
 			}
 		}
+	}
+
+	public BaseNPC FindClosestAlly()
+	{
+		BaseNPC closestAlly = null;
+
+		var closeAllies = Entity.All
+			.OfType<BaseNPC>()
+			.Where( x => x.Faction == Faction )
+			.Where( x => x.Position.DistanceSquared( PointingPosition ) <= Math.Pow( 1500, 2 ) );
+
+		var freeAllies = closeAllies
+			.Where( x => x.CurrentSubBehaviour != SubBehaviour.Attacking );
+
+		if ( freeAllies.Count() > 0 ) // Find allies that aren't busy
+		{
+			closestAlly = freeAllies
+				.OrderBy( x => x.Position.DistanceSquared( PointingPosition ) )
+				.FirstOrDefault();
+		}
+		else
+		{
+			closestAlly = closeAllies
+				.OrderBy( x => x.Position.DistanceSquared( PointingPosition ) )
+				.FirstOrDefault();
+		}
+
+		return closestAlly;
 	}
 
 	public void AddToCommanding( BaseNPC npc )
 	{
 		CurrentlyCommanding.Add( npc );
-		npc.Kill();
 	}
 
 	public void RemoveFromCommanding( BaseNPC npc )

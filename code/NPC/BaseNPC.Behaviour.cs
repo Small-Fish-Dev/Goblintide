@@ -39,6 +39,7 @@ public partial class BaseNPC
 		get { return currentTarget; }
 		set
 		{
+			IsFollowingOrder = false;
 			if ( currentTarget.IsValid() )
 				currentTarget.TotalAttackers--;
 			currentTarget = value;
@@ -51,6 +52,7 @@ public partial class BaseNPC
 	public Vector3 DefendingPosition { get; set; } = Vector3.Zero;
 	public float DefendingPositionRange { get; set; } = 500f;
 	public bool IsDiligent { get; set; } = true;
+	public bool IsFollowingOrder { get; set; } = false;
 
 	public virtual void ComputeBehaviour()
 	{
@@ -202,7 +204,7 @@ public partial class BaseNPC
 				RecalculateTargetNav();
 		}
 
-		if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) )
+		if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) && !IsFollowingOrder )
 			CurrentTarget = null;
 	}
 
