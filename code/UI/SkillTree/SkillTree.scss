@@ -9,11 +9,6 @@
 	background-color: transparent;
 	
 	transition: all 0.3s ease-out;
-
-	PlayerView {
-		width: 100%;
-		height: 100%;
-	}
 	
 	&:outro {
 		opacity: 0;
@@ -27,10 +22,27 @@
 
 		position: absolute;
 		
-		transition: bottom 0.5s ease-in-out;
+		transition: bottom 0.7s ease-in-out;
 		
 		background-color: white;
+		
+		overflow: hidden;
 
+		PlayerView {
+			width: 100%;
+			height: 100%;
+			
+			position: static;
+
+			top: 0;
+			
+			transition: top 0.7s ease-in-out;
+
+			&:intro {
+				top: 100%;
+			}
+		}
+		
 		&:intro {
 			bottom: 100%;
 		}

@@ -1,4 +1,6 @@
-﻿namespace GameJam;
+﻿using GameJam.UI;
+
+namespace GameJam;
 
 public partial class Lord
 {
@@ -90,6 +92,9 @@ public partial class Lord
 
 	private Vector3 GetPostOffset()
 	{
+		if ( SkillTree.IsOpen )
+			return Vector3.Up;
+
 		if ( !Pointing )
 			return Vector3.Up * 1 + Camera.Rotation.Right * 25f;
 		return Vector3.Up * 1 + Camera.Rotation.Right * 25f;
@@ -97,6 +102,9 @@ public partial class Lord
 
 	private float GetTargetDistance()
 	{
+		if ( SkillTree.IsOpen )
+			return CameraDistance * 1.4f;
+
 		if ( !Pointing )
 			return CameraDistance;
 		return CameraDistance / 2f;
@@ -119,6 +127,12 @@ public partial class Lord
 	/// <summary> Figure out where we want the camera to be </summary>
 	private void CameraStageOne()
 	{
+		if ( SkillTree.IsOpen )
+		{
+			_interimCameraRotation = Rotation;
+			return;
+		}
+
 		// Set camera distance		
 		_interimCameraRotation *= _analogLook.WithRoll( 0 ).ToRotation();
 		{
@@ -162,7 +176,11 @@ public partial class Lord
 		// Do a trace - get camera distance
 		var targetDistance = GetTargetDistance();
 
-		_cameraOffset = GetPostOffset(); // _cameraOffset.LerpTo( GetPostOffset(), Time.Delta * DistanceLerp );
+		// HACK(gio): need to figure out why camera offset lerping is weird in the first place
+		_cameraOffset = SkillTree.IsOpen
+			? _cameraOffset.LerpTo( GetPostOffset(), Time.Delta * DistanceLerp )
+			: GetPostOffset();
+
 		var trace = Trace.Ray( EyePosition, EyePosition + Camera.Rotation.Backward * targetDistance )
 			.Ignore( this )
 			.WithoutTags( "player", "npc", "trigger" )
@@ -182,7 +200,9 @@ public partial class Lord
 		}
 
 		// note(gio): stole the below from stud jump! teehee!
-		if ( Pointing )
+		if ( SkillTree.IsOpen )
+			RenderColor = Color.White.WithAlpha( 1.0f );
+		else if ( Pointing )
 			RenderColor = Color.White.WithAlpha( 0.5f );
 		else
 			RenderColor =
