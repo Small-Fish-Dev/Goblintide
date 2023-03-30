@@ -230,6 +230,13 @@ public partial class Lord
 
 	public override void BuildInput()
 	{
+		if ( SkillTree.IsOpen )
+		{
+			InputDirection = 0;
+			_analogLook = Angles.Zero;
+			return;
+		}
+		
 		_analogLook = Input.AnalogLook;
 		var direction = Input.AnalogMove;
 
