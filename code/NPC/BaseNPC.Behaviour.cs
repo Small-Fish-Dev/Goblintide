@@ -157,7 +157,7 @@ public partial class BaseNPC
 
 	public void ComputeRevenge()
 	{
-		if ( !CurrentTarget.IsValid() && LastAttackedBy.IsValid() && LastAttackedBy != CurrentTarget )
+		if ( LastAttackedBy.IsValid() && LastAttackedBy != CurrentTarget )
 		{
 			CurrentTarget = LastAttackedBy;
 		}

@@ -12,9 +12,6 @@ public partial class Lord
 		{
 			PointingAt = FindBestPointedAt();
 
-
-			DebugOverlay.Sphere( PointingPosition, 30f, Color.Red, Time.Delta );
-
 			if ( Input.Pressed( InputButton.PrimaryAttack ) )
 			{
 				if ( PointingAt is BaseNPC npc )
