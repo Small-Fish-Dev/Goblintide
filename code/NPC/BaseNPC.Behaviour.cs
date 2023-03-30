@@ -152,6 +152,7 @@ public partial class BaseNPC
 			target.Damage( AttackPower, this );
 
 			SetAnimParameter( "b_attack", true );
+			PlayAttackSound();
 		}
 	}
 
@@ -173,6 +174,11 @@ public partial class BaseNPC
 
 			var randomPositionAround = DefendingPosition + Vector3.Random.WithZ( 0 ) * DefendingPositionRange;
 			NavigateTo( randomPositionAround );
+
+			if ( Game.Random.Float() <= 0.1f )
+				PlayLaughSound();
+			else
+				PlayIdleSound();
 		}
 	}
 

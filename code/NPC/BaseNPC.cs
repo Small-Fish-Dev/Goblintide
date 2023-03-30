@@ -1,5 +1,13 @@
 ﻿namespace GameJam;
 
+public enum VoiceType
+{
+	None,
+	Goblin,
+	Hobgoblin,
+	Human
+}
+
 [Prefab, Category( "NPC" )]
 public partial class BaseNPC : BaseCharacter
 {
@@ -27,6 +35,9 @@ public partial class BaseNPC : BaseCharacter
 
 	[Prefab, Category( "Character" )]
 	public virtual Behaviour BaseBehaviour { get; set; } = Behaviour.None;
+
+	[Prefab, Category( "Character" )]
+	public virtual VoiceType Voice { get; set; } = VoiceType.None;
 
 	[Prefab, Category( "Character" )]
 	public virtual SubBehaviour BaseSubBehaviour { get; set; } = SubBehaviour.None;
@@ -89,6 +100,56 @@ public partial class BaseNPC : BaseCharacter
 		return null;
 	}
 
+	public Dictionary<VoiceType, string> AttackSounds = new()
+	{
+		{ VoiceType.None, "" },
+		{ VoiceType.Goblin, "sounds/golbins/goblin_attack.sound" },
+	};
+
+	public Dictionary<VoiceType, string> HurtSounds = new()
+	{
+		{ VoiceType.None, "" },
+		{ VoiceType.Goblin, "sounds/golbins/goblin_hurt.sound" },
+	};
+
+	public Dictionary<VoiceType, string> IdleSounds = new()
+	{
+		{ VoiceType.None, "" },
+		{ VoiceType.Goblin, "sounds/golbins/goblin_idle.sound" },
+	};
+
+	public Dictionary<VoiceType, string> LaughSounds = new()
+	{
+		{ VoiceType.None, "" },
+		{ VoiceType.Goblin, "sounds/golbins/goblin_laugh.sound" },
+	};
+
+	public virtual void PlayAttackSound()
+	{
+		PlaySound( AttackSounds[Voice] );
+	}
+
+	public virtual void PlayHurtSound()
+	{
+		PlaySound( HurtSounds[Voice] );
+	}
+
+	public virtual void PlayIdleSound()
+	{
+		PlaySound( IdleSounds[Voice] );
+	}
+
+	public virtual void PlayLaughSound()
+	{
+		PlaySound( LaughSounds[Voice] );
+	}
+
+	public override void Damage( float amount, BaseCharacter attacker )
+	{
+		base.Damage( amount, attacker );
+		PlayHurtSound();
+	}
+
 	TimeUntil nextCheapThink = 0f;
 
 	[Event.Tick.Server]
@@ -103,7 +164,6 @@ public partial class BaseNPC : BaseCharacter
 			CheapThink();
 		}
 	}
-
 
 	public virtual void CheapThink()
 	{

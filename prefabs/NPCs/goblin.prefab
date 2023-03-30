@@ -79,6 +79,10 @@
       "DisplayName": {
         "Type": "String",
         "Value": "\u0022\u0022"
+      },
+      "Voice": {
+        "Type": "VoiceType",
+        "Value": "\u0022Goblin\u0022"
       }
     }
   }
