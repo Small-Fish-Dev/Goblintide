@@ -1,0 +1,34 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+
+@namespace GameJam
+@inherits Panel
+
+<style>
+	Crosshair {
+		position: absolute;
+		width: 8px;
+		height: 8px;
+		border: 2px white;
+		border-radius: 50%;
+		transform: translate(-50% -50%);
+		left: 50%;
+		top: 50%;
+		opacity: 0.4;
+	}
+</style>
+
+<root />
+
+@code {
+	public override void Tick()
+	{
+		if ( Game.LocalPawn is not Lord pawn )
+			return;
+
+		if ( !pawn.Pointing ) 
+			return;
+
+		DebugOverlay.Line( pawn.GetBoneTransform( "finger_index_2_R" ).Position, Camera.Position + Camera.Rotation.Forward * 100f, color: Color.White.WithAlpha( 0.4f ) );
+	}
+}
