@@ -290,6 +290,8 @@ public partial class BaseNPC
 			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
 				ComputeIdling();
 
+			ComputeRevenge();
+
 			if ( nextTargetSearch )
 			{
 				nextTargetSearch = 1f;
