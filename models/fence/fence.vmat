@@ -1,0 +1,8 @@
+"Layer0"
+{
+	"shader"		"shaders/complex.shader_c"
+	"TextureColor"		"models/fence/fence_color.tga"
+	"TextureAmbientOcclusion"		"models/fence/fence_ao.tga"
+	"TextureNormal"		"models/fence/fence_normal.tga"
+	"TextureRoughness"		"models/fence/fence_rough.tga"
+}
