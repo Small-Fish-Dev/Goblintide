@@ -38,7 +38,7 @@ Layer0
 	SystemAttributes
 	{
 		PhysicsSurfaceProperties "brick"
-		WorldMappingWidth "64"
-		WorldMappingHeight "64"
+		WorldMappingWidth "128"
+		WorldMappingHeight "128"
 	}
 }
