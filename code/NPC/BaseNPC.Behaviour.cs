@@ -258,8 +258,6 @@ public partial class BaseNPC
 			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
 				ComputeIdling();
 
-			ComputeRevenge();
-
 			if ( nextTargetSearch )
 			{
 				nextTargetSearch = 1f;
@@ -273,11 +271,10 @@ public partial class BaseNPC
 		}
 		else
 		{
-			if ( CurrentTarget is BaseProp ) // Respond to someone attacking you if you're busy attacking a prop
-				ComputeRevenge();
-
 			AttackingSubBehaviour();
 		}
+
+		ComputeRevenge();
 	}
 
 	public virtual void DefenderBehaviour()
@@ -289,8 +286,6 @@ public partial class BaseNPC
 
 			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
 				ComputeIdling();
-
-			ComputeRevenge();
 
 			if ( nextTargetSearch )
 			{
@@ -307,6 +302,8 @@ public partial class BaseNPC
 		{
 			AttackingSubBehaviour();
 		}
+
+		ComputeRevenge();
 	}
 	public virtual void VictimBehaviour()
 	{
