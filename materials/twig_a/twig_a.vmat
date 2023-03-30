@@ -7,6 +7,9 @@ Layer0
 	//---- PBR ----
 	F_AMBIENT_OCCLUSION_TEXTURE 1
 
+	//---- Rendering ----
+	F_RENDER_BACKFACES 1
+
 	//---- Ambient Occlusion ----
 	TextureAmbientOcclusion "materials/twig_a/twig_a_ao.tga"
 
@@ -36,4 +39,11 @@ Layer0
 	g_vTexCoordOffset "[0.000 0.000]"
 	g_vTexCoordScale "[1.000 1.000]"
 	g_vTexCoordScrollSpeed "[0.000 0.000]"
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "wood"
+		WorldMappingWidth "512"
+		WorldMappingHeight "512"
+	}
 }

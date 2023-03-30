@@ -8,6 +8,9 @@ Layer0
 	F_ANISOTROPIC_GLOSS 1
 	F_SPECULAR 1
 
+	//---- Rendering ----
+	F_RENDER_BACKFACES 1
+
 	//---- Translucent ----
 	F_ALPHA_TEST 1
 
@@ -44,7 +47,14 @@ Layer0
 	g_vTexCoordScrollSpeed "[0.000 0.000]"
 
 	//---- Translucent ----
-	g_flAlphaTestReference "0.336"
-	g_flAntiAliasedEdgeStrength "0.495"
+	g_flAlphaTestReference "0.433"
+	g_flAntiAliasedEdgeStrength "0.997"
 	TextureTranslucency "materials/twig_a/twig_a_cutoff.tga"
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "wood"
+		WorldMappingWidth "512"
+		WorldMappingHeight "512"
+	}
 }
