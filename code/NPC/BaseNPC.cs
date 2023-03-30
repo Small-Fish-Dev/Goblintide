@@ -50,11 +50,11 @@ public partial class BaseNPC : BaseCharacter
 	// Array of random strings that will popup when your goblin dies.
 	private readonly string[] deathStrings = new string[]
 	{
-		"%attacker destroyed %target.",
-		"%target died to %attacker.",
-		"%target got chopped up by %attacker.",
-		"%attacker killed %target.",
-		"%target was killed by %attacker."
+		"<lightblue>%attacker</> destroyed <lightgreen>%target.</>",
+		"<lightgreen>%target</> died to <lightblue>%attacker.</>",
+		"<lightgreen>%target</> got chopped up by <lightblue>%attacker.</>",
+		"<lightblue>%attacker</> killed <lightgreen>%target.</>",
+		"<lightgreen>%target</> was killed by <lightblue>%attacker.</>"
 	};
 
 	public BaseNPC() {}
@@ -84,7 +84,7 @@ public partial class BaseNPC : BaseCharacter
 				.Replace( "%attacker", LastAttackedBy?.DisplayName ?? "Unknown Entity" )
 				.Replace( "%target", DisplayName );
 
-			EventLogger.Send( To.Everyone, $"<red>{input}", 3 );
+			EventLogger.Send( To.Everyone, $"{input}", 3 );
 		}
 
 		base.Kill();
