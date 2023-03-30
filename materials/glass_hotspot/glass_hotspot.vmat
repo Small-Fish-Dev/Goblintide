@@ -54,4 +54,9 @@ Layer0
 		WorldMappingWidth "256"
 		WorldMappingHeight "256"
 	}
+
+	ToolAttributes
+	{
+		SubrectDefinition "materials\glass_hotspot\glass_hotspot_hs.rect"
+	}
 }
