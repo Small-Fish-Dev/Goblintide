@@ -1,0 +1,22 @@
+{
+  "publish": {
+    "Enabled": false,
+    "ProjectConfig": {
+      "Title": "goblin_idle",
+      "Type": "sound",
+      "Org": "local",
+      "Ident": "goblin_idle",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "sounds/golbins/goblin_idle.sound"
+      }
+    }
+  }
+}
