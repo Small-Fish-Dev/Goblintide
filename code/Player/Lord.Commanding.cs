@@ -10,17 +10,18 @@ public partial class Lord
 		get => pointingAt;
 		set
 		{
-			if ( Game.IsClient )
-				if ( value != pointingAt && pointingAt.IsValid() )
+				if ( value != pointingAt )
 				{
-					if ( pointingAt.Components.TryGet<Glow>( out Glow oldGlow ) )
-						oldGlow.Enabled = false;
-					if ( value.IsValid() )
-					{
-						var newGlow = value.Components.GetOrCreate<Glow>();
-						newGlow.Color = Color.Red;
-						newGlow.Enabled = true;
-					}
+					if ( pointingAt.IsValid() )
+						if ( pointingAt.Components.TryGet<Glow>( out Glow oldGlow ) )
+							oldGlow.Enabled = false;
+
+						if ( value.IsValid() )
+						{
+							var newGlow = value.Components.GetOrCreate<Glow>();
+							newGlow.Color = Color.Red;
+							newGlow.Enabled = true;
+						}
 				}
 
 			pointingAt = value;
