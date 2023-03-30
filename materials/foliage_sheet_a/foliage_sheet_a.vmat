@@ -3,6 +3,8 @@
 	"shader"		"shaders/complex.shader_c"
 	"F_ANISOTROPIC_GLOSS"		"1"
 	"F_SPECULAR"		"1"
+	"F_SPECULAR_CUBE_MAP_ANISOTROPIC_WARP"		"1"
+	"F_TRANSMISSIVE_BACKFACE_NDOTL"		"1"
 	"F_PARALLAX_OCCLUSION"		"1"
 	"F_RENDER_BACKFACES"		"1"
 	"F_ALPHA_TEST"		"1"
@@ -30,6 +32,7 @@
 	"g_flAlphaTestReference"		"0.225000"
 	"g_flAntiAliasedEdgeStrength"		"0.724000"
 	"TextureTranslucency"		"materials/foliage_sheet_a/foliage_sheet_a_trans.tga"
+	"TextureTransmissiveColor"		"materials/foliage_sheet_a/foliage_sheet_a_color.tga"
 	"SystemAttributes"
 	{
 		"WorldMappingWidth"		"128"
