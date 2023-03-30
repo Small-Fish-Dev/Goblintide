@@ -64,6 +64,15 @@ public partial class Lord
 				}
 			}
 		}
+		else
+		{
+			if ( PointingAt.IsValid() )
+			{
+				if ( PointingAt.Components.TryGet<Glow>( out Glow oldGlow ) )
+					oldGlow.Enabled = false;
+				PointingAt = null;
+			}
+		}
 	}
 
 	public BaseNPC FindClosestAlly()
