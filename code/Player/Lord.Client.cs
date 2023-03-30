@@ -99,7 +99,7 @@ public partial class Lord
 	{
 		if ( !Pointing )
 			return CameraDistance;
-		return CameraDistance / 2f;
+		return CameraDistance / 4f;
 	}
 
 	private float GetCameraRotationLerp()

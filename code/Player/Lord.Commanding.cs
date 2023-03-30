@@ -1,13 +1,35 @@
-﻿namespace GameJam;
+﻿using Sandbox.Component;
+
+namespace GameJam;
 
 public partial class Lord
 {
-	[Net] public BaseEntity PointingAt { get; set; } = null;
+	internal BaseEntity pointingAt { get; set; } = null;
+	public BaseEntity PointingAt
+	{
+		get => pointingAt;
+		set
+		{
+			if ( Game.IsClient )
+				if ( value != pointingAt && pointingAt.IsValid() )
+				{
+					if ( pointingAt.Components.TryGet<Glow>( out Glow oldGlow ) )
+						oldGlow.Enabled = false;
+					if ( value.IsValid() )
+					{
+						var newGlow = value.Components.GetOrCreate<Glow>();
+						newGlow.Color = Color.Red;
+						newGlow.Enabled = true;
+					}
+				}
+
+			pointingAt = value;
+		}
+	}
 	[Net] public Vector3 PointingPosition { get; set; } = 0f;
 	public List<BaseNPC> CurrentlyCommanding { get; set; } = new();
 	public void SimulateCommanding()
 	{
-		if ( !Game.IsServer ) return;
 		if ( Pointing )
 		{
 			PointingAt = FindBestPointedAt();
