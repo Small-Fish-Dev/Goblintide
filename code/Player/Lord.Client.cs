@@ -44,10 +44,14 @@ public partial class Lord
 	private Rotation _interimCameraRotation = Rotation.Identity;
 	private float _proposedCameraDistance = 60f;
 	private float _lastTraceDistance;
-	private Vector3 _cameraOffset;
 	private bool _isMovingBackwards;
 	private bool _isMoving;
 
+	// Offsets
+	// (+x == Right, +y == Up) 
+	private Vector2 _proposedPostOffset;
+	private Vector2 _currentPostOffset;
+	
 	/// <summary> Whether or not the player is holding the point button (RMB) </summary>
 	[ClientInput]
 	public bool Pointing { get; protected set; }
@@ -90,14 +94,14 @@ public partial class Lord
 		return FollowRotationLerp;
 	}
 
-	private Vector3 GetPostOffset()
+	private void UpdatePostOffset()
 	{
-		if ( SkillTree.IsOpen )
-			return Vector3.Up;
+		_proposedPostOffset = 0;
 
-		if ( !Pointing )
-			return Vector3.Up * 1 + Camera.Rotation.Right * 25f;
-		return Vector3.Up * 1 + Camera.Rotation.Right * 25f;
+		if ( SkillTree.IsOpen )
+			return;
+
+		_proposedPostOffset = new Vector2(25, 1);
 	}
 
 	private float GetTargetDistance()
@@ -127,12 +131,10 @@ public partial class Lord
 	/// <summary> Figure out where we want the camera to be </summary>
 	private void CameraStageOne()
 	{
-		if ( SkillTree.IsOpen )
-		{
-			_interimCameraRotation = Rotation;
-			return;
-		}
+		UpdatePostOffset();
 
+		_currentPostOffset = Vector2.Lerp( _currentPostOffset, _proposedPostOffset, Time.Delta * DistanceLerp );
+		
 		// Set camera distance		
 		_interimCameraRotation *= _analogLook.WithRoll( 0 ).ToRotation();
 		{
@@ -143,6 +145,8 @@ public partial class Lord
 
 			_interimCameraRotation = angles.ToRotation();
 		}
+
+		if ( SkillTree.IsOpen ) _interimCameraRotation = Rotation;
 
 		if ( !ShouldFollowMovement() )
 			return;
@@ -174,29 +178,27 @@ public partial class Lord
 		}
 
 		// Do a trace - get camera distance
-		var targetDistance = GetTargetDistance();
-
-		// HACK(gio): need to figure out why camera offset lerping is weird in the first place
-		_cameraOffset = SkillTree.IsOpen
-			? _cameraOffset.LerpTo( GetPostOffset(), Time.Delta * DistanceLerp )
-			: GetPostOffset();
-
-		var trace = Trace.Ray( EyePosition, EyePosition + Camera.Rotation.Backward * targetDistance )
+		_proposedCameraDistance = _proposedCameraDistance.LerpTo( GetTargetDistance(), Time.Delta * DistanceLerp );
+		var trace = Trace.Ray( EyePosition, EyePosition + Camera.Rotation.Backward * _proposedCameraDistance )
 			.Ignore( this )
 			.WithoutTags( "player", "npc", "trigger" )
 			.Radius( 7 )
 			.IncludeClientside()
 			.Run();
 
+		_proposedCameraDistance = trace.Distance;
+		_lastTraceDistance = trace.Distance;
+		
 		{
 			// Find camera position
-			_lastTraceDistance = trace.Distance;
-			_proposedCameraDistance = _proposedCameraDistance.LerpTo( MathF.Min( trace.Distance, targetDistance ),
-				Time.Delta * DistanceLerp );
 			var proposedCameraPosition = trace.StartPosition
 			                             + trace.Direction * _proposedCameraDistance;
 
-			Camera.Position = proposedCameraPosition + _cameraOffset;
+			Camera.Position = proposedCameraPosition;
+
+			// Apply current camera offset
+			Camera.Position += _currentPostOffset.x * Camera.Rotation.Right;
+			Camera.Position += _currentPostOffset.y * Camera.Rotation.Up;
 		}
 
 		// note(gio): stole the below from stud jump! teehee!
@@ -236,7 +238,7 @@ public partial class Lord
 			_analogLook = Angles.Zero;
 			return;
 		}
-		
+
 		_analogLook = Input.AnalogLook;
 		var direction = Input.AnalogMove;
 
@@ -263,7 +265,8 @@ public partial class Lord
 			Debug.Value( "Rotation (interim)", lord._interimCameraRotation );
 			Debug.Value( "Trace Distance", lord._lastTraceDistance );
 			Debug.Value( "Proposed Distance", lord._proposedCameraDistance );
-			Debug.Value( "Offset", lord._cameraOffset );
+			Debug.Value( "Current Offset", lord._currentPostOffset );
+			Debug.Value( "Proposed Offset", lord._proposedPostOffset );
 			Debug.Value( "Follow Lerp", lord.GetFollowLerpMultiplier() );
 			Debug.Value( "Rotation Lerp", lord.GetCameraRotationLerp() );
 		}, ShowCameraInfo );
