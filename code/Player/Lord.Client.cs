@@ -116,6 +116,8 @@ public partial class Lord
 
 	private float GetCameraRotationLerp()
 	{
+		if ( SkillTree.IsOpen )
+			return CameraRotationLerp * 0.6f;
 		if ( !Pointing )
 			return CameraRotationLerp;
 		return CameraRotationPointingLerp;
