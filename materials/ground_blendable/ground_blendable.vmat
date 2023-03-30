@@ -24,7 +24,7 @@ Layer0
 	TextureTintMaskA "materials/default/default.tga"
 
 	//---- Material B ----
-	g_flBlendSoftnessB "0.100"
+	g_flBlendSoftnessB "1.000"
 	g_flTintColorB "[1.000000 1.000000 1.000000 0.000000]"
 	g_vTexCoordScale2 "[1.000 1.000]"
 	TextureAmbientOcclusionB "materials/ground_grass/ground_grass_ao.tga"
@@ -36,7 +36,7 @@ Layer0
 	TextureTintMaskB "materials/default/default.tga"
 
 	//---- Material C ----
-	g_flBlendSoftnessC "0.100"
+	g_flBlendSoftnessC "1.000"
 	g_flTintColorC "[1.000000 1.000000 1.000000 0.000000]"
 	g_vTexCoordScale3 "[1.000 1.000]"
 	TextureAmbientOcclusionC "materials/ground_road/ground_road_ao.tga"
