@@ -34,7 +34,7 @@ Layer0
 	SystemAttributes
 	{
 		PhysicsSurfaceProperties "glass"
-		WorldMappingWidth "256"
-		WorldMappingHeight "256"
+		WorldMappingWidth "64"
+		WorldMappingHeight "64"
 	}
 }
