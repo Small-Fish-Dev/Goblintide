@@ -34,13 +34,13 @@
 							_class = "CBlend2DItem"
 							m_tagSpans = [  ]
 							m_sequenceName = "walk_N"
-							m_blendValue = [ 0.0, 49.0 ]
+							m_blendValue = [ 0.0, 30.0 ]
 						},
 						{
 							_class = "CBlend2DItem"
 							m_tagSpans = [  ]
 							m_sequenceName = "run_N"
-							m_blendValue = [ 0.0, 177.0 ]
+							m_blendValue = [ 0.0, 80.0 ]
 						},
 					]
 					m_blendSourceX = "Parameter"
@@ -116,8 +116,8 @@
 				m_bAutoReset = false
 				m_bPredicted = false
 				m_fDefaultValue = 0.0
-				m_fMinValue = -177.0
-				m_fMaxValue = 177.0
+				m_fMinValue = -80.0
+				m_fMaxValue = 80.0
 				m_bInterpolate = false
 			},
 			{
