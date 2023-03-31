@@ -4,6 +4,7 @@
 	"F_USE_BENT_NORMALS"		"1"
 	"F_ANISOTROPIC_GLOSS"		"1"
 	"F_SPECULAR"		"1"
+	"F_TRANSMISSIVE_BACKFACE_NDOTL"		"1"
 	"F_RENDER_BACKFACES"		"1"
 	"F_ALPHA_TEST"		"1"
 	"g_flAmbientOcclusionDirectDiffuse"		"0.000000"
@@ -26,4 +27,5 @@
 	"g_flAlphaTestReference"		"0.500000"
 	"g_flAntiAliasedEdgeStrength"		"0.000000"
 	"TextureTranslucency"		"materials/grass_atlas_a/grass_atlas_a_alpha.tga"
+	"TextureTransmissiveColor"		"materials/grass_atlas_a/grass_atlas_a_transmission.tga"
 }
