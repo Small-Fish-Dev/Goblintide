@@ -30,8 +30,6 @@ public partial class GameMgr : GameManager
 		Event.Run( nameof(GameEvents.Initialize) );
 
 		WorldMapHost.Start();
-
-		UpgradeInstanceCreator.RepopulateKnownUpgrades();
 	}
 
 	public override void ClientJoined( IClient client )
