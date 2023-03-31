@@ -25,7 +25,7 @@ Layer0
 
 	//---- Material B ----
 	g_flBlendSoftnessB "0.100"
-	g_flTintColorB "[0.690196 0.537255 0.537255 0.000000]"
+	g_flTintColorB "[0.945098 0.909804 0.909804 0.000000]"
 	g_vTexCoordScale2 "[1.000 1.000]"
 	TextureAmbientOcclusionB "materials/plaster_a/plaster_a_ao.tga"
 	TextureBlendMaskB "materials/bricks_a/brickz_mask.tga"
