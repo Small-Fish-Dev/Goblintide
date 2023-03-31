@@ -1,0 +1,44 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/blendable.shader_c"
+
+	F_MULTIBLEND 1 // 2 Layers
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Material ----
+	TextureColor "materials/default/default_color.tga"
+	TextureTintMask "materials/default/default.tga"
+
+	//---- Material A ----
+	g_flTintColorA "[1.000000 1.000000 1.000000 0.000000]"
+	TextureAmbientOcclusionA "materials/wood_floor/wood_floor_ao.tga"
+	TextureBlendMaskA "materials/wood_floor/wood_floor_height.tga"
+	TextureColorA "materials/wood_floor/wood_floor_color.tga"
+	TextureMetalnessA "materials/default/default_metal.tga"
+	TextureNormalA "materials/wood_floor/wood_floor_normal.tga"
+	TextureRoughnessA "materials/wood_floor/wood_floor_rough.tga"
+	TextureTintMaskA "materials/default/default.tga"
+
+	//---- Material B ----
+	g_flBlendSoftnessB "0.528"
+	g_flTintColorB "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordScale2 "[1.000 1.000]"
+	TextureAmbientOcclusionB "materials/dust/dust_ao.tga"
+	TextureBlendMaskB "materials/wood_floor/wood_floor_height.tga"
+	TextureColorB "materials/dust/dust_color.tga"
+	TextureMetalnessB "materials/default/default_metal.tga"
+	TextureNormalB "materials/dust/dust_normal.tga"
+	TextureRoughnessB "materials/dust/dust_rough.tga"
+	TextureTintMaskB "materials/default/default.tga"
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "wood"
+		WorldMappingWidth "128"
+		WorldMappingHeight "128"
+	}
+}
