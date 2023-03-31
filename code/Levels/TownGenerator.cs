@@ -139,14 +139,18 @@ public class Town
 
 		var rand = new Random( Current.Seed );
 		var townWidth = 300f * (1f + townSize / 50f);
+		var townWidthSquared = townWidth * townWidth;
 
 		for ( float x = -townWidth; x <= townWidth; x += 100f / density )
 		{
 			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
 			{
+				var squaredDistance = x * x + y * y;
+
+				if ( squaredDistance > townWidthSquared ) continue;
 
 				if ( await Current.PlaceHouses( rand, position, x, y, density, new Vector2( 0f, 0.35f ) ) )
-					continue;
+				continue;
 			}
 		}
 
@@ -154,6 +158,9 @@ public class Town
 		{
 			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
 			{
+				var squaredDistance = x * x + y * y;
+
+				if ( squaredDistance > townWidthSquared ) continue;
 
 				if ( await Current.TryForProp( rand, position, x, y, density * 2, new Vector2( 0.4f, 0.48f ) ) )
 					continue;
