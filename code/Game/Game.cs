@@ -4,6 +4,7 @@ global using Editor;
 global using System.Collections.Generic;
 global using System.Linq;
 global using Sandbox.Component;
+using GameJam.UpgradeSystem;
 
 namespace GameJam;
 
@@ -27,6 +28,8 @@ public partial class GameMgr : GameManager
 		Event.Run( nameof( GameEvents.Initialize ) );
 		
 		WorldMapHost.Start();
+		
+		UpgradeInstanceCreator.RepopulateKnownUpgrades();
 	}
 
 	public override void ClientJoined( IClient client )
