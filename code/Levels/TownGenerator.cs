@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static Sandbox.CitizenAnimationHelper;
 
 namespace GameJam;
@@ -106,7 +107,7 @@ public class Town
 
 		var townWidth = 300f * (float)Math.Sqrt( TownSize / 5 );
 		var townWidthSquared = townWidth * townWidth;
-		var mainRoadSize = 30f + townWidth / 12f;
+		var mainRoadSize = 60f + townWidth / 15f;
 
 		for ( float x = -townWidth; x <= townWidth; x += 100f / density )
 		{
@@ -126,10 +127,9 @@ public class Town
 
 	internal async Task<bool> PlaceNPCs( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold )
 	{
-
 		var townWidth = 300f * (float)Math.Sqrt( TownSize / 5 );
 		var townWidthSquared = townWidth * townWidth;
-		var mainRoadSize = 30f + townWidth / 12f;
+		var mainRoadSize = 60f + townWidth / 15f;
 
 		for ( float x = -townWidth; x <= townWidth; x += 100f / density )
 		{
@@ -147,6 +147,36 @@ public class Town
 		return true;
 	}
 
+	internal async Task<bool> PlaceWall( Vector3 position )
+	{
+		var townWidth = 300f * (float)Math.Sqrt( TownSize / 5 );
+		var townDiameter = townWidth * 2 + 400f;
+		var perimeter = 2 * townDiameter * Math.PI;
+		var fenceSize = 130f;
+		int fenceCount = (int)Math.Ceiling( perimeter / fenceSize / 2 );
+		var mainRoadSize = 60f + townWidth / 15f;
+
+		for ( int i = 0; i < fenceCount; i++ )
+		{
+			var angle = i * fenceSize / (townDiameter / 2);
+			var x = townDiameter / 2 * (float)Math.Cos( angle );
+			var y = townDiameter / 2 * (float)Math.Sin( angle );
+			if ( y < mainRoadSize && y > -mainRoadSize ) continue;
+
+			var spawnedFence = BaseProp.FromPrefab( "prefabs/props/logwall.prefab" );
+
+			await GameTask.RunInThreadAsync( () =>
+			{
+				spawnedFence.Position = position + Vector3.Forward * x + Vector3.Right * y;
+				spawnedFence.Rotation = Rotation.LookAt( spawnedFence.Position - position );
+			});
+
+			Current.townEntities.Add( spawnedFence );
+		}
+
+		return true;
+	}
+
 	public static async void GenerateTown( Vector3 position, float townSize, float density )
 	{
 		Current?.DeleteTown();
@@ -156,6 +186,7 @@ public class Town
 
 		var rand = new Random( Current.Seed );
 
+		Current.PlaceWall( position );
 		await Current.PlaceProps( PlaceableHouses, rand, position, density, new Vector2( 0f, 0.33f ), true );
 		await Current.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
 		await Current.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );
