@@ -238,6 +238,7 @@ public partial class Lord
 		{
 			InputDirection = 0;
 			_analogLook = Angles.Zero;
+			Pointing = false;
 			return;
 		}
 
