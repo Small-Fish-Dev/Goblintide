@@ -10,7 +10,10 @@ public class Upgrade
 	private static readonly List<Upgrade> BuiltUpgrades = new();
 	public static IEnumerable<Upgrade> All => BuiltUpgrades.AsReadOnly();
 
-	public Upgrade() { }
+	private Upgrade() { }
+
+	/// <summary> You probably don't need this! </summary>
+	public static Upgrade CreateEmptyUpgrade() => new Upgrade();
 
 	private Upgrade( string identifier, string title )
 	{
@@ -31,6 +34,30 @@ public class Upgrade
 	[Effect] public float DecreasedAreaDiligence { get; set; }
 
 	#endregion
+
+	/// <summary>
+	/// Forward all effects of this upgrade to another one
+	/// </summary>
+	/// <param name="upgrade">Upgrade</param>
+	public void ForwardEffects( Upgrade upgrade )
+	{
+		// todo(gio): optimize
+		var description = TypeLibrary.GetType( GetType() );
+		foreach ( var property in description.Properties )
+		{
+			if ( !property.HasAttribute<EffectAttribute>() ) continue;
+			if ( property.PropertyType == typeof(float) )
+			{
+				var value = (float)property.GetValue( this );
+				var valueTwo = (float)property.GetValue( upgrade );
+				property.SetValue( upgrade, value + valueTwo );
+			}
+			else
+			{
+				throw new Exception( $"Unsupported type {property.PropertyType}" );
+			}
+		}
+	}
 
 	public override string ToString() => $"{Identifier} ({Title}): {Dependencies?.Count} deps, {Cost} cost";
 
