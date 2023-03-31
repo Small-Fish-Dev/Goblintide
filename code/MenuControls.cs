@@ -8,5 +8,6 @@ public static class MenuControls
 	private static void BuildInput()
 	{
 		if ( Input.Pressed( InputButton.Reload ) ) WorldMap.Toggle();
+		if ( Input.Pressed( InputButton.Chat ) ) SkillTree.Toggle();
 	}
 }

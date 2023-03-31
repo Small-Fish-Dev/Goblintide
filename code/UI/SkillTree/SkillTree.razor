@@ -1,0 +1,25 @@
+﻿@using Sandbox.UI;
+
+@namespace GameJam.UI
+@inherits SingletonPanel<SkillTree>
+@attribute [StyleSheet( "/UI/SkillTree/SkillTree.scss" )]
+
+<root>
+	<div class="backdrop" allow-translate>
+		<div class="gradient"></div>
+		<div class="gradient2"></div>
+		<PlayerView></PlayerView>
+		<div class="container" allow-translate>
+
+		</div>
+	</div>
+</root>
+
+@code {
+
+	public SkillTree()
+	{
+		WorldMap.Delete();
+	}
+	
+}
