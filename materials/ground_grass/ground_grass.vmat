@@ -2,12 +2,11 @@
 
 Layer0
 {
-	shader "shaders/simple.shader_c"
-
-	//---- PBR ----
-	F_AMBIENT_OCCLUSION_TEXTURE 1
+	shader "shaders/complex.shader_c"
 
 	//---- Ambient Occlusion ----
+	g_flAmbientOcclusionDirectDiffuse "0.578"
+	g_flAmbientOcclusionDirectSpecular "1.000"
 	TextureAmbientOcclusion "materials/ground_grass/ground_grass_ao.tga"
 
 	//---- Color ----
@@ -40,7 +39,7 @@ Layer0
 	SystemAttributes
 	{
 		PhysicsSurfaceProperties "grass"
-		WorldMappingWidth "256"
-		WorldMappingHeight "256"
+		WorldMappingWidth "128"
+		WorldMappingHeight "128"
 	}
 }
