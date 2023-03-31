@@ -15,22 +15,6 @@ public partial class Lord : BaseCharacter
 	public override bool BlockNav { get; set; } = true;
 
 	[BindComponent] public EnergyComponent Energy { get; }
-	[BindComponent] public UpgradableComponent UpgradeStorage { get; }
-	private UpgradeEffect _combinedUpgradeEffects;
-	protected UpgradeEffect CombinedUpgradeEffects => _combinedUpgradeEffects;
-
-	/// <summary> Update combined upgrade effects </summary>
-	protected void UpdateUpgrades()
-	{
-		_combinedUpgradeEffects = new UpgradeEffect();
-		foreach ( var (upgrade, name) in UpgradeStorage.Active )
-		{
-			var effect = upgrade.Get( this );
-			_combinedUpgradeEffects.DecreasedAreaDiligence += effect.DecreasedAreaDiligence;
-			_combinedUpgradeEffects.ExtraExperienceGain += effect.ExtraExperienceGain;
-			_combinedUpgradeEffects.ExtraMovementSpeed += effect.ExtraMovementSpeed;
-		}
-	}
 
 	public override void Spawn()
 	{
@@ -46,7 +30,6 @@ public partial class Lord : BaseCharacter
 		Tags.Add( Faction.ToString() );
 
 		Components.Create<EnergyComponent>();
-		Components.Create<UpgradableComponent>();
 
 		// Add obscured glow.
 		var glow = Components.GetOrCreate<Glow>();
@@ -84,11 +67,6 @@ public partial class Lord : BaseCharacter
 			Debug.Value( "Faction", lord.Faction );
 			Debug.Value( "Hit Points", lord.HitPoints );
 			Debug.Value( "Energy", lord.Energy.Value );
-
-			foreach ( var (upgrade, name) in lord.UpgradeStorage.Active )
-			{
-				Debug.Add( name );
-			}
 		}, ShowLordInfo );
 	}
 }
