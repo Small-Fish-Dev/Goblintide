@@ -1,0 +1,37 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/blendable.shader_c"
+
+	F_MULTIBLEND 1 // 2 Layers
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Material ----
+	TextureColor "materials/plaster_a/plaster_a_color.tga"
+	TextureTintMask "materials/default/default.tga"
+
+	//---- Material A ----
+	g_flTintColorA "[1.000000 1.000000 1.000000 0.000000]"
+	TextureAmbientOcclusionA "materials/plaster_a/plaster_a_ao.tga"
+	TextureBlendMaskA "materials/plaster_a/plaster_a_height.tga"
+	TextureColorA "materials/plaster_a/plaster_a_color.tga"
+	TextureMetalnessA "materials/default/default_metal.tga"
+	TextureNormalA "materials/plaster_a/plaster_a_normal.tga"
+	TextureRoughnessA "materials/plaster_a/plaster_a_rough.tga"
+	TextureTintMaskA "materials/default/default.tga"
+
+	//---- Material B ----
+	g_flBlendSoftnessB "0.100"
+	g_flTintColorB "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordScale2 "[1.000 1.000]"
+	TextureAmbientOcclusionB "materials/plaster_a_dmg/plaster_a_dmg_ao.tga"
+	TextureBlendMaskB "materials/plaster_a_dmg/plaster_a_dmg_height.tga"
+	TextureColorB "materials/plaster_a_dmg/plaster_a_dmg_color.tga"
+	TextureMetalnessB "materials/default/default_metal.tga"
+	TextureNormalB "materials/plaster_a_dmg/plaster_a_dmg_normal.tga"
+	TextureRoughnessB "materials/plaster_a_dmg/plaster_a_dmg_rough.tga"
+	TextureTintMaskB "materials/default/default.tga"
+}
