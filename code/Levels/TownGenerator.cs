@@ -15,13 +15,17 @@ public class Town
 		{ "models/houses/house_a.vmdl", 1f },
 	};
 
-	public static Dictionary<string, float> PlaceableProps { get; set; } = new()
+	public static Dictionary<string, float> PlaceableBigProps { get; set; } = new()
+	{
+		{ "prefabs/props/stand.prefab", 0.3f },
+		{ "prefabs/props/waggon.prefab", 0.5f },
+	};
+
+	public static Dictionary<string, float> PlaceableSmallProps { get; set; } = new()
 	{
 		{ "prefabs/props/barrel.prefab", 2f },
 		{ "prefabs/props/largecrate.prefab", 2f },
 		{ "prefabs/props/smallcrate.prefab", 3f },
-		{ "prefabs/props/stand.prefab", 0.3f },
-		{ "prefabs/props/waggon.prefab", 0.5f },
 	};
 
 	public static Dictionary<string, float> PlaceablePeople { get; set; } = new()
@@ -42,7 +46,8 @@ public class Town
 		var noise = NoiseValue( x, y );
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
-			var spawnedHouse = new ModelEntity( WeightedList.RandomKey( rand, PlaceableHouses ) );
+			var spawnedHouse = new BaseEntity();
+			spawnedHouse.SetModel( WeightedList.RandomKey( rand, PlaceableHouses ) );
 			spawnedHouse.SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
 
 			await GameTask.RunInThreadAsync( () =>
@@ -72,12 +77,47 @@ public class Town
 		return false;
 	}
 
-	internal async Task<bool> TryForProp( Random rand, Vector3 position, float x, float y, float density, Vector2 threshold )
+	internal async Task<bool> TryForBigProp( Random rand, Vector3 position, float x, float y, float density, Vector2 threshold )
 	{
 		var noise = NoiseValue( x, y );
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
-			var spawnedProp = BaseProp.FromPrefab( WeightedList.RandomKey( rand, PlaceableProps ) );
+			var spawnedProp = BaseProp.FromPrefab( WeightedList.RandomKey( rand, PlaceableBigProps ) );
+
+			await GameTask.RunInThreadAsync( () =>
+			{
+				var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+				var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+				spawnedProp.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
+				spawnedProp.Rotation = Rotation.FromYaw( rand.Next( 360 ) );
+
+				var traceCheck = Trace.Body( spawnedProp.PhysicsBody, spawnedProp.Position )
+				.Ignore( spawnedProp )
+				.EntitiesOnly()
+				.Run();
+
+				if ( traceCheck.Hit )
+				{
+					spawnedProp.Delete();
+					return false;
+				}
+				else
+				{
+					Current.townEntities.Add( spawnedProp );
+					return true;
+				}
+			} );
+		}
+
+		return false;
+	}
+
+	internal async Task<bool> TryForSmallProp( Random rand, Vector3 position, float x, float y, float density, Vector2 threshold )
+	{
+		var noise = NoiseValue( x, y );
+		if ( noise >= threshold.x && noise <= threshold.y )
+		{
+			var spawnedProp = BaseProp.FromPrefab( WeightedList.RandomKey( rand, PlaceableSmallProps ) );
 
 			await GameTask.RunInThreadAsync( () =>
 			{
@@ -138,8 +178,9 @@ public class Town
 		Current.TownSize = townSize;
 
 		var rand = new Random( Current.Seed );
-		var townWidth = 300f * (1f + townSize / 50f);
+		var townWidth = 300f * (float)Math.Sqrt( townSize / 5 );
 		var townWidthSquared = townWidth * townWidth;
+		var mainRoadSize = 30f + townWidth / 12f;
 
 		for ( float x = -townWidth; x <= townWidth; x += 100f / density )
 		{
@@ -148,6 +189,7 @@ public class Town
 				var squaredDistance = x * x + y * y;
 
 				if ( squaredDistance > townWidthSquared ) continue;
+				if ( y < mainRoadSize && y > -mainRoadSize) continue;
 
 				if ( await Current.PlaceHouses( rand, position, x, y, density, new Vector2( 0f, 0.35f ) ) )
 				continue;
@@ -161,11 +203,26 @@ public class Town
 				var squaredDistance = x * x + y * y;
 
 				if ( squaredDistance > townWidthSquared ) continue;
+				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
-				if ( await Current.TryForProp( rand, position, x, y, density * 2, new Vector2( 0.4f, 0.48f ) ) )
+				if ( await Current.TryForBigProp( rand, position, x, y, density, new Vector2( 0.35f, 0.4f ) ) )
+					continue;
+			}
+		}
+
+		for ( float x = -townWidth; x <= townWidth; x += 100f / density )
+		{
+			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
+			{
+				var squaredDistance = x * x + y * y;
+
+				if ( squaredDistance > townWidthSquared ) continue;
+				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
+
+				if ( await Current.TryForSmallProp( rand, position, x, y, density * 2, new Vector2( 0.35f, 0.45f ) ) )
 					continue;
 
-				if ( await Current.TryForNPCs( rand, position, x, y, density, new Vector2( 0.650f, 0.90f ) ) )
+				if ( await Current.TryForNPCs( rand, position, x, y, density, new Vector2( 0.8f, 1f ) ) )
 					continue;
 			}
 		}
