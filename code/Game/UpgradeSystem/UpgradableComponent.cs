@@ -3,7 +3,7 @@
 public partial class UpgradableComponent : EntityComponent
 {
 	private readonly List<(Upgrade, string)> _upgrades = new();
-	public IEnumerable<(Upgrade, string)> Upgrades => _upgrades.AsReadOnly();
+	public IEnumerable<(Upgrade, string)> Active => _upgrades.AsReadOnly();
 
 	[ClientRpc]
 	private void AddClient( string name )

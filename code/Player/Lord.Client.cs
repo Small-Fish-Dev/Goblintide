@@ -51,7 +51,7 @@ public partial class Lord
 	// (+x == Right, +y == Up) 
 	private Vector2 _proposedPostOffset;
 	private Vector2 _currentPostOffset;
-	
+
 	/// <summary> Whether or not the player is holding the point button (RMB) </summary>
 	[ClientInput]
 	public bool Pointing { get; protected set; }
@@ -101,7 +101,7 @@ public partial class Lord
 		if ( SkillTree.IsOpen )
 			return;
 
-		_proposedPostOffset = new Vector2(25, 1);
+		_proposedPostOffset = new Vector2( 25, 1 );
 	}
 
 	private float GetTargetDistance()
@@ -136,7 +136,7 @@ public partial class Lord
 		UpdatePostOffset();
 
 		_currentPostOffset = Vector2.Lerp( _currentPostOffset, _proposedPostOffset, Time.Delta * DistanceLerp );
-		
+
 		// Set camera distance		
 		_interimCameraRotation *= _analogLook.WithRoll( 0 ).ToRotation();
 		{
@@ -190,7 +190,7 @@ public partial class Lord
 
 		_proposedCameraDistance = trace.Distance;
 		_lastTraceDistance = trace.Distance;
-		
+
 		{
 			// Find camera position
 			var proposedCameraPosition = trace.StartPosition
@@ -258,7 +258,7 @@ public partial class Lord
 	[ConVar.Client( "gdbg_camera" )] private static bool ShowCameraInfo { get; set; } = true;
 
 	[Debug.Draw]
-	private static void DebugDraw()
+	private static void DebugCameraDraw()
 	{
 		Debug.Section( "Camera", () =>
 		{

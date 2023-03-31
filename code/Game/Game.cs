@@ -25,10 +25,10 @@ public partial class GameMgr : GameManager
 		if ( Game.IsServer )
 			SetState<VillageState>();
 
-		Event.Run( nameof( GameEvents.Initialize ) );
-		
+		Event.Run( nameof(GameEvents.Initialize) );
+
 		WorldMapHost.Start();
-		
+
 		UpgradeInstanceCreator.RepopulateKnownUpgrades();
 	}
 

@@ -20,7 +20,6 @@ public static class Debug
 
 	[ConVar.Client( "gdbg" )] private static bool Enabled { get; set; } = true;
 	[ConVar.Client( "gdbg_player" )] private static bool ShowPlayerInfo { get; set; } = true;
-	[ConVar.Client( "gdbg_lord" )] private static bool ShowLordInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_input" )] private static bool ShowInputInfo { get; set; } = true;
 	[ConVar.Client( "gdbg_git" )] private static bool ShowGitInfo { get; set; } = true;
 
@@ -126,14 +125,6 @@ public static class Debug
 			Value( "AnalogMove", _analogMove );
 			Value( "AnalogLook", _analogLook );
 		}, ShowInputInfo );
-
-		Section( "Lord", () =>
-		{
-			var lord = (Lord)Game.LocalPawn;
-			Value( "Faction", lord.Faction );
-			Value( "Hit Points", lord.HitPoints );
-			Value( "Energy", lord.Energy.Value );
-		}, ShowLordInfo );
 
 		SetHeaderColor( Color.Green );
 
