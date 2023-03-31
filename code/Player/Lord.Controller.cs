@@ -2,6 +2,8 @@
 
 public partial class Lord
 {
+	[Net] public bool BlockMovement { get; set; }
+
 	#region Rotation Configuration
 
 	private const float RotationLerp = 10.0f;
@@ -25,11 +27,12 @@ public partial class Lord
 
 	public void SimulateController()
 	{
-		var wishVelocity = InputDirection.WithZ( 0 ).Normal
-			* WalkSpeed
-			* (Input.Down( InputButton.Run )
-			    ? 1.5f
-			    : 1f);
+		var wishVelocity = BlockMovement ? 0
+			: InputDirection.WithZ( 0 ).Normal
+				* WalkSpeed
+				* (Input.Down( InputButton.Run )
+					? 1.5f
+					: 1f);
 
 		Velocity = Vector3.Lerp( Velocity, wishVelocity, 15f * Time.Delta )
 			.WithZ( Velocity.z );
@@ -37,7 +40,7 @@ public partial class Lord
 		if ( GroundEntity == null )
 			Velocity -= Vector3.Down * Game.PhysicsWorld.Gravity * Time.Delta;
 
-		if ( Input.Pressed( InputButton.Jump ) )
+		if ( Input.Pressed( InputButton.Jump ) && !BlockMovement )
 			if ( GroundEntity != null )
 				Velocity += Vector3.Up * 200f;
 
@@ -80,7 +83,8 @@ public partial class Lord
 		else
 			GroundEntity = null;
 
-		SimulateRotation();
+		if ( !BlockMovement )
+			SimulateRotation();
 	}
 
 	internal List<BaseEntity> touchingEntities = new();
