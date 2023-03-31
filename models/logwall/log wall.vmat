@@ -1,0 +1,8 @@
+"Layer0"
+{
+	"shader"		"shaders/complex.shader_c"
+	"TextureColor"		"models/logwall/log wall_color.tga"
+	"TextureAmbientOcclusion"		"models/logwall/log wall_ao.tga"
+	"TextureNormal"		"models/logwall/log wall_normal.tga"
+	"TextureRoughness"		"models/logwall/log wall_rough.tga"
+}
