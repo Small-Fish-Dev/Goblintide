@@ -4,15 +4,22 @@ Layer0
 {
 	shader "shaders/complex.shader_c"
 
+	//---- PBR ----
+	F_ANISOTROPIC_GLOSS 1
+	F_SPECULAR 1
+
+	//---- Translucent ----
+	F_TRANSLUCENT 1
+
 	//---- Ambient Occlusion ----
 	g_flAmbientOcclusionDirectDiffuse "0.000"
 	g_flAmbientOcclusionDirectSpecular "0.000"
-	TextureAmbientOcclusion "materials/village_house/glass/houseglass_ao.png"
+	TextureAmbientOcclusion "materials/village_house/glass/source/bake/bake_ao.psd"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "materials/village_house/glass/houseglass_color.png"
+	TextureColor "materials/village_house/glass/source/houseglass_color.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -24,10 +31,10 @@ Layer0
 	g_flMetalness "0.000"
 
 	//---- Normal ----
-	TextureNormal "materials/village_house/glass/houseglass_normal.png"
+	TextureNormal "materials/village_house/glass/source/bake/bake_normal.psd"
 
 	//---- Roughness ----
-	TextureRoughness "materials/village_house/glass/houseglass_rough.png"
+	TextureRoughness "materials/village_house/glass/source/houseglass_rough.png"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
@@ -35,4 +42,15 @@ Layer0
 	g_vTexCoordOffset "[0.000 0.000]"
 	g_vTexCoordScale "[1.000 1.000]"
 	g_vTexCoordScrollSpeed "[0.000 0.000]"
+
+	//---- Translucent ----
+	g_flOpacityScale "1.000"
+	TextureTranslucency "materials/village_house/glass/source/houseglass_trans.png"
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "glass"
+		WorldMappingWidth "32"
+		WorldMappingHeight "32"
+	}
 }
