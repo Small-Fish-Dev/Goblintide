@@ -3,6 +3,8 @@ global using System;
 global using Editor;
 global using System.Collections.Generic;
 global using System.Linq;
+global using Sandbox.Utility;
+global using System.Threading.Tasks;
 global using Sandbox.Component;
 using GameJam.UpgradeSystem;
 

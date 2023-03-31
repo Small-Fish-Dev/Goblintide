@@ -1,13 +1,9 @@
-﻿using Sandbox.Utility;
-using System.IO;
-using System.Threading.Tasks;
-using static Sandbox.CitizenAnimationHelper;
-
-namespace GameJam;
+﻿namespace GameJam;
 
 public class Town
 {
 	public static Town Current { get; set; }
+	public bool Generated { get; private set; } = false;
 	public float TownSize { get; set; } = 0f;
 	public Vector3 Position { get; set; } = Vector3.Zero;
 	public Vector2 Bounds { get; set; } = Vector2.Zero;
@@ -119,6 +115,7 @@ public class Town
 		}
 
 		Current.Bounds = maxBounds - minBounds;
+		Current.Generated = true;
 	}
 
 	public void DeleteTown()
