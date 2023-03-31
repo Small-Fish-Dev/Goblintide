@@ -16,7 +16,7 @@ public struct UpgradeInstanceCreator
 		}
 	}
 
-	private static UpgradeInstanceCreator? Find( string name )
+	public static UpgradeInstanceCreator? Find( string name )
 	{
 		return Known.FirstOrDefault( v => v.Attribute.Name == name );
 	}
