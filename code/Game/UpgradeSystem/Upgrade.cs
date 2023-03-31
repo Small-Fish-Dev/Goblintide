@@ -13,7 +13,11 @@ public class Upgrade
 	private Upgrade() { }
 
 	/// <summary> You probably don't need this! </summary>
-	public static Upgrade CreateEmptyUpgrade() => new Upgrade();
+	public static Upgrade CreateEmptyUpgrade() => new();
+
+	public static Upgrade Find( string identifier ) => All.FirstOrDefault( v => v.Identifier == identifier );
+
+	public static bool Exists( string identifier ) => Find( identifier ) != null;
 
 	private Upgrade( string identifier, string title )
 	{

@@ -13,16 +13,28 @@ public partial class Lord
 
 	public void CombineUpgrades()
 	{
-		
+		_combinedUpgrades = Upgrade.CreateEmptyUpgrade();
+		foreach ( var identifier in Upgrades )
+		{
+			var upgrade = Upgrade.Find( identifier );
+			if ( upgrade == null ) throw new Exception( $"Unknown upgrade {identifier}" );
+			upgrade.ForwardEffects( _combinedUpgrades );
+		}
 	}
 
-	public void AddUpgrade( string name )
+	public void AddUpgrade( string identifier )
 	{
-		
+		if ( !Upgrade.Exists( identifier ) )
+			throw new Exception( $"Unknown upgrade {identifier}" );
+		Upgrades.Add( identifier );
+		CombineUpgrades();
 	}
 
-	public void RemoveUpgrade( string name )
+	public void RemoveUpgrade( string identifier )
 	{
-		
+		if ( !Upgrade.Exists( identifier ) )
+			throw new Exception( $"Unknown upgrade {identifier}" );
+		Upgrades.Remove( identifier );
+		CombineUpgrades();
 	}
 }
