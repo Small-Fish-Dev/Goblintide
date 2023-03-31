@@ -1,4 +1,6 @@
-﻿namespace GameJam;
+﻿using GameJam.UpgradeSystem;
+
+namespace GameJam;
 
 public partial class Lord : BaseCharacter
 {
@@ -13,6 +15,7 @@ public partial class Lord : BaseCharacter
 	public override bool BlockNav { get; set; } = true;
 
 	[BindComponent] public EnergyComponent Energy { get; }
+	[BindComponent] public UpgradableComponent Upgrades { get; }
 
 	public override void Spawn()
 	{
@@ -28,6 +31,7 @@ public partial class Lord : BaseCharacter
 		Tags.Add( Faction.ToString() );
 
 		Components.Create<EnergyComponent>();
+		Components.Create<UpgradableComponent>();
 
 		// Add obscured glow.
 		var glow = Components.GetOrCreate<Glow>();
