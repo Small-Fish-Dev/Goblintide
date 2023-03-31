@@ -17,3 +17,4 @@ release.zip
 *.sln
 .autosave
 */.autosave/
+materials/texture_source.resources/
