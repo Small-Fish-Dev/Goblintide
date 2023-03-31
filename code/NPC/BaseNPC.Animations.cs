@@ -10,9 +10,9 @@ public partial class BaseNPC
 		if ( CurrentTarget.IsValid() )
 		{
 			if ( CurrentSubBehaviour == SubBehaviour.Attacking )
-				Rotation = Rotation.Lerp( Rotation, Rotation.LookAt( CurrentTarget.Position - Position ), Time.Delta * 6f );
+				Rotation = Rotation.Lerp( Rotation, Rotation.LookAt( (CurrentTarget.Position - Position).WithZ( 0f ) ), Time.Delta * 6f );
 			else if ( CurrentSubBehaviour == SubBehaviour.Panicking )
-				Rotation = Rotation.Lerp( Rotation, Rotation.LookAt( Position - CurrentTarget.Position ), Time.Delta * 6f );
+				Rotation = Rotation.Lerp( Rotation, Rotation.LookAt( (Position - CurrentTarget.Position).WithZ( 0f ) ), Time.Delta * 6f );
 		}
 
 		SetAnimParameter( "move_x", Velocity.Dot( Rotation.Forward ) / Scale );
