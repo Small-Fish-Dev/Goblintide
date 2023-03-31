@@ -9,8 +9,14 @@ public partial class BaseNPC
 
 	public virtual void ComputeMotion()
 	{
+		var bestSpeed = WalkSpeed;
+		if ( CurrentBehaviour == Behaviour.None || CurrentSubBehaviour == SubBehaviour.None )
+		{
+			bestSpeed /= 3f;
+		}
+
 		if ( Direction != Vector3.Zero )
-			WishSpeed = WalkSpeed;
+			WishSpeed = bestSpeed;
 		else
 			WishSpeed = 0f;
 
@@ -31,8 +37,15 @@ public partial class BaseNPC
 			pushOffset = direction * Math.Max( maxDistance - distance, 0f ) * Time.Delta * 3f;
 		}
 
+		/*var trace = Trace.Ray( Position + Vector3.Up * GetHeight(), Position - Vector3.Up * 5 )
+			.Size( GetWidth() / 2 )
+			.Ignore( this )
+			.WithoutTags( "NPC", "Player" )
+			.Run();*/
+
 		Velocity += pushOffset;
 		Position += Velocity * Time.Delta;
+		//Position = Position.WithZ( trace.HitPosition.z - GetWidth() / 4 );
 	}
 
 	internal List<BaseEntity> touchingEntities = new();
