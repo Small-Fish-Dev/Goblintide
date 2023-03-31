@@ -50,7 +50,7 @@ Layer0
 	SystemAttributes
 	{
 		PhysicsSurfaceProperties "grass"
-		WorldMappingWidth "256"
-		WorldMappingHeight "256"
+		WorldMappingWidth "128"
+		WorldMappingHeight "128"
 	}
 }
