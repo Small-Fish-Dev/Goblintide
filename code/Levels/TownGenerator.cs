@@ -38,6 +38,12 @@ public class Town
 		{ "prefabs/npcs/villager.prefab", 6f },
 	};
 
+	public static Dictionary<string, float> PlaceableFences { get; set; } = new()
+	{
+		{ "prefabs/props/logwall.prefab", 130f },
+		{ "prefabs/props/fence.prefab", 100f },
+	};
+
 	public Town() { }
 
 	public float NoiseValue( float x = 0f, float y = 0f, float scale = 10f )
@@ -152,7 +158,8 @@ public class Town
 		var townWidth = 300f * (float)Math.Sqrt( TownSize / 5 );
 		var townDiameter = townWidth * 2 + 400f;
 		var perimeter = 2 * townDiameter * Math.PI;
-		var fenceSize = 130f;
+		var bestFence = townWidth >= 650f ? PlaceableFences.First() : PlaceableFences.Last();
+		var fenceSize = bestFence.Value;
 		int fenceCount = (int)Math.Ceiling( perimeter / fenceSize / 2 );
 		var mainRoadSize = 60f + townWidth / 15f;
 
@@ -163,7 +170,7 @@ public class Town
 			var y = townDiameter / 2 * (float)Math.Sin( angle );
 			if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
-			var spawnedFence = BaseProp.FromPrefab( "prefabs/props/logwall.prefab" );
+			var spawnedFence = BaseProp.FromPrefab( bestFence.Key );
 
 			await GameTask.RunInThreadAsync( () =>
 			{
