@@ -49,7 +49,7 @@ public partial class Town
 
 	public static Dictionary<string, float> PlaceableTrees { get; set; } = new()
 	{
-		{ "models/placeholders/placeholder_tree.vmdl", 1f },
+		{ "models/trees/shitty_pine_tree.vmdl", 1f },
 	};
 
 	public Town() { }
