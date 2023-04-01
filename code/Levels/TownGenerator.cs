@@ -13,7 +13,7 @@ public partial class Town
 	public Vector2 Bounds { get; set; } = Vector2.Zero;
 	public int Seed => TownSize.GetHashCode();
 	internal List<Entity> townEntities = new();
-	public static List<SceneModel> TownTrees = new();
+	public static List<SceneObject> TownTrees = new();
 
 	public static Dictionary<string, float> PlaceableHouses { get; set; } = new()
 	{
@@ -105,7 +105,7 @@ public partial class Town
 			await GameTask.RunInThreadAsync( () =>
 			{
 				var transform = new Transform( position + new Vector3( x, y, 0 ), Rotation.FromYaw( Game.Random.Int( 360 ) ), Game.Random.Float( 0.8f, 1.2f ) );
-				var spawnedTree = new SceneModel( Game.SceneWorld, WeightedList.RandomKey( list ), transform );
+				var spawnedTree = new SceneObject( Game.SceneWorld, WeightedList.RandomKey( list ), transform );
 				
 				TownTrees.Add( spawnedTree );
 			} );
