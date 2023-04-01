@@ -1,0 +1,2137 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						note = "We\'re working in centimeters at the source (which makes more sense for us), and then letting the engine take care of the conversion to inches at this step. So if you want to create something for the Citizen (like clothing), you should also model it in centimeters (matching the provided source files), and use a ScaleAndMirror modifier at 0.3937."
+						scale = 0.3937
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
+					},
+				]
+			},
+			{
+				_class = "WeightListList"
+				children = 
+				[
+					{
+						_class = "WeightList"
+						name = "only_torso"
+						default_weight = 0.0
+						weights = 
+						[
+							{
+								bone = "spine_0"
+								weight = 0.247159
+							},
+							{
+								bone = "spine_1"
+								weight = 0.590909
+							},
+							{
+								bone = "spine_2"
+								weight = 1.0
+							},
+						]
+						master_morph_weight = 1.0
+						morph_weights = [  ]
+					},
+					{
+						_class = "WeightList"
+						name = "Only_Morphs_and_Eyelids"
+						default_weight = 0.0
+						weights = 
+						[
+							{
+								bone = "eye_L"
+								weight = 0.0
+							},
+							{
+								bone = "eye_R"
+								weight = 0.0
+							},
+							{
+								bone = "face_lid_lower_L"
+								weight = 1.0
+							},
+							{
+								bone = "face_lid_lower_R"
+								weight = 1.0
+							},
+							{
+								bone = "face_lid_upper_L"
+								weight = 1.0
+							},
+							{
+								bone = "face_lid_upper_R"
+								weight = 1.0
+							},
+							{
+								bone = "head"
+								weight = 0.0
+							},
+						]
+						master_morph_weight = 1.0
+						morph_weights = [  ]
+					},
+				]
+			},
+			{
+				_class = "LODGroupList"
+				children = 
+				[
+					{
+						_class = "LODGroup"
+						switch_threshold = 0.0
+						meshes = 
+						[
+							"Head_LOD0",
+							"Torso_LOD0",
+							"Hands_LOD0",
+							"Legs_LOD0",
+							"Feet_LOD0",
+						]
+					},
+					{
+						_class = "LODGroup"
+						note = "Note that LOD1 still uses the LOD0 head (for now!)"
+						switch_threshold = 5.0
+						meshes = 
+						[
+							"Head_LOD0",
+							"Torso_LOD1",
+							"Hands_LOD1",
+							"Legs_LOD1",
+							"Feet_LOD1",
+						]
+					},
+					{
+						_class = "LODGroup"
+						note = "LOD2 is when the head switches to a lower-poly version without morphs."
+						switch_threshold = 20.0
+						meshes = 
+						[
+							"Head_LOD2",
+							"Torso_LOD2",
+							"Hands_LOD2",
+							"Legs_LOD2",
+							"Feet_LOD2",
+						]
+					},
+					{
+						_class = "LODGroup"
+						switch_threshold = 40.0
+						meshes = 
+						[
+							"Head_LOD3",
+							"Torso_LOD3",
+							"Hands_LOD3",
+							"Legs_LOD3",
+							"Feet_LOD3",
+						]
+					},
+					{
+						_class = "LODGroup"
+						switch_threshold = 70.0
+						meshes = 
+						[
+							"Head_LOD4",
+							"Torso_LOD3",
+							"Hands_LOD3",
+							"Legs_LOD3",
+							"Feet_LOD3",
+						]
+					},
+				]
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "Head"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"Head_LOD0",
+									"Head_LOD2",
+									"Head_LOD3",
+									"Head_LOD4",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								meshes = [  ]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "Chest"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"Torso_LOD0",
+									"Torso_LOD1",
+									"Torso_LOD2",
+									"Torso_LOD3",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								meshes = [  ]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "Legs"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"Legs_LOD0",
+									"Legs_LOD1",
+									"Legs_LOD2",
+									"Legs_LOD3",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								meshes = [  ]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "Hands"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"Hands_LOD0",
+									"Hands_LOD1",
+									"Hands_LOD2",
+									"Hands_LOD3",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								meshes = [  ]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "Feet"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"Feet_LOD0",
+									"Feet_LOD1",
+									"Feet_LOD2",
+									"Feet_LOD3",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								meshes = [  ]
+							},
+						]
+						hidden_in_tools = false
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "citizen_eyes.vmat"
+								to = "models/citizen/skin/citizen_eyes_advanced.vmat"
+							},
+							{
+								from = "citizen_skin.vmat"
+								to = "models/citizen/skin/citizen_skin01.vmat"
+							},
+							{
+								from = "citizen_eyeao.vmat"
+								to = "models/citizen/skin/citizen_eyeao.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+					{
+						_class = "MaterialGroup"
+						name = "Skin01"
+						remaps = 
+						[
+							{
+								from = "models/citizen/skin/citizen_skin01.vmat"
+								to = "models/citizen/skin/citizen_skin01.vmat"
+							},
+							{
+								from = "models/citizen/skin/citizen_eyes_advanced.vmat"
+								to = "models/citizen/skin/citizen_eyes_advanced.vmat"
+							},
+							{
+								from = "models/citizen/skin/citizen_eyeao.vmat"
+								to = "models/citizen/skin/citizen_eyeao.vmat"
+							},
+						]
+					},
+					{
+						_class = "MaterialGroup"
+						name = "Skin02"
+						remaps = 
+						[
+							{
+								from = "models/citizen/skin/citizen_skin01.vmat"
+								to = "models/citizen/skin/citizen_skin02.vmat"
+							},
+							{
+								from = "models/citizen/skin/citizen_eyes_advanced.vmat"
+								to = "models/citizen/skin/citizen_eyes_advanced02.vmat"
+							},
+						]
+					},
+					{
+						_class = "MaterialGroup"
+						name = "Skin03"
+						remaps = 
+						[
+							{
+								from = "models/citizen/skin/citizen_skin01.vmat"
+								to = "models/citizen/skin/citizen_skin03.vmat"
+							},
+							{
+								from = "models/citizen/skin/citizen_eyes_advanced.vmat"
+								to = "models/citizen/skin/citizen_eyes_advanced03.vmat"
+							},
+						]
+					},
+					{
+						_class = "MaterialGroup"
+						name = "Skin04"
+						remaps = 
+						[
+							{
+								from = "models/citizen/skin/citizen_skin01.vmat"
+								to = "models/citizen/skin/citizen_skin04.vmat"
+							},
+							{
+								from = "models/citizen/skin/citizen_eyes_advanced.vmat"
+								to = "models/citizen/skin/citizen_eyes_advanced.vmat"
+							},
+						]
+					},
+					{
+						_class = "MaterialGroup"
+						name = "Skin05"
+						remaps = 
+						[
+							{
+								from = "models/citizen/skin/citizen_skin01.vmat"
+								to = "models/citizen/skin/citizen_skin05.vmat"
+							},
+							{
+								from = "models/citizen/skin/citizen_eyes_advanced.vmat"
+								to = "models/citizen/skin/citizen_eyes_advanced.vmat"
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "PhysicsJointList"
+				children = 
+				[
+					{
+						_class = "Folder"
+						name = "PhysicsJointBody"
+						children = 
+						[
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "pelvis"
+								child_body = "spine_0"
+								anchor_origin = [ 3.921839, -0.002458, -0.000122 ]
+								anchor_angles = [ 0.029621, -90.006454, -90.0 ]
+								collision_enabled = false
+								friction = 4.0
+								enable_swing_limit = true
+								swing_limit = 10.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -10.0
+								max_twist_angle = 10.0
+							},
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "spine_0"
+								child_body = "spine_2"
+								anchor_origin = [ 11.220913, 0.003078, 0.000057 ]
+								anchor_angles = [ -0.021218, -89.958176, -89.971085 ]
+								collision_enabled = false
+								friction = 3.0
+								enable_swing_limit = true
+								swing_limit = 20.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -15.0
+								max_twist_angle = 15.0
+							},
+							{
+								_class = "PhysicsJointConical"
+								disabled = true
+								parent_body = "spine_2"
+								child_body = "neck_0"
+								anchor_origin = [ 5.820038, -0.09351, -0.00296 ]
+								anchor_angles = [ -0.009987, -92.285278, -90.028572 ]
+								collision_enabled = false
+								friction = 4.0
+								enable_swing_limit = true
+								swing_limit = 10.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -10.0
+								max_twist_angle = 10.0
+							},
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "spine_2"
+								child_body = "head"
+								anchor_origin = [ 26.240471, -0.276073, -0.012566 ]
+								anchor_angles = [ -0.004926, -90.03463, -90.024727 ]
+								collision_enabled = false
+								friction = 1.5
+								enable_swing_limit = true
+								swing_limit = 35.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -25.0
+								max_twist_angle = 25.0
+							},
+						]
+					},
+					{
+						_class = "Folder"
+						name = "PhysicsJointsArms"
+						children = 
+						[
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "spine_2"
+								child_body = "arm_upper_L"
+								anchor_origin = [ 11.158287, -3.029888, 18.125687 ]
+								anchor_angles = [ 8.87469, -83.627098, 20.0 ]
+								collision_enabled = false
+								friction = 1.0
+								enable_swing_limit = true
+								swing_limit = 60.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -19.0
+								max_twist_angle = 19.0
+							},
+							{
+								_class = "PhysicsJointRevolute"
+								parent_body = "arm_upper_L"
+								child_body = "arm_lower_L"
+								anchor_origin = [ 25.514885, -0.000023, 0.0 ]
+								anchor_angles = [ -0.000002, 17.067772, 0.0 ]
+								collision_enabled = false
+								friction = 2.0
+								enable_limit = true
+								min_angle = 0.0
+								max_angle = 140.0
+							},
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "arm_lower_L"
+								child_body = "hand_L"
+								anchor_origin = [ 19.574951, -0.000011, -0.000023 ]
+								anchor_angles = [ -3.29096, -94.638626, -95.499619 ]
+								collision_enabled = false
+								friction = 4.0
+								enable_swing_limit = true
+								swing_limit = 60.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -40.0
+								max_twist_angle = 40.0
+							},
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "spine_2"
+								child_body = "arm_upper_R"
+								anchor_origin = [ 11.140404, -3.034382, -18.136353 ]
+								anchor_angles = [ -8.8822, -83.618202, 160.0 ]
+								collision_enabled = false
+								friction = 1.0
+								enable_swing_limit = true
+								swing_limit = 60.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -19.0
+								max_twist_angle = 19.0
+							},
+							{
+								_class = "PhysicsJointRevolute"
+								parent_body = "arm_upper_R"
+								child_body = "arm_lower_R"
+								anchor_origin = [ 25.51487, 0.000013, 0.000008 ]
+								anchor_angles = [ -0.000014, 17.06778, -0.000008 ]
+								collision_enabled = false
+								friction = 2.0
+								enable_limit = true
+								min_angle = 0.0
+								max_angle = 140.0
+							},
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "arm_lower_R"
+								child_body = "hand_R"
+								anchor_origin = [ 19.574966, 0.00001, 0.000011 ]
+								anchor_angles = [ 3.29097, -94.638634, -84.50042 ]
+								collision_enabled = false
+								friction = 4.0
+								enable_swing_limit = true
+								swing_limit = 60.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -40.0
+								max_twist_angle = 40.0
+							},
+						]
+					},
+					{
+						_class = "Folder"
+						name = "PhysicsJointsLegs"
+						children = 
+						[
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "pelvis"
+								child_body = "leg_upper_L"
+								anchor_origin = [ -0.731827, -1.083176, 11.245552 ]
+								anchor_angles = [ 0.0, 90.0, -90.0 ]
+								collision_enabled = false
+								friction = 2.5
+								enable_swing_limit = true
+								swing_limit = 75.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -25.0
+								max_twist_angle = 25.0
+							},
+							{
+								_class = "PhysicsJointRevolute"
+								parent_body = "leg_upper_L"
+								child_body = "leg_lower_L"
+								anchor_origin = [ 36.754807, -0.00013, -0.000069 ]
+								anchor_angles = [ 0.000005, -19.271759, 0.0 ]
+								collision_enabled = false
+								friction = 1.8
+								enable_limit = true
+								min_angle = -110.0
+								max_angle = 0.0
+							},
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "leg_lower_L"
+								child_body = "ankle_L"
+								anchor_origin = [ 31.78953, 0.000005, -0.00002 ]
+								anchor_angles = [ -2.697697, -34.779114, -92.550072 ]
+								collision_enabled = false
+								friction = 0.8
+								enable_swing_limit = true
+								swing_limit = 30.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -18.0
+								max_twist_angle = 18.0
+							},
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "pelvis"
+								child_body = "leg_upper_R"
+								anchor_origin = [ -0.731873, -1.083176, -11.245605 ]
+								anchor_angles = [ 0.0, 90.0, -90.0 ]
+								collision_enabled = false
+								friction = 2.5
+								enable_swing_limit = true
+								swing_limit = 75.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -25.0
+								max_twist_angle = 25.0
+							},
+							{
+								_class = "PhysicsJointRevolute"
+								parent_body = "leg_upper_R"
+								child_body = "leg_lower_R"
+								anchor_origin = [ 36.754852, -0.000044, 0.000038 ]
+								anchor_angles = [ -0.000002, -19.311882, 0.0 ]
+								collision_enabled = false
+								friction = 1.8
+								enable_limit = true
+								min_angle = -110.0
+								max_angle = 0.0
+							},
+							{
+								_class = "PhysicsJointConical"
+								parent_body = "leg_lower_R"
+								child_body = "ankle_R"
+								anchor_origin = [ 31.789551, -0.000009, 0.000023 ]
+								anchor_angles = [ 2.696584, -34.728836, -87.448746 ]
+								collision_enabled = false
+								friction = 0.8
+								enable_swing_limit = true
+								swing_limit = 30.0
+								swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+								enable_twist_limit = true
+								min_twist_angle = -18.0
+								max_twist_angle = 18.0
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "Folder"
+						name = "PhysicsBody"
+						children = 
+						[
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "pelvis"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 10.0
+								point0 = [ 1.5, 0.0, -5.0 ]
+								point1 = [ 1.5, 0.0, 5.0 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "spine_0"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 14.0
+								point0 = [ 5.0, 0.0, -2.0 ]
+								point1 = [ 5.0, 0.0, 2.0 ]
+							},
+							{
+								_class = "PhysicsShapeCylinder"
+								parent_bone = "spine_2"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 15.0
+								point0 = [ 15.0, 1.0, 0.0 ]
+								point1 = [ -14.0, 0.0, 0.0 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "head"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 14.0
+								point0 = [ 3.0, 2.0, 0.0 ]
+								point1 = [ 23.0, 1.0, 0.0 ]
+							},
+						]
+					},
+					{
+						_class = "Folder"
+						name = "PhysicsArms"
+						children = 
+						[
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "arm_upper_R"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 5.0
+								point0 = [ 5.0, 0.0, 0.0 ]
+								point1 = [ 24.0, 0.0, 0.0 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "arm_lower_R"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 4.8
+								point0 = [ 0.0, 0.0, 0.0 ]
+								point1 = [ 17.0, -0.4, -0.4 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "hand_R"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 5.0
+								point0 = [ 2.0, 0.0, -0.4 ]
+								point1 = [ 15.0, 0.0, -2.5 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "arm_upper_L"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 5.0
+								point0 = [ 5.0, 0.0, 0.0 ]
+								point1 = [ 24.0, 0.0, 0.0 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "arm_lower_L"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 4.8
+								point0 = [ 0.0, 0.0, 0.0 ]
+								point1 = [ 17.0, -0.4, 0.4 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "hand_L"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 5.0
+								point0 = [ 2.0, 0.0, 0.4 ]
+								point1 = [ 15.0, 0.0, 2.5 ]
+							},
+						]
+					},
+					{
+						_class = "Folder"
+						name = "PhysicsLegs"
+						children = 
+						[
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "leg_upper_R"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 7.0
+								point0 = [ 4.0, 0.0, 0.0 ]
+								point1 = [ 32.0, 0.0, 0.0 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "leg_lower_R"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 5.5
+								point0 = [ 3.0, 0.0, 0.0 ]
+								point1 = [ 26.0, 0.0, 0.0 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "ankle_R"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 4.5
+								point0 = [ 3.5, -3.5, 0.0 ]
+								point1 = [ 9.5, 2.5, 0.8 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "leg_upper_L"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 7.0
+								point0 = [ 4.0, 0.0, 0.0 ]
+								point1 = [ 32.0, 0.0, 0.0 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "leg_lower_L"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 5.5
+								point0 = [ 3.0, 0.0, 0.0 ]
+								point1 = [ 26.0, 0.0, 0.0 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = "ankle_L"
+								surface_prop = "flesh"
+								collision_tags = "solid"
+								radius = 4.5
+								point0 = [ 3.5, -3.5, 0.0 ]
+								point1 = [ 9.5, 2.5, -0.8 ]
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "eyes"
+						parent_bone = "head"
+						relative_origin = [ 17.5, 13.5, 0.0 ]
+						relative_angles = [ -0.0, 90.0, 90.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "hat"
+						parent_bone = "head"
+						relative_origin = [ 38.5, 0.75, 0.001156 ]
+						relative_angles = [ 0.0, 90.0, 90.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "Folder"
+						name = "Mesh_Torso"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								name = "Torso_LOD0"
+								children = 
+								[
+									{
+										_class = "RenderMeshMarkup"
+										material_search_path = ""
+										use_expensive_tangents = true
+										high_high_precision_texcoords = true
+										calc_per_vertex_curvature = false
+										prefer_high_density_tris_in_uv_density_calc = false
+										cpu_access = false
+									},
+								]
+								filename = "models/citizen/citizen.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenTorso_LOD0",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Torso_LOD1"
+								children = 
+								[
+									{
+										_class = "RenderMeshMarkup"
+										material_search_path = ""
+										use_expensive_tangents = true
+										high_high_precision_texcoords = true
+										calc_per_vertex_curvature = false
+										prefer_high_density_tris_in_uv_density_calc = false
+										cpu_access = false
+									},
+								]
+								filename = "models/citizen/citizen_lod1.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenTorso_LOD1",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Torso_LOD2"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod2.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod2.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenTorso_LOD2",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Torso_LOD3"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod3.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod3.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenTorso_LOD3",
+									]
+								}
+							},
+						]
+					},
+					{
+						_class = "Folder"
+						name = "Mesh_Hands"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								name = "Hands_LOD0"
+								children = 
+								[
+									{
+										_class = "RenderMeshMarkup"
+										material_search_path = ""
+										use_expensive_tangents = true
+										high_high_precision_texcoords = true
+										calc_per_vertex_curvature = false
+										prefer_high_density_tris_in_uv_density_calc = false
+										cpu_access = false
+									},
+								]
+								filename = "models/citizen/citizen.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenHands_LOD0",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Hands_LOD1"
+								children = 
+								[
+									{
+										_class = "RenderMeshMarkup"
+										material_search_path = ""
+										use_expensive_tangents = true
+										high_high_precision_texcoords = true
+										calc_per_vertex_curvature = false
+										prefer_high_density_tris_in_uv_density_calc = false
+										cpu_access = false
+									},
+								]
+								filename = "models/citizen/citizen_lod1.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenHands_LOD1",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Hands_LOD2"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod2.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod2.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenHands_LOD2",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Hands_LOD3"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod3.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod3.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenHands_LOD3",
+									]
+								}
+							},
+						]
+					},
+					{
+						_class = "Folder"
+						name = "Mesh_Legs"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								name = "Legs_LOD0"
+								children = 
+								[
+									{
+										_class = "RenderMeshMarkup"
+										material_search_path = ""
+										use_expensive_tangents = true
+										high_high_precision_texcoords = true
+										calc_per_vertex_curvature = false
+										prefer_high_density_tris_in_uv_density_calc = false
+										cpu_access = false
+									},
+								]
+								filename = "models/citizen/citizen.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenLegs_LOD0",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Legs_LOD1"
+								children = 
+								[
+									{
+										_class = "RenderMeshMarkup"
+										material_search_path = ""
+										use_expensive_tangents = true
+										high_high_precision_texcoords = true
+										calc_per_vertex_curvature = false
+										prefer_high_density_tris_in_uv_density_calc = false
+										cpu_access = false
+									},
+								]
+								filename = "models/citizen/citizen_lod1.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenLegs_LOD1",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Legs_LOD2"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod2.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod2.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenLegs_LOD2",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Legs_LOD3"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod3.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod3.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenLegs_LOD3",
+									]
+								}
+							},
+						]
+					},
+					{
+						_class = "Folder"
+						name = "Mesh_Feet"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								name = "Feet_LOD0"
+								children = 
+								[
+									{
+										_class = "RenderMeshMarkup"
+										material_search_path = ""
+										use_expensive_tangents = true
+										high_high_precision_texcoords = true
+										calc_per_vertex_curvature = false
+										prefer_high_density_tris_in_uv_density_calc = false
+										cpu_access = false
+									},
+								]
+								filename = "models/citizen/citizen.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenFeet_LOD0",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Feet_LOD1"
+								children = 
+								[
+									{
+										_class = "RenderMeshMarkup"
+										material_search_path = ""
+										use_expensive_tangents = true
+										high_high_precision_texcoords = true
+										calc_per_vertex_curvature = false
+										prefer_high_density_tris_in_uv_density_calc = false
+										cpu_access = false
+									},
+								]
+								filename = "models/citizen/citizen_lod1.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenFeet_LOD1",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Feet_LOD2"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod2.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod2.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenFeet_LOD2",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Feet_LOD3"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod3.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod3.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenFeet_LOD3",
+									]
+								}
+							},
+						]
+					},
+					{
+						_class = "Folder"
+						name = "Mesh_Head"
+						note = "NOTE: the head was moved to be NOT FIRST in this list, because it seems like the first RenderMesh node is the one that will definee what the skeleton and its hierarchy is. I\'m writing this at the time of having changed the helpers so they\'re reparented to the lower parts of the limbs instead of the upper ones so that stretching limb lengths can work properly, so that\'s the reason why."
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								name = "Head_LOD0"
+								children = 
+								[
+									{
+										_class = "RenderMeshMarkup"
+										material_search_path = ""
+										use_expensive_tangents = true
+										high_high_precision_texcoords = true
+										calc_per_vertex_curvature = false
+										prefer_high_density_tris_in_uv_density_calc = false
+										cpu_access = false
+									},
+								]
+								filename = "models/citizen/citizen_head.dmx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = false
+									exception_list = 
+									[
+										"Citizen_Eyebrows",
+										"Citizen_EyebrowsOld",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Head_LOD2"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod2.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod2.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenHead_LOD2",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Head_LOD3"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod3.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod3.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenHead_LOD3",
+									]
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								name = "Head_LOD4"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/removeboneandchildren_lod4.vmdl_prefab"
+									},
+								]
+								filename = "models/citizen/citizen_lod4.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"CitizenHead_LOD3",
+										"CitizenHead_LOD4",
+									]
+								}
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "AnimationList"
+				children = 
+				[
+					{
+						_class = "Folder"
+						name = "Walk"
+						children = 
+						[
+							{
+								_class = "AnimFile"
+								name = "Walk_N"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/walk_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Walk_N.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Walk_NE"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/walk_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Walk_NE.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Walk_E"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/walk_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Walk_E.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Walk_SE"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/walk_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Walk_SE.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Walk_S"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/walk_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Walk_S.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Walk_SW"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/walk_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Walk_SW.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Walk_W"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/walk_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Walk_W.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Walk_NW"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/walk_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Walk_NW.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+						]
+					},
+					{
+						_class = "Folder"
+						name = "Run"
+						children = 
+						[
+							{
+								_class = "AnimFile"
+								name = "Run_N"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/run_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Run_N.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Run_NE"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/run_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Run_NE.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Run_NW"
+								children = 
+								[
+									{
+										_class = "Prefab"
+										target_file = "models/citizen/prefabs/run_process.vmdl_prefab"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "models/citizen/animations/Citizen@Run_NW.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+						]
+					},
+					{
+						_class = "AnimFile"
+						name = "Expressions_Attacking"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/citizen/animations/face/Citizen@Expressions_Attacking.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "Expressions_Panic"
+						note = "Layered on top of the MenuExit_Idle sequence straight in ModelDoc, so this NEEDS a weightlist here."
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = "Only_Morphs_and_Eyelids"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/citizen/animations/face/Citizen@Expressions_Panic.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "Melee_Punch_Attack_Right"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/citizen/animations/weapons/Citizen@Melee_Punch_Attack_Right.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 32.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "IdleMenu_Exit"
+						children = 
+						[
+							{
+								_class = "AnimAddLayer"
+								anim_name = "Expressions_Panic"
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = true
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/citizen/animations/Citizen@IdleMenu_Exit.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "IdleLayer_Breathe"
+						children = 
+						[
+							{
+								_class = "AnimStartLoop"
+								start_loop_frame = 30
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = true
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/citizen/animations/Citizen@IdleLayer_Breathe.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "Melee_Punch_Idle_Standing_02"
+						note = "This animation is extracted from a 8 second motion capture take that was cleaned up in the SFM and exported from there. Here in ModelDoc, it\'s trimmed down to a specific frame range, and AnimSmoothLoop then cleans up the looping point."
+						children = 
+						[
+							{
+								_class = "AnimSmoothLoop"
+								frames_from_start = 10
+								frames_from_end = 10
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = true
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/citizen/animations/weapons/Citizen@Melee_Punch_Idle_Standing.dmx"
+						start_frame = 143
+						end_frame = 169
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+				]
+				default_root_bone_name = ""
+			},
+			{
+				_class = "IKData"
+				children = 
+				[
+					{
+						_class = "IKChain"
+						name = "left_leg_IK"
+						children = 
+						[
+							{
+								_class = "IKChainJoint"
+								name = "leg_upper_L"
+								children = 
+								[
+									{
+										_class = "IKChainJoint"
+										name = "leg_lower_L"
+										children = 
+										[
+											{
+												_class = "IKChainJoint"
+												name = "ankle_L"
+												children = 
+												[
+													{
+														_class = "IKJointConstraint_Hinge"
+														constrained_joint = ""
+														hinge_axis = "Up"
+														min_radians = -2.094395
+														max_radians = 0.0
+													},
+												]
+												bone = "ankle_L"
+											},
+										]
+										bone = "leg_lower_L"
+									},
+								]
+								bone = "leg_upper_L"
+							},
+						]
+						m_bDoBonesOrientAlongPositiveX = true
+						"m_DefaultSolverSettings.m_nNumIterations" = 6
+						"m_DefaultSolverSettings.m_SolverType " = "IKSOLVER_TwoBone"
+						"m_DefaultTargetSettings.m_Bone" = 
+						{
+							m_Name = "foot_L_IK_target"
+						}
+						"m_DefaultTargetSettings.m_TargetSource" = "Bone"
+						"m_Data.m_DefaultTargetSettings.m_AnimgraphParameterNamePosition" = 
+						{
+							m_id = 4294967295
+						}
+						"m_Data.m_EndEffectorFixedOffsetAttachment" = 
+						{
+							m_Name = ""
+						}
+						"m_Data.m_bParentJointRequiresAlignment" = true
+					},
+					{
+						_class = "IKChain"
+						name = "right_leg_IK"
+						children = 
+						[
+							{
+								_class = "IKChainJoint"
+								name = "leg_upper_R"
+								children = 
+								[
+									{
+										_class = "IKChainJoint"
+										name = "leg_lower_R"
+										children = 
+										[
+											{
+												_class = "IKChainJoint"
+												name = "ankle_R"
+												children = 
+												[
+													{
+														_class = "IKJointConstraint_Hinge"
+														constrained_joint = ""
+														hinge_axis = "Up"
+														min_radians = -2.094395
+														max_radians = 0.0
+													},
+												]
+												bone = "ankle_R"
+											},
+										]
+										bone = "leg_lower_R"
+									},
+								]
+								bone = "leg_upper_R"
+							},
+						]
+						m_bDoBonesOrientAlongPositiveX = true
+						"m_DefaultSolverSettings.m_nNumIterations" = 6
+						"m_DefaultSolverSettings.m_SolverType " = "IKSOLVER_TwoBone"
+						"m_DefaultTargetSettings.m_Bone" = 
+						{
+							m_Name = "foot_R_IK_target"
+						}
+						"m_DefaultTargetSettings.m_TargetSource" = "Bone"
+						"m_Data.m_DefaultTargetSettings.m_AnimgraphParameterNamePosition" = 
+						{
+							m_id = 4294967295
+						}
+						"m_Data.m_EndEffectorFixedOffsetAttachment" = 
+						{
+							m_Name = ""
+						}
+						"m_Data.m_bParentJointRequiresAlignment" = true
+					},
+				]
+			},
+			{
+				_class = "GameDataList"
+				children = 
+				[
+					{
+						_class = "LookAtChain"
+						name = "lookat"
+						lookat_chain = 
+						{
+							name = ""
+							bones = 
+							[
+								{
+									name = "head"
+									weight = 1.0
+								},
+								{
+									name = "neck_0"
+									weight = 0.5
+								},
+							]
+						}
+					},
+					{
+						_class = "LookAtChain"
+						name = "lookat_torso"
+						lookat_chain = 
+						{
+							name = ""
+							bones = 
+							[
+								{
+									name = "head"
+									weight = 1.0
+								},
+								{
+									name = "neck_0"
+									weight = 1.0
+								},
+								{
+									name = "spine_2"
+									weight = 1.0
+								},
+								{
+									name = "spine_1"
+									weight = 0.66
+								},
+								{
+									name = "spine_0"
+									weight = 0.5
+								},
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "BoneMarkupList"
+				children = 
+				[
+					{
+						_class = "BoneMarkup"
+						target_bone = "foot_R_IK_target"
+						ignore_Translation = false
+						ignore_rotation = false
+						do_not_discard = true
+					},
+					{
+						_class = "BoneMarkup"
+						target_bone = "foot_L_IK_target"
+						ignore_Translation = false
+						ignore_rotation = false
+						do_not_discard = true
+					},
+				]
+				bone_cull_type = "Aggressive"
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = "models/terry/terry.vanmgrph"
+		base_model_name = ""
+	}
+}

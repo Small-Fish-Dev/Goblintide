@@ -29,12 +29,12 @@
 						remaps = 
 						[
 							{
-								from = "backup_citizen_skin.vmat"
-								to = "models/clothes/trousers.vmat"
+								from = "sphere.004.vmat"
+								to = "models/clothes/guard_helmet/guard_helmet.vmat"
 							},
 						]
-						use_global_default = true
-						global_default_material = "models/clothes/trousers.vmat"
+						use_global_default = false
+						global_default_material = ""
 					},
 				]
 			},
@@ -44,7 +44,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "models/clothes/peasant_trousers.fbx"
+						filename = "models/clothes/guard_helmet/guard_helmet.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -57,7 +57,7 @@
 							exclude_by_default = true
 							exception_list = 
 							[
-								"Mesh_003",
+								"Sphere_004",
 							]
 						}
 					},
