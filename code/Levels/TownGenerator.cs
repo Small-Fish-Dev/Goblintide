@@ -18,6 +18,7 @@ public partial class Town
 	public static Dictionary<string, float> PlaceableHouses { get; set; } = new()
 	{
 		{ "prefabs/props/house_a.prefab", 1f },
+		{ "prefabs/props/house_b.prefab", 0.3f },
 	};
 
 	public static Dictionary<string, float> PlaceableBigProps { get; set; } = new()
