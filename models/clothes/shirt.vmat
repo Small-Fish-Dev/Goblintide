@@ -18,7 +18,7 @@ Layer0
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
-	g_vColorTint "[0.498039 0.498039 0.498039 0.000000]"
+	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
 	TextureColor "models/clothes/shirt_color.tga"
 	TextureTintMask "models/clothes/shirt_mask.tga"
 
