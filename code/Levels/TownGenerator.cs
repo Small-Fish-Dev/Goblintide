@@ -244,12 +244,12 @@ public partial class Town
 		Current = new Town();
 		Current.TownSize = townSize;
 		Current.TownRadius = 300f * (float)Math.Sqrt( Current.TownSize / 5 );
-		var position = new Vector3( 17.74f, 191.05f, 510f );
+		var position = new Vector3( 17.74f, 191.05f, 512f );
 
 		if ( Current.TownRadius > 1200f )
-			position = new Vector3( 5030.56f, 237.68f, 510f );
+			position = new Vector3( 5030.56f, 237.68f, 512f );
 		if ( Current.TownRadius > 2500f )
-			position = new Vector3( -3239f, 4069f, 510f );
+			position = new Vector3( -3239f, 4069f, 512f );
 
 
 		var rand = new Random( Current.Seed );
