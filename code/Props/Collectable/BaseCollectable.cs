@@ -17,7 +17,7 @@ public enum Collectable
 }
 
 [Prefab, Category( "Collectable" )]
-public partial class BaseCollectable : ModelEntity
+public partial class BaseCollectable : BaseEntity
 {
 	[Prefab, Category( "Collectable Type" ), Net]
 	public Collectable Type { get; private set; } = Collectable.Invalid;
@@ -49,18 +49,5 @@ public partial class BaseCollectable : ModelEntity
 		}
 
 		return null;
-	}
-
-
-	[ConCmd.Admin( "collectable" )]
-	public static void SpawnTest( string type = "wood", int amount = 1 )
-	{
-		var player = ConsoleSystem.Caller.Pawn as Lord;
-
-		for ( int i = 0; i < amount; i++ )
-		{
-			var collectable = BaseCollectable.FromPrefab( $"prefabs/collectables/{type}.prefab" );
-			collectable.Position = player.Position + Vector3.Random.WithZ( 0 ) * 100f;
-		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using GameJam.Props.Collectable;
+using Sandbox.UI;
+using System.Linq;
 
 namespace GameJam;
 
@@ -76,7 +78,28 @@ public partial class BaseNPC
 			.Where( x => x.Faction != FactionType.None && x.Faction != Faction )
 			.Where( x => x.TotalAttackers < 3 );
 
-		var radiusSquared = (float)Math.Pow( radius, 2 );
+		var radiusSquared = radius * radius;
+
+		if ( closestFirst )
+		{
+			validEntities.OrderBy( x => x.Position.DistanceSquared( Position ) );
+
+			if ( validEntities.FirstOrDefault() != null )
+				if ( validEntities.FirstOrDefault().Position.DistanceSquared( Position ) <= radiusSquared )
+					return validEntities.FirstOrDefault();
+		}
+		else
+			return validEntities.FirstOrDefault( x => x.Position.DistanceSquared( Position ) <= radiusSquared );
+
+		return null;
+	}
+
+	public virtual BaseCollectable FindBestLoot( float radius = 300f, bool closestFirst = true )
+	{
+		var validEntities = Entity.All
+			.OfType<BaseCollectable>();
+
+		var radiusSquared = radius * radius;
 
 		if ( closestFirst )
 		{
@@ -98,7 +121,7 @@ public partial class BaseNPC
 			.OfType<BaseProp>()
 			.Where( x => x.TotalAttackers < 3 );
 
-		var radiusSquared = (float)Math.Pow( radius, 2 );
+		var radiusSquared = radius * radius;
 
 		if ( closestFirst )
 		{
@@ -189,6 +212,59 @@ public partial class BaseNPC
 		ComputeIdling();
 	}
 
+	public virtual void Steal( BaseCollectable collectable )
+	{
+		IsFollowingPath = false;
+		Stealing = collectable;
+		Stealing.Position = Position + Vector3.Up * GetHeight();
+		Stealing.SetParent( this );
+	}
+
+	public float DistanceToForest()
+	{
+		var relativeTownPosition = (Position - Town.Current.Position);
+		return Town.Current.ForestRadius - relativeTownPosition.Length;
+	}
+
+	public virtual void NavigateToForest()
+	{
+		var relativeTownPosition = (Position - Town.Current.Position).Normal;
+		var bestEscapePosition = Town.Current.Position + relativeTownPosition * Town.Current.ForestRadius;
+
+		NavigateTo( bestEscapePosition );
+	}
+
+	public virtual void StealingSubBehaviour()
+	{
+		CurrentSubBehaviour = SubBehaviour.Stealing;
+
+		if ( !Stealing.IsValid() )
+		{
+			if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
+				Steal( CurrentTarget as BaseCollectable );
+			else
+			{
+				if ( !IsFollowingPath )
+					RecalculateTargetNav();
+			}
+
+			if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) && !IsFollowingOrder )
+				CurrentTarget = null;
+		}
+		else
+		{
+			if ( !IsFollowingPath )
+				NavigateToForest();
+
+			Log.Info( DistanceToForest() );
+			if ( DistanceToForest() <= 100f )
+			{
+				Kill(); // TODO: Drop loot and go back
+			}
+		}
+		
+	}
+
 	public virtual void AttackingSubBehaviour()
 	{
 		CurrentSubBehaviour = SubBehaviour.Attacking;
@@ -240,7 +316,7 @@ public partial class BaseNPC
 	{
 		if ( CurrentTarget.IsValid() ) return;
 
-		CurrentTarget = FindBestTarget( DetectRange, false ); // Any is fine, saves some computing
+		CurrentTarget = FindBestTarget( DetectRange, false );
 
 		if ( CurrentTarget.IsValid() )
 			RecalculateTargetNav();
@@ -250,7 +326,17 @@ public partial class BaseNPC
 	{
 		if ( CurrentTarget.IsValid() ) return;
 
-		CurrentTarget = FindBestProp( DetectRange, false ); // Any is fine, saves some computing
+		CurrentTarget = FindBestProp( DetectRange, false );
+
+		if ( CurrentTarget.IsValid() )
+			RecalculateTargetNav();
+	}
+
+	public virtual void ComputeLookForLoot()
+	{
+		if ( CurrentTarget.IsValid() ) return;
+
+		CurrentTarget = FindBestLoot( DetectRange, false );
 
 		if ( CurrentTarget.IsValid() )
 			RecalculateTargetNav();
@@ -272,14 +358,23 @@ public partial class BaseNPC
 
 				if ( IsDiligent )
 				{
-					ComputeLookForTargets();
-					ComputeLookForProps();
+					var randomChoice = Game.Random.Int( 2 );
+					if ( randomChoice == 0 )
+						ComputeLookForTargets();
+					else if ( randomChoice == 1 )
+						ComputeLookForProps();
+					else if ( randomChoice == 2 )
+						ComputeLookForLoot();
 				}
 			}
 		}
 		else
 		{
-			AttackingSubBehaviour();
+			Log.Info( CurrentTarget is BaseCollectable );
+			if ( CurrentTarget is BaseCollectable )
+				StealingSubBehaviour();
+			else
+				AttackingSubBehaviour();
 		}
 
 		ComputeRevenge();

@@ -1,4 +1,6 @@
-﻿namespace GameJam;
+﻿using GameJam.Props.Collectable;
+
+namespace GameJam;
 
 public enum VoiceType
 {
@@ -46,6 +48,7 @@ public partial class BaseNPC : BaseCharacter
 	public override float CollisionWidth { get; set; } = 20f;
 	[Prefab, Category( "Character" )]
 	public override float CollisionHeight { get; set; } = 40f;
+	public BaseCollectable Stealing { get; set; } = null;
 
 	// Array of random strings that will popup when your goblin dies.
 	private readonly string[] deathStrings = new string[]

@@ -10,6 +10,7 @@ public partial class Town
 	public bool Generated { get; private set; } = false;
 	public float TownSize { get; set; } = 0f;
 	public float TownRadius { get; set; } = 0f;
+	public float ForestRadius => TownRadius + 1000f;
 	public Vector3 Position { get; set; } = Vector3.Zero;
 	public Vector2 Bounds { get; set; } = Vector2.Zero;
 	public int Seed => TownSize.GetHashCode();
