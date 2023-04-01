@@ -106,7 +106,7 @@ public partial class Town
 
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
-			var transform = new Transform( position + new Vector3( x, y, 0 ), Rotation.FromYaw( Game.Random.Int( 360 ) ), Game.Random.Float( 0.8f, 1.2f ) );
+			var transform = new Transform( position + new Vector3( x, y, 0 ), Rotation.FromYaw( Game.Random.Int( 360 ) ), Game.Random.Float( 1f, 2f ) );
 			var spawnedTree = new SceneObject( Game.SceneWorld, WeightedList.RandomKey( list ), transform );
 				
 			TownTrees.Add( spawnedTree );
@@ -192,16 +192,16 @@ public partial class Town
 		var clearingSquared = clearingDistance * clearingDistance;
 		var forestSizeSquared = forestSize * forestSize;
 
-		for ( float x = -forestSize; x <= forestSize; x += 40f )
+		for ( float x = -forestSize; x <= forestSize; x += 70f )
 		{
-			for ( float y = -forestSize; y <= forestSize; y += 40f )
+			for ( float y = -forestSize; y <= forestSize; y += 70f )
 			{
 				var squaredDistance = x * x + y * y;
 
 				if ( squaredDistance < clearingSquared ) continue;
 				if ( squaredDistance > forestSizeSquared ) continue;
 
-				TryPlaceTree( PlaceableTrees, position, x, y, new Vector2( 0f, 0.4f ) );
+				TryPlaceTree( PlaceableTrees, position, x, y, new Vector2( 0f, 0.43f ) );
 			}
 		}
 	}
@@ -235,13 +235,20 @@ public partial class Town
 		}
 	}
 
-	public static async void GenerateTown( Vector3 position, float townSize, float density )
+	public static async void GenerateTown( float townSize, float density )
 	{
 		Current?.DeleteTown();
 
 		Current = new Town();
 		Current.TownSize = townSize;
 		Current.TownRadius = 300f * (float)Math.Sqrt( Current.TownSize / 5 );
+		var position = new Vector3( 17.74f, 191.05f, 510f );
+
+		if ( Current.TownRadius > 1200f )
+			position = new Vector3( 5030.56f, 237.68f, 510f );
+		if ( Current.TownRadius > 2500f )
+			position = new Vector3( -3239f, 4069f, 510f );
+
 
 		var rand = new Random( Current.Seed );
 
@@ -286,6 +293,6 @@ public partial class Town
 		if ( ConsoleSystem.Caller.Pawn is not Lord player )
 			return;
 
-		Town.GenerateTown( player.Position, townSize, density );
+		Town.GenerateTown( townSize, density );
 	}
 }
