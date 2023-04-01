@@ -46,4 +46,13 @@ public partial class GameMgr : GameManager
 		transform.Position += Vector3.Up * 50.0f;
 		pawn.Transform = transform;
 	}
+
+	[ClientRpc]
+	public static void BroadcastTrees( Vector3 position, float townWidth )
+	{
+		GameTask.RunInThreadAsync( async () =>
+		{
+			await Town.PlaceTrees( position, townWidth );
+		} );
+	}
 }

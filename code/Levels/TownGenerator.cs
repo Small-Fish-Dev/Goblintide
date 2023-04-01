@@ -4,7 +4,7 @@ using static Sandbox.CitizenAnimationHelper;
 
 namespace GameJam;
 
-public class Town
+public partial class Town
 {
 	public static Town Current { get; set; }
 	public bool Generated { get; private set; } = false;
@@ -13,10 +13,11 @@ public class Town
 	public Vector2 Bounds { get; set; } = Vector2.Zero;
 	public int Seed => TownSize.GetHashCode();
 	internal List<Entity> townEntities = new();
+	public static List<SceneObject> TownTrees = new();
 
 	public static Dictionary<string, float> PlaceableHouses { get; set; } = new()
 	{
-		{ "prefabs/props/house_a.prefab_c", 1f },
+		{ "prefabs/props/house_a.prefab", 1f },
 	};
 
 	public static Dictionary<string, float> PlaceableBigProps { get; set; } = new()
@@ -44,11 +45,20 @@ public class Town
 		{ "prefabs/props/fence.prefab", 100f },
 	};
 
+	public static Dictionary<string, float> PlaceableTrees { get; set; } = new()
+	{
+		{ "models/placeholders/tree_pine.vmdl", 1f },
+	};
+
 	public Town() { }
 
 	public float NoiseValue( float x = 0f, float y = 0f, float scale = 10f )
 	{
 		return Noise.Fbm( 2, Seed / 100f + x / scale, Seed / 100f + y / scale );
+	}
+	public static float NoiseFBM( float x = 0f, float y = 0f, float scale = 10f )
+	{
+		return Noise.Fbm( 2, x / scale, y / scale );
 	}
 
 	internal async Task<bool> TryPlaceProp( Dictionary<string, float> list, Random rand, Vector3 position, float x, float y, float density, Vector2 threshold, bool lookAtCenter = false  )
@@ -79,6 +89,25 @@ public class Town
 					Current.townEntities.Add( spawnedEntity );
 					return true;
 				}
+			} );
+		}
+
+		return false;
+	}
+
+	internal static async Task<bool> TryPlaceTree( Dictionary<string, float> list, Vector3 position, float x, float y, Vector2 threshold )
+	{
+		var noise = NoiseFBM( x, y, 3f );
+
+		if ( noise >= threshold.x && noise <= threshold.y )
+		{
+
+			await GameTask.RunInThreadAsync( () =>
+			{
+				var transform = new Transform( position + new Vector3( x, y, 0 ), Rotation.FromYaw( Game.Random.Int( 360 ) ), Game.Random.Float( 0.8f, 1.2f ) );
+				var spawnedTree = new SceneObject( Game.SceneWorld, WeightedList.RandomKey( list ), transform );
+				
+				TownTrees.Add( spawnedTree );
 			} );
 		}
 
@@ -153,6 +182,34 @@ public class Town
 		return true;
 	}
 
+	public static async Task<bool> PlaceTrees( Vector3 position, float townWidth )
+	{
+		foreach( var tree in TownTrees )
+		{
+			tree.Delete();
+		}
+
+		var clearingDistance = townWidth + 400f;
+		var forestSize = clearingDistance + 1200f;
+		var clearingSquared = clearingDistance * clearingDistance;
+		var forestSizeSquared = forestSize * forestSize;
+
+		for ( float x = -forestSize; x <= forestSize; x += 40f )
+		{
+			for ( float y = -forestSize; y <= forestSize; y += 40f )
+			{
+				var squaredDistance = x * x + y * y;
+
+				if ( squaredDistance < clearingSquared ) continue;
+				if ( squaredDistance > forestSizeSquared ) continue;
+
+				if ( await TryPlaceTree( PlaceableTrees, position, x, y, new Vector2( 0f, 0.4f ) ) )
+					continue;
+			}
+		}
+		return true;
+	}
+
 	internal async Task<bool> PlaceWall( Vector3 position )
 	{
 		var townWidth = 300f * (float)Math.Sqrt( TownSize / 5 );
@@ -193,11 +250,12 @@ public class Town
 
 		var rand = new Random( Current.Seed );
 
-		Current.PlaceWall( position );
+		await Current.PlaceWall( position );
 		await Current.PlaceProps( PlaceableHouses, rand, position, density, new Vector2( 0f, 0.33f ), true );
 		await Current.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
 		await Current.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );
 		await Current.PlaceNPCs( PlaceablePeople, rand, position, density, new Vector2( 0.7f, 1f ) );
+		GameMgr.BroadcastTrees( position, 300f * (float)Math.Sqrt( Current.TownSize / 5 ) );
 
 		var minBounds = new Vector2();
 		var maxBounds = new Vector2();
