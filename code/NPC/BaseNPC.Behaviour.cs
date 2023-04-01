@@ -358,19 +358,21 @@ public partial class BaseNPC
 
 				if ( IsDiligent )
 				{
-					var randomChoice = Game.Random.Int( 2 );
-					if ( randomChoice == 0 )
-						ComputeLookForTargets();
-					else if ( randomChoice == 1 )
-						ComputeLookForProps();
-					else if ( randomChoice == 2 )
-						ComputeLookForLoot();
+					ComputeLookForLoot();
+
+					if ( !CurrentTarget.IsValid() )
+					{
+						var randomChoice = Game.Random.Int( 2 );
+						if ( randomChoice == 0 )
+							ComputeLookForTargets();
+						else if ( randomChoice == 1 )
+							ComputeLookForProps();
+					}
 				}
 			}
 		}
 		else
 		{
-			Log.Info( CurrentTarget is BaseCollectable );
 			if ( CurrentTarget is BaseCollectable )
 				StealingSubBehaviour();
 			else
