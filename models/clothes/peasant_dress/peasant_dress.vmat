@@ -1,0 +1,8 @@
+"Layer0"
+{
+	"shader"		"shaders/complex.shader_c"
+	"TextureColor"		"models/clothes/peasant_dress/dress_color.tga"
+	"TextureAmbientOcclusion"		"models/clothes/peasant_dress/dress_ao.tga"
+	"TextureNormal"		"models/clothes/peasant_dress/dress_normal.tga"
+	"TextureRoughness"		"models/clothes/peasant_dress/dress_rough.tga"
+}
