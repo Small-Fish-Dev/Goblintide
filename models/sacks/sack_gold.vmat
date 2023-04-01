@@ -4,23 +4,20 @@ Layer0
 {
 	shader "shaders/complex.shader_c"
 
-	//---- Color ----
-	F_TINT_MASK 1
-
 	//---- PBR ----
 	F_METALNESS_TEXTURE 1
+	F_SELF_ILLUM 1
 	F_SPECULAR 1
 
 	//---- Ambient Occlusion ----
 	g_flAmbientOcclusionDirectDiffuse "0.000"
 	g_flAmbientOcclusionDirectSpecular "0.000"
-	TextureAmbientOcclusion "models/clothes/shirt_ao.tga"
+	TextureAmbientOcclusion "materials/default/default_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "models/clothes/shirt_color.tga"
-	TextureTintMask "models/clothes/shirt_mask.tga"
+	TextureColor "models/sacks/sack_gold_color.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -29,13 +26,21 @@ Layer0
 	g_bFogEnabled "1"
 
 	//---- Metalness ----
-	TextureMetalness "models/clothes/shirt_metal.tga"
+	TextureMetalness "models/sacks/sack_gold_metal.png"
 
 	//---- Normal ----
-	TextureNormal "models/clothes/shirt_normal.tga"
+	TextureNormal "models/sacks/sack_gold_normal.png"
 
 	//---- Roughness ----
-	TextureRoughness "models/clothes/shirt_rough.tga"
+	TextureRoughness "models/sacks/sack_gold_rough.png"
+
+	//---- Self Illum ----
+	g_flSelfIllumAlbedoFactor "1.000"
+	g_flSelfIllumBrightness "1.018"
+	g_flSelfIllumScale "16.000"
+	g_vSelfIllumScrollSpeed "[0.000 0.000]"
+	g_vSelfIllumTint "[0.960784 1.000000 0.639216 0.000000]"
+	TextureSelfIllumMask "models/sacks/sack_gold_metal.png"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"

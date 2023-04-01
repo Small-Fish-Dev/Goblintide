@@ -1,0 +1,8 @@
+"Layer0"
+{
+	"shader"		"shaders/complex.shader_c"
+	"TextureColor"		"models/clothes/peasant_shoes/peasant_shoes_color.tga"
+	"TextureAmbientOcclusion"		"models/clothes/peasant_shoes/peasant_shoes_ao.tga"
+	"TextureNormal"		"models/clothes/peasant_shoes/peasant_shoes_normal.tga"
+	"TextureRoughness"		"models/clothes/peasant_shoes/peasant_shoes_rough.tga"
+}
