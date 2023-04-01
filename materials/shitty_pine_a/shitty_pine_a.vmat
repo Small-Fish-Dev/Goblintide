@@ -1,0 +1,39 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/simple.shader_c"
+
+	//---- PBR ----
+	F_AMBIENT_OCCLUSION_TEXTURE 1
+
+	//---- Ambient Occlusion ----
+	TextureAmbientOcclusion "materials/shitty_pine_a/shitty_pine_tree_material.001_specular.png"
+
+	//---- Color ----
+	g_flModelTintAmount "1.000"
+	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
+	TextureColor "materials/shitty_pine_a/shitty_pine_tree_material.001_diffuse.png"
+
+	//---- Fade ----
+	g_flFadeExponent "1.000"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Metalness ----
+	g_flMetalness "0.000"
+
+	//---- Normal ----
+	TextureNormal "materials/shitty_pine_a/shitty_pine_tree_material.001_normal.png"
+
+	//---- Roughness ----
+	TextureRoughness "materials/shitty_pine_a/shitty_pine_tree_material.001_glossiness.png"
+
+	//---- Texture Coordinates ----
+	g_nScaleTexCoordUByModelScaleAxis "0"
+	g_nScaleTexCoordVByModelScaleAxis "0"
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[1.000 1.000]"
+	g_vTexCoordScrollSpeed "[0.000 0.000]"
+}
