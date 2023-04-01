@@ -40,26 +40,28 @@ public partial class Lord
 
 			if ( Input.Pressed( InputButton.PrimaryAttack ) )
 			{
-				if ( PointingAt is BaseNPC npc )
-				{
-					if ( npc.Faction == Faction )
-					{
-						if ( CurrentlyCommanding.Contains( npc ) )
-							RemoveFromCommanding( npc );
-						else
-							AddToCommanding( npc );
-					}
-				}
-
 				if ( PointingAt.IsValid() )
 				{
-					var nearestAlly = FindClosestAlly();
-
-					if ( nearestAlly.IsValid() )
+					if ( PointingAt is BaseNPC npc )
 					{
-						nearestAlly.CurrentTarget = PointingAt;
-						nearestAlly.IsFollowingOrder = true;
-						nearestAlly.RecalculateTargetNav();
+						if ( npc.Faction == Faction )
+						{
+							if ( CurrentlyCommanding.Contains( npc ) )
+								RemoveFromCommanding( npc );
+							else
+								AddToCommanding( npc );
+						}
+					}
+					else
+					{
+						var nearestAlly = FindClosestAlly();
+
+						if ( nearestAlly.IsValid() )
+						{
+							nearestAlly.CurrentTarget = PointingAt;
+							nearestAlly.IsFollowingOrder = true;
+							nearestAlly.RecalculateTargetNav();
+						}
 					}
 				}
 			}

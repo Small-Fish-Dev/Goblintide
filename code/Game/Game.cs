@@ -18,6 +18,11 @@ public partial class GameMgr : GameManager
 	/// </summary>
 	public static GameMgr Instance { get; private set; }
 
+	/// <summary>
+	/// The game's current Lord.
+	/// </summary>
+	public static Lord Lord { get; private set; }
+
 	public GameMgr()
 	{
 		Instance = this;
@@ -34,17 +39,28 @@ public partial class GameMgr : GameManager
 
 	public override void ClientJoined( IClient client )
 	{
-		base.ClientJoined( client );
-
+		// Hard code player limit to 1.
+		if ( Lord != null )
+		{
+			client.Kick();
+			return;
+		}
+		
 		var pawn = new Lord();
 		client.Pawn = pawn;
+		Lord = pawn;
 
-		if ( All.OfType<SpawnPoint>().MinBy( x => Guid.NewGuid() ) is not { } spawn )
-			return;
+		if ( All.OfType<SpawnPoint>().MinBy( x => Guid.NewGuid() ) is { } spawn )
+		{
+			var transform = spawn.Transform;
+			transform.Position += Vector3.Up * 50.0f;
+			pawn.Transform = transform;
+		}
 
-		var transform = spawn.Transform;
-		transform.Position += Vector3.Up * 50.0f;
-		pawn.Transform = transform;
+		base.ClientJoined( client );
+
+		// Load the save.
+		LoadSave();
 	}
 
 	[ClientRpc]
