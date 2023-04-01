@@ -40,10 +40,6 @@ public partial class Lord
 		if ( GroundEntity == null )
 			Velocity -= Vector3.Down * Game.PhysicsWorld.Gravity * Time.Delta;
 
-		if ( Input.Pressed( InputButton.Jump ) && !BlockMovement )
-			if ( GroundEntity != null )
-				Velocity += Vector3.Up * 200f;
-
 		var pushOffset = Vector3.Zero;
 
 		foreach ( var toucher in touchingEntities )

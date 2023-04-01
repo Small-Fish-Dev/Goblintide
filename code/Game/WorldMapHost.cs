@@ -29,7 +29,7 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 		Game.AssertServer();
 		var entity = FindByIndex( idx );
 		if ( entity is not Generator generator ) return;
-		Town.GenerateTown( ConsoleSystem.Caller.Pawn.Position, generator.Size, 2f );
+		Town.GenerateTown( generator.Size, 2f );
 	}
 
 	public static void RequestServerGenerate( Generator generator )

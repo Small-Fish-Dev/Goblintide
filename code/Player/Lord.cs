@@ -18,7 +18,7 @@ public partial class Lord : BaseCharacter
 
 	public override void Spawn()
 	{
-		SetModel( "models/citizen/citizen.vmdl" );
+		SetModel( "models/goblin/goblin.vmdl" );
 		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, CollisionBox.Mins, CollisionBox.Maxs );
 
 		EnableAllCollisions = true;
@@ -45,6 +45,8 @@ public partial class Lord : BaseCharacter
 		SimulateController();
 		SimulateAnimations();
 		SimulateCommanding();
+
+		Scale = 1.2f; //Idk why it doesn't work on Spawn()
 	}
 
 	public override void FrameSimulate( IClient cl )

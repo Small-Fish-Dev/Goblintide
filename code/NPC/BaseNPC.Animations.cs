@@ -20,20 +20,15 @@ public partial class BaseNPC
 
 		if ( CurrentSubBehaviour == SubBehaviour.Attacking )
 		{
-			SetAnimParameter( "holdtype", 5 );
+			SetAnimParameter( "State", 1 );
 		}
 		else if ( CurrentSubBehaviour == SubBehaviour.Panicking )
 		{
-			// TODO: Proper panic when grod makes custom animgraph
-			SetAnimParameter( "duck", 0.3f );
-			SetAnimParameter( "holdtype", 5 );
-			SetAnimParameter( "holdtype_pose", 1.8f );
+			SetAnimParameter( "State", 2 );
 		}
 		else
 		{
-			SetAnimParameter( "duck", 0f );
-			SetAnimParameter( "holdtype", 0 );
-			SetAnimParameter( "holdtype_pose", 0f );
+			SetAnimParameter( "State", 0 );
 		}
 	}
 }

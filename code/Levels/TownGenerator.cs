@@ -9,6 +9,7 @@ public partial class Town
 	public static Town Current { get; set; }
 	public bool Generated { get; private set; } = false;
 	public float TownSize { get; set; } = 0f;
+	public float TownRadius { get; set; } = 0f;
 	public Vector3 Position { get; set; } = Vector3.Zero;
 	public Vector2 Bounds { get; set; } = Vector2.Zero;
 	public int Seed => TownSize.GetHashCode();
@@ -33,6 +34,8 @@ public partial class Town
 		{ "prefabs/props/barrel.prefab", 2f },
 		{ "prefabs/props/largecrate.prefab", 2f },
 		{ "prefabs/props/smallcrate.prefab", 3f },
+		{ "prefabs/props/wheat.prefab", 1f },
+		{ "prefabs/props/gold.prefab", 0.4f },
 	};
 
 	public static Dictionary<string, float> PlaceablePeople { get; set; } = new()
@@ -105,7 +108,7 @@ public partial class Town
 
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
-			var transform = new Transform( position + new Vector3( x, y, 0 ), Rotation.FromYaw( Game.Random.Int( 360 ) ), Game.Random.Float( 0.8f, 1.2f ) );
+			var transform = new Transform( position + new Vector3( x, y, 0 ), Rotation.FromYaw( Game.Random.Int( 360 ) ), Game.Random.Float( 1f, 2f ) );
 			var spawnedTree = new SceneObject( Game.SceneWorld, WeightedList.RandomKey( list ), transform );
 				
 			TownTrees.Add( spawnedTree );
@@ -139,18 +142,16 @@ public partial class Town
 
 	internal async Task<bool> PlaceProps( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold, bool lookAtCenter = false )
 	{
+		var townRadiusSquared = TownRadius * TownRadius;
+		var mainRoadSize = 60f + TownRadius / 15f;
 
-		var townWidth = 300f * (float)Math.Sqrt( TownSize / 5 );
-		var townWidthSquared = townWidth * townWidth;
-		var mainRoadSize = 60f + townWidth / 15f;
-
-		for ( float x = -townWidth; x <= townWidth; x += 100f / density )
+		for ( float x = -TownRadius; x <= TownRadius; x += 100f / density )
 		{
-			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
+			for ( float y = -TownRadius; y <= TownRadius; y += 100f / density )
 			{
 				var squaredDistance = x * x + y * y;
 
-				if ( squaredDistance > townWidthSquared ) continue;
+				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
 				if ( await Current.TryPlaceProp( list, rand, position, x, y, density, new Vector2( threshold.x, threshold.y ), lookAtCenter ) )
@@ -162,17 +163,16 @@ public partial class Town
 
 	internal async Task<bool> PlaceNPCs( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold )
 	{
-		var townWidth = 300f * (float)Math.Sqrt( TownSize / 5 );
-		var townWidthSquared = townWidth * townWidth;
-		var mainRoadSize = 60f + townWidth / 15f;
+		var townRadiusSquared = TownRadius * TownRadius;
+		var mainRoadSize = 60f + TownRadius / 15f;
 
-		for ( float x = -townWidth; x <= townWidth; x += 100f / density )
+		for ( float x = -TownRadius; x <= TownRadius; x += 100f / density )
 		{
-			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
+			for ( float y = -TownRadius; y <= TownRadius; y += 100f / density )
 			{
 				var squaredDistance = x * x + y * y;
 
-				if ( squaredDistance > townWidthSquared ) continue;
+				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
 				if ( await Current.TryForNPCs( rand, position, x, y, density, new Vector2( threshold.x, threshold.y ) ) )
@@ -194,16 +194,16 @@ public partial class Town
 		var clearingSquared = clearingDistance * clearingDistance;
 		var forestSizeSquared = forestSize * forestSize;
 
-		for ( float x = -forestSize; x <= forestSize; x += 40f )
+		for ( float x = -forestSize; x <= forestSize; x += 70f )
 		{
-			for ( float y = -forestSize; y <= forestSize; y += 40f )
+			for ( float y = -forestSize; y <= forestSize; y += 70f )
 			{
 				var squaredDistance = x * x + y * y;
 
 				if ( squaredDistance < clearingSquared ) continue;
 				if ( squaredDistance > forestSizeSquared ) continue;
 
-				TryPlaceTree( PlaceableTrees, position, x, y, new Vector2( 0f, 0.4f ) );
+				TryPlaceTree( PlaceableTrees, position, x, y, new Vector2( 0f, 0.43f ) );
 			}
 		}
 	}
@@ -237,12 +237,20 @@ public partial class Town
 		}
 	}
 
-	public static async void GenerateTown( Vector3 position, float townSize, float density )
+	public static async void GenerateTown( float townSize, float density )
 	{
 		Current?.DeleteTown();
 
 		Current = new Town();
 		Current.TownSize = townSize;
+		Current.TownRadius = 300f * (float)Math.Sqrt( Current.TownSize / 5 );
+		var position = new Vector3( 17.74f, 191.05f, 510f );
+
+		if ( Current.TownRadius > 1200f )
+			position = new Vector3( 5030.56f, 237.68f, 510f );
+		if ( Current.TownRadius > 2500f )
+			position = new Vector3( -3239f, 4069f, 510f );
+
 
 		var rand = new Random( Current.Seed );
 
@@ -250,8 +258,8 @@ public partial class Town
 		await Current.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
 		await Current.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );
 		await Current.PlaceNPCs( PlaceablePeople, rand, position, density, new Vector2( 0.7f, 1f ) );
-		GameMgr.BroadcastFences( position, 300f * (float)Math.Sqrt( Current.TownSize / 5 ) );
-		GameMgr.BroadcastTrees( position, 300f * (float)Math.Sqrt( Current.TownSize / 5 ) );
+		GameMgr.BroadcastFences( position, Current.TownRadius );
+		GameMgr.BroadcastTrees( position, Current.TownRadius );
 
 		var minBounds = new Vector2();
 		var maxBounds = new Vector2();
@@ -287,6 +295,6 @@ public partial class Town
 		if ( ConsoleSystem.Caller.Pawn is not Lord player )
 			return;
 
-		Town.GenerateTown( player.Position, townSize, density );
+		Town.GenerateTown( townSize, density );
 	}
 }

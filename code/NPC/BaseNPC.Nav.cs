@@ -17,15 +17,13 @@ public partial class BaseNPC
 	Line currentPathLine => new Line( latestPathPoint.Position, nextPathPoint.Position );
 	float distanceFromIdealPath => currentPathLine.SqrDistance( Position );
 
-	public virtual bool NavigateTo( Vector3 targetPosition, bool acceptIncomplete = false )
+	public virtual bool NavigateTo( Vector3 targetPosition )
 	{
 
 		var pathSettings = NavMesh.PathBuilder( Position )
 			.WithAgentHull( Agent )
-			.WithStartVelocity( Velocity );
-
-		if ( acceptIncomplete )
-			pathSettings.WithPartialPaths();
+			.WithStartVelocity( Velocity )
+			.WithPartialPaths();
 
 		var pathBuilt = pathSettings.Build( targetPosition );
 
@@ -43,7 +41,7 @@ public partial class BaseNPC
 	{
 		var targetPosition = FindBestTargetPosition( target );
 
-		return NavigateTo( targetPosition, true );
+		return NavigateTo( targetPosition );
 	}
 
 	public virtual void ComputeNavigation()

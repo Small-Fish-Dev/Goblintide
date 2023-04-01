@@ -18,14 +18,16 @@
           "_name": {
             "Value": "\u0022NamingComponent\u0022"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "[]"
+          }
         }
       }
     ],
     "Keys": {
       "Model": {
         "Type": "Model",
-        "Value": "\u0022models/citizen/citizen.vmdl\u0022"
+        "Value": "\u0022models/terry/terry.vmdl\u0022"
       },
       "BaseBehaviour": {
         "Type": "Behaviour",
@@ -45,7 +47,7 @@
       },
       "WalkSpeed": {
         "Type": "Single",
-        "Value": "80"
+        "Value": "160"
       },
       "RenderColor": {
         "Type": "Color",
@@ -69,6 +71,18 @@
       "BaseDiligency": {
         "Type": "Single",
         "Value": "0.8"
+      },
+      "DisplayName": {
+        "Type": "String",
+        "Value": "\u0022\u0022"
+      },
+      "CollisionHeight": {
+        "Type": "Single",
+        "Value": "72"
+      },
+      "CollisionWidth": {
+        "Type": "Single",
+        "Value": "40"
       }
     }
   }

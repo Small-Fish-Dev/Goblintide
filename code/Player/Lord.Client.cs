@@ -7,7 +7,7 @@ public partial class Lord
 	#region Player Configuration
 
 	/// <summary> Player body height </summary>
-	protected virtual float Height => 72.0f;
+	protected virtual float Height => 54.0f;
 
 	protected virtual float EyeHeight => Height - 6.0f;
 
@@ -19,7 +19,7 @@ public partial class Lord
 	#region Camera Configuration
 
 	/// <summary> Max distance from camera to player </summary>
-	public const float CameraDistance = 70f;
+	public const float CameraDistance = 30f;
 
 	private const float CameraRotationLerp = 20.0f;
 	private const float CameraRotationPointingLerp = 35.0f;
@@ -101,7 +101,7 @@ public partial class Lord
 		if ( SkillTree.IsOpen )
 			return;
 
-		_proposedPostOffset = new Vector2( 25, 1 );
+		_proposedPostOffset = new Vector2( 15, 1 );
 	}
 
 	private float GetTargetDistance()
@@ -111,7 +111,7 @@ public partial class Lord
 
 		if ( !Pointing )
 			return CameraDistance;
-		return CameraDistance / 4f;
+		return CameraDistance / 2f;
 	}
 
 	private float GetCameraRotationLerp()

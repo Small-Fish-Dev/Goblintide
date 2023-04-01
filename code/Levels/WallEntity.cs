@@ -6,6 +6,7 @@ public partial class WallEntity : Entity
 	internal SceneObject sceneObject { get; set; }
 	public float Length { get; set; } = 100f;
 	public static BBox Box { get; set; } = new BBox( new Vector3( -10f ), new Vector3( 10f ) );
+	internal bool isDeleting = false;
 
 	public WallEntity( SceneWorld sceneWorld, String model, Transform transform, float length )
 	{
@@ -34,6 +35,7 @@ public partial class WallEntity : Entity
 
 	public void Break()
 	{
+		if ( isDeleting ) return;
 		Breakables.Break( sceneObject.Model, Position, Rotation, 1f, Color.White );
 		var gibs = Entity.All
 			.OfType<PropGib>()
@@ -43,6 +45,7 @@ public partial class WallEntity : Entity
 			gib.Velocity = Vector3.Random * 300;
 			gib.Tags.Add( "nocamera" );
 		}
+		isDeleting = true;
 		Delete();
 	}
 
