@@ -67,6 +67,8 @@ public partial class Town
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
 			var spawnedEntity = BaseProp.FromPrefab( WeightedList.RandomKey( rand, list ) );
+			if ( spawnedEntity == null )
+				return false;
 
 			await GameTask.RunInThreadAsync( () =>
 			{
@@ -75,9 +77,9 @@ public partial class Town
 				spawnedEntity.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
 				spawnedEntity.Rotation = lookAtCenter ? Rotation.LookAt( spawnedEntity.Position - position ) : Rotation.FromYaw( rand.Next( 360 ) );
 				var traceCheck = Trace.Body( spawnedEntity.PhysicsBody, spawnedEntity.Position )
-				.Ignore( spawnedEntity )
-				.EntitiesOnly()
-				.Run();
+					.Ignore( spawnedEntity )
+					.EntitiesOnly()
+					.Run();
 
 				if ( traceCheck.Hit )
 				{
@@ -101,7 +103,6 @@ public partial class Town
 
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
-
 			await GameTask.RunInThreadAsync( () =>
 			{
 				var transform = new Transform( position + new Vector3( x, y, 0 ), Rotation.FromYaw( Game.Random.Int( 360 ) ), Game.Random.Float( 0.8f, 1.2f ) );
@@ -120,6 +121,8 @@ public partial class Town
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
 			var spawnedNPC = BaseNPC.FromPrefab( WeightedList.RandomKey( rand, PlaceablePeople ) );
+			if ( spawnedNPC == null )
+				return false;
 
 			await GameTask.RunInThreadAsync( () =>
 			{
@@ -228,6 +231,8 @@ public partial class Town
 			if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
 			var spawnedFence = BaseProp.FromPrefab( bestFence.Key );
+			if ( spawnedFence == null )
+				continue;
 
 			await GameTask.RunInThreadAsync( () =>
 			{
