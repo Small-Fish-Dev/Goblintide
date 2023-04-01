@@ -18,7 +18,9 @@
           "_name": {
             "Value": "\u0022NamingComponent\u0022"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "[]"
+          }
         }
       }
     ],
@@ -81,6 +83,14 @@
       "BaseDiligency": {
         "Type": "Single",
         "Value": "0.8"
+      },
+      "DisplayName": {
+        "Type": "String",
+        "Value": "\u0022\u0022"
+      },
+      "CollisionWidth": {
+        "Type": "Single",
+        "Value": "40"
       }
     }
   }

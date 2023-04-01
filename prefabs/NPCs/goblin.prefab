@@ -54,7 +54,7 @@
       },
       "CollisionWidth": {
         "Type": "Single",
-        "Value": "10"
+        "Value": "20"
       },
       "DetectRange": {
         "Type": "Single",

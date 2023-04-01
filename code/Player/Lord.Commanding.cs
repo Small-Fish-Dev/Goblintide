@@ -42,9 +42,9 @@ public partial class Lord
 			{
 				if ( PointingAt.IsValid() )
 				{
-					if ( PointingAt is BaseNPC npc )
+					if ( PointingAt.Faction == Faction )
 					{
-						if ( npc.Faction == Faction )
+						if ( PointingAt is BaseNPC npc )
 						{
 							if ( CurrentlyCommanding.Contains( npc ) )
 								RemoveFromCommanding( npc );

@@ -30,7 +30,7 @@ public partial class BaseProp : BaseEntity
 		EnableDrawing = true;
 		EnableTouch = true;
 
-		Tags.Add( "Solid" );
+		Tags.Add( "Solid", "Pushable" );
 		Tags.Add( Faction.ToString() );
 	}
 
