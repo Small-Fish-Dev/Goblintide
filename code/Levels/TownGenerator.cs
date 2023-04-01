@@ -14,6 +14,7 @@ public partial class Town
 	public int Seed => TownSize.GetHashCode();
 	internal List<Entity> townEntities = new();
 	public static List<SceneObject> TownTrees = new();
+	public static List<WallEntity> TownFences = new();
 
 	public static Dictionary<string, float> PlaceableHouses { get; set; } = new()
 	{
@@ -42,8 +43,8 @@ public partial class Town
 
 	public static Dictionary<string, float> PlaceableFences { get; set; } = new()
 	{
-		{ "prefabs/props/logwall.prefab", 130f },
-		{ "prefabs/props/fence.prefab", 100f },
+		{ "models/logwall/logwall.vmdl", 130f },
+		{ "models/fence/fence.vmdl", 100f },
 	};
 
 	public static Dictionary<string, float> PlaceableTrees { get; set; } = new()
@@ -98,22 +99,18 @@ public partial class Town
 		return false;
 	}
 
-	internal static async Task<bool> TryPlaceTree( Dictionary<string, float> list, Vector3 position, float x, float y, Vector2 threshold )
+	internal static void TryPlaceTree( Dictionary<string, float> list, Vector3 position, float x, float y, Vector2 threshold )
 	{
 		var noise = NoiseFBM( x, y, 3f );
 
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
-			await GameTask.RunInThreadAsync( () =>
-			{
-				var transform = new Transform( position + new Vector3( x, y, 0 ), Rotation.FromYaw( Game.Random.Int( 360 ) ), Game.Random.Float( 0.8f, 1.2f ) );
-				var spawnedTree = new SceneObject( Game.SceneWorld, WeightedList.RandomKey( list ), transform );
+			var transform = new Transform( position + new Vector3( x, y, 0 ), Rotation.FromYaw( Game.Random.Int( 360 ) ), Game.Random.Float( 0.8f, 1.2f ) );
+			Log.Info( WeightedList.RandomKey( list ) );
+			var spawnedTree = new SceneObject( Game.SceneWorld, WeightedList.RandomKey( list ), transform );
 				
-				TownTrees.Add( spawnedTree );
-			} );
+			TownTrees.Add( spawnedTree );
 		}
-
-		return false;
 	}
 
 	internal async Task<bool> TryForNPCs( Random rand, Vector3 position, float x, float y, float density, Vector2 threshold )
@@ -186,7 +183,7 @@ public partial class Town
 		return true;
 	}
 
-	public static async Task<bool> PlaceTrees( Vector3 position, float townWidth )
+	public static void PlaceTrees( Vector3 position, float townWidth )
 	{
 		foreach( var tree in TownTrees )
 		{
@@ -207,16 +204,13 @@ public partial class Town
 				if ( squaredDistance < clearingSquared ) continue;
 				if ( squaredDistance > forestSizeSquared ) continue;
 
-				if ( await TryPlaceTree( PlaceableTrees, position, x, y, new Vector2( 0f, 0.4f ) ) )
-					continue;
+				TryPlaceTree( PlaceableTrees, position, x, y, new Vector2( 0f, 0.4f ) );
 			}
 		}
-		return true;
 	}
 
-	internal async Task<bool> PlaceWall( Vector3 position )
+	public static void PlaceFences( Vector3 position, float townWidth )
 	{
-		var townWidth = 300f * (float)Math.Sqrt( TownSize / 5 );
 		var townDiameter = townWidth * 2 + 400f;
 		var perimeter = 2 * townDiameter * Math.PI;
 		var bestFence = townWidth >= 650f ? PlaceableFences.First() : PlaceableFences.Last();
@@ -231,20 +225,11 @@ public partial class Town
 			var y = townDiameter / 2 * (float)Math.Sin( angle );
 			if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
-			var spawnedFence = BaseProp.FromPrefab( bestFence.Key );
-			if ( spawnedFence == null )
-				continue;
-
-			await GameTask.RunInThreadAsync( () =>
-			{
-				spawnedFence.Position = position + Vector3.Forward * x + Vector3.Right * y;
-				spawnedFence.Rotation = Rotation.LookAt( spawnedFence.Position - position );
-			});
-
-			Current.townEntities.Add( spawnedFence );
+			var fencePosition = position + Vector3.Forward * x + Vector3.Right * y;
+			var transform = new Transform( fencePosition, Rotation.LookAt( fencePosition - position ) );
+			var spawnedFence = new WallEntity( Game.SceneWorld, bestFence.Key, transform, bestFence.Value );
+			TownFences.Add( spawnedFence );
 		}
-
-		return true;
 	}
 
 	public static async void GenerateTown( Vector3 position, float townSize, float density )
@@ -256,11 +241,11 @@ public partial class Town
 
 		var rand = new Random( Current.Seed );
 
-		await Current.PlaceWall( position );
 		await Current.PlaceProps( PlaceableHouses, rand, position, density, new Vector2( 0f, 0.33f ), true );
 		await Current.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
 		await Current.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );
 		await Current.PlaceNPCs( PlaceablePeople, rand, position, density, new Vector2( 0.7f, 1f ) );
+		GameMgr.BroadcastFences( position, 300f * (float)Math.Sqrt( Current.TownSize / 5 ) );
 		GameMgr.BroadcastTrees( position, 300f * (float)Math.Sqrt( Current.TownSize / 5 ) );
 
 		var minBounds = new Vector2();

@@ -50,9 +50,12 @@ public partial class GameMgr : GameManager
 	[ClientRpc]
 	public static void BroadcastTrees( Vector3 position, float townWidth )
 	{
-		GameTask.RunInThreadAsync( async () =>
-		{
-			await Town.PlaceTrees( position, townWidth );
-		} );
+		Town.PlaceTrees( position, townWidth );
+	}
+
+	[ClientRpc]
+	public static void BroadcastFences( Vector3 position, float townWidth )
+	{
+		Town.PlaceFences( position, townWidth );
 	}
 }
