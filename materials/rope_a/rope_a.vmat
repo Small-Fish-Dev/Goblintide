@@ -7,16 +7,13 @@ Layer0
 	//---- PBR ----
 	F_AMBIENT_OCCLUSION_TEXTURE 1
 
-	//---- Rendering ----
-	F_RENDER_BACKFACES 1
-
 	//---- Ambient Occlusion ----
-	TextureAmbientOcclusion "materials/twig_a/twig_a_ao.tga"
+	TextureAmbientOcclusion "materials/rope_a/rope_a_ao.png"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "materials/twig_a/twig_a_color.tga"
+	TextureColor "materials/rope_a/rope_a_color.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -28,10 +25,10 @@ Layer0
 	g_flMetalness "0.000"
 
 	//---- Normal ----
-	TextureNormal "materials/twig_a/twig_a_normal.tga"
+	TextureNormal "materials/rope_a/rope_a_normal.png"
 
 	//---- Roughness ----
-	TextureRoughness "materials/twig_a/twig_a_rough.tga"
+	TextureRoughness "materials/rope_a/rope_a_rough.png"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
@@ -42,8 +39,8 @@ Layer0
 
 	SystemAttributes
 	{
-		PhysicsSurfaceProperties "wood"
-		WorldMappingWidth "256"
-		WorldMappingHeight "256"
+		PhysicsSurfaceProperties "carpet"
+		WorldMappingWidth "64"
+		WorldMappingHeight "64"
 	}
 }
