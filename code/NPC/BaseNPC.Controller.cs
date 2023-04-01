@@ -55,7 +55,6 @@ public partial class BaseNPC
 		base.Touch( other );
 
 		if ( !Game.IsServer ) return;
-		Log.Info( other );
 		if ( other is BaseEntity toucher && other.Tags.Has( "Pushable" ) )
 			touchingEntities.Add( toucher );
 	}

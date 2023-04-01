@@ -31,7 +31,7 @@
       },
       "Model": {
         "Type": "Model",
-        "Value": "\u0022models/citizen/citizen.vmdl\u0022"
+        "Value": "\u0022models/terry/terry.vmdl\u0022"
       },
       "HitPoints": {
         "Type": "Single",

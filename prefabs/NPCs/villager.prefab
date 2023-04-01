@@ -27,7 +27,7 @@
     "Keys": {
       "Model": {
         "Type": "Model",
-        "Value": "\u0022models/citizen/citizen.vmdl\u0022"
+        "Value": "\u0022models/terry/terry.vmdl\u0022"
       },
       "BaseBehaviour": {
         "Type": "Behaviour",
@@ -47,7 +47,7 @@
       },
       "WalkSpeed": {
         "Type": "Single",
-        "Value": "80"
+        "Value": "160"
       },
       "RenderColor": {
         "Type": "Color",

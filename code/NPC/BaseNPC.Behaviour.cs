@@ -153,7 +153,7 @@ public partial class BaseNPC
 			nextAttack = 1 / AttackSpeed + Game.Random.Float( -(1 / AttackSpeed / 10f ), 1 / AttackSpeed / 10f );
 			target.Damage( AttackPower, this );
 
-			SetAnimParameter( "b_attack", true );
+			SetAnimParameter( "Attack", true );
 			PlayAttackSound();
 		}
 	}
