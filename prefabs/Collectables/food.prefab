@@ -3,25 +3,25 @@
   "Name": null,
   "Description": null,
   "Root": {
-    "Guid": "f919cbb7-735f-4eb0-ba00-68e81971ec5f",
+    "Guid": "f31a64d2-e1bd-44c8-a959-06c78fb2f8ed",
     "Class": "BaseCollectable",
     "Entities": [],
     "Components": [],
     "Keys": {
-      "Type": {
-        "Type": "Collectable",
-        "Value": "\u0022Wood\u0022"
-      },
       "Model": {
         "Type": "Model",
-        "Value": "\u0022models/fence/fence/piece_39.vmdl\u0022"
+        "Value": "\u0022models/sacks/sack.vmdl\u0022"
       },
-      "Value": {
+      "Type": {
+        "Type": "Collectable",
+        "Value": "\u0022Food\u0022"
+      },
+      "CollisionBoxSize": {
         "Type": "Single",
-        "Value": "2"
+        "Value": "26.85"
       },
       "_name": {
-        "Value": "\u0022Wood\u0022"
+        "Value": "\u0022Sack of Wheat\u0022"
       },
       "_localposition": {
         "Value": "\u00220,0,0\u0022"
@@ -30,14 +30,14 @@
         "Value": "\u00220,0,0\u0022"
       },
       "_scale": {
-        "Value": "2.3408115"
+        "Value": "1"
       },
       "_tags": {
         "Value": "\u0022\u0022"
       },
-      "CollisionBoxSize": {
-        "Type": "Single",
-        "Value": "30"
+      "IsRagdoll": {
+        "Type": "Boolean",
+        "Value": "true"
       }
     }
   }
