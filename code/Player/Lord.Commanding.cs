@@ -4,6 +4,7 @@ namespace GameJam;
 
 public partial class Lord
 {
+	public float PointingDistance { get; set; } = 500f;
 	internal BaseEntity pointingAt { get; set; } = null;
 	public BaseEntity PointingAt
 	{
@@ -117,10 +118,9 @@ public partial class Lord
 
 	internal BaseEntity FindBestPointedAt()
 	{
-		var preciseTrace = Trace.Ray( Camera.Position, Camera.Position + Camera.Rotation.Forward * 500f )
-				.Size( 15f )
-				.Ignore( this )
-				.Run();
+		var preciseTrace = Trace.Ray( Camera.Position, Camera.Position + Camera.Rotation.Forward * PointingDistance )
+			.Ignore( this )
+			.Run();
 
 		if ( preciseTrace.Entity is BaseEntity preciseEntity )
 		{
@@ -128,10 +128,21 @@ public partial class Lord
 			return preciseEntity;
 		}
 
-		var outerTrace = Trace.Ray( Camera.Position, Camera.Position + Camera.Rotation.Forward * 500f )
-				.Size( 30f )
-				.Ignore( this )
-				.Run();
+		var innerTrace = Trace.Ray( Camera.Position, Camera.Position + Camera.Rotation.Forward * PointingDistance )
+			.Size( 10f )
+			.Ignore( this )
+			.Run();
+
+		if ( innerTrace.Entity is BaseEntity innerEntity )
+		{
+			PointingPosition = innerEntity.Position;
+			return innerEntity;
+		}
+
+		var outerTrace = Trace.Ray( Camera.Position, Camera.Position + Camera.Rotation.Forward * PointingDistance )
+			.Size( 30f )
+			.Ignore( this )
+			.Run();
 
 		if ( outerTrace.Entity is BaseEntity outerEntity )
 		{
