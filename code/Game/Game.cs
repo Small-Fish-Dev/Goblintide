@@ -58,6 +58,9 @@ public partial class GameMgr : GameManager
 		}
 
 		base.ClientJoined( client );
+
+		// Load the save.
+		LoadSave();
 	}
 
 	[ClientRpc]
