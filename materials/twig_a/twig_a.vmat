@@ -43,7 +43,7 @@ Layer0
 	SystemAttributes
 	{
 		PhysicsSurfaceProperties "wood"
-		WorldMappingWidth "512"
-		WorldMappingHeight "512"
+		WorldMappingWidth "256"
+		WorldMappingHeight "256"
 	}
 }
