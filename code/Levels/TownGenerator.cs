@@ -9,6 +9,7 @@ public partial class Town
 	public static Town Current { get; set; }
 	public bool Generated { get; private set; } = false;
 	public float TownSize { get; set; } = 0f;
+	public float TownRadius { get; set; } = 0f;
 	public Vector3 Position { get; set; } = Vector3.Zero;
 	public Vector2 Bounds { get; set; } = Vector2.Zero;
 	public int Seed => TownSize.GetHashCode();
@@ -139,18 +140,16 @@ public partial class Town
 
 	internal async Task<bool> PlaceProps( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold, bool lookAtCenter = false )
 	{
+		var townRadiusSquared = TownRadius * TownRadius;
+		var mainRoadSize = 60f + TownRadius / 15f;
 
-		var townWidth = 300f * (float)Math.Sqrt( TownSize / 5 );
-		var townWidthSquared = townWidth * townWidth;
-		var mainRoadSize = 60f + townWidth / 15f;
-
-		for ( float x = -townWidth; x <= townWidth; x += 100f / density )
+		for ( float x = -TownRadius; x <= TownRadius; x += 100f / density )
 		{
-			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
+			for ( float y = -TownRadius; y <= TownRadius; y += 100f / density )
 			{
 				var squaredDistance = x * x + y * y;
 
-				if ( squaredDistance > townWidthSquared ) continue;
+				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
 				if ( await Current.TryPlaceProp( list, rand, position, x, y, density, new Vector2( threshold.x, threshold.y ), lookAtCenter ) )
@@ -162,17 +161,16 @@ public partial class Town
 
 	internal async Task<bool> PlaceNPCs( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold )
 	{
-		var townWidth = 300f * (float)Math.Sqrt( TownSize / 5 );
-		var townWidthSquared = townWidth * townWidth;
-		var mainRoadSize = 60f + townWidth / 15f;
+		var townRadiusSquared = TownRadius * TownRadius;
+		var mainRoadSize = 60f + TownRadius / 15f;
 
-		for ( float x = -townWidth; x <= townWidth; x += 100f / density )
+		for ( float x = -TownRadius; x <= TownRadius; x += 100f / density )
 		{
-			for ( float y = -townWidth; y <= townWidth; y += 100f / density )
+			for ( float y = -TownRadius; y <= TownRadius; y += 100f / density )
 			{
 				var squaredDistance = x * x + y * y;
 
-				if ( squaredDistance > townWidthSquared ) continue;
+				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
 				if ( await Current.TryForNPCs( rand, position, x, y, density, new Vector2( threshold.x, threshold.y ) ) )
@@ -243,6 +241,7 @@ public partial class Town
 
 		Current = new Town();
 		Current.TownSize = townSize;
+		Current.TownRadius = 300f * (float)Math.Sqrt( Current.TownSize / 5 );
 
 		var rand = new Random( Current.Seed );
 
@@ -250,8 +249,8 @@ public partial class Town
 		await Current.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
 		await Current.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );
 		await Current.PlaceNPCs( PlaceablePeople, rand, position, density, new Vector2( 0.7f, 1f ) );
-		GameMgr.BroadcastFences( position, 300f * (float)Math.Sqrt( Current.TownSize / 5 ) );
-		GameMgr.BroadcastTrees( position, 300f * (float)Math.Sqrt( Current.TownSize / 5 ) );
+		GameMgr.BroadcastFences( position, Current.TownRadius );
+		GameMgr.BroadcastTrees( position, Current.TownRadius );
 
 		var minBounds = new Vector2();
 		var maxBounds = new Vector2();
