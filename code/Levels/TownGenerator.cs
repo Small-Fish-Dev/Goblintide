@@ -106,7 +106,6 @@ public partial class Town
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
 			var transform = new Transform( position + new Vector3( x, y, 0 ), Rotation.FromYaw( Game.Random.Int( 360 ) ), Game.Random.Float( 0.8f, 1.2f ) );
-			Log.Info( WeightedList.RandomKey( list ) );
 			var spawnedTree = new SceneObject( Game.SceneWorld, WeightedList.RandomKey( list ), transform );
 				
 			TownTrees.Add( spawnedTree );
@@ -211,6 +210,12 @@ public partial class Town
 
 	public static void PlaceFences( Vector3 position, float townWidth )
 	{
+
+		foreach ( var fence in TownFences )
+		{
+			fence.Delete();
+		}
+
 		var townDiameter = townWidth * 2 + 400f;
 		var perimeter = 2 * townDiameter * Math.PI;
 		var bestFence = townWidth >= 650f ? PlaceableFences.First() : PlaceableFences.Last();

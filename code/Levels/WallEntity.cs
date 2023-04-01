@@ -1,6 +1,4 @@
-﻿using Sandbox.Diagnostics;
-
-namespace GameJam;
+﻿namespace GameJam;
 
 
 public partial class WallEntity : Entity
@@ -12,6 +10,7 @@ public partial class WallEntity : Entity
 	public WallEntity( SceneWorld sceneWorld, String model, Transform transform, float length )
 	{
 		sceneObject = new SceneObject(sceneWorld, model, transform);
+		sceneObject.Tags.Add( "nocamera" );
 		Transform = transform;
 		Length = length;
 	}
@@ -28,9 +27,23 @@ public partial class WallEntity : Entity
 
 			if ( trace.Hit )
 			{
-				Delete();
+				Break();
 			}
 		}
+	}
+
+	public void Break()
+	{
+		Breakables.Break( sceneObject.Model, Position, Rotation, 1f, Color.White );
+		var gibs = Entity.All
+			.OfType<PropGib>()
+			.Where( x => x.Position.DistanceSquared( Position ) <= Length * Length );
+		foreach ( var gib in gibs )
+		{
+			gib.Velocity = Vector3.Random * 300;
+			gib.Tags.Add( "nocamera" );
+		}
+		Delete();
 	}
 
 	protected override void OnDestroy()

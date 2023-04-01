@@ -183,7 +183,7 @@ public partial class Lord
 		_proposedCameraDistance = _proposedCameraDistance.LerpTo( GetTargetDistance(), Time.Delta * DistanceLerp );
 		var trace = Trace.Ray( EyePosition, EyePosition + Camera.Rotation.Backward * _proposedCameraDistance )
 			.Ignore( this )
-			.WithoutTags( "player", "npc", "trigger" )
+			.WithoutTags( "player", "npc", "trigger", "nocamera" )
 			.Radius( 7 )
 			.IncludeClientside()
 			.Run();
