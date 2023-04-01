@@ -34,6 +34,8 @@ public partial class Town
 		{ "prefabs/props/barrel.prefab", 2f },
 		{ "prefabs/props/largecrate.prefab", 2f },
 		{ "prefabs/props/smallcrate.prefab", 3f },
+		{ "prefabs/props/wheat.prefab", 1f },
+		{ "prefabs/props/gold.prefab", 0.4f },
 	};
 
 	public static Dictionary<string, float> PlaceablePeople { get; set; } = new()
