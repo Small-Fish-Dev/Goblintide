@@ -7,20 +7,16 @@ Layer0
 	//---- Color ----
 	F_TINT_MASK 1
 
-	//---- PBR ----
-	F_METALNESS_TEXTURE 1
-	F_SPECULAR 1
-
 	//---- Ambient Occlusion ----
 	g_flAmbientOcclusionDirectDiffuse "0.000"
 	g_flAmbientOcclusionDirectSpecular "0.000"
-	TextureAmbientOcclusion "models/clothes/shirt_ao.tga"
+	TextureAmbientOcclusion "models/clothes/guard_quilt_armor/quilt_armor_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "models/clothes/shirt_color.tga"
-	TextureTintMask "models/clothes/shirt_mask.tga"
+	TextureColor "models/clothes/guard_quilt_armor/quilt_armor_color.tga"
+	TextureTintMask "models/clothes/guard_quilt_armor/quilt_armor_mask.tga"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -29,13 +25,13 @@ Layer0
 	g_bFogEnabled "1"
 
 	//---- Metalness ----
-	TextureMetalness "models/clothes/shirt_metal.tga"
+	g_flMetalness "0.000"
 
 	//---- Normal ----
-	TextureNormal "models/clothes/shirt_normal.tga"
+	TextureNormal "models/clothes/guard_quilt_armor/quilt_armor_normal.tga"
 
 	//---- Roughness ----
-	TextureRoughness "models/clothes/shirt_rough.tga"
+	TextureRoughness "models/clothes/guard_quilt_armor/quilt_armor_rough.tga"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
