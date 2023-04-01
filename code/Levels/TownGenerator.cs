@@ -17,7 +17,7 @@ public partial class Town
 
 	public static Dictionary<string, float> PlaceableHouses { get; set; } = new()
 	{
-		{ "prefabs/props/house_a.prefab_c", 1f },
+		{ "prefabs/props/house_a.prefab", 1f },
 	};
 
 	public static Dictionary<string, float> PlaceableBigProps { get; set; } = new()
@@ -47,7 +47,7 @@ public partial class Town
 
 	public static Dictionary<string, float> PlaceableTrees { get; set; } = new()
 	{
-		{ "models/placeholders/placeholder_tree.vmdl", 1f },
+		{ "models/placeholders/tree_pine.vmdl", 1f },
 	};
 
 	public Town() { }
@@ -98,7 +98,7 @@ public partial class Town
 	internal static async Task<bool> TryPlaceTree( Dictionary<string, float> list, Vector3 position, float x, float y, Vector2 threshold )
 	{
 		var noise = NoiseFBM( x, y, 3f );
-		Log.Info( noise );
+
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
 
