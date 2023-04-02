@@ -43,6 +43,7 @@ public partial class BaseProp : BaseEntity
 			var result = new Breakables.Result();
 			Breakables.Break( this, result );
 		}
+		Sound.FromWorld( "sounds/physics/breaking/break_wood_plank.sound", Position );
 
 		base.Kill();
 	}
