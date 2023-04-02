@@ -816,15 +816,6 @@
 						weight = 1.0
 						ignore_rotation = false
 					},
-					{
-						_class = "Attachment"
-						name = "hat"
-						parent_bone = "head"
-						relative_origin = [ 38.5, 0.75, 0.001156 ]
-						relative_angles = [ 0.0, 90.0, 90.0 ]
-						weight = 1.0
-						ignore_rotation = false
-					},
 				]
 			},
 			{
