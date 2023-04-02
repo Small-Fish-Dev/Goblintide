@@ -14,7 +14,7 @@ Layer0
 	TextureTintMask "materials/default/default.tga"
 
 	//---- Material A ----
-	g_flTintColorA "[0.568627 0.239216 0.196078 0.000000]"
+	g_flTintColorA "[0.482353 0.392157 0.360784 0.000000]"
 	TextureAmbientOcclusionA "materials/bricks_a/brickz_ao.tga"
 	TextureBlendMaskA "materials/bricks_a/brickz_height.tga"
 	TextureColorA "materials/bricks_a/brickz_color.tga"
