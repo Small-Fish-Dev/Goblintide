@@ -87,7 +87,7 @@ public partial class BaseEntity : AnimatedEntity
 			var newGlow = Components.GetOrCreate<Glow>();
 			newGlow.Enabled = true;
 			newGlow.Color = currentLord?.Faction == Faction ? Color.Green : Color.Red;
-			Log.Info( Faction );
+
 			foreach ( var child in Children )
 			{
 				var newChildGlow = child.Components.GetOrCreate<Glow>();

@@ -19,16 +19,17 @@ public partial class BaseNPC
 		SetAnimParameter( "move_y", Velocity.Dot( Rotation.Right ) / Scale );
 
 		if ( CurrentSubBehaviour == SubBehaviour.Attacking )
-		{
 			SetAnimParameter( "State", 1 );
-		}
 		else if ( CurrentSubBehaviour == SubBehaviour.Panicking )
-		{
 			SetAnimParameter( "State", 2 );
-		}
 		else
-		{
 			SetAnimParameter( "State", 0 );
-		}
+
+		if ( nextAttack.Passed <= 0.1f )
+			SetAnimParameter( "state", 1 );
+		else if ( IsFollowingPath && CurrentTarget is BaseNPC )
+			SetAnimParameter( "state", 2 );
+		else
+			SetAnimParameter( "state", 0 );
 	}
 }
