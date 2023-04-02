@@ -1,0 +1,38 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "258282b6-2a97-46f3-b64b-a3d78a1e090a",
+    "Class": "BaseItem",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/clothes/guard_helmet/guard_helmet.vmdl\u0022"
+      },
+      "IncreasedHealth": {
+        "Type": "Single",
+        "Value": "4"
+      },
+      "Type": {
+        "Type": "ItemType",
+        "Value": "\u0022Armor\u0022"
+      },
+      "_name": {
+        "Value": "\u0022Root Entity\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {}
+    }
+  }
+}

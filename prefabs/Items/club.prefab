@@ -1,0 +1,40 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "2c5e6ce4-66e9-4acf-92f9-5dc0fc5a2931",
+    "Class": "BaseItem",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/weapons/club/club.vmdl\u0022"
+      },
+      "IncreasedAttack": {
+        "Type": "Single",
+        "Value": "1"
+      },
+      "_name": {
+        "Value": "\u0022Wooden Club\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {
+        "Value": "\u0022\u0022"
+      },
+      "Type": {
+        "Type": "ItemType",
+        "Value": "\u0022Weapon\u0022"
+      }
+    }
+  }
+}

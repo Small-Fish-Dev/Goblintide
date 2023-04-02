@@ -131,37 +131,6 @@
         }
       },
       {
-        "Guid": "5d3b7150-5367-4cad-bb96-36fe2d875178",
-        "Class": "animated_entity",
-        "Entities": [],
-        "Components": [],
-        "Keys": {
-          "Model": {
-            "Type": "Model",
-            "Value": "\u0022models/clothes/guard_helmet/guard_helmet.vmdl\u0022"
-          },
-          "_attachment": {
-            "Type": "String",
-            "Value": "\u0022_bonemerge\u0022"
-          },
-          "_name": {
-            "Value": "\u0022Untitled Entity\u0022"
-          },
-          "_localposition": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_localrotation": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_scale": {
-            "Value": "1"
-          },
-          "_tags": {
-            "Value": "\u0022\u0022"
-          }
-        }
-      },
-      {
         "Guid": "ce605e7e-eaf6-4cd8-8ca2-bda743d69eb0",
         "Class": "animated_entity",
         "Entities": [],
@@ -325,6 +294,14 @@
       "MaxHitPoints": {
         "Type": "Single",
         "Value": "12"
+      },
+      "StartingArmor": {
+        "Type": "String",
+        "Value": "\u0022prefabs/items/helmet.prefab\u0022"
+      },
+      "StartingWeapon": {
+        "Type": "String",
+        "Value": "\u0022prefabs/items/club.prefab\u0022"
       }
     }
   }
