@@ -24,7 +24,7 @@ Layer0
 	TextureTintMaskA "materials/default/default.tga"
 
 	//---- Material B ----
-	g_flBlendSoftnessB "0.199"
+	g_flBlendSoftnessB "0.100"
 	g_flTintColorB "[1.000000 1.000000 1.000000 0.000000]"
 	g_vTexCoordScale2 "[1.000 1.000]"
 	TextureAmbientOcclusionB "materials/default/default_ao.tga"
