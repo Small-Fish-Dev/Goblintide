@@ -21,16 +21,20 @@ public partial class GameMgr : GameManager
 	/// <summary>
 	/// The game's current Lord.
 	/// </summary>
-	public static Lord Lord { get; private set; }
+	public static Lord Lord
+	{
+		get => Instance.lord;
+		set
+		{
+			Instance.lord = value;
+		}
+	}
+	[Net] private Lord lord { get; set; }
 
 	public GameMgr()
 	{
 		Instance = this;
 		Game.TickRate = 15;
-
-		// Set the beginning state.
-		if ( Game.IsServer )
-			SetState<VillageState>();
 
 		Event.Run( nameof(GameEvents.Initialize) );
 
@@ -60,6 +64,7 @@ public partial class GameMgr : GameManager
 		base.ClientJoined( client );
 
 		// Load the save.
+		SetState<VillageState>();
 		LoadSave();
 	}
 
