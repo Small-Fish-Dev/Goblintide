@@ -19,14 +19,10 @@ public partial class Lord
 
 		if ( Pointing )
 		{
-			SetAnimParameter( "holdtype", (int)CitizenAnimationHelper.HoldTypes.Pistol );
-			SetAnimParameter( "holdtype_handedness", (int)CitizenAnimationHelper.Hand.Left );
 			PointHead( LookDirection );
 		}
 		else
 		{
-			SetAnimParameter( "holdtype", (int)CitizenAnimationHelper.HoldTypes.None );
-			SetAnimParameter( "holdtype_holdedness", 0 );
 			PointHead( Rotation.Identity );
 		}
 	}

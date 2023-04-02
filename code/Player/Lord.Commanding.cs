@@ -32,6 +32,9 @@ public partial class Lord
 	public List<BaseNPC> CurrentlyCommanding { get; set; } = new();
 	public void SimulateCommanding()
 	{
+		if ( GetAnimParameterInt( "state" ) == 4 )
+			SetAnimParameter( "state", 0 );
+
 		if ( Pointing )
 		{
 			PointingAt = FindBestPointedAt();
@@ -61,6 +64,8 @@ public partial class Lord
 							nearestAlly.RecalculateTargetNav();
 						}
 					}
+
+					SetAnimParameter( "state", 4 );
 				}
 			}
 		}
