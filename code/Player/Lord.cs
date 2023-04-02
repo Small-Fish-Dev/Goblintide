@@ -44,7 +44,10 @@ public partial class Lord : BaseCharacter
 
 		// Overview mode toggle.
 		if ( Input.Released( InputButton.Score ) )
+		{
 			Overview = !Overview;
+			OverviewOffset = 0;
+		}
 
 		SimulateController();
 		SimulateAnimations();
