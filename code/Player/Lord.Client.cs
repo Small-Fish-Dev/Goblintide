@@ -4,6 +4,12 @@ namespace GameJam;
 
 public partial class Lord
 {
+	[Net, Predicted]
+	public bool Overview { get; set; } = true;
+	public Vector3 PointOfInterest { get; set; }
+	public bool OverviewAnimating { get; private set; } = false;
+	bool finishedAnimating = false;
+
 	#region Player Configuration
 
 	/// <summary> Player body height </summary>
@@ -222,14 +228,28 @@ public partial class Lord
 	{
 		Camera.FirstPersonViewer = null;
 		Camera.ZNear = 4;
-		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Game.Preferences.FieldOfView );
+		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( 100f );
 	}
 
 	public void SimulateCamera()
 	{
-		CameraStageOne();
-		CameraStageTwo();
+		OverviewAnimating = false;
 		CameraFinalize();
+
+		if ( !Overview )
+		{
+			finishedAnimating = false;
+			CameraStageOne();
+			CameraStageTwo();
+			
+			return;
+		}
+
+		// Overview Camera
+		var offset = Vector3.Up * 500f + Vector3.Backward * 250f;
+		var targetPosition = PointOfInterest + offset;
+		Camera.Position = Vector3.Lerp( Camera.Position, targetPosition, 5f * Time.Delta );
+		Camera.Rotation = Rotation.LookAt( -offset );
 	}
 
 	public override void BuildInput()

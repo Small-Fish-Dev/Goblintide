@@ -26,9 +26,8 @@
 		if ( Game.LocalPawn is not Lord pawn )
 			return;
 
-		if ( !pawn.Pointing ) 
-			return;
-
-		DebugOverlay.Line( pawn.GetBoneTransform( "finger_index_2_R" ).Position, Camera.Position + Camera.Rotation.Forward * 100f, color: Color.White.WithAlpha( 0.4f ) );
+		Style.Opacity = pawn.Overview
+			? 0f
+			: 0.4f;
 	}
 }
