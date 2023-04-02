@@ -24,6 +24,7 @@ public partial class Lord
 
 	public void AddUpgrade( string identifier )
 	{
+		Game.AssertServer();
 		if ( !Upgrade.Exists( identifier ) )
 			throw new Exception( $"Unknown upgrade {identifier}" );
 		Upgrades.Add( identifier );
@@ -32,6 +33,7 @@ public partial class Lord
 
 	public void RemoveUpgrade( string identifier )
 	{
+		Game.AssertServer();
 		if ( !Upgrade.Exists( identifier ) )
 			throw new Exception( $"Unknown upgrade {identifier}" );
 		Upgrades.Remove( identifier );
