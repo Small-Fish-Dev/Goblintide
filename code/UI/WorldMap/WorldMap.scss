@@ -23,19 +23,21 @@
 	
 	transition: all 0.4s ease-in-out;
 
-	transform: rotateY(0deg) rotate(0deg);
+	transform: rotate(5deg);
+	
+	transform-origin: 50% 0%;
 	
 	&:outro {
-		top: 100%;
+		bottom: 100%;
 		opacity: 0;
 
-		transform: rotateY(60deg);
+		transform: rotate(-30deg);
 	}
 
 	&:intro {
-		top: 100%;
+		bottom: 100%;
 		opacity: 0;
 
-		transform: rotateY(60deg) rotate(30deg);
+		transform: rotate(30deg);
 	}
 }

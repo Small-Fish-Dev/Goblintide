@@ -31,16 +31,18 @@ public class PlayerView : ScenePanel
 			Model.SetAnimParameter( "holdtype_pose", 4.75f );
 			_animated = true;
 		}
+
+		if ( !_animated )
+		{
+			var main = Sandbox.Camera.Main;
+			Camera.Position = main.Position;
+			Camera.Rotation = main.Rotation;
+			Camera.FieldOfView = main.FieldOfView;
+			Camera.AntiAliasing = true;
+		}
 		
 		Model.CurrentSequence.Time = Pawn.CurrentSequence.Time;
 		Model.Rotation = Pawn.Rotation;
 		Model.Update( Time.Delta );
-
-		var main = Sandbox.Camera.Main;
-
-		Camera.Position = main.Position;
-		Camera.Rotation = main.Rotation;
-		Camera.FieldOfView = main.FieldOfView;
-		Camera.AntiAliasing = true;
 	}
 }

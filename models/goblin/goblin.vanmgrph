@@ -153,6 +153,27 @@
 			{
 				key = 
 				{
+					m_id = 797116100
+				}
+				value = 
+				{
+					_class = "CSingleFrameAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ 336.0, -176.0 ]
+					m_nNodeID = 
+					{
+						m_id = 797116100
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_sequenceName = "attack"
+					m_nFrameIndex = 11
+					m_tagSpans = [  ]
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 996883762
 				}
 				value = 
@@ -285,7 +306,7 @@
 							{
 								m_id = 1670266654
 							}
-							m_position = [ 16.0, -48.0 ]
+							m_position = [ 16.0, -64.0 ]
 							m_bIsStartState = true
 							m_bIsEndtState = false
 							m_bIsPassthrough = false
@@ -514,9 +535,22 @@
 								m_id = 4294967295
 							}
 						},
+						{
+							m_nodeID = 
+							{
+								m_id = 1816957272
+							}
+							m_outputID = 
+							{
+								m_id = 4294967295
+							}
+						},
 					]
 					m_tags = 
 					[
+						{
+							m_id = 4294967295
+						},
 						{
 							m_id = 4294967295
 						},
@@ -820,6 +854,60 @@
 			{
 				key = 
 				{
+					m_id = 1816957272
+				}
+				value = 
+				{
+					_class = "CBoneMaskAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ 528.0, -192.0 ]
+					m_nNodeID = 
+					{
+						m_id = 1816957272
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_weightListName = "arms"
+					m_inputConnection1 = 
+					{
+						m_nodeID = 
+						{
+							m_id = 1159378348
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
+					}
+					m_inputConnection2 = 
+					{
+						m_nodeID = 
+						{
+							m_id = 797116100
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
+					}
+					m_blendSpace = "BlendSpace_Parent"
+					m_bUseBlendScale = false
+					m_blendValueSource = "Parameter"
+					m_blendParameter = 
+					{
+						m_id = 4294967295
+					}
+					m_timingBehavior = "UseChild2"
+					m_flTimingBlend = 0.5
+					m_flRootMotionBlend = 0.0
+					m_footMotionTiming = "Child1"
+					m_bResetChild1 = false
+					m_bResetChild2 = true
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 2085562871
 				}
 				value = 
@@ -1076,6 +1164,7 @@
 					"idle",
 					"attack",
 					"chasing",
+					"carrying",
 				]
 			},
 		]

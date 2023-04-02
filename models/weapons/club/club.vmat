@@ -1,0 +1,8 @@
+"Layer0"
+{
+	"shader"		"shaders/complex.shader_c"
+	"TextureColor"		"models/weapons/club/wood_club_color.tga"
+	"TextureAmbientOcclusion"		"models/weapons/club/wood_club_ao.tga"
+	"TextureNormal"		"models/weapons/club/wood_club_normal.tga"
+	"TextureRoughness"		"models/weapons/club/wood_club_rough.tga"
+}

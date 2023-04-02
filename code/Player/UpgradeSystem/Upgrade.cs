@@ -19,6 +19,8 @@ public class Upgrade
 
 	public static bool Exists( string identifier ) => Find( identifier ) != null;
 
+	public static void ClearAll() => BuiltUpgrades.Clear();
+
 	private Upgrade( string identifier, string title )
 	{
 		Identifier = identifier;
@@ -26,8 +28,11 @@ public class Upgrade
 	}
 
 	public string Identifier { get; }
-	public string Title { get; }
-	public int Cost = 10;
+	public string Title;
+	public int Cost;
+
+	/// <summary> Position of upgrade on skill tree, with 0 being the center </summary>
+	public Vector2 Position = Vector2.Zero;
 
 	public List<string> Dependencies;
 
@@ -75,6 +80,7 @@ public class Upgrade
 
 		private readonly string _dependency;
 		private string _last;
+		private Vector2 _position;
 
 		public Builder( string identifier )
 		{
@@ -94,6 +100,12 @@ public class Upgrade
 			return this;
 		}
 
+		public Builder PlaceAt( Vector2 position )
+		{
+			_position = position;
+			return this;
+		}
+
 		public Builder Next( string identifier, Func<Builder, Builder> creator = null )
 		{
 			_next ??= new List<Builder>();
@@ -106,7 +118,7 @@ public class Upgrade
 
 		public Upgrade Build()
 		{
-			var instance = new Upgrade( _identifier, _title );
+			var instance = new Upgrade( _identifier, _title ) { Position = _position };
 			_postBuild?.Invoke( instance );
 
 			instance.Dependencies ??= new List<string>();

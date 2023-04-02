@@ -1,6 +1,4 @@
-﻿using GameJam.UpgradeSystem;
-
-namespace GameJam;
+﻿namespace GameJam;
 
 public partial class Lord : BaseCharacter
 {

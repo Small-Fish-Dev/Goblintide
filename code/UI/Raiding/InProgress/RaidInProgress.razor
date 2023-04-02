@@ -3,3 +3,14 @@
 @namespace GameJam.UI
 @inherits SingletonPanel<RaidInProgress>
 @attribute [StyleSheet( "/UI/Raiding/InProgress/RaidInProgress.scss" )]
+
+@code {
+
+	private Lord Pawn => (Lord)Game.LocalPawn;
+
+}
+
+<root>
+	commanding @Pawn.CurrentlyCommanding.Count
+
+</root>

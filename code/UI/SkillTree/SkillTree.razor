@@ -1,4 +1,5 @@
-﻿@using Sandbox.UI;
+﻿@using GameJam.UpgradeSystem
+@using Sandbox.UI;
 
 @namespace GameJam.UI
 @inherits SingletonPanel<SkillTree>
@@ -9,17 +10,43 @@
 		<div class="gradient"></div>
 		<div class="gradient2"></div>
 		<PlayerView></PlayerView>
-		<div class="container" allow-translate>
-
-		</div>
+		<div class="container" @ref=Container allow-translate></div>
 	</div>
 </root>
 
 @code {
 
+	public Panel Container
+	{
+		get => null;
+		set { GenerateUpgrades( value ); }
+	}
+
 	public SkillTree()
 	{
 		WorldMap.Delete();
 	}
-	
+
+	private void GenerateUpgrades( Panel panel )
+	{
+		foreach ( var upgrade in Upgrade.All )
+		{
+			var actor = new UpgradeActor( upgrade );
+			panel.AddChild( actor );
+		}
+
+		var actors = Descendants.OfType<UpgradeActor>().ToList();
+
+		foreach ( var actor in actors )
+		{
+			foreach ( var dependencyId in actor.Upgrade.Dependencies )
+			{
+				var dependencyActor = actors.SingleOrDefault( v => v.Upgrade.Identifier == dependencyId );
+				if ( dependencyActor == null )
+					throw new Exception( $"Unknown or no existing actor for dependency {dependencyId}" );
+				actor.Dependencies.Add( dependencyActor );
+			}
+		}
+	}
+
 }
