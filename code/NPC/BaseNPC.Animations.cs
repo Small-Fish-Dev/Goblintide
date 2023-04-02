@@ -25,7 +25,9 @@ public partial class BaseNPC
 		else
 			SetAnimParameter( "State", 0 );
 
-		if ( nextAttack.Passed <= 0.1f && CurrentSubBehaviour == SubBehaviour.Attacking )
+		if ( CurrentSubBehaviour == SubBehaviour.Stealing && Stealing.IsValid() )
+			SetAnimParameter( "state", 3 );
+		else if ( nextAttack.Passed <= 0.1f && CurrentSubBehaviour == SubBehaviour.Attacking )
 			SetAnimParameter( "state", 1 );
 		else if ( IsFollowingPath && CurrentTarget.IsValid() && CurrentTarget is BaseNPC )
 			SetAnimParameter( "state", 2 );

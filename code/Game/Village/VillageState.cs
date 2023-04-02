@@ -8,6 +8,13 @@ public partial class VillageState : GameState
 	{
 		if ( Game.IsClient )
 			hud = HUD.Instance.AddChild<VillageHUD>();
+		else
+			Town.GenerateTown( 40f, 2f );
+	}
+
+	public override void Changed( GameState state )
+	{
+		GameMgr.Instance.CurrentTown.DeleteTown();
 	}
 
 	[Event.Tick]

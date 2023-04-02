@@ -229,7 +229,7 @@ public partial class Lord
 		Camera.FirstPersonViewer = null;
 		Camera.ZNear = 2;
 		Camera.ZFar = 99999;
-		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( 100f );
+		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Game.Preferences.FieldOfView );
 	}
 
 	public void SimulateCamera()
