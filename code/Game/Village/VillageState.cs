@@ -15,6 +15,9 @@ public partial class VillageState : GameState
 	[Event.Tick]
 	private void onTick()
 	{
+		if ( GameMgr.Lord == null )
+			return;
+
 		// Block movement if in overview mode.
 		GameMgr.Lord.BlockMovement = GameMgr.Lord.Overview;
 		
