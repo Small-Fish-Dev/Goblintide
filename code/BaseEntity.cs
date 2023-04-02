@@ -21,6 +21,7 @@ public partial class BaseEntity : AnimatedEntity
 	public BaseCharacter LastAttackedBy { get; set; } = null;
 	public TimeSince LastAttacked { get; set; } = 0f;
 	public virtual bool BlockNav { get; set; } = true;
+	public NavBlockerEntity NavBlocker { get; set; } = null;
 
 	public override void Spawn()
 	{
@@ -37,16 +38,16 @@ public partial class BaseEntity : AnimatedEntity
 		if ( !BlockNav || model == null ) 
 			return;
 
-		var navBlocker = new NavBlockerEntity();
-		navBlocker.PhysicsClear();
-		navBlocker.Model = model;
-		navBlocker.SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
-		navBlocker.Position = Position;
-		navBlocker.Rotation = Rotation;
-		navBlocker.PhysicsEnabled = false;
-		navBlocker.EnableDrawing = false;
-		navBlocker.Enable();
-		navBlocker.SetParent( this );
+		NavBlocker = new NavBlockerEntity();
+		NavBlocker.PhysicsClear();
+		NavBlocker.Model = model;
+		NavBlocker.SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
+		NavBlocker.Position = Position;
+		NavBlocker.Rotation = Rotation;
+		NavBlocker.PhysicsEnabled = false;
+		NavBlocker.EnableDrawing = false;
+		NavBlocker.Enable();
+		NavBlocker.SetParent( this );
 	}
 
 	public virtual float GetWidth()

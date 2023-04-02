@@ -100,20 +100,27 @@ public partial class BaseNPC : BaseCharacter
 		{
 			var armor = BaseItem.FromPrefab( StartingArmor );
 			if ( armor != null )
+			{
+				Armor = armor;
 				Equip( armor );
+			}
 		}
 
 		if ( StartingWeapon != null )
 		{
 			var weapon = BaseItem.FromPrefab( StartingWeapon );
 			if ( weapon != null )
+			{
+				Weapon = weapon;
 				Equip( weapon );
+			}
 		}
 	}
 
 	public void Equip( BaseItem item )
 	{
 		if ( !item.IsValid() ) return;
+
 		item.EnableAllCollisions = false;
 		item.SetParent( this, true );
 
@@ -125,6 +132,7 @@ public partial class BaseNPC : BaseCharacter
 	public void Drop( BaseItem item )
 	{
 		if ( !item.IsValid() ) return;
+
 		item.SetParent( null );
 		item.EnableAllCollisions = true;
 
