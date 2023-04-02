@@ -2,6 +2,8 @@
 
 public partial class Lord : BaseCharacter
 {
+	public static Lord Self => (Lord)Game.LocalPawn;
+
 	public override float MaxHitPoints { get; set; } = 1500f; // Debug I don't wanna die
 
 	public override FactionType DefaultFaction { get; set; } = FactionType.Goblins;
