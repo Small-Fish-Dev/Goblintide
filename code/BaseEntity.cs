@@ -24,12 +24,12 @@ public partial class BaseEntity : AnimatedEntity
 	{
 		base.OnNewModel( model );
 
-		if ( !BlockNav ) return;
+		if ( !BlockNav || model == null ) 
+			return;
 
 		var navBlocker = new NavBlockerEntity();
-
 		navBlocker.PhysicsClear();
-		navBlocker.SetModel( model.ResourcePath );
+		navBlocker.Model = model;
 		navBlocker.SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
 		navBlocker.Position = Position;
 		navBlocker.Rotation = Rotation;
