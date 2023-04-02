@@ -20,6 +20,8 @@ public partial class BaseProp : BaseEntity
 	public override void Spawn()
 	{
 		base.Spawn();
+		Faction = DefaultFaction;
+		HitPoints = MaxHitPoints;
 
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
 

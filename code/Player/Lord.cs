@@ -18,6 +18,10 @@ public partial class Lord : BaseCharacter
 
 	public override void Spawn()
 	{
+		base.Spawn();
+		Faction = DefaultFaction;
+		HitPoints = MaxHitPoints;
+
 		SetModel( "models/goblin/goblin.vmdl" );
 		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, CollisionBox.Mins, CollisionBox.Maxs );
 
