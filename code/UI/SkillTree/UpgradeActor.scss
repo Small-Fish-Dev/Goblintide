@@ -1,3 +1,42 @@
 ﻿UpgradeActor {
-	
+	position: absolute;
+
+	width: 100px;
+	height: 100px;
+
+	font-size: 30px;
+
+	justify-content: center;
+	align-items: center;
+
+	.outer {
+		z-index: 1;
+		
+		position: absolute;
+
+		width: 80px;
+		height: 80px;
+
+		transform: rotate(45deg);
+		border: rgb(180, 180, 180) 2px solid;
+
+		&.available {
+			border: white 3px solid;
+		}
+		
+		&.expensive {
+			/* border: rgb(220, 80, 80) 2px solid; */
+		}
+	}
+
+	.inner {
+		z-index: 3;
+		
+		position: absolute;
+		width: 100px;
+		height: 100%;
+
+		align-items: center;
+		justify-content: center;
+	}
 }
