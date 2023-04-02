@@ -1,29 +1,57 @@
-"Layer0"
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
 {
-	"shader"		"shaders/complex.shader_c"
-	"F_ENABLE_NORMAL_SELF_SHADOW"		"1"
-	"F_ANISOTROPIC_GLOSS"		"1"
-	"F_SPECULAR"		"1"
-	"F_DO_NOT_CAST_SHADOWS"		"1"
-	"F_ALPHA_TEST"		"1"
-	"g_flAmbientOcclusionDirectDiffuse"		"0.558000"
-	"g_flAmbientOcclusionDirectSpecular"		"1.000000"
-	"TextureAmbientOcclusion"		"materials/surface_damage_decals/surface_damage_decals_ao.tga"
-	"g_flModelTintAmount"		"1.000000"
-	"g_vColorTint"		"[1.000000 1.000000 1.000000 0.000000]"
-	"TextureColor"		"materials/surface_damage_decals/surface_damage_decals_color.tga"
-	"g_flFadeExponent"		"1.000000"
-	"g_bFogEnabled"		"1"
-	"g_flMetalness"		"0.000000"
-	"g_flLightRangeForSelfShadowNormals"		"0.030000"
-	"TextureNormal"		"materials/surface_damage_decals/surface_damage_decals_normal.tga"
-	"TextureRoughness"		"materials/surface_damage_decals/surface_damage_decals_rough.tga"
-	"g_nScaleTexCoordUByModelScaleAxis"		"0"
-	"g_nScaleTexCoordVByModelScaleAxis"		"0"
-	"g_vTexCoordOffset"		"[0.000 0.000]"
-	"g_vTexCoordScale"		"[1.000 1.000]"
-	"g_vTexCoordScrollSpeed"		"[0.000 0.000]"
-	"g_flAlphaTestReference"		"0.500000"
-	"g_flAntiAliasedEdgeStrength"		"1.000000"
-	"TextureTranslucency"		"materials/surface_damage_decals/surface_damage_decals_trans.tga"
+	shader "shaders/complex.shader_c"
+
+	//---- Normal ----
+	F_USE_BENT_NORMALS 1
+
+	//---- PBR ----
+	F_ANISOTROPIC_GLOSS 1
+	F_SPECULAR 1
+
+	//---- Rendering ----
+	F_DO_NOT_CAST_SHADOWS 1
+
+	//---- Translucent ----
+	F_ALPHA_TEST 1
+
+	//---- Ambient Occlusion ----
+	g_flAmbientOcclusionDirectDiffuse "0.558"
+	g_flAmbientOcclusionDirectSpecular "1.000"
+	TextureAmbientOcclusion "materials/surface_damage_decals/surface_damage_decals_ao.tga"
+
+	//---- Color ----
+	g_flModelTintAmount "1.000"
+	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
+	TextureColor "materials/surface_damage_decals/surface_damage_decals_color.tga"
+
+	//---- Fade ----
+	g_flFadeExponent "1.000"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Metalness ----
+	g_flMetalness "0.000"
+
+	//---- Normal ----
+	TextureBentNormal "materials/surface_damage_decals/surface_damage_decals_bent.tga"
+	TextureNormal "materials/surface_damage_decals/surface_damage_decals_normal.tga"
+
+	//---- Roughness ----
+	TextureRoughness "materials/surface_damage_decals/surface_damage_decals_rough.tga"
+
+	//---- Texture Coordinates ----
+	g_nScaleTexCoordUByModelScaleAxis "0"
+	g_nScaleTexCoordVByModelScaleAxis "0"
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[1.000 1.000]"
+	g_vTexCoordScrollSpeed "[0.000 0.000]"
+
+	//---- Translucent ----
+	g_flAlphaTestReference "0.500"
+	g_flAntiAliasedEdgeStrength "1.000"
+	TextureTranslucency "materials/surface_damage_decals/surface_damage_decals_trans.tga"
 }
