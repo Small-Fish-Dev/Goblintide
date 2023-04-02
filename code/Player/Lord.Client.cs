@@ -6,7 +6,7 @@ public partial class Lord
 {
 	[Net, Predicted]
 	public bool Overview { get; set; } = true;
-	public Vector3 PointOfInterest { get; set; }
+	public Vector3 OverviewOffset { get; set; }
 	public bool OverviewAnimating { get; private set; } = false;
 	bool finishedAnimating = false;
 
@@ -247,7 +247,7 @@ public partial class Lord
 
 		// Overview Camera
 		var offset = Vector3.Up * 500f + Vector3.Backward * 250f;
-		var targetPosition = PointOfInterest + offset;
+		var targetPosition = (GameMgr.Lord?.Position ?? Vector3.Zero) + OverviewOffset + offset;
 		Camera.Position = Vector3.Lerp( Camera.Position, targetPosition, 5f * Time.Delta );
 		Camera.Rotation = Rotation.LookAt( -offset );
 	}

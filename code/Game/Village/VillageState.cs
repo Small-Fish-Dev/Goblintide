@@ -8,8 +8,6 @@ public partial class VillageState : GameState
 	{
 		if ( Game.IsClient )
 			hud = HUD.Instance.AddChild<VillageHUD>();
-
-		GameMgr.Lord.PointOfInterest = GameMgr.Lord.Position;
 	}
 
 	[Event.Tick]
@@ -20,6 +18,5 @@ public partial class VillageState : GameState
 
 		// Block movement if in overview mode.
 		GameMgr.Lord.BlockMovement = GameMgr.Lord.Overview;
-		
 	}
 }
