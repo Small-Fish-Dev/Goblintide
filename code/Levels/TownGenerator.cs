@@ -55,8 +55,10 @@ public partial class Town
 
 	public static Dictionary<string, float> PlaceablePeople { get; set; } = new()
 	{
-		{ "prefabs/npcs/soldier.prefab", 1f },
+		{ "prefabs/npcs/guard.prefab", 1f },
 		{ "prefabs/npcs/villager.prefab", 6f },
+		{ "prefabs/npcs/woman.prefab", 2f },
+		{ "prefabs/npcs/soldier.prefab", 0.1f },
 	};
 
 	public static Dictionary<string, float> PlaceableFences { get; set; } = new()
