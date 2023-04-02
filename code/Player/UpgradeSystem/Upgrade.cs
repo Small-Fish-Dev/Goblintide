@@ -81,6 +81,7 @@ public class Upgrade
 		private readonly string _dependency;
 		private string _last;
 		private Vector2 _position;
+		private int _cost;
 
 		public Builder( string identifier )
 		{
@@ -106,6 +107,12 @@ public class Upgrade
 			return this;
 		}
 
+		public Builder WithCost( int cost )
+		{
+			_cost = cost;
+			return this;
+		}
+
 		public Builder Next( string identifier, Func<Builder, Builder> creator = null )
 		{
 			_next ??= new List<Builder>();
@@ -118,7 +125,7 @@ public class Upgrade
 
 		public Upgrade Build()
 		{
-			var instance = new Upgrade( _identifier, _title ) { Position = _position };
+			var instance = new Upgrade( _identifier, _title ) { Position = _position, Cost = _cost };
 			_postBuild?.Invoke( instance );
 
 			instance.Dependencies ??= new List<string>();
