@@ -30,6 +30,7 @@ public class Upgrade
 	public string Identifier { get; }
 	public string Title;
 	public int Cost;
+	public string Texture;
 
 	/// <summary> Position of upgrade on skill tree, with 0 being the center </summary>
 	public Vector2 Position = Vector2.Zero;
@@ -80,6 +81,7 @@ public class Upgrade
 
 		private readonly string _dependency;
 		private string _last;
+		private string _texture;
 		private Vector2 _position;
 		private int _cost;
 
@@ -113,6 +115,12 @@ public class Upgrade
 			return this;
 		}
 
+		public Builder WithTexture( string texture, bool full = false )
+		{
+			_texture = full ? texture : $"textures/upgrades/{texture}";
+			return this;
+		}
+
 		public Builder Next( string identifier, Func<Builder, Builder> creator = null )
 		{
 			_next ??= new List<Builder>();
@@ -125,7 +133,8 @@ public class Upgrade
 
 		public Upgrade Build()
 		{
-			var instance = new Upgrade( _identifier, _title ) { Position = _position, Cost = _cost };
+			var instance =
+				new Upgrade( _identifier, _title ) { Position = _position, Cost = _cost, Texture = _texture };
 			_postBuild?.Invoke( instance );
 
 			instance.Dependencies ??= new List<string>();

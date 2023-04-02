@@ -17,13 +17,13 @@
 		width: 80px;
 		height: 80px;
 
-		transform: rotate(45deg);
+		/*transform: rotate(45deg);
 		border: rgb(180, 180, 180) 2px solid;
 
 		&.available {
 			border: white 3px solid;
 		}
-		
+		*/
 		&.expensive {
 			/* border: rgb(220, 80, 80) 2px solid; */
 		}
@@ -38,5 +38,7 @@
 
 		align-items: center;
 		justify-content: center;
+
+		image-rendering: nearest-neighbor;
 	}
 }

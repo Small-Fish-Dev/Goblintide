@@ -1,0 +1,47 @@
+﻿@using Sandbox.UI;
+
+@namespace GameJam.UI
+@inherits Image
+
+@code {
+
+	public readonly List<Texture> Textures = new();
+
+	protected virtual float ChangeDelay => 1.0f;
+	private int _index;
+	private RealTimeUntil _next = 0.5f;
+	
+	public void AddTexture( Texture texture )
+	{
+		Textures.Add( texture );
+		Next();
+	}
+
+	public override void Tick()
+	{
+		base.Tick();
+
+		if ( _next )
+		{
+			Next();
+		}
+	}
+
+	private void Next()
+	{
+		_next = ChangeDelay;
+		_index++;
+		if ( _index >= Textures.Count )
+			_index = 0;
+		if ( Textures.Count != 0 )
+			Texture = Textures[_index];
+	}
+
+	public AnimatedImage()
+	{
+		AddTexture( Sandbox.Texture.Load( FileSystem.Mounted, "textures/000.png" ) );
+		AddTexture( Sandbox.Texture.Load( FileSystem.Mounted, "textures/001.png" ) );
+		AddTexture( Sandbox.Texture.Load( FileSystem.Mounted,"textures/002.png" ) );
+	}
+	
+}
