@@ -74,7 +74,7 @@
       },
       "BaseDiligency": {
         "Type": "Single",
-        "Value": "0.1"
+        "Value": "0.2"
       },
       "DisplayName": {
         "Type": "String",
@@ -83,6 +83,14 @@
       "Voice": {
         "Type": "VoiceType",
         "Value": "\u0022Goblin\u0022"
+      },
+      "DefaultFaction": {
+        "Type": "FactionType",
+        "Value": "\u0022Goblins\u0022"
+      },
+      "MaxHitPoints": {
+        "Type": "Single",
+        "Value": "3"
       }
     }
   }

@@ -187,7 +187,9 @@
           "_scale": {
             "Value": "1"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
         }
       }
     ],
@@ -276,6 +278,14 @@
       "Voice": {
         "Type": "VoiceType",
         "Value": "\u0022None\u0022"
+      },
+      "DefaultFaction": {
+        "Type": "FactionType",
+        "Value": "\u0022Humans\u0022"
+      },
+      "MaxHitPoints": {
+        "Type": "Single",
+        "Value": "2"
       }
     }
   }

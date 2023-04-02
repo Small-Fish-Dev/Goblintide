@@ -317,6 +317,14 @@
       "BodygroupsDisabled": {
         "Type": "Bodygroups",
         "Value": "\u0022Chest, Legs, Hands, Feet\u0022"
+      },
+      "DefaultFaction": {
+        "Type": "FactionType",
+        "Value": "\u0022Humans\u0022"
+      },
+      "MaxHitPoints": {
+        "Type": "Single",
+        "Value": "12"
       }
     }
   }

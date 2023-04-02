@@ -294,6 +294,14 @@
       "DetectRange": {
         "Type": "Single",
         "Value": "600"
+      },
+      "DefaultFaction": {
+        "Type": "FactionType",
+        "Value": "\u0022Humans\u0022"
+      },
+      "MaxHitPoints": {
+        "Type": "Single",
+        "Value": "50"
       }
     }
   }
