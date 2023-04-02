@@ -76,26 +76,13 @@
 				children = 
 				[
 					{
-						_class = "PhysicsMeshFile"
-						name = "club"
+						_class = "PhysicsShapeCylinder"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						recenter_on_parent_bone = false
-						offset_origin = [ 0.0, 0.0, -250.0 ]
-						offset_angles = [ 0.0, 0.0, 0.0 ]
-						align_origin_x_type = "None"
-						align_origin_y_type = "None"
-						align_origin_z_type = "None"
-						filename = "models/weapons/club/club.fbx"
-						import_scale = 1.0
-						maxMeshVertices = 0
-						qemError = 0.0
-						import_filter = 
-						{
-							exclude_by_default = false
-							exception_list = [  ]
-						}
+						radius = 120.0
+						point0 = [ 8.600586, -50.35144, -238.664429 ]
+						point1 = [ 14.585266, -5.644043, 1198.717773 ]
 					},
 				]
 			},
