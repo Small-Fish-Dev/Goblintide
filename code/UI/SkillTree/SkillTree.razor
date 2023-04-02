@@ -1,4 +1,5 @@
-﻿@using Sandbox.UI;
+﻿@using GameJam.UpgradeSystem
+@using Sandbox.UI;
 
 @namespace GameJam.UI
 @inherits SingletonPanel<SkillTree>
@@ -10,7 +11,12 @@
 		<div class="gradient2"></div>
 		<PlayerView></PlayerView>
 		<div class="container" allow-translate>
-
+			@foreach ( var i in Upgrade.All )
+			{
+				<div class="item">
+					@i.Title
+				</div>
+			}
 		</div>
 	</div>
 </root>
@@ -21,5 +27,5 @@
 	{
 		WorldMap.Delete();
 	}
-	
+
 }
