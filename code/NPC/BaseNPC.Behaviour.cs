@@ -224,14 +224,14 @@ public partial class BaseNPC
 
 	public float DistanceToForest()
 	{
-		var relativeTownPosition = (Position - Town.Current.Position);
-		return Town.Current.ForestRadius - relativeTownPosition.Length;
+		var relativeTownPosition = (Position - GameMgr.Instance.CurrentTown.Position);
+		return GameMgr.Instance.CurrentTown.ForestRadius - relativeTownPosition.Length;
 	}
 
 	public virtual void NavigateToForest()
 	{
-		var relativeTownPosition = (Position - Town.Current.Position).Normal;
-		var bestEscapePosition = Town.Current.Position + relativeTownPosition * Town.Current.ForestRadius;
+		var relativeTownPosition = (Position - GameMgr.Instance.CurrentTown.Position).Normal;
+		var bestEscapePosition = GameMgr.Instance.CurrentTown.Position + relativeTownPosition * GameMgr.Instance.CurrentTown.ForestRadius;
 
 		NavigateTo( bestEscapePosition );
 	}
@@ -258,7 +258,6 @@ public partial class BaseNPC
 			if ( !IsFollowingPath )
 				NavigateToForest();
 
-			Log.Info( DistanceToForest() );
 			if ( DistanceToForest() <= 100f )
 			{
 				Kill(); // TODO: Drop loot and go back

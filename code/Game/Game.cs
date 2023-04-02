@@ -30,6 +30,7 @@ public partial class GameMgr : GameManager
 		}
 	}
 	[Net] private Lord lord { get; set; }
+	[Net] public Town CurrentTown { get; set; }
 
 	public GameMgr()
 	{

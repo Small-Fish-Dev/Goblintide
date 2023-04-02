@@ -14,7 +14,7 @@ public partial class VillageState : GameState
 
 	public override void Changed( GameState state )
 	{
-		Town.Current.DeleteTown();
+		GameMgr.Instance.CurrentTown.DeleteTown();
 	}
 
 	[Event.Tick]
