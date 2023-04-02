@@ -247,6 +247,13 @@ public partial class Lord
 		}
 
 		// Overview Camera
+
+		var currentTown = GameMgr.Instance.CurrentTown;
+		var distanceToCenter = OverviewOffset.Length;
+		var normalizedDistance = OverviewOffset.Normal;
+		var clampedOffset = normalizedDistance * Math.Clamp( distanceToCenter, -currentTown.TownRadius, currentTown.TownRadius );
+		OverviewOffset = clampedOffset;
+
 		var offset = Vector3.Up * 500f + Vector3.Backward * 250f;
 		var targetPosition = (GameMgr.Lord?.Position ?? Vector3.Zero) + OverviewOffset + offset;
 		Camera.Position = Vector3.Lerp( Camera.Position, targetPosition, 5f * Time.Delta );

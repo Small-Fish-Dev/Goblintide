@@ -11,9 +11,8 @@ public partial class Town : BaseNetworkable
 	[Net] public float TownRadius { get; set; } = 0f;
 	public float ForestRadius => TownRadius + 1000f;
 	[Net] public Vector3 Position { get; set; } = Vector3.Zero;
-	[Net] public Vector2 Size { get; set; } = Vector2.Zero;
-	public Vector3 MinBounds => Position - new Vector3( Size.x / 2f, Size.y / 2f, 0f );
-	public Vector3 MaxBounds => Position + new Vector3( Size.x / 2f, Size.y / 2f, 0f );
+	public Vector3 MinBounds => Position - new Vector3( TownRadius ).WithZ(0);
+	public Vector3 MaxBounds => Position + new Vector3( TownRadius ).WithZ(0);
 	public int Seed => TownSize.GetHashCode();
 	internal List<Entity> townEntities = new();
 	public static List<SceneObject> TownTrees = new();
@@ -283,26 +282,6 @@ public partial class Town : BaseNetworkable
 		await GameMgr.Instance.CurrentTown.PlaceNPCs( PlaceablePeople, rand, position, density, new Vector2( 0.7f, 1f ) );
 		GameMgr.BroadcastFences( position, GameMgr.Instance.CurrentTown.TownRadius );
 		GameMgr.BroadcastTrees( position, GameMgr.Instance.CurrentTown.TownRadius );
-
-		var minBounds = new Vector2();
-		var maxBounds = new Vector2();
-
-		foreach ( var entity in GameMgr.Instance.CurrentTown.townEntities )
-		{
-			if ( entity.Position.x - position.x < minBounds.x )
-				minBounds.x = entity.Position.x;
-
-			if ( entity.Position.y - position.y < minBounds.y )
-				minBounds.y = entity.Position.y;
-
-			if ( entity.Position.x - position.x > maxBounds.x )
-				maxBounds.x = entity.Position.x;
-
-			if ( entity.Position.y - position.y > maxBounds.y )
-				maxBounds.y = entity.Position.y;
-		}
-
-		GameMgr.Instance.CurrentTown.Size = maxBounds - minBounds;
 		GameMgr.Instance.CurrentTown.Generated = true;
 	}
 
