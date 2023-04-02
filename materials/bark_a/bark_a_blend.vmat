@@ -34,4 +34,11 @@ Layer0
 	TextureNormalB "materials/bark_b/bark_b_normal.tga"
 	TextureRoughnessB "materials/bark_b/bark_b_rough.tga"
 	TextureTintMaskB "materials/default/default.tga"
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "wood"
+		WorldMappingWidth "128"
+		WorldMappingHeight "128"
+	}
 }
