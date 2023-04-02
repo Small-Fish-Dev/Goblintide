@@ -27,11 +27,7 @@
 
 	public UpgradeActor( Upgrade upgrade ) => Upgrade = upgrade;
 
-	protected override Vector2 ModifyInitialPosition( Vector2 position )
-	{
-		Log.Info( position );
-		return position + Upgrade.Position;
-	}
+	protected override Vector2 ModifyInitialPosition( Vector2 position ) => position + Upgrade.Position;
 
 	public override void Tick()
 	{
@@ -41,4 +37,5 @@
 		Outer.SetClass( "purchased", Purchased );
 		Outer.SetClass( "expensive", Expensive );
 	}
+
 }
