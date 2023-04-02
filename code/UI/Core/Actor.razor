@@ -12,7 +12,9 @@
 
 	private Vector2? _position;
 
-	private bool _initialized;
+	public bool ReadyToPosition { get; private set; }
+
+	private bool _shouldUpdate;
 
 	internal Vector2 Offset;
 
@@ -26,12 +28,8 @@
 
 		set
 		{
-			_position = DoPositionEffect( value );
-
-			Style.Left = Length.Pixels( value.x.Floor() );
-			Style.Top = Length.Pixels( value.y.Floor() );
-
-			StateHasChanged();
+			_position = value;
+			PositionHasChanged();
 		}
 	}
 
@@ -43,19 +41,47 @@
 
 	protected virtual Vector2 ModifyInitialPosition( Vector2 position ) => position;
 
-	protected virtual Vector2 DoPositionEffect( Vector2 position ) => position;
+	protected virtual float WobbleAmount => 2.0f;
+	protected virtual float WobbleDelay => 0.60f;
+
+	private RealTimeUntil _nextWobble = 0.60f;
+	private Vector2 _wobbleOffset = Vector2.Zero;
+
+	protected virtual Vector2 DoPositionEffect( Vector2 position ) => position + _wobbleOffset;
+
+	public void PositionHasChanged() => _shouldUpdate = true;
 
 	public override void Tick()
 	{
 		base.Tick();
 
-		if ( _initialized ) return;
+		if ( ReadyToPosition )
+		{
+			if ( _nextWobble )
+			{
+				_wobbleOffset = Vector2.Random * WobbleAmount;
+				_nextWobble = WobbleDelay;
+				PositionHasChanged();
+			}
+
+			if ( _shouldUpdate )
+			{
+				var position = _position.Value;
+				position = DoPositionEffect( position );
+				Style.Left = Length.Pixels( position.x.Floor() );
+				Style.Top = Length.Pixels( position.y.Floor() );
+
+				StateHasChanged();
+			}
+		}
+
+		if ( ReadyToPosition ) return;
 
 		if ( Box.Rect is { Width: 0, Height: 0 } ) return;
 
 		Position = Position;
 
-		_initialized = true;
+		ReadyToPosition = true;
 	}
 
 }

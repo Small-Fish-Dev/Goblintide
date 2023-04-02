@@ -6,7 +6,7 @@ public partial class WorldMap
 {
 	private Panel Container { get; set; }
 
-	public IEnumerable<MapActor> Actors => Descendants.OfType<MapActor>();
+	public IEnumerable<Actor> Actors => Descendants.OfType<Actor>();
 
 	private bool _dragging;
 
@@ -39,7 +39,7 @@ public partial class WorldMap
 		if ( e.MouseButton != MouseButtons.Left ) return;
 
 		foreach ( var actor in Actors )
-			actor.DragOffset = actor.Position - MousePosition * ScaleFromScreen;
+			actor.Offset = actor.Position - MousePosition;
 
 		_dragging = true;
 	}
@@ -59,6 +59,6 @@ public partial class WorldMap
 			return;
 
 		foreach ( var actor in Actors )
-			actor.Position = actor.DragOffset + MousePosition * ScaleFromScreen;
+			actor.Position = actor.Offset + MousePosition;
 	}
 }

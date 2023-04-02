@@ -33,39 +33,12 @@
 		return position + Upgrade.Position;
 	}
 
-	#region Wobble
-
-	private Vector2 _wobble = Vector2.Zero;
-	private RealTimeUntil _nextWobble = 0.04f;
-
-	private Vector2 ApplyWobble( Vector2 position )
-	{
-		if ( _nextWobble )
-		{
-			var value = 3;
-			var next = 0.18f;
-
-			if ( !Available )
-			{
-				value = 1;
-				next = 0.68f;
-			}
-
-			_wobble = Vector2.Random * value;
-			_nextWobble = next;
-		}
-		return position + _wobble;
-	}
-
-	#endregion
-
 	public override void Tick()
 	{
 		base.Tick();
-		
+
 		Outer.SetClass( "available", Available );
 		Outer.SetClass( "purchased", Purchased );
 		Outer.SetClass( "expensive", Expensive );
 	}
-
 }
