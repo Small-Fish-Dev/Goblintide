@@ -227,7 +227,8 @@ public partial class Lord
 	private void CameraFinalize()
 	{
 		Camera.FirstPersonViewer = null;
-		Camera.ZNear = 4;
+		Camera.ZNear = 2;
+		Camera.ZFar = 99999;
 		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( 100f );
 	}
 
