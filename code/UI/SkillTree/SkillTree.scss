@@ -52,8 +52,9 @@
 			position: absolute;
 
 			background: radial-gradient(rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 100%);
+			background-position-y: 40%;
 
-			transition: opacity 1s ease-in-out;
+			transition: opacity 2s ease-in-out;
 
 			&:intro {
 				opacity: 0;
@@ -107,25 +108,25 @@
 			bottom: 20%;
 
 			color: white;
-			
+
 			align-items: center;
 			justify-content: center;
-			
+
 			font-size: 90px;
 		}
-		
+
 		.item {
 			width: 150px;
 			height: 150px;
 
 			border-radius: 50%;
-			
+
 			bottom: 20%;
-			
+
 			font-size: 30px;
-			
+
 			background: linear-gradient(90deg, #FDffffaa 0%, #aA1a71aa 100%);
-			
+
 			border: 2px white solid;
 		}
 

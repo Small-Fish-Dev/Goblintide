@@ -10,22 +10,30 @@
 		<div class="gradient"></div>
 		<div class="gradient2"></div>
 		<PlayerView></PlayerView>
-		<div class="container" allow-translate>
-			@foreach ( var i in Upgrade.All )
-			{
-				<div class="item">
-					@i.Title
-				</div>
-			}
-		</div>
+		<div class="container" @ref=Container allow-translate></div>
 	</div>
 </root>
 
 @code {
 
+	public Panel Container
+	{
+		get => null;
+		set { GenerateUpgrades( value ); }
+	}
+
 	public SkillTree()
 	{
 		WorldMap.Delete();
+	}
+
+	private void GenerateUpgrades( Panel panel )
+	{
+		foreach ( var upgrade in Upgrade.All )
+		{
+			var actor = new UpgradeActor( upgrade );
+			panel.AddChild( actor );
+		}
 	}
 
 }
