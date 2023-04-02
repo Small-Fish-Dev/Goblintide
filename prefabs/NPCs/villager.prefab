@@ -5,7 +5,194 @@
   "Root": {
     "Guid": "05ba1e9f-fc3d-4d20-a829-e49a62db739f",
     "Class": "BaseNPC",
-    "Entities": [],
+    "Entities": [
+      {
+        "Guid": "6ef8dc0b-28e9-455a-85bd-b79517e8d4e3",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/clothes/peasant_shirt/peasant_shirt.vmdl\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "74003ca1-6cc9-4ceb-83ec-efa610a349eb",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/clothes/peasant_trousers/peasant_trousers.vmdl\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "42609643-55e4-4397-9176-7118cdae83a5",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/clothes/peasant_shoes/peasant_shoes.vmdl\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "ddd3ebff-df26-4400-b99c-5ea884cb17c8",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/citizen_clothes/hair/hair_balding/models/hair_baldingbrown.vmdl\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "d29bb585-b3ac-4ac8-b3e7-a7e20bda819b",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/citizen_clothes/hair/moustache/models/moustache_brown.vmdl\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "61447c4c-3e93-455e-ace1-81386545c4a7",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/citizen_clothes/hair/eyebrows_monobrow/models/monobrow.vmdl\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
+        }
+      }
+    ],
     "Components": [
       {
         "Guid": "5a100d7b-3aba-4f03-af30-fef4a0983730",
@@ -70,7 +257,7 @@
       },
       "BaseDiligency": {
         "Type": "Single",
-        "Value": "0.8"
+        "Value": "1"
       },
       "DisplayName": {
         "Type": "String",
@@ -83,6 +270,10 @@
       "CollisionWidth": {
         "Type": "Single",
         "Value": "40"
+      },
+      "BodygroupsDisabled": {
+        "Type": "Bodygroups",
+        "Value": "\u0022Legs, Feet\u0022"
       }
     }
   }
