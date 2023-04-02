@@ -4,9 +4,9 @@ namespace GameJam;
 
 public partial class Lord : BaseCharacter
 {
-	public override float HitPoints { get; set; } = 1500f; // Debug I don't wanna die
+	public override float MaxHitPoints { get; set; } = 1500f; // Debug I don't wanna die
 
-	public override FactionType Faction { get; set; } = FactionType.Goblins;
+	public override FactionType DefaultFaction { get; set; } = FactionType.Goblins;
 
 	public float WalkSpeed => 140f;
 

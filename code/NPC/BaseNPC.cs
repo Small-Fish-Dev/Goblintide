@@ -25,8 +25,7 @@ public enum Bodygroups
 public partial class BaseNPC : BaseCharacter
 {
 
-	[Prefab, Category( "Stats" )]
-	public override float HitPoints { get; set; } = 6f;
+	
 	[Prefab, Category( "Stats" )]
 	public virtual float AttackPower { get; set; } = 0.5f;
 	[Prefab, Category( "Stats" )]
@@ -42,9 +41,6 @@ public partial class BaseNPC : BaseCharacter
 
 	[Prefab, Category( "Stats" ), Description( "How many seconds it makes diligency check which determines if they will do their BaseBehaviour tasks" )]
 	public virtual float DiligencyTimer { get; set; } = 3f;
-
-	[Prefab, Category( "Character" )]
-	public override FactionType Faction { get; set; } = FactionType.None;
 
 	[Prefab, Category( "Character" )]
 	public virtual Behaviour BaseBehaviour { get; set; } = Behaviour.None;
@@ -72,8 +68,6 @@ public partial class BaseNPC : BaseCharacter
 		"<lightblue>%attacker</> killed <lightgreen>%target.</>",
 		"<lightgreen>%target</> was killed by <lightblue>%attacker.</>"
 	};
-
-	public BaseNPC() {}
 
 	public override void Spawn()
 	{

@@ -6,9 +6,6 @@ namespace GameJam;
 public partial class BaseProp : BaseEntity
 {
 
-	[Prefab, Category( "Stats" )]
-	public override float HitPoints { get; set; } = 0.5f;
-
 	[Prefab, Category( "Stats" ), Range( 0, 10, 1 )]
 	public virtual RangedFloat GoldDropped { get; set; } = 0;
 	[Prefab, Category( "Stats" ), Range( 0, 10, 1 )]

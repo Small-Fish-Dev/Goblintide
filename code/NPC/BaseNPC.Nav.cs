@@ -19,6 +19,7 @@ public partial class BaseNPC
 
 	public virtual bool NavigateTo( Vector3 targetPosition )
 	{
+		if ( !Game.IsServer ) return false;
 
 		var pathSettings = NavMesh.PathBuilder( Position )
 			.WithAgentHull( Agent )
