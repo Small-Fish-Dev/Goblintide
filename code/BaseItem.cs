@@ -22,6 +22,21 @@ public partial class BaseItem : BaseEntity
 	public override float GetWidth() => 20f;
 	public override float GetHeight() => 10f;
 
+	public override void Spawn()
+	{
+		base.Spawn();
+
+		SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
+
+		EnableAllCollisions = true;
+		PhysicsEnabled = true;
+		UsePhysicsCollision = true;
+	}
+	public override void OnNewModel( Model model )
+	{
+		base.OnNewModel( model );
+	}
+
 	public static BaseItem FromPrefab( string prefabName )
 	{
 		if ( PrefabLibrary.TrySpawn<BaseItem>( prefabName, out var item ) )

@@ -218,6 +218,7 @@ public partial class BaseNPC
 		IsFollowingPath = false;
 		Stealing = collectable;
 		Stealing.Position = Position + Vector3.Up * GetHeight();
+		Stealing.NavBlocker?.Delete();
 		Stealing.SetParent( this );
 	}
 
