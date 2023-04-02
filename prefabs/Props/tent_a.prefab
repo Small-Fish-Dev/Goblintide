@@ -1,0 +1,38 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "3a642fde-5549-4e2b-ae22-15e0483ce61b",
+    "Class": "BaseProp",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/houses/tent_a.vmdl\u0022"
+      },
+      "IsBreakable": {
+        "Type": "Boolean",
+        "Value": "false"
+      },
+      "HitPoints": {
+        "Type": "Single",
+        "Value": "14"
+      },
+      "_name": {
+        "Value": "\u0022Tent Small\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {}
+    }
+  }
+}
