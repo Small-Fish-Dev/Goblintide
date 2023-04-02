@@ -233,7 +233,7 @@ public partial class Town
 
 		var townDiameter = townWidth * 2 + 400f;
 		var perimeter = 2 * townDiameter * Math.PI;
-		var bestFence = townWidth >= 650f ? PlaceableFences.First() : PlaceableFences.Last();
+		var bestFence = townWidth >= 1200f ? PlaceableFences.First() : PlaceableFences.Last();
 		var fenceSize = bestFence.Value;
 		int fenceCount = (int)Math.Ceiling( perimeter / fenceSize / 2 );
 		var mainRoadSize = 60f + townWidth / 15f;
@@ -265,7 +265,6 @@ public partial class Town
 			position = new Vector3( 4516f, 295f, 512f );
 		if ( Current.TownRadius > 2500f )
 			position = new Vector3( -4300f, 5314f, 512f );
-
 
 		var rand = new Random( Current.Seed );
 
