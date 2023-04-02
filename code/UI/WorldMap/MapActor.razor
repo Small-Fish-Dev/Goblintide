@@ -33,10 +33,12 @@
 		}
 	}
 
-	private Vector2 GetInitialPosition() => new()
+	private Vector2 GetInitialPosition() => new Vector2
 	{
 		x = Style.Left?.GetPixels( Parent.Box.Rect.Width ) ?? 0,
 		y = Style.Top?.GetPixels( Parent.Box.Rect.Height ) ?? 0
-	};
+	} + ModifyInitialPosition();
+
+	protected virtual Vector2 ModifyInitialPosition() => Vector2.Zero;
 
 }

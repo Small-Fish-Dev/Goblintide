@@ -5,9 +5,7 @@ namespace GameJam.UI;
 public class PlayerView : ScenePanel
 {
 	public SceneModel Model { get; set; }
-
-	private Lord Pawn => (Lord)Game.LocalPawn;
-
+	
 	private bool _animated = false;
 	private readonly TimeUntil _animate = 0.4f;
 	
@@ -15,7 +13,7 @@ public class PlayerView : ScenePanel
 	{
 		World = new SceneWorld();
 
-		Model = new SceneModel( World, Pawn.Model, Pawn.Transform );
+		Model = new SceneModel( World, Lord.Self.Model, Lord.Self.Transform );
 	}
 
 	public override void Tick()
@@ -41,8 +39,8 @@ public class PlayerView : ScenePanel
 			Camera.AntiAliasing = true;
 		}
 		
-		Model.CurrentSequence.Time = Pawn.CurrentSequence.Time;
-		Model.Rotation = Pawn.Rotation;
+		Model.CurrentSequence.Time = Lord.Self.CurrentSequence.Time;
+		Model.Rotation = Lord.Self.Rotation;
 		Model.Update( Time.Delta );
 	}
 }

@@ -74,12 +74,12 @@
 			filter: invert(100%);
 
 			transition: all 0.7s ease-in-out;
-
+			
 			&:intro {
 				top: 100%;
 			}
 		}
-
+		
 		&:intro {
 			bottom: 100%;
 		}
