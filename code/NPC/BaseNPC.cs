@@ -59,6 +59,14 @@ public partial class BaseNPC : BaseCharacter
 	public Bodygroups BodygroupsDisabled { get; set; } = Bodygroups.None;
 	public BaseCollectable Stealing { get; set; } = null;
 
+	[Prefab, Category( "Character" ), ResourceType( "prefab" )]
+	public string StartingWeapon { get; set; } = null;
+	[Prefab, Category( "Character" ), ResourceType( "prefab" )]
+	public string StartingArmor { get; set; } = null;
+
+	[Net] public BaseItem Weapon { get; set; } = null;
+	[Net] public BaseItem Armor { get; set; } = null;
+
 	// Array of random strings that will popup when your goblin dies.
 	private readonly string[] deathStrings = new string[]
 	{
@@ -73,6 +81,8 @@ public partial class BaseNPC : BaseCharacter
 	{
 		base.Spawn();
 
+		Faction = DefaultFaction;
+		HitPoints = MaxHitPoints;
 		Tags.Add( "NPC" );
 
 		CurrentBehaviour = BaseBehaviour;
@@ -85,6 +95,38 @@ public partial class BaseNPC : BaseCharacter
 		if ( BodygroupsDisabled.HasFlag( Bodygroups.Legs ) ) SetBodyGroup( "Legs", 1 );
 		if ( BodygroupsDisabled.HasFlag( Bodygroups.Hands ) ) SetBodyGroup( "Hands", 1 );
 		if ( BodygroupsDisabled.HasFlag( Bodygroups.Feet ) ) SetBodyGroup( "Feet", 1 );
+
+		if ( StartingArmor != null )
+		{
+			var armor = BaseItem.FromPrefab( StartingArmor );
+			if ( armor != null )
+				Equip( armor );
+		}
+
+		if ( StartingWeapon != null )
+		{
+			var weapon = BaseItem.FromPrefab( StartingWeapon );
+			if ( weapon != null )
+				Equip( weapon );
+		}
+	}
+
+	public void Equip( BaseItem item )
+	{
+		item.EnableAllCollisions = false;
+		item.SetParent( this, true );
+
+		item.Equipped = true;
+		HitPoints += item.IncreasedHealth;
+		AttackPower += item.IncreasedAttack;
+	}
+
+	public void Drop( BaseItem item )
+	{
+		item.SetParent( null );
+		item.EnableAllCollisions = true;
+
+		item.Equipped = false;
 	}
 
 	public override void Kill()

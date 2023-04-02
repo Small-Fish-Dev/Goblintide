@@ -22,8 +22,10 @@ public partial class BaseEntity : AnimatedEntity
 	public TimeSince LastAttacked { get; set; } = 0f;
 	public virtual bool BlockNav { get; set; } = true;
 
-	public BaseEntity() 
+	public override void Spawn()
 	{
+		base.Spawn();
+
 		Faction = DefaultFaction;
 		HitPoints = MaxHitPoints;
 	}
