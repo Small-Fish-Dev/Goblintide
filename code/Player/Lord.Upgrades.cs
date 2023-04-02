@@ -39,4 +39,6 @@ public partial class Lord
 		Upgrades.Remove( identifier );
 		CombineUpgrades();
 	}
+
+	public bool HasUpgrade( string identifier ) => Upgrades.Contains( identifier );
 }
