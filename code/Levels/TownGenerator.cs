@@ -18,10 +18,24 @@ public partial class Town
 	public static List<SceneObject> TownTrees = new();
 	public static List<WallEntity> TownFences = new();
 
-	public static Dictionary<string, float> PlaceableHouses { get; set; } = new()
+	public static Dictionary<string, float> PlaceableHousesSmall { get; set; } = new()
+	{
+		{ "prefabs/props/house_a.prefab", 0.3f },
+		{ "prefabs/props/tent_a.prefab", 1f },
+		{ "prefabs/props/tent_b.prefab", 0.5f },
+	}; 
+	
+	public static Dictionary<string, float> PlaceableHousesMedium { get; set; } = new()
 	{
 		{ "prefabs/props/house_a.prefab", 1f },
 		{ "prefabs/props/house_b.prefab", 0.3f },
+		{ "prefabs/props/tent_b.prefab", 0.1f },
+	};
+
+	public static Dictionary<string, float> PlaceableHousesBig { get; set; } = new()
+	{
+		{ "prefabs/props/house_a.prefab", 1f },
+		{ "prefabs/props/house_b.prefab", 0.5f }
 	};
 
 	public static Dictionary<string, float> PlaceableBigProps { get; set; } = new()
@@ -255,7 +269,13 @@ public partial class Town
 
 		var rand = new Random( Current.Seed );
 
-		await Current.PlaceProps( PlaceableHouses, rand, position, density, new Vector2( 0f, 0.33f ), true );
+		if ( Current.TownRadius > 2500f )
+			await Current.PlaceProps( PlaceableHousesBig, rand, position, density, new Vector2( 0f, 0.33f ), true );
+		else if ( Current.TownRadius > 1200f )
+			await Current.PlaceProps( PlaceableHousesMedium, rand, position, density, new Vector2( 0f, 0.35f ), true );
+		else
+			await Current.PlaceProps( PlaceableHousesSmall, rand, position, density, new Vector2( 0f, 0.4f ), true );
+
 		await Current.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
 		await Current.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );
 		await Current.PlaceNPCs( PlaceablePeople, rand, position, density, new Vector2( 0.7f, 1f ) );
