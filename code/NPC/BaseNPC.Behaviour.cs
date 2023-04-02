@@ -177,6 +177,7 @@ public partial class BaseNPC
 			target.Damage( AttackPower, this );
 
 			SetAnimParameter( "Attack", true );
+
 			PlayAttackSound();
 		}
 	}

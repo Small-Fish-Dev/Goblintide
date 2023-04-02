@@ -49,7 +49,9 @@ public partial class GameMgr : GameManager
 			client.Kick();
 			return;
 		}
-		
+
+		base.ClientJoined( client );
+
 		var pawn = new Lord();
 		client.Pawn = pawn;
 		Lord = pawn;
@@ -60,8 +62,6 @@ public partial class GameMgr : GameManager
 			transform.Position += Vector3.Up * 50.0f;
 			pawn.Transform = transform;
 		}
-
-		base.ClientJoined( client );
 
 		// Load the save.
 		SetState<VillageState>();

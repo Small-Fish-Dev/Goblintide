@@ -67,7 +67,7 @@
 		if ( Dragging )
 		{
 			var delta = -Mouse.Delta * 2;
-			pawn.PointOfInterest += speed * (Vector3.Right * delta.x + Vector3.Backward * delta.y);
+			pawn.OverviewOffset += speed * (Vector3.Right * delta.x + Vector3.Backward * delta.y);
 
 			return;
 		}
@@ -76,14 +76,14 @@
 		var fraction = Screen.Size * screenFraction;
 
 		if ( Mouse.Position.x >= Screen.Size.x - fraction.x )
-			pawn.PointOfInterest += Vector3.Right * speed * (scaleFactor * (Mouse.Position.x - Screen.Size.x * (1 - screenFraction)) / fraction.x);
+			pawn.OverviewOffset += Vector3.Right * speed * (scaleFactor * (Mouse.Position.x - Screen.Size.x * (1 - screenFraction)) / fraction.x);
 		else if ( Mouse.Position.x <= fraction.x )
-			pawn.PointOfInterest += Vector3.Left * speed * (scaleFactor * (fraction.x - Mouse.Position.x) / fraction.x);
+			pawn.OverviewOffset += Vector3.Left * speed * (scaleFactor * (fraction.x - Mouse.Position.x) / fraction.x);
 
 		if ( Mouse.Position.y >= Screen.Size.y - fraction.y )
-			pawn.PointOfInterest += Vector3.Backward * speed * (scaleFactor * (Mouse.Position.y - Screen.Size.y * (1 - screenFraction)) / fraction.y);
+			pawn.OverviewOffset += Vector3.Backward * speed * (scaleFactor * (Mouse.Position.y - Screen.Size.y * (1 - screenFraction)) / fraction.y);
 		else if ( Mouse.Position.y <= fraction.y )
-			pawn.PointOfInterest += Vector3.Forward * speed * (scaleFactor * (fraction.y - Mouse.Position.y) / fraction.y);
+			pawn.OverviewOffset += Vector3.Forward * speed * (scaleFactor * (fraction.y - Mouse.Position.y) / fraction.y);
 	}
 
 	[Event.Hotload, GameEvents.Initialize]

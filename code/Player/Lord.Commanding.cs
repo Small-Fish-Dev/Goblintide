@@ -16,14 +16,11 @@ public partial class Lord
 				if ( value != pointingAt )
 				{
 					if ( pointingAt.IsValid() )
-						if ( pointingAt.Components.TryGet<Glow>( out Glow oldGlow ) )
-							oldGlow.Enabled = false;
+						pointingAt.Glow( true );
 
 					if ( value.IsValid() )
 					{
-						var newGlow = value.Components.GetOrCreate<Glow>();
-						newGlow.Color = Color.Red;
-						newGlow.Enabled = true;
+						value.Glow( false );
 					}
 				}
 			}

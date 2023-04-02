@@ -10,12 +10,22 @@ public enum VoiceType
 	Human
 }
 
+[Flags]
+public enum Bodygroups
+{
+	None = 0,
+	Head = 1,
+	Chest = 2,
+	Legs = 4,
+	Hands = 8,
+	Feet = 16,
+}
+
 [Prefab, Category( "NPC" )]
 public partial class BaseNPC : BaseCharacter
 {
 
-	[Prefab, Category( "Stats" )]
-	public override float HitPoints { get; set; } = 6f;
+	
 	[Prefab, Category( "Stats" )]
 	public virtual float AttackPower { get; set; } = 0.5f;
 	[Prefab, Category( "Stats" )]
@@ -33,9 +43,6 @@ public partial class BaseNPC : BaseCharacter
 	public virtual float DiligencyTimer { get; set; } = 3f;
 
 	[Prefab, Category( "Character" )]
-	public override FactionType Faction { get; set; } = FactionType.None;
-
-	[Prefab, Category( "Character" )]
 	public virtual Behaviour BaseBehaviour { get; set; } = Behaviour.None;
 
 	[Prefab, Category( "Character" )]
@@ -48,6 +55,8 @@ public partial class BaseNPC : BaseCharacter
 	public override float CollisionWidth { get; set; } = 20f;
 	[Prefab, Category( "Character" )]
 	public override float CollisionHeight { get; set; } = 40f;
+	[Prefab, Category( "Character" )]
+	public Bodygroups BodygroupsDisabled { get; set; } = Bodygroups.None;
 	public BaseCollectable Stealing { get; set; } = null;
 
 	// Array of random strings that will popup when your goblin dies.
@@ -60,8 +69,6 @@ public partial class BaseNPC : BaseCharacter
 		"<lightgreen>%target</> was killed by <lightblue>%attacker.</>"
 	};
 
-	public BaseNPC() {}
-
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -72,6 +79,12 @@ public partial class BaseNPC : BaseCharacter
 		CurrentSubBehaviour = BaseSubBehaviour;
 
 		Transmit = TransmitType.Pvs;
+
+		if ( BodygroupsDisabled.HasFlag( Bodygroups.Head ) ) SetBodyGroup( "Head", 1 );
+		if ( BodygroupsDisabled.HasFlag( Bodygroups.Chest ) ) SetBodyGroup( "Chest", 1 );
+		if ( BodygroupsDisabled.HasFlag( Bodygroups.Legs ) ) SetBodyGroup( "Legs", 1 );
+		if ( BodygroupsDisabled.HasFlag( Bodygroups.Hands ) ) SetBodyGroup( "Hands", 1 );
+		if ( BodygroupsDisabled.HasFlag( Bodygroups.Feet ) ) SetBodyGroup( "Feet", 1 );
 	}
 
 	public override void Kill()

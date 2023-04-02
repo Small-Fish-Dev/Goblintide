@@ -18,10 +18,24 @@ public partial class Town
 	public static List<SceneObject> TownTrees = new();
 	public static List<WallEntity> TownFences = new();
 
-	public static Dictionary<string, float> PlaceableHouses { get; set; } = new()
+	public static Dictionary<string, float> PlaceableHousesSmall { get; set; } = new()
+	{
+		{ "prefabs/props/house_a.prefab", 0.3f },
+		{ "prefabs/props/tent_a.prefab", 1f },
+		{ "prefabs/props/tent_b.prefab", 0.5f },
+	}; 
+	
+	public static Dictionary<string, float> PlaceableHousesMedium { get; set; } = new()
 	{
 		{ "prefabs/props/house_a.prefab", 1f },
 		{ "prefabs/props/house_b.prefab", 0.3f },
+		{ "prefabs/props/tent_b.prefab", 0.1f },
+	};
+
+	public static Dictionary<string, float> PlaceableHousesBig { get; set; } = new()
+	{
+		{ "prefabs/props/house_a.prefab", 1f },
+		{ "prefabs/props/house_b.prefab", 0.5f }
 	};
 
 	public static Dictionary<string, float> PlaceableBigProps { get; set; } = new()
@@ -219,7 +233,7 @@ public partial class Town
 
 		var townDiameter = townWidth * 2 + 400f;
 		var perimeter = 2 * townDiameter * Math.PI;
-		var bestFence = townWidth >= 650f ? PlaceableFences.First() : PlaceableFences.Last();
+		var bestFence = townWidth >= 1200f ? PlaceableFences.First() : PlaceableFences.Last();
 		var fenceSize = bestFence.Value;
 		int fenceCount = (int)Math.Ceiling( perimeter / fenceSize / 2 );
 		var mainRoadSize = 60f + townWidth / 15f;
@@ -245,17 +259,22 @@ public partial class Town
 		Current = new Town();
 		Current.TownSize = townSize;
 		Current.TownRadius = 300f * (float)Math.Sqrt( Current.TownSize / 5 );
-		var position = new Vector3( 17.74f, 191.05f, 512f );
+		var position = new Vector3( 25f, 292.05f, 512f );
 
 		if ( Current.TownRadius > 1200f )
-			position = new Vector3( 5030.56f, 237.68f, 512f );
+			position = new Vector3( 4516f, 295f, 512f );
 		if ( Current.TownRadius > 2500f )
-			position = new Vector3( -3239f, 4069f, 512f );
-
+			position = new Vector3( -4300f, 5314f, 512f );
 
 		var rand = new Random( Current.Seed );
 
-		await Current.PlaceProps( PlaceableHouses, rand, position, density, new Vector2( 0f, 0.33f ), true );
+		if ( Current.TownRadius > 2500f )
+			await Current.PlaceProps( PlaceableHousesBig, rand, position, density, new Vector2( 0f, 0.33f ), true );
+		else if ( Current.TownRadius > 1200f )
+			await Current.PlaceProps( PlaceableHousesMedium, rand, position, density, new Vector2( 0f, 0.35f ), true );
+		else
+			await Current.PlaceProps( PlaceableHousesSmall, rand, position, density, new Vector2( 0f, 0.4f ), true );
+
 		await Current.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
 		await Current.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );
 		await Current.PlaceNPCs( PlaceablePeople, rand, position, density, new Vector2( 0.7f, 1f ) );

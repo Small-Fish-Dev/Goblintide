@@ -5,7 +5,194 @@
   "Root": {
     "Guid": "6c3310c9-f319-468b-bb32-a3d3c2d3dce2",
     "Class": "BaseNPC",
-    "Entities": [],
+    "Entities": [
+      {
+        "Guid": "0221af9d-1942-43f1-af37-5c8c48d9576e",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/citizen_clothes/hat/bucket_helmet/models/bucket_helmet.vmdl\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "0c03ba2a-f42d-417d-86bd-306c53213be6",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/citizen_clothes/vest/chest_armour/models/chest_armour.vmdl\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "0c2f9870-3ffd-49f3-94a6-b58398af89bf",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/citizen_clothes/trousers/legarmour/models/leg_armour.vmdl\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "7ee0832e-0bb2-4099-853f-caab8164dd2d",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/clothes/guard_quilt_armor/quilt_armor.vmdl\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "0969ef6d-804e-4ef8-a13e-6f63d6482d4e",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/citizen_clothes/gloves/leather_gloves/models/leather_gloves.vmdl\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          }
+        }
+      },
+      {
+        "Guid": "be1bef56-bcee-4796-9af2-18e17b1d8efd",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/citizen_clothes/shoes/boots/models/black_boots.vmdl\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          }
+        }
+      }
+    ],
     "Components": [
       {
         "Guid": "86dd8d02-7690-40f2-b724-2a3eb6fe1930",
@@ -43,11 +230,11 @@
       },
       "WalkSpeed": {
         "Type": "Single",
-        "Value": "140"
+        "Value": "180"
       },
       "AttackSpeed": {
         "Type": "Single",
-        "Value": "0.3"
+        "Value": "0.6"
       },
       "_name": {
         "Value": "\u0022Soldier\u0022"
@@ -78,11 +265,11 @@
       },
       "AttackRange": {
         "Type": "Single",
-        "Value": "40"
+        "Value": "50"
       },
       "BaseDiligency": {
         "Type": "Single",
-        "Value": "0.8"
+        "Value": "1.2"
       },
       "DisplayName": {
         "Type": "String",
@@ -91,6 +278,30 @@
       "CollisionWidth": {
         "Type": "Single",
         "Value": "40"
+      },
+      "RenderColor": {
+        "Type": "Color",
+        "Value": "\u00221,1,1,1\u0022"
+      },
+      "BodygroupsDisabled": {
+        "Type": "Bodygroups",
+        "Value": "\u0022Head, Chest, Legs, Hands, Feet\u0022"
+      },
+      "DiligencyTimer": {
+        "Type": "Single",
+        "Value": "2"
+      },
+      "DetectRange": {
+        "Type": "Single",
+        "Value": "600"
+      },
+      "DefaultFaction": {
+        "Type": "FactionType",
+        "Value": "\u0022Humans\u0022"
+      },
+      "MaxHitPoints": {
+        "Type": "Single",
+        "Value": "50"
       }
     }
   }
