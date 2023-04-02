@@ -57,7 +57,7 @@ public partial class Lord
 			.Ignore( this );
 
 		helper.TryUnstuck();
-		helper.TryMoveWithStep( Time.Delta, 16f );
+		helper.TryMoveWithStep( Time.Delta, 2f );
 
 		Position = helper.Position;
 		Velocity = helper.Velocity;
