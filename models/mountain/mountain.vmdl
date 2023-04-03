@@ -17,6 +17,10 @@
 								from = "shitty_pine_billboard.vmat"
 								to = "materials/shitty_pine_a/shitty_pine_billboard.vmat"
 							},
+							{
+								from = "surface.001.vmat"
+								to = "materials/mountain_a/mountains_a.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
