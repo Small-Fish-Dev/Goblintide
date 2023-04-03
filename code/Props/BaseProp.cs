@@ -40,8 +40,10 @@ public partial class BaseProp : BaseEntity
 		if ( IsBreakable )
 		{
 			var result = new Breakables.Result();
-			Breakables.Break( this, result );
+			if ( result != null )
+				Breakables.Break( this, result );
 		}
+
 		Sound.FromWorld( "sounds/physics/breaking/break_wood_plank.sound", Position );
 
 		string particlePath = "particles/wood_shatter.vpcf";

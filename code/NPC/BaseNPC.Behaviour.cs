@@ -59,6 +59,7 @@ public partial class BaseNPC
 
 	public virtual void ComputeBehaviour()
 	{
+		if ( GameMgr.CurrentTown == null ) return;
 		//BehaviourTree[CurrentBehaviour].Invoke( this );
 		DiligencyCheck();
 
