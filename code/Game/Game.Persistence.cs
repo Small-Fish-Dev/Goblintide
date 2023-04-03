@@ -34,9 +34,8 @@ partial class GameMgr
 				.ToArray();
 
 			writer.Write( goblins.Length );
-			for ( int i = 0; i < goblins.Length; i++ )
+			foreach ( var goblin in goblins )
 			{
-				var goblin = goblins[i];
 				if ( goblin == null || !goblin.IsValid )
 					continue;
 
@@ -74,8 +73,8 @@ partial class GameMgr
 		if ( method is BinaryWriter writer )
 		{
 			writer.Write( Lord.Upgrades.Count );
-			for ( int i = 0; i < 0; i++ )
-				writer.Write( Lord.Upgrades[i] );
+			foreach ( var upgrade in Lord.Upgrades )
+				writer.Write( upgrade );
 
 			return;
 		}
@@ -83,6 +82,8 @@ partial class GameMgr
 		// Handle loading save.
 		if ( method is BinaryReader reader )
 		{
+			Lord.Upgrades.Clear();
+
 			var count = reader.ReadInt32();
 			for ( int i = 0; i < count; i++ )
 			{
@@ -100,13 +101,32 @@ partial class GameMgr
 		// Handle saving first.
 		if ( method is BinaryWriter writer )
 		{
+			writer.Write( VillageState.Structures.Count );
+			foreach ( var building in VillageState.Structures )
+			{
+				writer.Write( building.PrefabName );
+				writer.Write( building.Position );
+			}
+
 			return;
 		}
 
 		// Handle loading save.
 		if ( method is BinaryReader reader )
 		{
+			VillageState.Structures.Clear();
 
+			var count = reader.ReadInt32();
+			for ( int i = 0; i < count; i++ )
+			{
+				var entry = new BuildingEntry()
+				{
+					PrefabName = reader.ReadString(),
+					Position = reader.ReadVector3()
+				};
+
+				VillageState.TrySpawnStructure( entry );
+			}
 		}
 	}
 	#endregion
@@ -171,6 +191,7 @@ partial class GameMgr
 		// Initialize stream and reader.
 		using var stream = FileSystem.Data.OpenRead( SAVE_PATH );
 		using var reader = new BinaryReader( stream );
+		var shouldDelete = false;
 
 		try
 		{
@@ -183,10 +204,18 @@ partial class GameMgr
 		catch ( Exception ex )
 		{
 			Log.Error( $"Failed to load save properly." );
+			shouldDelete = true;
 		}
 		
 		// Tell everyone that we're done loading.
 		Loaded = true;
+
+		// Close stream and finish.
+		stream.Close();
+
+		// Delete save.
+		if ( shouldDelete )
+			FileSystem.Data.DeleteFile( SAVE_PATH );
 
 		return true;
 	}
