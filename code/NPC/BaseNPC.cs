@@ -263,6 +263,9 @@ public partial class BaseNPC : BaseCharacter
 		{
 			var guy = BaseNPC.FromPrefab( $"prefabs/npcs/{type}.prefab" );
 			guy.Position = player.Position + Vector3.Random.WithZ( 0 ) * 100f;
+
+			if ( guy.Faction == player.Faction )
+				GameMgr.GoblinArmy.Add( guy );
 		}
 	}
 }

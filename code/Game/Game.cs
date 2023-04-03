@@ -40,8 +40,20 @@ public partial class GameMgr : GameManager
 			Instance.currentTown = value;
 		}
 	}
+	/// <summary>
+	 /// The game's current Town.
+	 /// </summary>
+	public static IList<BaseNPC> GoblinArmy
+	{
+		get => Instance.goblinArmy;
+		set
+		{
+			Instance.goblinArmy = value;
+		}
+	}
 	[Net] private Lord lord { get; set; }
 	[Net] private Town currentTown { get; set; }
+	[Net] private IList<BaseNPC> goblinArmy { get; set; }
 
 	public GameMgr()
 	{
