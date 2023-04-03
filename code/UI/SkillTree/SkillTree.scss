@@ -36,7 +36,7 @@
 
 			background: linear-gradient(0deg, rgba(43, 38, 56, 1) 0%, rgba(9, 13, 25, 1) 37%, rgba(3, 2, 4, 1) 63%, rgba(0, 9, 22, 1) 93%);
 
-			transition: opacity 2.5s ease-in-out;
+			transition: opacity 3.1s ease-in-out;
 
 			&:intro {
 				opacity: 0;
@@ -51,10 +51,10 @@
 
 			position: absolute;
 
-			background: radial-gradient(rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 100%);
+			background: radial-gradient(#A8631E 0%, #A5611D 100%);
 			background-position-y: 40%;
 
-			transition: opacity 2s ease-in-out;
+			transition: opacity 1.3s ease-in-out;
 
 			&:intro {
 				opacity: 0;
@@ -70,8 +70,9 @@
 			position: absolute;
 
 			top: 0;
+			
+			left: -20%;
 
-			filter: invert(100%);
 
 			transition: all 0.7s ease-in-out;
 			
@@ -100,7 +101,7 @@
 
 		overflow: hidden;
 
-		transition: all 1.4s ease-in-out;
+		transition: all 0.4s ease-in-out;
 
 		.iq {
 			width: 50%;

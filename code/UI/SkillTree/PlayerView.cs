@@ -5,10 +5,10 @@ namespace GameJam.UI;
 public class PlayerView : ScenePanel
 {
 	public SceneModel Model { get; set; }
-	
+
 	private bool _animated = false;
 	private readonly TimeUntil _animate = 0.4f;
-	
+
 	public PlayerView()
 	{
 		World = new SceneWorld();
@@ -33,12 +33,16 @@ public class PlayerView : ScenePanel
 		if ( !_animated )
 		{
 			var main = Sandbox.Camera.Main;
-			Camera.Position = main.Position;
-			Camera.Rotation = main.Rotation;
+
+			var position = Lord.Self.EyePosition;
+			position += Model.Rotation.Forward * 55;
+
+			Camera.Position = position;
+			Camera.Rotation = Rotation.LookAt( Lord.Self.EyePosition - position );
 			Camera.FieldOfView = main.FieldOfView;
 			Camera.AntiAliasing = true;
 		}
-		
+
 		Model.CurrentSequence.Time = Lord.Self.CurrentSequence.Time;
 		Model.Rotation = Lord.Self.Rotation;
 		Model.Update( Time.Delta );
