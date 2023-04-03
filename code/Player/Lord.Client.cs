@@ -13,17 +13,19 @@ public partial class Lord
 		{
 			var radius = GameMgr.Instance.CurrentTown != null
 				? GameMgr.Instance.CurrentTown.TownRadius
-				: 1000;
+				: GameMgr.State is VillageState village 
+					? village.Radius 
+					: 1000f;
 			overviewOffset = value.Normal * MathX.Clamp( value.Length, -radius, radius );
 		}
 	}
-	public bool OverviewAnimating { get; private set; } = false;
 
-	bool finishedAnimating = false;
 	Vector3 overviewOffset;
 	Vector3 pointOfInterest => GameMgr.Instance.CurrentTown != null
 		? GameMgr.Instance.CurrentTown.Position
-		: Vector3.Zero;
+		: GameMgr.State is VillageState village
+			? village.Position
+			: Vector3.Zero;
 
 	#region Player Configuration
 
@@ -249,12 +251,10 @@ public partial class Lord
 
 	public void SimulateCamera()
 	{
-		OverviewAnimating = false;
 		CameraFinalize();
 
 		if ( !Overview )
 		{
-			finishedAnimating = false;
 			CameraStageOne();
 			CameraStageTwo();
 			
