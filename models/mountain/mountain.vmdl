@@ -14,8 +14,8 @@
 						remaps = 
 						[
 							{
-								from = "surface.001.vmat"
-								to = "materials/mountain_a/mountains_a.vmat"
+								from = "shitty_pine_billboard.vmat"
+								to = "materials/shitty_pine_a/shitty_pine_billboard.vmat"
 							},
 						]
 						use_global_default = false
@@ -29,7 +29,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "models/mountain/mountain.fbx"
+						filename = "models/mountain/mountain2.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 0.4
