@@ -23,7 +23,7 @@ public partial class BaseCollectable : BaseEntity
 	public Collectable Type { get; private set; } = Collectable.Invalid;
 	[Prefab]
 	public bool IsRagdoll { get; private set; } = false;
-	public int Value { get; private set; } = 1;
+	public int Value { get; set; } = 1;
 	public bool Locked { get; set; } = false;
 
 	public override void Spawn()

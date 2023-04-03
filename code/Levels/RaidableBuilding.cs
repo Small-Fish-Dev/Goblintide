@@ -11,6 +11,8 @@ public partial class RaidableBuilding : ModelEntity
 	public Dictionary<string, float> CollectableInsideAndProbability { get; set; } = new()
 	{
 	};
+	[Prefab, Category( "Loot" ), Range( 0, 50, 1 )]
+	public RangedFloat LootAmount { get; set; } = 0;
 
 	public BaseCollectable CollectableInside { get; set; }
 	public BaseProp Door { get; set; }
@@ -38,6 +40,7 @@ public partial class RaidableBuilding : ModelEntity
 			CollectableInside.EnableSelfCollisions = false;
 			CollectableInside.SetParent( this );
 			CollectableInside.Locked = true;
+			CollectableInside.Value = CollectableInside.Type == Collectable.Woman ? 1 : Game.Random.Int( (int)LootAmount.x, (int)LootAmount.y );
 		}
 
 

@@ -78,6 +78,10 @@
       "CollectableInsideAndProbability": {
         "Type": "Dictionary\u00602",
         "Value": "{\r\n  \u0022prefabs/collectables/food.prefab\u0022: 0.5,\r\n  \u0022prefabs/collectables/gold.prefab\u0022: 1,\r\n  \u0022prefabs/collectables/woman.prefab\u0022: 0.5\r\n}"
+      },
+      "LootAmount": {
+        "Type": "RangedFloat",
+        "Value": "\u002210.00,40.00,1\u0022"
       }
     }
   }
