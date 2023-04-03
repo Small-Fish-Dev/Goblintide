@@ -7,7 +7,8 @@
   "Sounds": [
     "sounds/male/male_idle01.vsnd",
     "sounds/male/male_idle02.vsnd",
-    "sounds/male/male_idle03.vsnd"
+    "sounds/male/male_idle03.vsnd",
+    "sounds/male/male_idle04.vsnd"
   ],
   "MaximumDistance": 491.52356,
   "MinimumDistance": 24.576178

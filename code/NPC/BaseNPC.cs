@@ -216,26 +216,26 @@ public partial class BaseNPC : BaseCharacter
 
 	public virtual void PlayAttackSound()
 	{
-		Sound.FromWorld( AttackSounds[Voice], Position);
+		Sound.FromWorld( AttackSounds[Voice], Position).SetVolume(2);
 	}
 
 	public virtual void PlayHurtSound()
 	{
-		Sound.FromWorld( HurtSounds[Voice], Position );
+		Sound.FromWorld( HurtSounds[Voice], Position ).SetVolume( 2 );
 	}
 
 	public virtual void PlayIdleSound()
 	{
-		Sound.FromWorld( IdleSounds[Voice], Position );
+		Sound.FromWorld( IdleSounds[Voice], Position ).SetVolume( 2 );
 	}
 
 	public virtual void PlayLaughSound()
 	{
-		Sound.FromWorld( LaughSounds[Voice], Position );
+		Sound.FromWorld( LaughSounds[Voice], Position ).SetVolume( 2 );
 	}
 	public virtual void PlayPanicSound()
 	{
-		Sound.FromWorld( PanicSounds[Voice], Position );
+		Sound.FromWorld( PanicSounds[Voice], Position ).SetVolume( 2 );
 	}
 
 	public override void Damage( float amount, BaseCharacter attacker )
