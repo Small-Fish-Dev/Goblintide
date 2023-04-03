@@ -35,10 +35,8 @@ public partial class RaidableBuilding : ModelEntity
 		{
 			CollectableInside = BaseCollectable.FromPrefab( WeightedList.RandomKey( CollectableInsideAndProbability ) );
 			CollectableInside.Position = Position + Vector3.Up * 5f;
-			CollectableInside.EnableAllCollisions = false;
-			CollectableInside.UsePhysicsCollision = false;
-			CollectableInside.EnableSelfCollisions = false;
 			CollectableInside.SetParent( this );
+			CollectableInside.PhysicsEnabled = false;
 			CollectableInside.Locked = true;
 			CollectableInside.Value = CollectableInside.Type == Collectable.Woman ? 1 : Game.Random.Int( (int)LootAmount.x, (int)LootAmount.y );
 		}
@@ -71,13 +69,21 @@ public partial class RaidableBuilding : ModelEntity
 	[Event.Tick.Server]
 	public void ReleaseLoot()
 	{
-		if ( !Door.IsValid() && CollectableInside.IsValid() && CollectableInside.Locked )
+		if ( Door.IsValid() && CollectableInside.IsValid() )
+		{
+			CollectableInside.Position = Position;
+			CollectableInside.SetParent( this );
+		}
+		if ( CollectableInside.Type == Collectable.Woman ) // Idk why they just fly away otherwise??????
+		{
+			CollectableInside.Position = Position;
+			CollectableInside.SetParent( this );
+		}
+		if ( !Door.IsValid() && CollectableInside.IsValid() && CollectableInside.Locked ) //TODO SPAWN FIRE
 		{
 			CollectableInside.SetParent( null );
 			CollectableInside.Locked = false;
-			CollectableInside.EnableAllCollisions = true;
-			CollectableInside.UsePhysicsCollision = true;
-			CollectableInside.EnableSelfCollisions = true;
+			CollectableInside.PhysicsEnabled = true;
 			CollectableInside.Position = Transform.PointToWorld( DoorPosition ) + Vector3.Up * 20f;
 		}
 	}
