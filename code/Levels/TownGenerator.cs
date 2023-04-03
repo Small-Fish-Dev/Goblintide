@@ -20,22 +20,25 @@ public partial class Town : BaseNetworkable
 
 	public static Dictionary<string, float> PlaceableHousesSmall { get; set; } = new()
 	{
-		{ "prefabs/props/house_a.prefab", 0.3f },
-		{ "prefabs/props/tent_a.prefab", 1f },
-		{ "prefabs/props/tent_b.prefab", 0.5f },
+		{ "prefabs/raidablebuildings/house_a.prefab", 0.3f },
+		{ "prefabs/raidablebuildings/tent_a.prefab", 1f },
+		{ "prefabs/raidablebuildings/tent_b.prefab", 0.5f },
 	}; 
 	
 	public static Dictionary<string, float> PlaceableHousesMedium { get; set; } = new()
 	{
-		{ "prefabs/props/house_a.prefab", 1f },
-		{ "prefabs/props/house_b.prefab", 0.3f },
-		{ "prefabs/props/tent_b.prefab", 0.1f },
+		{ "prefabs/raidablebuildings/house_a.prefab", 1f },
+		{ "prefabs/raidablebuildings/house_b.prefab", 0.3f },
+		{ "prefabs/raidablebuildings/house_c.prefab", 0.3f },
+		{ "prefabs/raidablebuildings/tent_b.prefab", 0.1f },
 	};
 
 	public static Dictionary<string, float> PlaceableHousesBig { get; set; } = new()
 	{
-		{ "prefabs/props/house_a.prefab", 1f },
-		{ "prefabs/props/house_b.prefab", 0.5f }
+		{ "prefabs/raidablebuildings/house_a.prefab", 1.5f },
+		{ "prefabs/raidablebuildings/house_b.prefab", 0.5f },
+		{ "prefabs/raidablebuildings/house_c.prefab", 0.5f },
+		{ "prefabs/raidablebuildings/house_d.prefab", 0.5f },
 	};
 
 	public static Dictionary<string, float> PlaceableBigProps { get; set; } = new()
@@ -119,6 +122,42 @@ public partial class Town : BaseNetworkable
 		return false;
 	}
 
+	internal async Task<bool> TryPlaceHouse( Dictionary<string, float> list, Random rand, Vector3 position, float x, float y, float density, Vector2 threshold, bool lookAtCenter = false )
+	{
+		var noise = NoiseValue( x, y );
+		if ( noise >= threshold.x && noise <= threshold.y )
+		{
+			var spawnedEntity = RaidableBuilding.FromPrefab( WeightedList.RandomKey( rand, list ) );
+			if ( spawnedEntity == null )
+				return false;
+
+			await GameTask.RunInThreadAsync( () =>
+			{
+				var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+				var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+				spawnedEntity.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
+				spawnedEntity.Rotation = lookAtCenter ? Rotation.LookAt( spawnedEntity.Position - position ) : Rotation.FromYaw( rand.Next( 360 ) );
+				var traceCheck = Trace.Body( spawnedEntity.PhysicsBody, spawnedEntity.Position )
+					.Ignore( spawnedEntity )
+					.EntitiesOnly()
+					.Run();
+
+				if ( traceCheck.Hit )
+				{
+					spawnedEntity.Delete();
+					return false;
+				}
+				else
+				{
+					GameMgr.CurrentTown.townEntities.Add( spawnedEntity );
+					return true;
+				}
+			} );
+		}
+
+		return false;
+	}
+
 	internal static void TryPlaceTree( Dictionary<string, float> list, Vector3 position, float x, float y, Vector2 threshold )
 	{
 		var noise = NoiseFBM( x, y, 3f );
@@ -155,6 +194,27 @@ public partial class Town : BaseNetworkable
 		}
 
 		return false;
+	}
+
+	internal async Task<bool> PlaceHouses( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold, bool lookAtCenter = false )
+	{
+		var townRadiusSquared = TownRadius * TownRadius;
+		var mainRoadSize = 60f + TownRadius / 15f;
+
+		for ( float x = -TownRadius; x <= TownRadius; x += 100f / density )
+		{
+			for ( float y = -TownRadius; y <= TownRadius; y += 100f / density )
+			{
+				var squaredDistance = x * x + y * y;
+
+				if ( squaredDistance > townRadiusSquared ) continue;
+				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
+
+				if ( await GameMgr.CurrentTown.TryPlaceHouse( list, rand, position, x, y, density, new Vector2( threshold.x, threshold.y ), lookAtCenter ) )
+					continue;
+			}
+		}
+		return true;
 	}
 
 	internal async Task<bool> PlaceProps( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold, bool lookAtCenter = false )
@@ -273,11 +333,11 @@ public partial class Town : BaseNetworkable
 		var rand = new Random( GameMgr.CurrentTown.Seed );
 
 		if ( GameMgr.CurrentTown.TownRadius > 2500f )
-			await GameMgr.CurrentTown.PlaceProps( PlaceableHousesBig, rand, position, density, new Vector2( 0f, 0.33f ), true );
+			await GameMgr.CurrentTown.PlaceHouses( PlaceableHousesBig, rand, position, density, new Vector2( 0f, 0.33f ), true );
 		else if ( GameMgr.CurrentTown.TownRadius > 1200f )
-			await GameMgr.CurrentTown.PlaceProps( PlaceableHousesMedium, rand, position, density, new Vector2( 0f, 0.35f ), true );
+			await GameMgr.CurrentTown.PlaceHouses( PlaceableHousesMedium, rand, position, density, new Vector2( 0f, 0.35f ), true );
 		else
-			await GameMgr.CurrentTown.PlaceProps( PlaceableHousesSmall, rand, position, density, new Vector2( 0f, 0.4f ), true );
+			await GameMgr.CurrentTown.PlaceHouses( PlaceableHousesSmall, rand, position, density, new Vector2( 0f, 0.4f ), true );
 
 		await GameMgr.CurrentTown.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
 		await GameMgr.CurrentTown.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );

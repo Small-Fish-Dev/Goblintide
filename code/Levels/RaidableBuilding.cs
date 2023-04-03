@@ -29,13 +29,17 @@ public partial class RaidableBuilding : ModelEntity
 		Tags.Add( "Solid" );
 		Tags.Add( "Pushable" );
 
-		CollectableInside = BaseCollectable.FromPrefab( WeightedList.RandomKey( CollectableInsideAndProbability ) );
-		CollectableInside.Position = Position + Vector3.Up * 5f;
-		CollectableInside.EnableAllCollisions = false;
-		CollectableInside.UsePhysicsCollision = false;
-		CollectableInside.EnableSelfCollisions = false;
-		CollectableInside.SetParent( this );
-		CollectableInside.Locked = true;
+		if ( CollectableInsideAndProbability.Count() > 0 )
+		{
+			CollectableInside = BaseCollectable.FromPrefab( WeightedList.RandomKey( CollectableInsideAndProbability ) );
+			CollectableInside.Position = Position + Vector3.Up * 5f;
+			CollectableInside.EnableAllCollisions = false;
+			CollectableInside.UsePhysicsCollision = false;
+			CollectableInside.EnableSelfCollisions = false;
+			CollectableInside.SetParent( this );
+			CollectableInside.Locked = true;
+		}
+
 
 		if ( Children.Count > 0 )
 			if ( Children.First() is BaseProp prop )
@@ -64,7 +68,7 @@ public partial class RaidableBuilding : ModelEntity
 	[Event.Tick.Server]
 	public void ReleaseLoot()
 	{
-		if ( !Door.IsValid() && CollectableInside.Locked )
+		if ( !Door.IsValid() && CollectableInside.IsValid() && CollectableInside.Locked )
 		{
 			CollectableInside.SetParent( null );
 			CollectableInside.Locked = false;
