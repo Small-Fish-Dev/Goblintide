@@ -101,7 +101,6 @@ public partial class BaseNPC : BaseCharacter
 			var armor = BaseItem.FromPrefab( StartingArmor );
 			if ( armor != null )
 			{
-				Armor = armor;
 				Equip( armor );
 			}
 		}
@@ -111,7 +110,6 @@ public partial class BaseNPC : BaseCharacter
 			var weapon = BaseItem.FromPrefab( StartingWeapon );
 			if ( weapon != null )
 			{
-				Weapon = weapon;
 				Equip( weapon );
 			}
 		}
@@ -123,6 +121,15 @@ public partial class BaseNPC : BaseCharacter
 
 		item.EnableAllCollisions = false;
 		item.SetParent( this, true );
+
+		if ( item.Type == ItemType.Armor )
+		{
+			Armor = item;
+		}
+		if ( item.Type == ItemType.Weapon )
+		{
+			Weapon = item;
+		}
 
 		item.Equipped = true;
 		HitPoints += item.IncreasedHealth;
