@@ -121,7 +121,8 @@ public partial class BaseNPC
 	public virtual BaseCollectable FindBestLoot( float radius = 300f, bool closestFirst = true )
 	{
 		var validEntities = Entity.All
-			.OfType<BaseCollectable>();
+			.OfType<BaseCollectable>()
+			.Where( x => !x.Locked);
 
 		var radiusSquared = radius * radius;
 

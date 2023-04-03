@@ -40,7 +40,7 @@ public partial class BaseProp : BaseEntity
 		if ( IsBreakable )
 		{
 			var result = new Breakables.Result();
-			if ( result != null )
+			if ( result != null && this != null && this.IsValid() )
 				Breakables.Break( this, result );
 		}
 
