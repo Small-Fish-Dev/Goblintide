@@ -87,6 +87,7 @@ public partial class Lord
 		var closeAllies = Entity.All
 			.OfType<BaseNPC>()
 			.Where( x => x.Faction == Faction )
+			.Where( x => !x.Stealing.IsValid() )
 			.Where( x => x.Position.DistanceSquared( PointingPosition ) <= Math.Pow( 1500, 2 ) );
 
 		if ( PointingAt is BaseItem item )

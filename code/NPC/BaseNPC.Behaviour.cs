@@ -316,7 +316,10 @@ public partial class BaseNPC
 		else
 		{
 			if ( !IsFollowingPath )
+			{
 				NavigateToForest();
+				IsFollowingOrder = true;
+			}
 
 			if ( DistanceToForest() <= 100f )
 			{
