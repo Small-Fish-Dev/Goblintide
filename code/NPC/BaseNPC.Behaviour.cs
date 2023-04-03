@@ -411,15 +411,31 @@ public partial class BaseNPC
 			RecalculateTargetNav();
 	}
 
+	internal TimeUntil newDefendingPosition { get; set; } = 0f;
+
+	public virtual void FindNewPatrolPosition()
+	{
+		if ( newDefendingPosition )
+		{
+			var currentTown = GameMgr.Instance.CurrentTown;
+			DefendingPosition = currentTown.Position + Vector3.Random.WithZ(0).Normal * Game.Random.Float( -currentTown.TownRadius, currentTown.TownRadius );
+			IsFollowingOrder = true;
+			newDefendingPosition = Game.Random.Float( 8f, 16f );
+		}
+	}
+
 	public virtual void RaiderBehaviour()
 	{
 		if ( !CurrentTarget.IsValid() )
 		{
-			if ( CurrentSubBehaviour is SubBehaviour.Attacking or SubBehaviour.Following or SubBehaviour.Stealing or SubBehaviour.Equipping )
+			if ( CurrentSubBehaviour is not SubBehaviour.None )
 				CurrentSubBehaviour = BaseSubBehaviour;
 
 			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
+			{
+				FindNewPatrolPosition();
 				ComputeIdling();
+			}
 
 			if ( nextTargetSearch )
 			{
@@ -464,7 +480,10 @@ public partial class BaseNPC
 				CurrentSubBehaviour = BaseSubBehaviour;
 
 			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
+			{
+				FindNewPatrolPosition();
 				ComputeIdling();
+			}
 
 			if ( nextTargetSearch )
 			{
@@ -492,7 +511,10 @@ public partial class BaseNPC
 				CurrentSubBehaviour = BaseSubBehaviour;
 
 			if ( CurrentSubBehaviour == SubBehaviour.None )
+			{
+				FindNewPatrolPosition();
 				ComputeIdling();
+			}
 
 			if ( nextTargetSearch )
 			{

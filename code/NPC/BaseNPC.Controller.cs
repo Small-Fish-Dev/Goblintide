@@ -10,7 +10,7 @@ public partial class BaseNPC
 	public virtual void ComputeMotion()
 	{
 		var bestSpeed = WalkSpeed;
-		if ( CurrentBehaviour == Behaviour.None || CurrentSubBehaviour == SubBehaviour.None )
+		if ( CurrentBehaviour == Behaviour.None || CurrentSubBehaviour == SubBehaviour.None && !IsFollowingOrder)
 		{
 			bestSpeed /= 3f;
 		}

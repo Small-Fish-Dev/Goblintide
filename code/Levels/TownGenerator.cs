@@ -268,6 +268,8 @@ public partial class Town : BaseNetworkable
 		if ( GameMgr.Instance.CurrentTown.TownRadius > 2500f )
 			position = new Vector3( -4300f, 5314f, 512f );
 
+		GameMgr.Instance.CurrentTown.Position = position;
+
 		var rand = new Random( GameMgr.Instance.CurrentTown.Seed );
 
 		if ( GameMgr.Instance.CurrentTown.TownRadius > 2500f )
