@@ -2,6 +2,10 @@
 
 public partial class BaseNPC
 {
+
+	public Sound CurrentVoiceline { get; set; }
+	public bool IsTalking => CurrentVoiceline.IsPlaying;
+
 	public virtual void ComputeAnimations()
 	{
 		if ( Velocity.LengthSquared > 100 )
@@ -33,5 +37,8 @@ public partial class BaseNPC
 			SetAnimParameter( "state", 2 );
 		else
 			SetAnimParameter( "state", 0 );
+
+		SetAnimParameter( "weapon", Weapon.IsValid() );
+		SetAnimParameter( "speaking", IsTalking );
 	}
 }
