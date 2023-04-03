@@ -355,6 +355,7 @@ public partial class BaseNPC
 
 				var randomPositionAround = DefendingPosition + Vector3.Random.WithZ( 0 ) * DefendingPositionRange;
 				NavigateTo( randomPositionAround );
+				PlayPanicSound();
 			}
 		}
 		else

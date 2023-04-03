@@ -302,6 +302,10 @@
       "StartingWeapon": {
         "Type": "String",
         "Value": "\u0022prefabs/items/club.prefab\u0022"
+      },
+      "Voice": {
+        "Type": "VoiceType",
+        "Value": "\u0022Human\u0022"
       }
     }
   }
