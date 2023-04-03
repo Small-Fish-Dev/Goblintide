@@ -6,9 +6,24 @@ public partial class Lord
 {
 	[Net, Predicted]
 	public bool Overview { get; set; } = true;
-	public Vector3 OverviewOffset { get; set; }
+	public Vector3 OverviewOffset
+	{
+		get => overviewOffset;
+		set
+		{
+			var radius = GameMgr.Instance.CurrentTown != null
+				? GameMgr.Instance.CurrentTown.TownRadius
+				: 1000;
+			overviewOffset = value.Normal * MathX.Clamp( value.Length, -radius, radius );
+		}
+	}
 	public bool OverviewAnimating { get; private set; } = false;
+
 	bool finishedAnimating = false;
+	Vector3 overviewOffset;
+	Vector3 pointOfInterest => GameMgr.Instance.CurrentTown != null
+		? GameMgr.Instance.CurrentTown.Position
+		: Vector3.Zero;
 
 	#region Player Configuration
 
@@ -247,15 +262,8 @@ public partial class Lord
 		}
 
 		// Overview Camera
-
-		var currentTown = GameMgr.Instance.CurrentTown;
-		var distanceToCenter = OverviewOffset.Length;
-		var normalizedDistance = OverviewOffset.Normal;
-		var clampedOffset = normalizedDistance * Math.Clamp( distanceToCenter, -currentTown.TownRadius, currentTown.TownRadius );
-		OverviewOffset = clampedOffset;
-
 		var offset = Vector3.Up * 500f + Vector3.Backward * 250f;
-		var targetPosition = (GameMgr.Lord?.Position ?? Vector3.Zero) + OverviewOffset + offset;
+		var targetPosition = pointOfInterest + OverviewOffset + offset;
 		Camera.Position = Vector3.Lerp( Camera.Position, targetPosition, 5f * Time.Delta );
 		Camera.Rotation = Rotation.LookAt( -offset );
 	}
