@@ -22,6 +22,7 @@ public partial class BaseEntity : AnimatedEntity
 	public TimeSince LastAttacked { get; set; } = 0f;
 	public virtual bool BlockNav { get; set; } = true;
 	public NavBlockerEntity NavBlocker { get; set; } = null;
+	public virtual string DamageSound { get; set; } = "sounds/physics/physics.wood.impact.soft.sound";
 
 	public override void Spawn()
 	{
@@ -105,6 +106,8 @@ public partial class BaseEntity : AnimatedEntity
 		HitPoints = Math.Max( HitPoints - amount, 0 );
 		LastAttacked = 0f;
 		LastAttackedBy = attacker;
+
+		Sound.FromWorld( DamageSound, Position ).SetVolume( 3f );
 
 		if ( HitPoints <= 0 )
 		{

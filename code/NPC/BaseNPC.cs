@@ -63,6 +63,7 @@ public partial class BaseNPC : BaseCharacter
 	public string StartingWeapon { get; set; } = null;
 	[Prefab, Category( "Character" ), ResourceType( "prefab" )]
 	public string StartingArmor { get; set; } = null;
+	public override string DamageSound { get; set; } = "sounds/impacts/impact-bullet-flesh.sound";
 
 	[Net] public BaseItem Weapon { get; set; } = null;
 	[Net] public BaseItem Armor { get; set; } = null;
@@ -204,22 +205,22 @@ public partial class BaseNPC : BaseCharacter
 
 	public virtual void PlayAttackSound()
 	{
-		PlaySound( AttackSounds[Voice] );
+		Sound.FromWorld( AttackSounds[Voice], Position);
 	}
 
 	public virtual void PlayHurtSound()
 	{
-		PlaySound( HurtSounds[Voice] );
+		Sound.FromWorld( HurtSounds[Voice], Position );
 	}
 
 	public virtual void PlayIdleSound()
 	{
-		PlaySound( IdleSounds[Voice] );
+		Sound.FromWorld( IdleSounds[Voice], Position );
 	}
 
 	public virtual void PlayLaughSound()
 	{
-		PlaySound( LaughSounds[Voice] );
+		Sound.FromWorld( LaughSounds[Voice], Position );
 	}
 
 	public override void Damage( float amount, BaseCharacter attacker )
