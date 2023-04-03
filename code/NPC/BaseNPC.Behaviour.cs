@@ -324,7 +324,8 @@ public partial class BaseNPC
 
 			if ( DistanceToForest() <= 100f )
 			{
-				Kill(); // TODO: Drop loot and go back
+				GameMgr.AddResource( Stealing.Type, Stealing.Value );
+				Stealing.Delete();
 			}
 		}
 		

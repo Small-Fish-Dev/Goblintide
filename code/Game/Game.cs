@@ -7,6 +7,7 @@ global using Sandbox.Utility;
 global using System.Threading.Tasks;
 global using Sandbox.Component;
 using GameJam.UpgradeSystem;
+using GameJam.Props.Collectable;
 
 namespace GameJam;
 
@@ -55,6 +56,43 @@ public partial class GameMgr : GameManager
 	[Net] private Town currentTown { get; set; }
 	[Net] private IList<BaseNPC> goblinArmy { get; set; }
 
+	public static int TotalGold
+	{
+		get => Instance.totalGold;
+		set
+		{
+			Instance.totalGold = value;
+		}
+	}
+	public static int TotalWood
+	{
+		get => Instance.totalWood;
+		set
+		{
+			Instance.totalWood = value;
+		}
+	}
+	public static int TotalFood
+	{
+		get => Instance.totalFood;
+		set
+		{
+			Instance.totalFood = value;
+		}
+	}
+	public static int TotalWomen
+	{
+		get => Instance.totalWomen;
+		set
+		{
+			Instance.totalWomen = value;
+		}
+	}
+	[Net] private int totalWood { get; set; }
+	[Net] private int totalGold { get; set; }
+	[Net] private int totalFood { get; set; }
+	[Net] private int totalWomen { get; set; }
+
 	public GameMgr()
 	{
 		Instance = this;
@@ -63,6 +101,18 @@ public partial class GameMgr : GameManager
 		Event.Run( nameof(GameEvents.Initialize) );
 
 		WorldMapHost.Start();
+	}
+
+	public static void AddResource( Collectable type, int amount )
+	{
+		if ( type == Collectable.Wood )
+			TotalWood += amount;
+		if ( type == Collectable.Gold )
+			TotalGold += amount;
+		if ( type == Collectable.Food )
+			TotalFood += amount;
+		if ( type == Collectable.Woman )
+			TotalWomen += amount;
 	}
 
 	public override void ClientJoined( IClient client )
