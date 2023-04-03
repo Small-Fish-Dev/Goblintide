@@ -1,0 +1,8 @@
+"Layer0"
+{
+	"shader"		"shaders/complex.shader_c"
+	"TextureColor"		"models/weapons/scrap_spear/scrap_spear_color.tga"
+	"TextureAmbientOcclusion"		"models/weapons/scrap_spear/scrap_spear_ao.tga"
+	"TextureNormal"		"models/weapons/scrap_spear/scrap_spear_normal.tga"
+	"TextureRoughness"		"models/weapons/scrap_spear/scrap_spear_rough.tga"
+}

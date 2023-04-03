@@ -1,0 +1,38 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "2761404f-0f8f-4a44-9154-016a0f487138",
+    "Class": "BaseItem",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/weapons/scrap_spear/scrap_spear.vmdl\u0022"
+      },
+      "Type": {
+        "Type": "ItemType",
+        "Value": "\u0022Weapon\u0022"
+      },
+      "IncreasedAttack": {
+        "Type": "Single",
+        "Value": "2"
+      },
+      "_name": {
+        "Value": "\u0022Wooden Spear\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {}
+    }
+  }
+}
