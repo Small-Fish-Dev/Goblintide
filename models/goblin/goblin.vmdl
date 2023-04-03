@@ -64,23 +64,6 @@
 				children = 
 				[
 					{
-						_class = "AnimBindPose"
-						name = "bindPose_internal"
-						activity_name = ""
-						activity_weight = 1
-						weight_list_name = ""
-						fade_in_time = 0.2
-						fade_out_time = 0.2
-						looping = false
-						delta = false
-						worldSpace = false
-						hidden = false
-						anim_markup_ordered = false
-						disable_compression = false
-						frame_count = 1
-						frame_rate = 30
-					},
-					{
 						_class = "AnimFile"
 						name = "walk_N"
 						children = 
@@ -213,6 +196,129 @@
 						take = 0
 						reverse = false
 					},
+					{
+						_class = "AnimFile"
+						name = "breathe"
+						children = 
+						[
+							{
+								_class = "AnimSubtract"
+								anim_name = "breathe"
+								frame = 0
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = "morphs_only"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = true
+						delta = true
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/goblin/animations/breathe.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "MorphFrame"
+						name = "hands_close"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = true
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						morph_weights = 
+						[
+							{
+								morph = "hands_close"
+								weight = 1.0
+							},
+						]
+					},
+					{
+						_class = "AnimFile"
+						name = "speaking"
+						children = 
+						[
+							{
+								_class = "AnimSubtract"
+								anim_name = "speaking"
+								frame = 0
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = "morphs_only"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = true
+						delta = true
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/goblin/animations/speaking.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "bindpose"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/goblin/goblin.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "MorphFrame"
+						name = "hobgonbin"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = "morphs_only"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = true
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						morph_weights = 
+						[
+							{
+								morph = "hobgoblin"
+								weight = 1.0
+							},
+						]
+					},
 				]
 				default_root_bone_name = ""
 			},
@@ -251,7 +357,7 @@
 								weight = 1.0
 							},
 						]
-						master_morph_weight = -1.0
+						master_morph_weight = 1.0
 						morph_weights = [  ]
 					},
 					{
@@ -301,7 +407,7 @@
 								weight = 0.0
 							},
 						]
-						master_morph_weight = -1.0
+						master_morph_weight = 1.0
 						morph_weights = [  ]
 					},
 					{
@@ -351,7 +457,15 @@
 								weight = 0.0
 							},
 						]
-						master_morph_weight = -1.0
+						master_morph_weight = 1.0
+						morph_weights = [  ]
+					},
+					{
+						_class = "WeightList"
+						name = "morphs_only"
+						default_weight = 0.0
+						weights = [  ]
+						master_morph_weight = 1.0
 						morph_weights = [  ]
 					},
 				]
