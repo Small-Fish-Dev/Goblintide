@@ -29,8 +29,19 @@ public partial class GameMgr : GameManager
 			Instance.lord = value;
 		}
 	}
+	/// <summary>
+	 /// The game's current Town.
+	 /// </summary>
+	public static Town CurrentTown
+	{
+		get => Instance.currentTown;
+		set
+		{
+			Instance.currentTown = value;
+		}
+	}
 	[Net] private Lord lord { get; set; }
-	[Net] public Town CurrentTown { get; set; }
+	[Net] private Town currentTown { get; set; }
 
 	public GameMgr()
 	{

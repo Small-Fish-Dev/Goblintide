@@ -247,14 +247,14 @@ public partial class BaseNPC
 
 	public float DistanceToForest()
 	{
-		var relativeTownPosition = (Position - GameMgr.Instance.CurrentTown.Position);
-		return GameMgr.Instance.CurrentTown.ForestRadius - relativeTownPosition.Length;
+		var relativeTownPosition = (Position - GameMgr.CurrentTown.Position);
+		return GameMgr.CurrentTown.ForestRadius - relativeTownPosition.Length;
 	}
 
 	public virtual void NavigateToForest()
 	{
-		var relativeTownPosition = (Position - GameMgr.Instance.CurrentTown.Position).Normal;
-		var bestEscapePosition = GameMgr.Instance.CurrentTown.Position + relativeTownPosition * GameMgr.Instance.CurrentTown.ForestRadius;
+		var relativeTownPosition = (Position - GameMgr.CurrentTown.Position).Normal;
+		var bestEscapePosition = GameMgr.CurrentTown.Position + relativeTownPosition * GameMgr.CurrentTown.ForestRadius;
 
 		NavigateTo( bestEscapePosition );
 	}
@@ -417,7 +417,7 @@ public partial class BaseNPC
 	{
 		if ( newDefendingPosition )
 		{
-			var currentTown = GameMgr.Instance.CurrentTown;
+			var currentTown = GameMgr.CurrentTown;
 			DefendingPosition = currentTown.Position + Vector3.Random.WithZ(0).Normal * Game.Random.Float( -currentTown.TownRadius, currentTown.TownRadius );
 			IsFollowingOrder = true;
 			newDefendingPosition = Game.Random.Float( 8f, 16f );

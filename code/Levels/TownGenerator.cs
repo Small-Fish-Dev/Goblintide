@@ -110,7 +110,7 @@ public partial class Town : BaseNetworkable
 				}
 				else
 				{
-					GameMgr.Instance.CurrentTown.townEntities.Add( spawnedEntity );
+					GameMgr.CurrentTown.townEntities.Add( spawnedEntity );
 					return true;
 				}
 			} );
@@ -148,7 +148,7 @@ public partial class Town : BaseNetworkable
 				spawnedNPC.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
 				spawnedNPC.Rotation = Rotation.FromYaw( rand.Next( 360 ) );
 
-				GameMgr.Instance.CurrentTown.townEntities.Add( spawnedNPC );
+				GameMgr.CurrentTown.townEntities.Add( spawnedNPC );
 			} );
 
 			return true;
@@ -171,7 +171,7 @@ public partial class Town : BaseNetworkable
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
-				if ( await GameMgr.Instance.CurrentTown.TryPlaceProp( list, rand, position, x, y, density, new Vector2( threshold.x, threshold.y ), lookAtCenter ) )
+				if ( await GameMgr.CurrentTown.TryPlaceProp( list, rand, position, x, y, density, new Vector2( threshold.x, threshold.y ), lookAtCenter ) )
 					continue;
 			}
 		}
@@ -192,7 +192,7 @@ public partial class Town : BaseNetworkable
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
-				if ( await GameMgr.Instance.CurrentTown.TryForNPCs( rand, position, x, y, density, new Vector2( threshold.x, threshold.y ) ) )
+				if ( await GameMgr.CurrentTown.TryForNPCs( rand, position, x, y, density, new Vector2( threshold.x, threshold.y ) ) )
 					continue;
 			}
 		}
@@ -256,35 +256,35 @@ public partial class Town : BaseNetworkable
 
 	public static async void GenerateTown( float townSize, float density )
 	{
-		GameMgr.Instance.CurrentTown?.DeleteTown();
+		GameMgr.CurrentTown?.DeleteTown();
 
-		GameMgr.Instance.CurrentTown = new Town();
-		GameMgr.Instance.CurrentTown.TownSize = townSize;
-		GameMgr.Instance.CurrentTown.TownRadius = 300f * (float)Math.Sqrt( GameMgr.Instance.CurrentTown.TownSize / 5 );
+		GameMgr.CurrentTown = new Town();
+		GameMgr.CurrentTown.TownSize = townSize;
+		GameMgr.CurrentTown.TownRadius = 300f * (float)Math.Sqrt( GameMgr.CurrentTown.TownSize / 5 );
 		var position = new Vector3( 25f, 292.05f, 512f );
 
-		if ( GameMgr.Instance.CurrentTown.TownRadius > 1200f )
+		if ( GameMgr.CurrentTown.TownRadius > 1200f )
 			position = new Vector3( 4516f, 295f, 512f );
-		if ( GameMgr.Instance.CurrentTown.TownRadius > 2500f )
+		if ( GameMgr.CurrentTown.TownRadius > 2500f )
 			position = new Vector3( -4300f, 5314f, 512f );
 
-		GameMgr.Instance.CurrentTown.Position = position;
+		GameMgr.CurrentTown.Position = position;
 
-		var rand = new Random( GameMgr.Instance.CurrentTown.Seed );
+		var rand = new Random( GameMgr.CurrentTown.Seed );
 
-		if ( GameMgr.Instance.CurrentTown.TownRadius > 2500f )
-			await GameMgr.Instance.CurrentTown.PlaceProps( PlaceableHousesBig, rand, position, density, new Vector2( 0f, 0.33f ), true );
-		else if ( GameMgr.Instance.CurrentTown.TownRadius > 1200f )
-			await GameMgr.Instance.CurrentTown.PlaceProps( PlaceableHousesMedium, rand, position, density, new Vector2( 0f, 0.35f ), true );
+		if ( GameMgr.CurrentTown.TownRadius > 2500f )
+			await GameMgr.CurrentTown.PlaceProps( PlaceableHousesBig, rand, position, density, new Vector2( 0f, 0.33f ), true );
+		else if ( GameMgr.CurrentTown.TownRadius > 1200f )
+			await GameMgr.CurrentTown.PlaceProps( PlaceableHousesMedium, rand, position, density, new Vector2( 0f, 0.35f ), true );
 		else
-			await GameMgr.Instance.CurrentTown.PlaceProps( PlaceableHousesSmall, rand, position, density, new Vector2( 0f, 0.4f ), true );
+			await GameMgr.CurrentTown.PlaceProps( PlaceableHousesSmall, rand, position, density, new Vector2( 0f, 0.4f ), true );
 
-		await GameMgr.Instance.CurrentTown.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
-		await GameMgr.Instance.CurrentTown.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );
-		await GameMgr.Instance.CurrentTown.PlaceNPCs( PlaceablePeople, rand, position, density, new Vector2( 0.7f, 1f ) );
-		GameMgr.BroadcastFences( position, GameMgr.Instance.CurrentTown.TownRadius );
-		GameMgr.BroadcastTrees( position, GameMgr.Instance.CurrentTown.TownRadius );
-		GameMgr.Instance.CurrentTown.Generated = true;
+		await GameMgr.CurrentTown.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
+		await GameMgr.CurrentTown.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );
+		await GameMgr.CurrentTown.PlaceNPCs( PlaceablePeople, rand, position, density, new Vector2( 0.7f, 1f ) );
+		GameMgr.BroadcastFences( position, GameMgr.CurrentTown.TownRadius );
+		GameMgr.BroadcastTrees( position, GameMgr.CurrentTown.TownRadius );
+		GameMgr.CurrentTown.Generated = true;
 	}
 
 	public void DeleteTown()

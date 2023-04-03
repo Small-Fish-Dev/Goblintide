@@ -11,8 +11,8 @@ public partial class Lord
 		get => overviewOffset;
 		set
 		{
-			var radius = GameMgr.Instance.CurrentTown != null
-				? GameMgr.Instance.CurrentTown.TownRadius
+			var radius = GameMgr.CurrentTown != null
+				? GameMgr.CurrentTown.TownRadius
 				: GameMgr.State is VillageState village 
 					? village.Radius 
 					: 1000f;
@@ -21,8 +21,8 @@ public partial class Lord
 	}
 
 	Vector3 overviewOffset;
-	Vector3 pointOfInterest => GameMgr.Instance.CurrentTown != null
-		? GameMgr.Instance.CurrentTown.Position
+	Vector3 pointOfInterest => GameMgr.CurrentTown != null
+		? GameMgr.CurrentTown.Position
 		: GameMgr.State is VillageState village
 			? village.Position
 			: Vector3.Zero;
