@@ -191,6 +191,7 @@ partial class GameMgr
 		// Initialize stream and reader.
 		using var stream = FileSystem.Data.OpenRead( SAVE_PATH );
 		using var reader = new BinaryReader( stream );
+		var shouldDelete = false;
 
 		try
 		{
@@ -203,10 +204,18 @@ partial class GameMgr
 		catch ( Exception ex )
 		{
 			Log.Error( $"Failed to load save properly." );
+			shouldDelete = true;
 		}
 		
 		// Tell everyone that we're done loading.
 		Loaded = true;
+
+		// Close stream and finish.
+		stream.Close();
+
+		// Delete save.
+		if ( shouldDelete )
+			FileSystem.Data.DeleteFile( SAVE_PATH );
 
 		return true;
 	}
