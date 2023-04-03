@@ -1,0 +1,14 @@
+{
+  "UI": false,
+  "Volume": "0.80,1.00,1",
+  "Pitch": "0.95,1.05,1",
+  "Decibels": 70,
+  "SelectionMode": "Random",
+  "Sounds": [
+    "sounds/male/male_attack01.vsnd",
+    "sounds/male/male_attack02.vsnd",
+    "sounds/male/male_attack03.vsnd"
+  ],
+  "MaximumDistance": 1143.9335,
+  "MinimumDistance": 57.196674
+}

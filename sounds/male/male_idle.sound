@@ -1,0 +1,14 @@
+{
+  "UI": false,
+  "Volume": "0.30,0.50,1",
+  "Pitch": "0.95,1.05,1",
+  "Decibels": 45,
+  "SelectionMode": "Random",
+  "Sounds": [
+    "sounds/male/male_idle01.vsnd",
+    "sounds/male/male_idle02.vsnd",
+    "sounds/male/male_idle03.vsnd"
+  ],
+  "MaximumDistance": 491.52356,
+  "MinimumDistance": 24.576178
+}
