@@ -37,6 +37,7 @@ public partial class WallEntity : Entity
 	{
 		if ( isDeleting ) return;
 		Sound.FromWorld( "sounds/physics/breaking/break_wood_plank.sound", Position );
+		Particles.Create( Length > 110f ? "particles/wood_shatter_large.vpcf" : "particles/wood_shatter.vpcf", Position );
 		Breakables.Break( sceneObject.Model, Position, Rotation, 1f, Color.White );
 		var gibs = Entity.All
 			.OfType<PropGib>()
