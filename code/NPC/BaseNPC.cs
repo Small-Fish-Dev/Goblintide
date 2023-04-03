@@ -194,6 +194,7 @@ public partial class BaseNPC : BaseCharacter
 	{
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_attack.sound" },
+		{ VoiceType.Hobgoblin, "sounds/hobgoblin/hobgoblin_attack.sound" },
 		{ VoiceType.Human, "sounds/male/male_attack.sound" },
 		{ VoiceType.Huwoman, "sounds/womale/womale_attack.sound" },
 	};
@@ -202,6 +203,7 @@ public partial class BaseNPC : BaseCharacter
 	{
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_hurt.sound" },
+		{ VoiceType.Hobgoblin, "sounds/hobgoblin/hobgoblin_hurt.sound" },
 		{ VoiceType.Human, "sounds/male/male_pain.sound" },
 		{ VoiceType.Huwoman, "sounds/womale/womale_pain.sound" },
 	};
@@ -210,6 +212,7 @@ public partial class BaseNPC : BaseCharacter
 	{
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_idle.sound" },
+		{ VoiceType.Hobgoblin, "sounds/hobgoblin/hobgoblin_idle.sound" },
 		{ VoiceType.Human, "sounds/male/male_idle.sound" },
 		{ VoiceType.Huwoman, "sounds/womale/womale_idle.sound" },
 	};
@@ -217,7 +220,8 @@ public partial class BaseNPC : BaseCharacter
 	public Dictionary<VoiceType, string> LaughSounds = new()
 	{
 		{ VoiceType.None, "" },
-		{ VoiceType.Goblin, "sounds/golbins/goblin_laugh.sound" },
+		{ VoiceType.Goblin, "sounds/golbins/goblin_pain.sound" },
+		{ VoiceType.Hobgoblin, "sounds/hobgoblin/hobgoblin_laugh.sound" },
 		{ VoiceType.Human, "sounds/male/male_idle.sound" },
 		{ VoiceType.Huwoman, "sounds/womale/womale_attack.sound" },
 	}; 
@@ -226,6 +230,7 @@ public partial class BaseNPC : BaseCharacter
 	{
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_laugh.sound" },
+		{ VoiceType.Hobgoblin, "sounds/hobgoblin/hobgoblin_pain.sound" },
 		{ VoiceType.Human, "sounds/male/male_panic.sound" },
 		{ VoiceType.Huwoman, "sounds/womale/womale_panic.sound" },
 	};

@@ -40,5 +40,6 @@ public partial class BaseNPC
 
 		SetAnimParameter( "weapon", Weapon.IsValid() );
 		SetAnimParameter( "speaking", IsTalking );
+		SetAnimParameter( "hobgoblin", Voice == VoiceType.Hobgoblin ); // let's cheese it
 	}
 }

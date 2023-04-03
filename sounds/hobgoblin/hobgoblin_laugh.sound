@@ -1,0 +1,12 @@
+{
+  "UI": false,
+  "Volume": "0.40,0.60,1",
+  "Pitch": "0.65,0.75,1",
+  "Decibels": 50,
+  "SelectionMode": "Random",
+  "Sounds": [
+    "sounds/golbins/goblin_laugh01.vsnd"
+  ],
+  "MaximumDistance": 599.31305,
+  "MinimumDistance": 29.965652
+}
