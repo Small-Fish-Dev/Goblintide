@@ -136,6 +136,8 @@ public partial class BaseNPC : BaseCharacter
 		item.Equipped = true;
 		HitPoints += item.IncreasedHealth;
 		AttackPower += item.IncreasedAttack;
+
+		GameMgr.CurrentTown?.TownEntities.Remove( item );
 	}
 
 	public void Drop( BaseItem item )
@@ -146,6 +148,8 @@ public partial class BaseNPC : BaseCharacter
 		item.EnableAllCollisions = true;
 
 		item.Equipped = false;
+
+		GameMgr.CurrentTown?.TownEntities.Add( item );
 	}
 
 	public override void Kill()

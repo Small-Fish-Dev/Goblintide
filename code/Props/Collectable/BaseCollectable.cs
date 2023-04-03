@@ -46,6 +46,7 @@ public partial class BaseCollectable : BaseEntity
 	{
 		if ( PrefabLibrary.TrySpawn<BaseCollectable>( prefabName, out var prop ) )
 		{
+			GameMgr.CurrentTown?.TownEntities.Add( prop );
 			return prop;
 		}
 

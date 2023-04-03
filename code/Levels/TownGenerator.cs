@@ -14,7 +14,7 @@ public partial class Town : BaseNetworkable
 	public Vector3 MinBounds => Position - new Vector3( TownRadius ).WithZ(0);
 	public Vector3 MaxBounds => Position + new Vector3( TownRadius ).WithZ(0);
 	public int Seed => TownSize.GetHashCode();
-	internal List<Entity> townEntities = new();
+	public List<Entity> TownEntities = new();
 	public static List<SceneObject> TownTrees = new();
 	public static List<WallEntity> TownFences = new();
 
@@ -113,7 +113,7 @@ public partial class Town : BaseNetworkable
 				}
 				else
 				{
-					GameMgr.CurrentTown.townEntities.Add( spawnedEntity );
+					GameMgr.CurrentTown.TownEntities.Add( spawnedEntity );
 					return true;
 				}
 			} );
@@ -149,7 +149,7 @@ public partial class Town : BaseNetworkable
 				}
 				else
 				{
-					GameMgr.CurrentTown.townEntities.Add( spawnedEntity );
+					GameMgr.CurrentTown.TownEntities.Add( spawnedEntity );
 					return true;
 				}
 			} );
@@ -187,7 +187,7 @@ public partial class Town : BaseNetworkable
 				spawnedNPC.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
 				spawnedNPC.Rotation = Rotation.FromYaw( rand.Next( 360 ) );
 
-				GameMgr.CurrentTown.townEntities.Add( spawnedNPC );
+				GameMgr.CurrentTown.TownEntities.Add( spawnedNPC );
 			} );
 
 			return true;
@@ -349,7 +349,7 @@ public partial class Town : BaseNetworkable
 
 	public void DeleteTown()
 	{
-		foreach ( var entity in townEntities )
+		foreach ( var entity in TownEntities )
 			entity.Delete();
 	}
 

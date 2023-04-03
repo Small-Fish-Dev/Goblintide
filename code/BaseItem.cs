@@ -41,6 +41,7 @@ public partial class BaseItem : BaseEntity
 	{
 		if ( PrefabLibrary.TrySpawn<BaseItem>( prefabName, out var item ) )
 		{
+			GameMgr.CurrentTown?.TownEntities.Add( item );
 			return item;
 		}
 
