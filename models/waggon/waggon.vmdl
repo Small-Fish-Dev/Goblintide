@@ -1118,76 +1118,28 @@
 				children = 
 				[
 					{
-						_class = "PhysicsShapeBox"
+						_class = "PhysicsHullFile"
+						name = "waggon_c"
 						parent_bone = ""
-						surface_prop = "wood"
+						surface_prop = "default"
 						collision_tags = "solid"
-						origin = [ -76.055367, 0.253426, 266.273743 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 921.508911, 559.724487, 26.044409 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "wood"
-						collision_tags = "solid"
-						origin = [ -323.444855, -264.9664, 230.781555 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 1485.533203, 30.307468, 49.172298 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "wood"
-						collision_tags = "solid"
-						origin = [ -323.445007, 265.033997, 230.781998 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 1485.533203, 30.307468, 49.172298 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "wood"
-						collision_tags = "solid"
-						origin = [ -76.055397, 301.699707, 367.85495 ]
-						angles = [ 0.0, 0.0, 85.0 ]
-						dimensions = [ 921.508911, 201.531525, 15.404882 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "wood"
-						collision_tags = "solid"
-						origin = [ -71.165543, -301.700012, 367.144989 ]
-						angles = [ 0.0, 180.0, 87.0 ]
-						dimensions = [ 963.258545, 201.531525, 15.404882 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "wood"
-						collision_tags = "solid"
-						origin = [ 373.351471, 0.253426, 368.227234 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 22.695198, 559.724487, 229.951584 ]
-					},
-					{
-						_class = "PhysicsShapeCylinder"
-						parent_bone = ""
-						surface_prop = "metal"
-						collision_tags = "solid"
-						radius = 180.0
-						point0 = [ 150.390472, 324.125031, 179.032379 ]
-						point1 = [ 147.446838, 386.547729, 178.958176 ]
-					},
-					{
-						_class = "PhysicsShapeCylinder"
-						parent_bone = ""
-						surface_prop = "metal"
-						collision_tags = "solid"
-						radius = 180.0
-						point0 = [ 149.793884, -326.858093, 181.299957 ]
-						point1 = [ 149.584, -384.134857, 180.115021 ]
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "models/waggon/waggon_c.fbx"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "HullPerElement"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
 					},
 				]
 			},

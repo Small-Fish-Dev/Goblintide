@@ -2,18 +2,25 @@
 
 public partial class VillageState : GameState
 {
+	[Net] public float Radius { get; set; } = 500f;
+	[Net] public Vector3 Position { get; set; }
+
 	VillageHUD hud;
 
 	public override void Initialize()
 	{
 		if ( Game.IsClient )
+		{
 			hud = HUD.Instance.AddChild<VillageHUD>();
-		else
-			Town.GenerateTown( 40f, 2f );
+			return;
+		}
+
+		Town.GenerateTown( 40f, 2f );
 	}
 
 	public override void Changed( GameState state )
 	{
+		hud?.Delete( true );
 		GameMgr.Instance.CurrentTown.DeleteTown();
 	}
 

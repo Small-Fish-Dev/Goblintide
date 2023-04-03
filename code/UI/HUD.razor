@@ -21,70 +21,70 @@
 </root>
 
 @code {
-	public static HUD Instance { get; private set; }
-	public bool Dragging { get; set; } = false;
+    public static HUD Instance { get; private set; }
+    public bool Dragging { get; set; } = false;
 
-	public HUD()
-	{
-		Instance?.Delete( true );
-		Instance = this;
-	}
+    public HUD()
+    {
+        Instance?.Delete( true );
+        Instance = this;
+    }
 
-	public override void OnButtonEvent( ButtonEvent e )
-	{
-		base.OnButtonEvent( e );
+    public override void OnButtonEvent( ButtonEvent e )
+    {
+        base.OnButtonEvent( e );
 
-		// Mouse Right dragging.
-		if ( e.Button != "mouseright" )
-			return;
+        // Mouse Right dragging.
+        if ( e.Button != "mouseright" )
+            return;
 
-		Dragging = e.Pressed;
-	}
+        Dragging = e.Pressed;
+    }
 
-	public override void Tick()
-	{
-		if ( Game.LocalPawn is not Lord pawn )
-			return;
+    public override void Tick()
+    {
+        if ( Game.LocalPawn is not Lord pawn )
+            return;
 
-		Style.PointerEvents = pawn.Overview
-			? PointerEvents.All
-			: PointerEvents.None;
+        Style.PointerEvents = pawn.Overview
+            ? PointerEvents.All
+            : PointerEvents.None;
 
-		Style.Cursor = pawn.Overview
-			? "pointer"
-			: "default";
+        Style.Cursor = pawn.Overview
+            ? "pointer"
+            : "default";
 
-		// Capture mouse. ?
-		// SetMouseCapture( Dragging && pawn.Overview );
+        // Capture mouse. ?
+        // SetMouseCapture( Dragging && pawn.Overview );
 
-		// Overview movement by mouse position.
-		if ( !pawn.Overview )
-			return;
+        // Overview movement by mouse position.
+        if ( !pawn.Overview )
+            return;
 
-		var speed = 500f * Time.Delta;
-		var scaleFactor = 3f;
+        var speed = 500f * Time.Delta;
+        var scaleFactor = 3f;
 
-		if ( Dragging )
-		{
-			var delta = -Mouse.Delta * 2;
-			pawn.OverviewOffset += speed * (Vector3.Right * delta.x + Vector3.Backward * delta.y);
+        if ( Dragging )
+        {
+            var delta = -Mouse.Delta * 2;
+            pawn.OverviewOffset += speed * (Vector3.Right * delta.x + Vector3.Backward * delta.y);
 
-			return;
-		}
+            return;
+        }
 
-		var screenFraction = 0.05f;
-		var fraction = Screen.Size * screenFraction;
+        var screenFraction = 0.05f;
+        var fraction = Screen.Size * screenFraction;
 
-		if ( Mouse.Position.x >= Screen.Size.x - fraction.x )
-			pawn.OverviewOffset += Vector3.Right * speed * (scaleFactor * (Mouse.Position.x - Screen.Size.x * (1 - screenFraction)) / fraction.x);
-		else if ( Mouse.Position.x <= fraction.x )
-			pawn.OverviewOffset += Vector3.Left * speed * (scaleFactor * (fraction.x - Mouse.Position.x) / fraction.x);
+        if ( Mouse.Position.x >= Screen.Size.x - fraction.x )
+            pawn.OverviewOffset += Vector3.Right * speed * (scaleFactor * (Mouse.Position.x - Screen.Size.x * (1 - screenFraction)) / fraction.x);
+        else if ( Mouse.Position.x <= fraction.x )
+            pawn.OverviewOffset += Vector3.Left * speed * (scaleFactor * (fraction.x - Mouse.Position.x) / fraction.x);
 
-		if ( Mouse.Position.y >= Screen.Size.y - fraction.y )
-			pawn.OverviewOffset += Vector3.Backward * speed * (scaleFactor * (Mouse.Position.y - Screen.Size.y * (1 - screenFraction)) / fraction.y);
-		else if ( Mouse.Position.y <= fraction.y )
-			pawn.OverviewOffset += Vector3.Forward * speed * (scaleFactor * (fraction.y - Mouse.Position.y) / fraction.y);
-	}
+        if ( Mouse.Position.y >= Screen.Size.y - fraction.y )
+            pawn.OverviewOffset += Vector3.Backward * speed * (scaleFactor * (Mouse.Position.y - Screen.Size.y * (1 - screenFraction)) / fraction.y);
+        else if ( Mouse.Position.y <= fraction.y )
+            pawn.OverviewOffset += Vector3.Forward * speed * (scaleFactor * (fraction.y - Mouse.Position.y) / fraction.y);
+    }
 
 	[Event.Hotload, GameEvents.Initialize]
 	private static void Refresh()

@@ -4,7 +4,7 @@ namespace GameJam;
 
 public partial class Lord
 {
-	[Net, Change( "NetUpgradesEvent" )] private List<string> Upgrades { get; set; } = new();
+	[Net, Change( "NetUpgradesEvent" )] public List<string> Upgrades { get; set; } = new();
 
 	private Upgrade _combinedUpgrades;
 	public Upgrade CombinedUpgrades => _combinedUpgrades;

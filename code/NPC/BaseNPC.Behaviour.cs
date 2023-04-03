@@ -19,7 +19,8 @@ public enum SubBehaviour
 	Stealing,
 	Panicking,
 	Guarding,
-	Following
+	Following,
+	Equipping
 }
 public partial class BaseNPC
 {
@@ -77,6 +78,28 @@ public partial class BaseNPC
 			.OfType<BaseCharacter>()
 			.Where( x => x.Faction != FactionType.None && x.Faction != Faction )
 			.Where( x => x.TotalAttackers < 3 );
+
+		var radiusSquared = radius * radius;
+
+		if ( closestFirst )
+		{
+			validEntities.OrderBy( x => x.Position.DistanceSquared( Position ) );
+
+			if ( validEntities.FirstOrDefault() != null )
+				if ( validEntities.FirstOrDefault().Position.DistanceSquared( Position ) <= radiusSquared )
+					return validEntities.FirstOrDefault();
+		}
+		else
+			return validEntities.FirstOrDefault( x => x.Position.DistanceSquared( Position ) <= radiusSquared );
+
+		return null;
+	}
+
+	public virtual BaseItem FindBestItem( float radius = 300f, bool closestFirst = true )
+	{
+		var validEntities = Entity.All
+			.OfType<BaseItem>()
+			.Where( x => !x.Equipped);
 
 		var radiusSquared = radius * radius;
 
@@ -153,7 +176,7 @@ public partial class BaseNPC
 		var combinedBodyWidth = GetWidth() / 2 + target.GetWidth() / 2;
 		var combinedDistanceSquared = (float)Math.Pow(combinedBodyWidth + distanceToCheck, 2);
 
-		return target.Position.DistanceSquared( Position ) <= combinedDistanceSquared;
+		return target.Position.WithZ(0).DistanceSquared( Position.WithZ(0) ) <= combinedDistanceSquared;
 	}
 
 	public void RecalculateTargetNav()
@@ -236,6 +259,38 @@ public partial class BaseNPC
 		NavigateTo( bestEscapePosition );
 	}
 
+	public virtual void EquippingSubBehaviour()
+	{
+		CurrentSubBehaviour = SubBehaviour.Equipping;
+		var target = CurrentTarget as BaseItem;
+
+		if ( !target.IsValid() || target.Equipped )
+		{
+			CurrentTarget = null;
+			return;
+		}
+
+		if ( Armor.IsValid() && target.Type == ItemType.Armor )
+		{
+			CurrentTarget = null;
+			return;
+		}
+
+		if ( Weapon.IsValid() && target.Type == ItemType.Weapon )
+		{
+			CurrentTarget = null;
+			return;
+		}
+
+		if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
+			Equip( target );
+		else if ( !IsFollowingPath )
+			RecalculateTargetNav();
+
+		if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) && !IsFollowingOrder )
+			CurrentTarget = null;
+	}
+
 	public virtual void StealingSubBehaviour()
 	{
 		CurrentSubBehaviour = SubBehaviour.Stealing;
@@ -243,7 +298,10 @@ public partial class BaseNPC
 		if ( !Stealing.IsValid() )
 		{
 			if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
-				Steal( CurrentTarget as BaseCollectable );
+			{
+				if ( CurrentTarget is BaseCollectable collectable )
+					Steal( collectable );
+			}
 			else
 			{
 				if ( !IsFollowingPath )
@@ -343,15 +401,41 @@ public partial class BaseNPC
 			RecalculateTargetNav();
 	}
 
+	public virtual void ComputeLookForItems()
+	{
+		if ( CurrentTarget.IsValid() ) return;
+
+		CurrentTarget = FindBestItem( DetectRange, false );
+
+		if ( CurrentTarget.IsValid() )
+			RecalculateTargetNav();
+	}
+
+	internal TimeUntil newDefendingPosition { get; set; } = 0f;
+
+	public virtual void FindNewPatrolPosition()
+	{
+		if ( newDefendingPosition )
+		{
+			var currentTown = GameMgr.Instance.CurrentTown;
+			DefendingPosition = currentTown.Position + Vector3.Random.WithZ(0).Normal * Game.Random.Float( -currentTown.TownRadius, currentTown.TownRadius );
+			IsFollowingOrder = true;
+			newDefendingPosition = Game.Random.Float( 8f, 16f );
+		}
+	}
+
 	public virtual void RaiderBehaviour()
 	{
 		if ( !CurrentTarget.IsValid() )
 		{
-			if ( CurrentSubBehaviour is SubBehaviour.Attacking or SubBehaviour.Following )
+			if ( CurrentSubBehaviour is not SubBehaviour.None )
 				CurrentSubBehaviour = BaseSubBehaviour;
 
 			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
+			{
+				FindNewPatrolPosition();
 				ComputeIdling();
+			}
 
 			if ( nextTargetSearch )
 			{
@@ -359,7 +443,10 @@ public partial class BaseNPC
 
 				if ( IsDiligent )
 				{
-					ComputeLookForLoot();
+					ComputeLookForItems();
+
+					if ( !CurrentTarget.IsValid() ) 
+						ComputeLookForLoot();
 
 					if ( !CurrentTarget.IsValid() )
 					{
@@ -376,6 +463,8 @@ public partial class BaseNPC
 		{
 			if ( CurrentTarget is BaseCollectable )
 				StealingSubBehaviour();
+			else if ( CurrentTarget is BaseItem )
+				EquippingSubBehaviour();
 			else
 				AttackingSubBehaviour();
 		}
@@ -391,7 +480,10 @@ public partial class BaseNPC
 				CurrentSubBehaviour = BaseSubBehaviour;
 
 			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
+			{
+				FindNewPatrolPosition();
 				ComputeIdling();
+			}
 
 			if ( nextTargetSearch )
 			{
@@ -419,7 +511,10 @@ public partial class BaseNPC
 				CurrentSubBehaviour = BaseSubBehaviour;
 
 			if ( CurrentSubBehaviour == SubBehaviour.None )
+			{
+				FindNewPatrolPosition();
 				ComputeIdling();
+			}
 
 			if ( nextTargetSearch )
 			{

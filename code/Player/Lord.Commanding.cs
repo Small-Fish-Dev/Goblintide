@@ -89,6 +89,15 @@ public partial class Lord
 			.Where( x => x.Faction == Faction )
 			.Where( x => x.Position.DistanceSquared( PointingPosition ) <= Math.Pow( 1500, 2 ) );
 
+		if ( PointingAt is BaseItem item )
+		{
+			if ( item.Type == ItemType.Armor )
+				closeAllies.Where( x => !x.Armor.IsValid() );
+
+			if ( item.Type == ItemType.Weapon )
+				closeAllies.Where( x => !x.Weapon.IsValid() );
+		}
+
 		var freeAllies = closeAllies
 			.Where( x => x.CurrentSubBehaviour != SubBehaviour.Attacking );
 
