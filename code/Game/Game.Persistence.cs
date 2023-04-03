@@ -42,7 +42,6 @@ partial class GameMgr
 
 				writer.Write( goblin.Name.ToLower() );
 				writer.Write( goblin.DisplayName );
-				Log.Error( $"persisted {goblin.Name}" );
 			}
 
 			return;
@@ -56,7 +55,7 @@ partial class GameMgr
 			{
 				var prefabName = reader.ReadString();
 				var name = reader.ReadString();
-				var npc = BaseNPC.FromPrefab( prefabName );
+				var npc = BaseNPC.FromPrefab( $"prefabs/npcs/{prefabName}.prefab" );
 				if ( npc == null || !npc.IsValid )
 					continue;
 
@@ -74,13 +73,22 @@ partial class GameMgr
 		// Handle saving first.
 		if ( method is BinaryWriter writer )
 		{
+			writer.Write( Lord.Upgrades.Count );
+			for ( int i = 0; i < 0; i++ )
+				writer.Write( Lord.Upgrades[i] );
+
 			return;
 		}
 
 		// Handle loading save.
 		if ( method is BinaryReader reader )
 		{
-			
+			var count = reader.ReadInt32();
+			for ( int i = 0; i < count; i++ )
+			{
+				var identifier = reader.ReadString();
+				Lord.AddUpgrade( identifier );
+			}
 		}
 	}
 	#endregion
@@ -126,6 +134,9 @@ partial class GameMgr
 		if ( !ENABLE_SAVESYSTEM && !force )
 			return true;
 
+		if ( Lord == null || !Lord.IsValid )
+			return false;
+
 		// Initialize stream and writer.
 		using var stream = FileSystem.Data.OpenWrite( SAVE_PATH, FileMode.OpenOrCreate );
 		using var writer = new BinaryWriter( stream );
@@ -146,6 +157,9 @@ partial class GameMgr
 	{
 		if ( !ENABLE_SAVESYSTEM && !force )
 			return true;
+
+		if ( Lord == null || !Lord.IsValid )
+			return false;
 
 		// Check if we can load a save.
 		if ( !FileSystem.Data.FileExists( SAVE_PATH ) )
@@ -169,7 +183,6 @@ partial class GameMgr
 		catch ( Exception ex )
 		{
 			Log.Error( $"Failed to load save properly." );
-			FileSystem.Data.DeleteFile( SAVE_PATH );
 		}
 		
 		// Tell everyone that we're done loading.
