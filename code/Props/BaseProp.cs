@@ -1,4 +1,5 @@
-﻿using GameJam.Util;
+﻿using GameJam.Props.Collectable;
+using GameJam.Util;
 
 namespace GameJam;
 
@@ -50,6 +51,25 @@ public partial class BaseProp : BaseEntity
 		if ( GetWidth() > 100f ) particlePath = "particles/wood_shatter_large.vpcf";
 
 		Particles.Create( particlePath, Position );
+
+		if ( GoldDropped.x > 0 )
+		{
+			var gold = BaseCollectable.FromPrefab( "prefabs/collectables/gold.prefab" );
+			gold.Value = Game.Random.Int( (int)GoldDropped.x, (int)GoldDropped.y );
+			gold.Position = Position;
+		}
+		if ( WoodDropped.x > 0 )
+		{
+			var wood = BaseCollectable.FromPrefab( "prefabs/collectables/wood.prefab" );
+			wood.Value = Game.Random.Int( (int)WoodDropped.x, (int)WoodDropped.y );
+			wood.Position = Position;
+		}
+		if ( FoodDropped.x > 0 )
+		{
+			var food = BaseCollectable.FromPrefab( "prefabs/collectables/food.prefab" );
+			food.Value = Game.Random.Int( (int)FoodDropped.x, (int)FoodDropped.y );
+			food.Position = Position;
+		}
 
 		base.Kill();
 	}
