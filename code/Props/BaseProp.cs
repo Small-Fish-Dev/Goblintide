@@ -44,6 +44,11 @@ public partial class BaseProp : BaseEntity
 		}
 		Sound.FromWorld( "sounds/physics/breaking/break_wood_plank.sound", Position );
 
+		string particlePath = "particles/wood_shatter.vpcf";
+		if ( GetWidth() > 100f ) particlePath = "particles/wood_shatter_large.vpcf";
+
+		Particles.Create( particlePath, Position );
+
 		base.Kill();
 	}
 

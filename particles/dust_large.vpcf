@@ -1071,7 +1071,7 @@
 	[
 		{
 			_class = "C_OP_BasicMovement"
-			m_Gravity = [ 0.0, 0.0, 10.0 ]
+			m_Gravity = [ 0.0, 0.0, -200.0 ]
 			m_fDrag = 0.525
 		},
 		{
