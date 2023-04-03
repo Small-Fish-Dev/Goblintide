@@ -74,7 +74,7 @@ public partial class RaidableBuilding : ModelEntity
 			CollectableInside.Position = Position;
 			CollectableInside.SetParent( this );
 		}
-		if ( CollectableInside.Type == Collectable.Woman ) // Idk why they just fly away otherwise??????
+		if ( CollectableInside.IsValid() && CollectableInside.Type == Collectable.Woman ) // Idk why they just fly away otherwise??????
 		{
 			CollectableInside.Position = Position;
 			CollectableInside.SetParent( this );
