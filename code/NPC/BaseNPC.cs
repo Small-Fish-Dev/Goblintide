@@ -183,24 +183,35 @@ public partial class BaseNPC : BaseCharacter
 	{
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_attack.sound" },
+		{ VoiceType.Human, "sounds/male/male_attack.sound" },
 	};
 
 	public Dictionary<VoiceType, string> HurtSounds = new()
 	{
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_hurt.sound" },
+		{ VoiceType.Human, "sounds/male/male_pain.sound" },
 	};
 
 	public Dictionary<VoiceType, string> IdleSounds = new()
 	{
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_idle.sound" },
+		{ VoiceType.Human, "sounds/male/male_idle.sound" },
 	};
 
 	public Dictionary<VoiceType, string> LaughSounds = new()
 	{
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_laugh.sound" },
+		{ VoiceType.Human, "sounds/male/male_idle.sound" },
+	}; 
+	
+	public Dictionary<VoiceType, string> PanicSounds = new()
+	{
+		{ VoiceType.None, "" },
+		{ VoiceType.Goblin, "sounds/golbins/goblin_laugh.sound" },
+		{ VoiceType.Human, "sounds/male/male_panic.sound" },
 	};
 
 	public virtual void PlayAttackSound()
@@ -221,6 +232,10 @@ public partial class BaseNPC : BaseCharacter
 	public virtual void PlayLaughSound()
 	{
 		Sound.FromWorld( LaughSounds[Voice], Position );
+	}
+	public virtual void PlayPanicSound()
+	{
+		Sound.FromWorld( PanicSounds[Voice], Position );
 	}
 
 	public override void Damage( float amount, BaseCharacter attacker )

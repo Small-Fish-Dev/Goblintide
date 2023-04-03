@@ -1,0 +1,14 @@
+{
+  "UI": false,
+  "Volume": "0.60,0.80,1",
+  "Pitch": "0.95,1.05,1",
+  "Decibels": 65,
+  "SelectionMode": "Random",
+  "Sounds": [
+    "sounds/male/male_panic01.vsnd",
+    "sounds/male/male_panic02.vsnd",
+    "sounds/male/male_panic03.vsnd"
+  ],
+  "MaximumDistance": 990.75903,
+  "MinimumDistance": 49.537952
+}

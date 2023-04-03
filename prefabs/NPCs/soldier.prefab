@@ -302,6 +302,10 @@
       "MaxHitPoints": {
         "Type": "Single",
         "Value": "50"
+      },
+      "Voice": {
+        "Type": "VoiceType",
+        "Value": "\u0022Human\u0022"
       }
     }
   }
