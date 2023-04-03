@@ -36,18 +36,9 @@
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						origin = [ 63.623489, 36.945457, 54.105324 ]
-						angles = [ 0.0, 0.0, 30.0 ]
-						dimensions = [ 282.043579, 17.80608, 164.888214 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ 63.623501, -36.945499, 54.105301 ]
-						angles = [ 0.0, 0.0, -30.0 ]
-						dimensions = [ 282.043579, 17.80608, 164.888214 ]
+						origin = [ 62.671967, 1.0545, 54.105301 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 280.140686, 151.806, 164.888 ]
 					},
 				]
 			},

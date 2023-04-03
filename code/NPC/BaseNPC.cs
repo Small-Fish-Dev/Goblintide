@@ -7,7 +7,8 @@ public enum VoiceType
 	None,
 	Goblin,
 	Hobgoblin,
-	Human
+	Human,
+	Huwoman
 }
 
 [Flags]
@@ -184,6 +185,7 @@ public partial class BaseNPC : BaseCharacter
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_attack.sound" },
 		{ VoiceType.Human, "sounds/male/male_attack.sound" },
+		{ VoiceType.Huwoman, "sounds/womale/womale_attack.sound" },
 	};
 
 	public Dictionary<VoiceType, string> HurtSounds = new()
@@ -191,6 +193,7 @@ public partial class BaseNPC : BaseCharacter
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_hurt.sound" },
 		{ VoiceType.Human, "sounds/male/male_pain.sound" },
+		{ VoiceType.Huwoman, "sounds/womale/womale_pain.sound" },
 	};
 
 	public Dictionary<VoiceType, string> IdleSounds = new()
@@ -198,6 +201,7 @@ public partial class BaseNPC : BaseCharacter
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_idle.sound" },
 		{ VoiceType.Human, "sounds/male/male_idle.sound" },
+		{ VoiceType.Huwoman, "sounds/womale/womale_idle.sound" },
 	};
 
 	public Dictionary<VoiceType, string> LaughSounds = new()
@@ -205,6 +209,7 @@ public partial class BaseNPC : BaseCharacter
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_laugh.sound" },
 		{ VoiceType.Human, "sounds/male/male_idle.sound" },
+		{ VoiceType.Huwoman, "sounds/womale/womale_attack.sound" },
 	}; 
 	
 	public Dictionary<VoiceType, string> PanicSounds = new()
@@ -212,30 +217,31 @@ public partial class BaseNPC : BaseCharacter
 		{ VoiceType.None, "" },
 		{ VoiceType.Goblin, "sounds/golbins/goblin_laugh.sound" },
 		{ VoiceType.Human, "sounds/male/male_panic.sound" },
+		{ VoiceType.Huwoman, "sounds/womale/womale_panic.sound" },
 	};
 
 	public virtual void PlayAttackSound()
 	{
-		Sound.FromWorld( AttackSounds[Voice], Position);
+		Sound.FromWorld( AttackSounds[Voice], Position).SetVolume(2);
 	}
 
 	public virtual void PlayHurtSound()
 	{
-		Sound.FromWorld( HurtSounds[Voice], Position );
+		Sound.FromWorld( HurtSounds[Voice], Position ).SetVolume( 2 );
 	}
 
 	public virtual void PlayIdleSound()
 	{
-		Sound.FromWorld( IdleSounds[Voice], Position );
+		Sound.FromWorld( IdleSounds[Voice], Position ).SetVolume( 2 );
 	}
 
 	public virtual void PlayLaughSound()
 	{
-		Sound.FromWorld( LaughSounds[Voice], Position );
+		Sound.FromWorld( LaughSounds[Voice], Position ).SetVolume( 2 );
 	}
 	public virtual void PlayPanicSound()
 	{
-		Sound.FromWorld( PanicSounds[Voice], Position );
+		Sound.FromWorld( PanicSounds[Voice], Position ).SetVolume( 2 );
 	}
 
 	public override void Damage( float amount, BaseCharacter attacker )

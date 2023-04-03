@@ -1,0 +1,40 @@
+{
+  "SchemaVersion": 1,
+  "Name": null,
+  "Description": null,
+  "Root": {
+    "Guid": "b15b89e1-1737-4dca-8786-a555c1e38d79",
+    "Class": "RaidableBuilding",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "Test": {
+        "Type": "Dictionary\u00602",
+        "Value": "{\r\n  \u0022\u0022: 0\r\n}"
+      },
+      "_name": {
+        "Value": "\u0022Tent B\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {
+        "Value": "\u0022\u0022"
+      },
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/houses/tent_b.vmdl\u0022"
+      },
+      "CollectableInsideAndProbability": {
+        "Type": "Dictionary\u00602",
+        "Value": "{}"
+      }
+    }
+  }
+}

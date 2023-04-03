@@ -5,7 +5,66 @@
   "Root": {
     "Guid": "72735229-e0fa-4b04-bff6-66468473ef02",
     "Class": "BaseCollectable",
-    "Entities": [],
+    "Entities": [
+      {
+        "Guid": "2ace3258-26ae-4720-825c-2554141253ba",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/citizen_clothes/hair/hair_bun/models/hair_bun.vmdl\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {}
+        }
+      },
+      {
+        "Guid": "3cbd6cbb-6329-4169-871f-7f769c087fb5",
+        "Class": "animated_entity",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/clothes/peasant_dress/peasant_dress.vmdl\u0022"
+          },
+          "_attachment": {
+            "Type": "String",
+            "Value": "\u0022_bonemerge\u0022"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1"
+          },
+          "_tags": {}
+        }
+      }
+    ],
     "Components": [],
     "Keys": {
       "Model": {

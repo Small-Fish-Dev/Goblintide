@@ -24,6 +24,7 @@ public partial class BaseCollectable : BaseEntity
 	[Prefab]
 	public bool IsRagdoll { get; private set; } = false;
 	public int Value { get; private set; } = 1;
+	public bool Locked { get; set; } = false;
 
 	public override void Spawn()
 	{
