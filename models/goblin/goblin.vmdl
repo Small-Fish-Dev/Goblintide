@@ -11,13 +11,7 @@
 				[
 					{
 						_class = "DefaultMaterialGroup"
-						remaps = 
-						[
-							{
-								from = "goblin.vmat"
-								to = "models/goblin/materials/goblin.vmat"
-							},
-						]
+						remaps = [  ]
 						use_global_default = false
 						global_default_material = ""
 					},
@@ -58,6 +52,8 @@
 							exception_list = 
 							[
 								"goblin_001",
+								"goblin_003",
+								"goblin",
 							]
 						}
 					},
