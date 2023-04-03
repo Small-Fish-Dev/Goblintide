@@ -27,6 +27,57 @@
 					},
 				]
 			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -2.36206, -257.795013, 63.7607 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 276.963501, 24.033981, 137.521423 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -2.36206, 255.785004, 63.7607 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 276.963501, 17.055614, 137.521423 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 128.225006, -0.30696, 63.7607 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 15.7893, 525.843994, 137.520996 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -129.625, 195.871002, 63.7607 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 18.795099, 141.488007, 137.520996 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -129.625, -96.572403, 63.7607 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 18.795099, 321.313995, 137.520996 ]
+					},
+				]
+			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
