@@ -160,6 +160,12 @@ public partial class BaseNPC : BaseCharacter
 		Drop( Armor );
 		Drop( Weapon );
 
+		if ( Stealing.IsValid() )
+		{
+			Stealing.SetParent( null );
+			Stealing.Locked = false;
+		}
+
 		// Log Gobblin DN deaths...
 		if ( Game.IsServer 
 			&& Faction == FactionType.Goblins )
