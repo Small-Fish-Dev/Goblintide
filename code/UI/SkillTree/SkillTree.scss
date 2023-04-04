@@ -6,120 +6,79 @@
 
 	pointer-events: all;
 
-	background-color: transparent;
-
-	transition: all 0.3s ease-out;
-
-	&:outro {
-		opacity: 0;
-	}
-
-	.backdrop {
-		z-index: 0;
-
-		width: 100%;
-		height: 100%;
-
+	/* Parts */
+	.side-outer {
+		/* Side panel outer part */
 		position: absolute;
-
-		transition: bottom 0.5s ease-in-out;
+		z-index: 1;
+		
+		width: 480px;
+		height: 100%;
+		
+		transition: all 0.3s ease-in-out;
 
 		background-color: black;
-
-		overflow: hidden;
-
-		.gradient2 {
-			z-index: 2;
-
-			width: 100%;
-			height: 100%;
-
-			position: absolute;
-
-			background: radial-gradient(#A8631E 0%, #A5611D 100%);
-			background-position-y: 40%;
-
-			transition: opacity 0.3s ease-in-out;
-
-			&:intro {
-				opacity: 0;
-			}
+		
+		justify-content: flex-end;
+		
+		&:intro {
+			left: -50%;
 		}
-
-		PlayerView {
-			z-index: 4;
-
+		
+		.side-inner {
+			/* Inner part of the side panel - so the content and not the waves */
+			position: absolute;
+			z-index: 2;
+			
 			width: 100%;
 			height: 100%;
-
-			position: absolute;
-
-			top: 0;
 			
-			left: -20%;
+			PlayerView {
+				width: 100%;
+				height: 100%;
 
-
-			transition: all 0.7s ease-in-out;
-			
-			&:intro {
-				top: 100%;
+				filter: invert(100);
 			}
 		}
 		
-		&:intro {
-			bottom: 100%;
+		.side-waves {
+			position: absolute;
+			z-index: 3;
+			
+			width: 30%;
+			height: 100%;
 		}
 	}
 
-	.container {
+	.background {
+		/* Background - slides up and contains main */
+		position: absolute;
+
 		width: 100%;
 		height: 100%;
 
-		z-index: 3;
+		background-color: #ffffff;
 
-		position: absolute;
-
-		background-color: transparent;
-
-		align-items: center;
-		justify-content: center;
-
-		overflow: hidden;
-
-		transition: all 0.4s ease-in-out;
-
-		.iq {
-			width: 50%;
-			height: 50%;
-			bottom: 20%;
-
-			color: white;
-
-			align-items: center;
-			justify-content: center;
-
-			font-size: 90px;
-		}
-
-		.item {
-			width: 150px;
-			height: 150px;
-
-			border-radius: 50%;
-
-			bottom: 20%;
-
-			font-size: 30px;
-
-			background: linear-gradient(90deg, #FDffffaa 0%, #aA1a71aa 100%);
-
-			border: 2px white solid;
-		}
+		transition: all 0.3s ease-in-out;
 
 		&:intro {
-			transform: scale(0.0);
-			top: 20%;
 			opacity: 0;
 		}
+
+		.main {
+
+		}
+	}
+
+	/* Transitions */
+
+	transition: all 0.1s ease-out;
+
+	&:intro {
+		opacity: 0;
+	}
+
+	&:outro {
+		opacity: 0;
 	}
 }
