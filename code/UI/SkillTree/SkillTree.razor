@@ -6,9 +6,11 @@
 @attribute [StyleSheet( "/UI/SkillTree/SkillTree.scss" )]
 
 <root>
-	<div class="backdrop">
-		<div class="gradient2"></div>
-		<div class="container" @ref=Container></div>
+	<div class="side">
+		
+	</div>
+	<div class="background">
+		<div class="main" @ref=MainPanel></div>
 	</div>
 </root>
 
@@ -24,41 +26,12 @@
 
 		SelectedActor.SetClass( "selected", true );
 	}
-	
-	public Panel Container
+
+	public Panel MainPanel
 	{
 		get => null;
 		set { GenerateUpgrades( value ); }
 	}
 
-	public SkillTree()
-	{
-		WorldMap.Delete();
-	}
-
-	private void GenerateUpgrades( Panel panel )
-	{
-		foreach ( var upgrade in Upgrade.All )
-		{
-			var actor = new UpgradeActor( upgrade );
-			panel.AddChild( actor );
-		}
-
-		var actors = Descendants.OfType<UpgradeActor>().ToList();
-
-		foreach ( var actor in actors )
-		{
-			foreach ( var dependencyId in actor.Upgrade.Dependencies )
-			{
-				var dependencyActor = actors.SingleOrDefault( v => v.Upgrade.Identifier == dependencyId );
-				if ( dependencyActor == null )
-					throw new Exception( $"Unknown or no existing actor for dependency {dependencyId}" );
-				actor.Dependencies.Add( dependencyActor );
-			}
-		}
-
-	// Set initial selected actor
-		Select( actors.FirstOrDefault() );
-	}
-
+	public SkillTree() => WorldMap.Delete();
 }
