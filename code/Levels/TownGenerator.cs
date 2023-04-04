@@ -16,7 +16,7 @@ public partial class Town : BaseNetworkable
 	public int Seed => TownSize.GetHashCode();
 	public List<Entity> TownEntities = new();
 	public static List<SceneObject> TownTrees = new();
-	public static List<WallEntity> TownFences = new();
+	public static List<WallObject> TownFences = new();
 
 	public static Dictionary<string, float> PlaceableHousesSmall { get; set; } = new()
 	{
@@ -309,7 +309,7 @@ public partial class Town : BaseNetworkable
 
 			var fencePosition = position + Vector3.Forward * x + Vector3.Right * y;
 			var transform = new Transform( fencePosition, Rotation.LookAt( fencePosition - position ) );
-			var spawnedFence = new WallEntity( Game.SceneWorld, bestFence.Key, transform, bestFence.Value );
+			var spawnedFence = new WallObject( Game.SceneWorld, bestFence.Key, transform, bestFence.Value );
 			TownFences.Add( spawnedFence );
 		}
 	}
