@@ -18,6 +18,7 @@ public partial class BaseItem : BaseEntity
 	[Prefab, Category( "Stats" )]
 	public ItemType Type { get; set; } = ItemType.None;
 	public bool Equipped = false;
+	public override bool BlockNav => false;
 
 	public override float GetWidth() => 20f;
 	public override float GetHeight() => 10f;
@@ -37,12 +38,23 @@ public partial class BaseItem : BaseEntity
 		base.OnNewModel( model );
 	}
 
-	public static BaseItem FromPrefab( string prefabName )
+	public static BaseItem FromPrefab( string prefabName, bool addToTown = true )
 	{
 		if ( PrefabLibrary.TrySpawn<BaseItem>( prefabName, out var item ) )
 		{
-			GameMgr.CurrentTown?.TownEntities.Add( item );
+			if ( addToTown )
+				GameMgr.CurrentTown?.TownEntities.Add( item );
 			return item;
+		}
+
+		var prefabFromName = ResourceLibrary.GetAll<Prefab>().FirstOrDefault( x => x.Name.ToLower() == prefabName.ToLower() );
+		var entity = PrefabLibrary.Spawn<BaseItem>( prefabFromName );
+
+		if ( entity != null )
+		{
+			if ( addToTown )
+				GameMgr.CurrentTown?.TownEntities.Add( entity );
+			return entity;
 		}
 
 		return null;

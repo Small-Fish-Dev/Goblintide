@@ -5,7 +5,7 @@ namespace GameJam;
 
 partial class GameMgr
 {
-	public const bool ENABLE_SAVESYSTEM = false;
+	public const bool ENABLE_SAVESYSTEM = true;
 	public const string SAVE_PATH = "./save.dat";
 
 	/// <summary>
@@ -23,22 +23,21 @@ partial class GameMgr
 	[Net] private bool loaded { get; set; } = false;
 
 	#region Goblin Persistence
-	// TODO: Save & load equipment.
 	private static void goblinPersist( object method )
 	{
 		// Handle saving first.
 		if ( method is BinaryWriter writer )
 		{
-			var goblins = Entity.All.OfType<BaseNPC>()
-				.Where( npc => npc.Faction == FactionType.Goblins )
-				.ToArray();
+			var goblins = GoblinArmy.ToArray();
 
 			writer.Write( goblins.Length );
 			foreach ( var goblin in goblins )
 			{
 				writer.Write( goblin.Name.ToLower() );
 				writer.Write( goblin.DisplayName );
-				writer.Write( goblin.GetMaterialGroup() ); 
+				writer.Write( goblin.GetMaterialGroup() );
+				writer.Write( goblin.Weapon?.Name ?? "null" );
+				writer.Write( goblin.Armor?.Name ?? "null" );
 			}
 
 			return;
@@ -53,14 +52,66 @@ partial class GameMgr
 				var prefabName = reader.ReadString();
 				var name = reader.ReadString();
 				var materialGroup = reader.ReadInt32();
+				var weaponName = reader.ReadString();
+				var armorName = reader.ReadString();
 				var npc = BaseNPC.FromPrefab( $"prefabs/npcs/{prefabName}.prefab" );
 				if ( npc == null || !npc.IsValid )
 					continue;
 
+				GoblinArmy.Add( npc );
+
 				npc.Position = Lord.Position + Vector3.Random.WithZ( 0 ) * 100f;
 				npc.DisplayName = name;
 				npc.SetMaterialGroup( materialGroup );
+				if ( weaponName != "null" )
+				{
+					var weapon = BaseItem.FromPrefab( $"prefabs/items/{weaponName}.prefab" );
+
+					if ( weapon.IsValid() )
+					{
+						npc.Equip( weapon );
+					}
+				}
+
+				if ( armorName != "null" )
+				{
+					var armor = BaseItem.FromPrefab( $"prefabs/items/{armorName}.prefab" );
+					if ( armor.IsValid() )
+					{
+						npc.Equip( armor );
+					}
+				}
 			}
+		}
+	}
+	#endregion
+
+	#region Resources Persistence
+	private static void resourcesPersist( object method )
+	{
+		if ( method is BinaryWriter writer )
+		{
+			writer.Write( TotalWood );
+			writer.Write( TotalGold );
+			writer.Write( TotalFood );
+			writer.Write( TotalWomen );
+			writer.Write( TotalEnergy );
+			writer.Write( EnergyRechargeRate );
+			writer.Write( LastEnergyUpdate );
+
+			return;
+		}
+
+		// Handle loading save.
+		if ( method is BinaryReader reader )
+		{
+			TotalWood = reader.ReadInt32();
+			TotalGold = reader.ReadInt32();
+			TotalFood = reader.ReadInt32();
+			TotalWomen = reader.ReadInt32();
+			TotalEnergy = reader.ReadDouble();
+			EnergyRechargeRate = reader.ReadDouble();
+			LastEnergyUpdate = reader.ReadInt64();
 		}
 	}
 	#endregion
@@ -145,6 +196,7 @@ partial class GameMgr
 
 		// Save all data.
 		lordPersist( writer );
+		resourcesPersist( writer );
 		villagePersist( writer );
 		goblinPersist( writer );
 		
@@ -178,6 +230,7 @@ partial class GameMgr
 		{
 			// Read all data and act according to it.
 			lordPersist( reader );
+			resourcesPersist( reader );
 			villagePersist( reader );
 			goblinPersist( reader );
 		}
@@ -186,6 +239,9 @@ partial class GameMgr
 			Log.Error( $"Failed to load save properly." );
 			shouldDelete = true;
 		}
+
+		SetEnergyFromLastEnergyDate();
+		PlaceGoblinArmy( true );
 		
 		// Tell everyone that we're done loading.
 		Loaded = true;

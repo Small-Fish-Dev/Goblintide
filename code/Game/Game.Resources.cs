@@ -46,16 +46,15 @@ public partial class GameMgr
 			Instance.totalWomen = value;
 		}
 	}
-	public static float TotalEnergy
+	public static double TotalEnergy
 	{
 		get => Instance.totalEnergy;
 		set
 		{
-			LastEnergyUpdate = DateTime.UtcNow;
-			Instance.totalEnergy = value;
+			Instance.totalEnergy = Math.Clamp( value, 0, MaxEnergy );
 		}
 	}
-	public static float MaxEnergy
+	public static double MaxEnergy
 	{
 		get => Instance.maxEnergy;
 		set
@@ -63,7 +62,7 @@ public partial class GameMgr
 			Instance.maxEnergy = value;
 		}
 	}
-	public static float EnergyRechargeRate
+	public static double EnergyRechargeRate
 	{
 		get => Instance.energyRechargeRate;
 		set
@@ -71,7 +70,7 @@ public partial class GameMgr
 			Instance.energyRechargeRate = value;
 		}
 	}
-	public static DateTime LastEnergyUpdate
+	public static long LastEnergyUpdate
 	{
 		get => Instance.lastEnergyUpdate;
 		set
@@ -83,14 +82,15 @@ public partial class GameMgr
 	[Net, Change( nameof( EmitGoldChange ) )] private int totalGold { get; set; } = 0;
 	[Net, Change( nameof( EmitFoodChange ) )] private int totalFood { get; set; } = 0;
 	[Net, Change( nameof( EmitWomenChange ) )] private int totalWomen { get; set; } = 0;
-	[Net] private float totalEnergy { get; set; } = 30;
-	[Net] private float maxEnergy { get; set; } = 30; // Default value = 30
-	[Net] private float energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
-	[Net] private DateTime lastEnergyUpdate { get; set; } = DateTime.UtcNow;
+	[Net] private double totalEnergy { get; set; } = 10;
+	[Net] private double maxEnergy { get; set; } = 30; // Default value = 30
+	[Net] private double energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
+	[Net] private long lastEnergyUpdate { get; set; } = DateTime.UtcNow.Ticks;
 
 	void EmitWoodChange(int oldValue, int newValue)
 	{
 		Game.AssertClient();
+		Log.Info( "a" );
 		Event.Run( "resources.wood", newValue );
 	}
 
@@ -115,7 +115,19 @@ public partial class GameMgr
 	[Event.Tick.Server]
 	public void CalculateEnergy()
 	{
-		TotalEnergy = Math.Clamp( TotalEnergy + EnergyRechargeRate * Time.Delta, 0, MaxEnergy );
+		TotalEnergy += energyRechargeRate * Time.Delta;
+		LastEnergyUpdate = DateTime.UtcNow.Ticks / 10000000;
+	}
+
+	/// <summary>
+	/// Make sure to call this after LastEnergyUpdate has been correctly set
+	/// </summary>
+	public static void SetEnergyFromLastEnergyDate()
+	{
+		var currentTime = DateTime.UtcNow.Ticks / 10000000;
+		var difference = (currentTime - LastEnergyUpdate);
+		TotalEnergy += (float)difference * EnergyRechargeRate;
+		LastEnergyUpdate = currentTime;
 	}
 
 	public static void GoblinArmyEnabled( bool enabled )
@@ -155,6 +167,32 @@ public partial class GameMgr
 			TotalFood += amount;
 		if ( type == Collectable.Woman )
 			TotalWomen += amount;
+	}
+
+	[ConCmd.Admin("wood")]
+	public static void AddWood( int amount )
+	{
+		TotalWood += amount;
+	}
+	[ConCmd.Admin( "gold" )]
+	public static void AddGold( int amount )
+	{
+		TotalGold += amount;
+	}
+	[ConCmd.Admin( "food" )]
+	public static void AddFood( int amount )
+	{
+		TotalFood += amount;
+	}
+	[ConCmd.Admin( "women" )]
+	public static void AddWomen( int amount )
+	{
+		TotalWood += amount;
+	}
+	[ConCmd.Admin( "energy" )]
+	public static void AddEnergy( int amount )
+	{
+		TotalEnergy += amount;
 	}
 
 }
