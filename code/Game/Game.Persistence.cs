@@ -5,7 +5,7 @@ namespace GameJam;
 
 partial class GameMgr
 {
-	public const bool ENABLE_SAVESYSTEM = false;
+	public const bool ENABLE_SAVESYSTEM = true;
 	public const string SAVE_PATH = "./save.dat";
 
 	/// <summary>
@@ -29,16 +29,16 @@ partial class GameMgr
 		// Handle saving first.
 		if ( method is BinaryWriter writer )
 		{
-			var goblins = Entity.All.OfType<BaseNPC>()
-				.Where( npc => npc.Faction == FactionType.Goblins )
-				.ToArray();
+			var goblins = GoblinArmy.ToArray();
 
 			writer.Write( goblins.Length );
 			foreach ( var goblin in goblins )
 			{
 				writer.Write( goblin.Name.ToLower() );
 				writer.Write( goblin.DisplayName );
-				writer.Write( goblin.GetMaterialGroup() ); 
+				writer.Write( goblin.GetMaterialGroup() );
+				writer.Write( goblin.Weapon?.Name ?? "null" );
+				writer.Write( goblin.Armor?.Name ?? "null" );
 			}
 
 			return;
@@ -53,13 +53,35 @@ partial class GameMgr
 				var prefabName = reader.ReadString();
 				var name = reader.ReadString();
 				var materialGroup = reader.ReadInt32();
+				var weaponName = reader.ReadString();
+				var armorName = reader.ReadString();
 				var npc = BaseNPC.FromPrefab( $"prefabs/npcs/{prefabName}.prefab" );
 				if ( npc == null || !npc.IsValid )
 					continue;
 
+				GoblinArmy.Add( npc );
+
 				npc.Position = Lord.Position + Vector3.Random.WithZ( 0 ) * 100f;
 				npc.DisplayName = name;
 				npc.SetMaterialGroup( materialGroup );
+				if ( weaponName != "null" )
+				{
+					var weapon = BaseItem.FromPrefab( $"prefabs/items/{weaponName}.prefab" );
+
+					if ( weapon.IsValid() )
+					{
+						npc.Equip( weapon );
+					}
+				}
+
+				if ( armorName != "null" )
+				{
+					var armor = BaseItem.FromPrefab( $"prefabs/items/{armorName}.prefab" );
+					if ( armor.IsValid() )
+					{
+						npc.Equip( armor );
+					}
+				}
 			}
 		}
 	}
