@@ -83,15 +83,15 @@ public partial class GameMgr
 	[Net] private int totalGold { get; set; } = 0;
 	[Net] private int totalFood { get; set; } = 0;
 	[Net] private int totalWomen { get; set; } = 0;
-	[Net] private float totalEnergy { get; set; } = 0;
-	[Net] private float maxEnergy { get; set; } = 30; // Default value
-	[Net] private float energyRechargeRate { get; set; } = 1; // Energy per second
+	[Net] private float totalEnergy { get; set; } = 30;
+	[Net] private float maxEnergy { get; set; } = 30; // Default value = 30
+	[Net] private float energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
 	[Net] private DateTime lastEnergyUpdate { get; set; } = DateTime.UtcNow;
 
 	[Event.Tick.Server]
 	public void CalculateEnergy()
 	{
-		TotalEnergy += 
+		TotalEnergy = Math.Clamp( TotalEnergy + EnergyRechargeRate * Time.Delta, 0, MaxEnergy );
 	}
 
 	public static void GoblinArmyEnabled( bool enabled )
