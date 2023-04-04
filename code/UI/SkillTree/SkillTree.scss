@@ -33,7 +33,7 @@
 			width: 100%;
 			height: 100%;
 			
-			left: 5%;
+			left: 2%;
 
 			PlayerView {
 				position: absolute;
@@ -76,12 +76,14 @@
 			height: 100%;
 
 			AnimatedImage {
-				width: 100%;
+				width: 30%;
 				height: 100%;
 				
 				position: relative;
 				z-index: 3;
-
+				
+				background-size: 100% 100%;
+				
 				image-rendering: pixelated;
 			}
 		}
