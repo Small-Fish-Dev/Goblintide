@@ -208,6 +208,8 @@ partial class GameMgr
 			Log.Error( $"Failed to load save properly." );
 			shouldDelete = true;
 		}
+
+		PlaceGoblinArmy( true );
 		
 		// Tell everyone that we're done loading.
 		Loaded = true;
