@@ -1,19 +1,17 @@
 ﻿namespace GameJam;
 
-
-public partial class WallEntity : Entity
+public partial class WallObject : SceneObject
 {
-	internal SceneObject sceneObject { get; set; }
 	public float Length { get; set; } = 100f;
 	public static BBox Box { get; set; } = new BBox( new Vector3( -10f ), new Vector3( 10f ) );
 	internal bool isDeleting = false;
 
-	public WallEntity( SceneWorld sceneWorld, String model, Transform transform, float length )
+	public WallObject( SceneWorld sceneWorld, string model, Transform transform, float length ) : base( sceneWorld, model, transform )
 	{
-		sceneObject = new SceneObject(sceneWorld, model, transform);
-		sceneObject.Tags.Add( "nocamera" );
-		Transform = transform;
+		Tags.Add( "nocamera" );
 		Length = length;
+
+		Event.Register( this );
 	}
 
 	[Event.Client.Frame]
@@ -35,25 +33,26 @@ public partial class WallEntity : Entity
 
 	public void Break()
 	{
-		if ( isDeleting ) return;
+		if ( isDeleting ) 
+			return;
+
 		Sound.FromWorld( "sounds/physics/breaking/break_wood_plank.sound", Position );
 		Particles.Create( Length > 110f ? "particles/wood_shatter_large.vpcf" : "particles/wood_shatter.vpcf", Position );
-		Breakables.Break( sceneObject.Model, Position, Rotation, 1f, Color.White );
+		Breakables.Break( Model, Position, Rotation, 1f, Color.White );
+
 		var gibs = Entity.All
 			.OfType<PropGib>()
 			.Where( x => x.Position.DistanceSquared( Position ) <= Length * Length );
+
 		foreach ( var gib in gibs )
 		{
 			gib.Velocity = Vector3.Random * 300;
 			gib.Tags.Add( "nocamera" );
 		}
-		isDeleting = true;
-		Delete();
-	}
 
-	protected override void OnDestroy()
-	{
-		sceneObject.Delete();
-		base.OnDestroy();
+		isDeleting = true;
+
+		Event.Unregister( this );
+		Delete();
 	}
 }

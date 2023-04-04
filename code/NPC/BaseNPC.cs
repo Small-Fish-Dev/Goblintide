@@ -86,6 +86,7 @@ public partial class BaseNPC : BaseCharacter
 		Faction = DefaultFaction;
 		HitPoints = MaxHitPoints;
 		Tags.Add( "NPC" );
+		Tags.Add( Faction.ToString() );
 
 		CurrentBehaviour = BaseBehaviour;
 		CurrentSubBehaviour = BaseSubBehaviour;
@@ -277,6 +278,7 @@ public partial class BaseNPC : BaseCharacter
 	[Event.Tick.Server]
 	public virtual void Think()
 	{
+		if ( Disabled ) return;
 		ComputeMotion();
 		ComputeNavigation();
 

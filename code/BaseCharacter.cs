@@ -13,6 +13,28 @@ public partial class BaseCharacter : BaseEntity
 	public override float GetHeight() => CollisionHeight;
 
 	public override bool BlockNav { get; set; } = false;
+	[Net] bool disabled { get; set; } = false;
+	public bool Disabled
+	{
+		get { return disabled; }
+		set
+		{
+			disabled = value;
+
+			EnableDrawing = !disabled;
+			EnableAllCollisions = !disabled;
+			UseAnimGraph = !disabled;
+			EnableShadowCasting = !disabled;
+			Transmit = disabled ? TransmitType.Never : TransmitType.Pvs;
+
+			foreach ( var child in Children )
+			{
+				child.EnableDrawing = !disabled;
+				child.EnableShadowCasting = !disabled;
+				child.Transmit = disabled ? TransmitType.Never : TransmitType.Pvs;
+			}
+		}
+	}
 
 	public BaseCharacter() {}
 

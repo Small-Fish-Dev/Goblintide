@@ -12,12 +12,57 @@
 		width: 100%;
 		height: 100%;
 		color: white;
+	
+		.structures {
+			position: absolute;
+			width: 100%;
+			flex-direction: row;
+			background-color: white;
+			bottom: 0px;
+			padding: 10px;
+			transform: translateY(0%);
+			justify-content: center;
+			transition: transform 0.5s ease-in-out;
+
+			.slot {
+				width: 80px;
+				aspect-ratio: 1;
+				background-color: black;
+				margin-right: 20px;
+			}
+
+			&.hidden {
+				transform: translateY(100%);
+			}
+		}
 	}
 </style>
 
 <root>
+	<panel class="structures" @ref=structureContainer >
+		@{
+			var structures = ResourceLibrary.GetAll<Prefab>()
+				.Where( p => p.Root.Class == "BaseStructure" );
+
+			foreach ( var structure in structures )
+			{
+				var root = structure.Root;
+				var name = root.GetValue<string>( "Title" );
+
+				<panel class="slot">@name</panel>
+			}
+		}
+	</panel>
 </root>
 
 @code {
+	Panel structureContainer;
 
+	public override void Tick()
+	{
+		if ( Game.LocalPawn is not Lord pawn )
+			return;
+
+		structureContainer?.SetClass( "hidden", !pawn.Overview );
+	}
 }
