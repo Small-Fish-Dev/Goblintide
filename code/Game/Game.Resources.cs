@@ -144,4 +144,30 @@ public partial class GameMgr
 			TotalWomen += amount;
 	}
 
+	[ConCmd.Admin("wood")]
+	public static void AddWood( int amount )
+	{
+		TotalWood += amount;
+	}
+	[ConCmd.Admin( "gold" )]
+	public static void AddGold( int amount )
+	{
+		TotalGold += amount;
+	}
+	[ConCmd.Admin( "food" )]
+	public static void AddFood( int amount )
+	{
+		TotalFood += amount;
+	}
+	[ConCmd.Admin( "women" )]
+	public static void AddWomen( int amount )
+	{
+		TotalWood += amount;
+	}
+	[ConCmd.Admin( "energy" )]
+	public static void AddEnergy( int amount )
+	{
+		TotalEnergy += amount;
+	}
+
 }
