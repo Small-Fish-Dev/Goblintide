@@ -79,14 +79,38 @@ public partial class GameMgr
 			Instance.lastEnergyUpdate = value;
 		}
 	}
-	[Net] private int totalWood { get; set; } = 0;
-	[Net] private int totalGold { get; set; } = 0;
-	[Net] private int totalFood { get; set; } = 0;
-	[Net] private int totalWomen { get; set; } = 0;
+	[Net, Change(nameof(EmitWoodChange))] private int totalWood { get; set; } = 0;
+	[Net, Change( nameof( EmitGoldChange ) )] private int totalGold { get; set; } = 0;
+	[Net, Change( nameof( EmitFoodChange ) )] private int totalFood { get; set; } = 0;
+	[Net, Change( nameof( EmitWomenChange ) )] private int totalWomen { get; set; } = 0;
 	[Net] private float totalEnergy { get; set; } = 30;
 	[Net] private float maxEnergy { get; set; } = 30; // Default value = 30
 	[Net] private float energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
 	[Net] private DateTime lastEnergyUpdate { get; set; } = DateTime.UtcNow;
+
+	void EmitWoodChange(int oldValue, int newValue)
+	{
+		Game.AssertClient();
+		Event.Run( "resources.wood", newValue );
+	}
+
+	void EmitGoldChange( int oldValue, int newValue )
+	{
+		Game.AssertClient();
+		Event.Run( "resources.gold", newValue );
+	}
+
+	void EmitFoodChange( int oldValue, int newValue )
+	{
+		Game.AssertClient();
+		Event.Run( "resources.food", newValue );
+	}
+
+	void EmitWomenChange( int oldValue, int newValue )
+	{
+		Game.AssertClient();
+		Event.Run( "resources.women", newValue );
+	}
 
 	[Event.Tick.Server]
 	public void CalculateEnergy()
