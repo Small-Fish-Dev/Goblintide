@@ -27,11 +27,15 @@
 		}
 	}
 
-	private Vector2 GetInitialPosition() => ModifyInitialPosition( new Vector2
+	private Vector2 GetInitialPosition()
 	{
-		x = (Box.Rect.Left - Parent.Box.Rect.Left) * ScaleFromScreen,
-		y = (Box.Rect.Top - Parent.Box.Rect.Top) * -ScaleFromScreen
-	} );
+		var vector2 = new Vector2
+		{
+			x = (Box.Rect.Left - Parent.Box.Rect.Left) * -ScaleFromScreen,
+			y = (Box.Rect.Top - Parent.Box.Rect.Top) * -ScaleFromScreen
+		};
+		return ModifyInitialPosition( vector2 );
+	}
 
 	protected virtual Vector2 ModifyInitialPosition( Vector2 position ) => position;
 
@@ -60,7 +64,7 @@
 
 			if ( _shouldUpdate )
 			{
-				var position = _position.Value;
+				var position = Position;
 				position = DoPositionEffect( position );
 				Style.Left = Length.Pixels( position.x.Floor() );
 				Style.Top = Length.Pixels( position.y.Floor() );
