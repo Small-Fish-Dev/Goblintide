@@ -370,6 +370,30 @@ public partial class Town : BaseNetworkable
 		GameMgr.CurrentTown.Generated = true;
 	}
 
+	public static async void GenerateEmptyTown( float townSize )
+	{
+		GameMgr.CurrentTown?.DeleteTown();
+
+		GameMgr.CurrentTown = new Town();
+		GameMgr.CurrentTown.TownSize = townSize;
+		GameMgr.CurrentTown.TownRadius = 300f * (float)Math.Sqrt( GameMgr.CurrentTown.TownSize / 5 );
+		var position = new Vector3( 55f, 292.05f, 512f );
+
+		if ( GameMgr.CurrentTown.TownRadius > 1200f )
+			position = new Vector3( 4586f, 452f, 512f );
+
+		if ( GameMgr.CurrentTown.TownRadius > 2500f )
+			position = new Vector3( -4100f, 5414f, 512f );
+
+		GameMgr.CurrentTown.Position = position;
+
+		var rand = new Random( GameMgr.CurrentTown.Seed );
+
+		GameMgr.BroadcastFences( position, GameMgr.CurrentTown.TownRadius );
+		GameMgr.BroadcastTrees( position, GameMgr.CurrentTown.TownRadius );
+		GameMgr.CurrentTown.Generated = true;
+	}
+
 	TimeUntil checkFences { get; set; } = 0.2f;
 
 	[Event.Client.Frame]

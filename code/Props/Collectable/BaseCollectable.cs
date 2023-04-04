@@ -25,6 +25,7 @@ public partial class BaseCollectable : BaseEntity
 	public bool IsRagdoll { get; private set; } = false;
 	public int Value { get; set; } = 1;
 	public bool Locked { get; set; } = false;
+	public override bool BlockNav => false;
 
 	public override void Spawn()
 	{

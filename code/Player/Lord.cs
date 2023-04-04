@@ -40,6 +40,9 @@ public partial class Lord : BaseCharacter
 		glow.Enabled = true;
 		glow.ObscuredColor = Color.White;
 		glow.Color = Color.Transparent;
+
+		SetMaterialGroup( "old" );
+		SetBodyGroup( "crown", 1 );
 	}
 
 	public override void Simulate( IClient cl )
