@@ -5,15 +5,15 @@
 
 @code {
 
-	public readonly List<Texture> Textures = new();
+	private readonly List<Texture> _textures = new();
 
-	protected virtual float ChangeDelay => 1.0f;
+	private float _changeDelay = 1;
 	private int _index;
 	private RealTimeUntil _next = 0.5f;
-	
+
 	public void AddTexture( Texture texture )
 	{
-		Textures.Add( texture );
+		_textures.Add( texture );
 		Next();
 	}
 
@@ -22,26 +22,38 @@
 		base.Tick();
 
 		if ( _next )
-		{
 			Next();
-		}
 	}
 
 	private void Next()
 	{
-		_next = ChangeDelay;
+		_next = _changeDelay;
 		_index++;
-		if ( _index >= Textures.Count )
+		if ( _index >= _textures.Count )
 			_index = 0;
-		if ( Textures.Count != 0 )
-			Texture = Textures[_index];
+		if ( _textures.Count != 0 )
+			Texture = _textures[_index];
 	}
 
-	public AnimatedImage()
+	public override void SetProperty( string name, string value )
 	{
-		AddTexture( Sandbox.Texture.Load( FileSystem.Mounted, "textures/000.png" ) );
-		AddTexture( Sandbox.Texture.Load( FileSystem.Mounted, "textures/001.png" ) );
-		AddTexture( Sandbox.Texture.Load( FileSystem.Mounted,"textures/002.png" ) );
+		base.SetProperty( name, value );
+
+		switch ( name )
+		{
+			case "delay":
+				_changeDelay = value.ToFloat( 1 );
+				break;
+			case "src":
+				var texture = Texture.Load( FileSystem.Mounted, value );
+				if ( texture == null )
+				{
+					Log.Warning( $"Couldn't load texture @ {value}" );
+					return;
+				}
+				AddTexture( texture );
+				break;
+		}
 	}
-	
+
 }
