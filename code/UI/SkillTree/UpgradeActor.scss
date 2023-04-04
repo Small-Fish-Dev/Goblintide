@@ -11,30 +11,18 @@
 		border: 2px solid black;
 	}
 
-	.outer {
-		z-index: 1;
-		
-		position: absolute;
-
-		width: 80px;
-		height: 80px;
+	&.expensive {
+		filter: invert(0.3);
 	}
 
-	.inner {
-		z-index: 3;
+	&:not(.available) {
+		filter: invert(0.3);
+	}
 		
-		position: absolute;
+	img {
 		width: 100%;
 		height: 100%;
 
-		align-items: center;
-		justify-content: center;
-		
-		img {
-			width: 100%;
-			height: 100%;
-
-			image-rendering: pixelated;
-		}
+		image-rendering: pixelated;
 	}
 }

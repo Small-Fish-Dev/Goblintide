@@ -1,0 +1,32 @@
+﻿UpgradeInfoActor {
+	position: relative;
+	
+	width: 412px;
+	height: 412px;
+	
+	AnimatedImage {
+		z-index: 1;
+
+		position: absolute;
+		
+		width: 100%;
+		height: 100%;
+
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+
+		image-rendering: pixelated;
+	}
+	
+	.content {
+		z-index: 2;
+
+		position: absolute;
+		
+		color: white;
+		font-size: 50px;
+		
+		margin: 80px;
+	}
+}
