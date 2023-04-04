@@ -7,7 +7,7 @@
 
 <root>
 	<div class="side">
-		
+		<PlayerView></PlayerView>
 	</div>
 	<div class="background">
 		<div class="main" @ref=MainPanel></div>
@@ -16,7 +16,7 @@
 
 @code {
 
-	public UpgradeActor SelectedActor { get; set; }
+	private UpgradeActor SelectedActor { get; set; }
 
 	private void Select( UpgradeActor actor )
 	{
@@ -27,7 +27,7 @@
 		SelectedActor.SetClass( "selected", true );
 	}
 
-	public Panel MainPanel
+	private Panel MainPanel
 	{
 		get => null;
 		set { GenerateUpgrades( value ); }

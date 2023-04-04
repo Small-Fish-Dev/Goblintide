@@ -39,7 +39,7 @@ public class PlayerView : ScenePanel
 
 			Camera.Position = position;
 			Camera.Rotation = Rotation.LookAt( Lord.Self.EyePosition - position );
-			Camera.FieldOfView = main.FieldOfView;
+			Camera.FieldOfView = 20;
 			Camera.AntiAliasing = true;
 		}
 
