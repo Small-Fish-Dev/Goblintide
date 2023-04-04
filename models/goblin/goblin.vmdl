@@ -12,7 +12,13 @@
 					{
 						_class = "DefaultMaterialGroup"
 						name = "green"
-						remaps = [  ]
+						remaps = 
+						[
+							{
+								from = "cylinder.vmat"
+								to = "models/crown/crown.vmat"
+							},
+						]
 						use_global_default = false
 						global_default_material = ""
 					},
@@ -122,6 +128,23 @@
 								"goblin_003",
 								"goblin",
 							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "crown"
+						filename = "models/crown/crown.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
 						}
 					},
 				]
@@ -605,6 +628,46 @@
 						relative_angles = [ -0.0, 0.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "crown"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = [  ]
+							},
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"crown",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "body"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"unnamed_1",
+								]
+							},
+						]
+						hidden_in_tools = false
 					},
 				]
 			},
