@@ -12,7 +12,7 @@
 		position: absolute;
 		z-index: 1;
 
-		width: 480px;
+		width: 500px;
 		height: 100%;
 
 		transition: all 0.3s ease-in-out;
@@ -32,6 +32,8 @@
 
 			width: 100%;
 			height: 100%;
+			
+			left: 5%;
 
 			PlayerView {
 				position: absolute;
@@ -64,12 +66,24 @@
 			}
 		}
 
-		.side-waves {
+		.waves {
 			position: absolute;
 			z-index: 3;
 
-			width: 30%;
+			left: 100%;
+			
+			width: 50%;
 			height: 100%;
+
+			AnimatedImage {
+				width: 100%;
+				height: 100%;
+				
+				position: relative;
+				z-index: 3;
+
+				image-rendering: pixelated;
+			}
 		}
 	}
 
