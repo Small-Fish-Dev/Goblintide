@@ -11,9 +11,65 @@
 				[
 					{
 						_class = "DefaultMaterialGroup"
+						name = "green"
 						remaps = [  ]
 						use_global_default = false
 						global_default_material = ""
+					},
+					{
+						_class = "MaterialGroup"
+						name = "yellow"
+						remaps = 
+						[
+							{
+								from = "models/goblin/materials/goblin.vmat"
+								to = "models/goblin/materials/goblin_yellow.vmat"
+							},
+						]
+					},
+					{
+						_class = "MaterialGroup"
+						name = "blue"
+						remaps = 
+						[
+							{
+								from = "models/goblin/materials/goblin.vmat"
+								to = "models/goblin/materials/goblin_blue.vmat"
+							},
+						]
+					},
+					{
+						_class = "MaterialGroup"
+						name = "dark"
+						remaps = 
+						[
+							{
+								from = "models/goblin/materials/goblin.vmat"
+								to = "models/goblin/materials/goblin_dark.vmat"
+							},
+						]
+					},
+					{
+						_class = "MaterialGroup"
+						name = "red"
+						remaps = 
+						[
+							{
+								from = "models/goblin/materials/goblin.vmat"
+								to = "models/goblin/materials/goblin_red.vmat"
+							},
+						]
+					},
+					{
+						_class = "MaterialGroup"
+						name = "purple"
+						remaps = 
+						[
+							{
+								from = "models/goblin/materials/goblin.vmat"
+								to = "models/goblin/materials/goblin_purple.vmat"
+							},
+						]
 					},
 				]
 			},
