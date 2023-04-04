@@ -321,12 +321,24 @@ public partial class Town : BaseNetworkable
 		GameMgr.CurrentTown = new Town();
 		GameMgr.CurrentTown.TownSize = townSize;
 		GameMgr.CurrentTown.TownRadius = 300f * (float)Math.Sqrt( GameMgr.CurrentTown.TownSize / 5 );
-		var position = new Vector3( 25f, 292.05f, 512f );
+		var position = new Vector3( 55f, 292.05f, 512f );
 
 		if ( GameMgr.CurrentTown.TownRadius > 1200f )
-			position = new Vector3( 4516f, 295f, 512f );
+		{
+			position = new Vector3( 4586f, 452f, 512f );
+			var wellEntity = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/well.prefab" );
+			wellEntity.Position = position + Vector3.Down * 0.05f;
+			wellEntity.Rotation = Rotation.FromYaw( Game.Random.Int( 360 ) );
+			GameMgr.CurrentTown.TownEntities.Add( wellEntity );
+		}
 		if ( GameMgr.CurrentTown.TownRadius > 2500f )
-			position = new Vector3( -4300f, 5314f, 512f );
+		{
+			position = new Vector3( -4100f, 5414f, 512f );
+			var wellEntity = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/well.prefab" );
+			wellEntity.Position = position + Vector3.Down * 0.05f;
+			wellEntity.Rotation = Rotation.FromYaw( Game.Random.Int( 360 ) );
+			GameMgr.CurrentTown.TownEntities.Add( wellEntity );
+		}
 
 		GameMgr.CurrentTown.Position = position;
 
