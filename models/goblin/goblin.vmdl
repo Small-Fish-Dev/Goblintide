@@ -71,6 +71,17 @@
 							},
 						]
 					},
+					{
+						_class = "MaterialGroup"
+						name = "hobgoblin"
+						remaps = 
+						[
+							{
+								from = "models/goblin/materials/goblin.vmat"
+								to = "models/goblin/materials/hobgoblin.vmat"
+							},
+						]
+					},
 				]
 			},
 			{
