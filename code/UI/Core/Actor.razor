@@ -2,12 +2,6 @@
 @namespace GameJam.UI
 @inherits Panel
 
-<style>
-	Actor {
-		position: relative;
-	}
-</style>
-
 @code {
 
 	private Vector2? _position;
@@ -35,8 +29,8 @@
 
 	private Vector2 GetInitialPosition() => ModifyInitialPosition( new Vector2
 	{
-		x = Box.Rect.Left * ScaleFromScreen,
-		y = Box.Rect.Top * -ScaleFromScreen
+		x = (Box.Rect.Left - Parent.Box.Rect.Left) * ScaleFromScreen,
+		y = (Box.Rect.Top - Parent.Box.Rect.Top) * -ScaleFromScreen
 	} );
 
 	protected virtual Vector2 ModifyInitialPosition( Vector2 position ) => position;
