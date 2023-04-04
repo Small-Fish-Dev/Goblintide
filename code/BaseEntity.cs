@@ -64,6 +64,8 @@ public partial class BaseEntity : AnimatedEntity
 
 	public virtual float GetHeight()
 	{
+		if ( !PhysicsBody.IsValid () ) return 0;
+
 		var bounds = PhysicsBody.GetBounds();
 		
 		return bounds.Maxs.z - bounds.Mins.z;

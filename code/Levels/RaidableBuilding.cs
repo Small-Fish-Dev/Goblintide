@@ -17,6 +17,7 @@ public partial class RaidableBuilding : ModelEntity
 	public BaseCollectable CollectableInside { get; set; }
 	public BaseProp Door { get; set; }
 	public Vector3 DoorPosition { get; set; }
+	public Particles FireParticle { get; set; }
 
 	public override void Spawn()
 	{
@@ -31,6 +32,13 @@ public partial class RaidableBuilding : ModelEntity
 		Tags.Add( "Solid" );
 		Tags.Add( "Pushable" );
 
+		if ( Children.Count > 0 )
+			if ( Children.First() is BaseProp prop )
+			{
+				Door = prop;
+				DoorPosition = Door.Position;
+			}
+
 		if ( CollectableInsideAndProbability.Count() > 0 )
 		{
 			CollectableInside = BaseCollectable.FromPrefab( WeightedList.RandomKey( CollectableInsideAndProbability ) );
@@ -41,13 +49,6 @@ public partial class RaidableBuilding : ModelEntity
 			CollectableInside.Value = CollectableInside.Type == Collectable.Woman ? 1 : Game.Random.Int( (int)LootAmount.x, (int)LootAmount.y );
 		}
 
-
-		if ( Children.Count > 0 )
-			if ( Children.First() is BaseProp prop )
-			{
-				Door = prop;
-				DoorPosition = Door.Position;
-			}
 	}
 
 	public override void OnNewModel( Model model )
@@ -66,25 +67,36 @@ public partial class RaidableBuilding : ModelEntity
 		navblocker.SetParent( this );
 	}
 
+	protected override void OnDestroy()
+	{
+		FireParticle?.Destroy();
+		base.OnDestroy();
+	}
+
 	[Event.Tick.Server]
 	public void ReleaseLoot()
 	{
-		if ( Door.IsValid() && CollectableInside.IsValid() )
+		if ( Door.IsValid() && CollectableInside.IsValid() && CollectableInside.Locked )
 		{
 			CollectableInside.Position = Position;
 			CollectableInside.SetParent( this );
 		}
-		if ( CollectableInside.IsValid() && CollectableInside.Type == Collectable.Woman ) // Idk why they just fly away otherwise??????
+		if ( CollectableInside.IsValid() && CollectableInside.Type == Collectable.Woman && CollectableInside.Locked ) // Idk why they just fly away otherwise??????
 		{
 			CollectableInside.Position = Position;
 			CollectableInside.SetParent( this );
 		}
-		if ( !Door.IsValid() && CollectableInside.IsValid() && CollectableInside.Locked ) //TODO SPAWN FIRE
+
+		if ( !Door.IsValid() && CollectableInside.IsValid() && CollectableInside.Locked )
 		{
 			CollectableInside.SetParent( null );
 			CollectableInside.Locked = false;
 			CollectableInside.PhysicsEnabled = true;
 			CollectableInside.Position = Transform.PointToWorld( DoorPosition ) + Vector3.Up * 20f;
+
+			FireParticle?.Destroy();
+			FireParticle = Particles.Create( "particles/fire.vpcf", Position );
+			FireParticle.Set( "Size", 250f );
 		}
 	}
 
