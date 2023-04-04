@@ -14,8 +14,6 @@ public partial class Lord : BaseCharacter
 	public override float CollisionHeight { get; set; } = 40f;
 	public override bool BlockNav { get; set; } = true;
 
-	[BindComponent] public EnergyComponent Energy { get; }
-
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -32,8 +30,6 @@ public partial class Lord : BaseCharacter
 		Tags.Add( "Player" );
 		Tags.Add( "Pushable" );
 		Tags.Add( Faction.ToString() );
-
-		Components.Create<EnergyComponent>();
 
 		// Add obscured glow.
 		var glow = Components.GetOrCreate<Glow>();
@@ -82,7 +78,6 @@ public partial class Lord : BaseCharacter
 			var lord = (Lord)Game.LocalPawn;
 			Debug.Value( "Faction", lord.Faction );
 			Debug.Value( "Hit Points", lord.HitPoints );
-			Debug.Value( "Energy", lord.Energy.Value );
 		}, ShowLordInfo );
 	}
 }

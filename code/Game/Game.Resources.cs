@@ -51,8 +51,7 @@ public partial class GameMgr
 		get => Instance.totalEnergy;
 		set
 		{
-			LastEnergyUpdate = DateTime.UtcNow;
-			Instance.totalEnergy = value;
+			Instance.totalEnergy = Math.Clamp( value, 0, MaxEnergy );
 		}
 	}
 	public static float MaxEnergy
@@ -83,7 +82,7 @@ public partial class GameMgr
 	[Net] private int totalGold { get; set; } = 0;
 	[Net] private int totalFood { get; set; } = 0;
 	[Net] private int totalWomen { get; set; } = 0;
-	[Net] private float totalEnergy { get; set; } = 30;
+	[Net] private float totalEnergy { get; set; } = 10;
 	[Net] private float maxEnergy { get; set; } = 30; // Default value = 30
 	[Net] private float energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
 	[Net] private DateTime lastEnergyUpdate { get; set; } = DateTime.UtcNow;
@@ -91,7 +90,20 @@ public partial class GameMgr
 	[Event.Tick.Server]
 	public void CalculateEnergy()
 	{
-		TotalEnergy = Math.Clamp( TotalEnergy + EnergyRechargeRate * Time.Delta, 0, MaxEnergy );
+		TotalEnergy += energyRechargeRate * Time.Delta;
+		LastEnergyUpdate = DateTime.UtcNow;
+		Log.Info( TotalEnergy );
+	}
+
+	/// <summary>
+	/// Make sure to call this after LastEnergyUpdate has been correctly set
+	/// </summary>
+	public static void SetEnergyFromLastEnergyDate()
+	{
+		var currentTime = DateTime.UtcNow;
+		var difference = (currentTime - LastEnergyUpdate).TotalSeconds;
+		TotalEnergy += (float)difference * EnergyRechargeRate;
+		LastEnergyUpdate = DateTime.UtcNow;
 	}
 
 	public static void GoblinArmyEnabled( bool enabled )
