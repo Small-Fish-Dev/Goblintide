@@ -43,6 +43,9 @@ public partial class VillageState : GameState
 
 	public static bool TrySpawnStructure( BuildingEntry entry )
 	{
+		if ( !Structures.Contains( entry ) )
+			Structures.Add( entry );
+
 		if ( instance == null )
 			return false;
 
@@ -57,8 +60,6 @@ public partial class VillageState : GameState
 		structure.Rotation = Rotation.FromYaw( rotation.Yaw() );
 		structure.Entry = entry;
 
-		Structures.Add( structure.Entry );
-		
 		return true;
 	}
 
