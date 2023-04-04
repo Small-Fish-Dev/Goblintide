@@ -32,11 +32,8 @@ public class PlayerView : ScenePanel
 
 		if ( !_animated )
 		{
-			var main = Sandbox.Camera.Main;
-
 			var playerOffset = Vector3.Down * 20;
-			var cameraOffset = Vector3.Up * 20;
-			var distance = 130;
+			const int distance = 130;
 			
 			var a = Lord.Self.EyePosition;
 			a += Model.Rotation.Forward * distance;
