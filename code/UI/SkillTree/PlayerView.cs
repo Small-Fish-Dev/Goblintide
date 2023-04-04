@@ -44,7 +44,7 @@ public class PlayerView : ScenePanel
 			Camera.Position = a;
 			Camera.Rotation = Rotation.LookAt( b - a );
 			Camera.FieldOfView = 20;
-			Camera.AntiAliasing = true;
+			Camera.AntiAliasing = false;
 		}
 
 		Model.CurrentSequence.Time = Lord.Self.CurrentSequence.Time;
