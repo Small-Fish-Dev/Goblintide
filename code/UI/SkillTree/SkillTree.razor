@@ -7,11 +7,8 @@
 
 <root>
 	<div class="backdrop">
-		<div class="gradient"></div>
 		<div class="gradient2"></div>
-		<div class="container" @ref=Container>
-
-		</div>
+		<div class="container" @ref=Container></div>
 	</div>
 </root>
 
@@ -19,48 +16,15 @@
 
 	public UpgradeActor SelectedActor { get; set; }
 
-	public void MoveActor( Vector2 direction )
-	{
-		if ( SelectedActor == null ) return;
-
-		var a = SelectedActor.Box.Rect.Center + direction;
-
-		var max = 999.0f;
-		UpgradeActor result = null;
-
-		foreach ( var actor in Descendants.OfType<UpgradeActor>() )
-		{
-			if ( actor == SelectedActor ) continue;
-
-			var b = actor.Box.Rect.Center;
-
-			var dist = a.Distance( b );
-
-			if ( !(dist < max) ) continue;
-
-			result = actor;
-			max = dist;
-		}
-
-		if ( result != null ) return;
-
-		Select( result );
-	}
-
-	private void Deselect()
-	{
-		SelectedActor?.SetClass( "selected", false );
-	}
-
 	private void Select( UpgradeActor actor )
 	{
-		Deselect();
+		SelectedActor?.SetClass( "selected", false );
 
 		SelectedActor = actor;
 
 		SelectedActor.SetClass( "selected", true );
 	}
-
+	
 	public Panel Container
 	{
 		get => null;
@@ -92,9 +56,9 @@
 				actor.Dependencies.Add( dependencyActor );
 			}
 		}
-		
-		// Set initial selected actor
-		Select(actors.FirstOrDefault());
+
+	// Set initial selected actor
+		Select( actors.FirstOrDefault() );
 	}
 
 }
