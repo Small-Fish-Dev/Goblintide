@@ -88,6 +88,17 @@
 							},
 						]
 					},
+					{
+						_class = "MaterialGroup"
+						name = "old"
+						remaps = 
+						[
+							{
+								from = "models/goblin/materials/goblin.vmat"
+								to = "models/goblin/materials/goblin_old.vmat"
+							},
+						]
+					},
 				]
 			},
 			{
