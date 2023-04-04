@@ -17,6 +17,17 @@
 		Next();
 	}
 
+	private void LoadTexture( string src )
+	{
+		var texture = Texture.Load( FileSystem.Mounted, src );
+		if ( texture == null )
+		{
+			Log.Warning( $"Couldn't load texture @ {src}" );
+			return;
+		}
+		AddTexture( texture );
+	}
+
 	public override void Tick()
 	{
 		base.Tick();
@@ -45,13 +56,25 @@
 				_changeDelay = value.ToFloat( 1 );
 				break;
 			case "src":
-				var texture = Texture.Load( FileSystem.Mounted, value );
-				if ( texture == null )
+				var fs = FileSystem.Mounted;
+				if ( fs.DirectoryExists( value ) )
 				{
-					Log.Warning( $"Couldn't load texture @ {value}" );
-					return;
+					// src is a directory
+					foreach ( var file in fs.FindFile( value, "*.png" ) )
+					{
+						LoadTexture( $"{value}/{file}" );
+					}
 				}
-				AddTexture( texture );
+				else if ( fs.FileExists( value ) )
+				{
+					// src is a file
+					LoadTexture( value );
+				}
+				{
+					// src not found
+					Log.Warning( $"Texture file / folder @ {value} not found" );
+				}
+
 				break;
 		}
 	}
