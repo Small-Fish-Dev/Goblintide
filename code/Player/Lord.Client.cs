@@ -119,11 +119,6 @@ public partial class Lord
 
 	private void UpdatePostOffset()
 	{
-		_proposedPostOffset = 0;
-
-		if ( SkillTree.IsOpen )
-			return;
-
 		_proposedPostOffset = new Vector2( 15, 1 );
 	}
 
