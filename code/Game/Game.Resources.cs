@@ -46,10 +46,53 @@ public partial class GameMgr
 			Instance.totalWomen = value;
 		}
 	}
-	[Net] private int totalWood { get; set; }
-	[Net] private int totalGold { get; set; }
-	[Net] private int totalFood { get; set; }
-	[Net] private int totalWomen { get; set; }
+	public static float TotalEnergy
+	{
+		get => Instance.totalEnergy;
+		set
+		{
+			LastEnergyUpdate = DateTime.UtcNow;
+			Instance.totalEnergy = value;
+		}
+	}
+	public static float MaxEnergy
+	{
+		get => Instance.maxEnergy;
+		set
+		{
+			Instance.maxEnergy = value;
+		}
+	}
+	public static float EnergyRechargeRate
+	{
+		get => Instance.energyRechargeRate;
+		set
+		{
+			Instance.energyRechargeRate = value;
+		}
+	}
+	public static DateTime LastEnergyUpdate
+	{
+		get => Instance.lastEnergyUpdate;
+		set
+		{
+			Instance.lastEnergyUpdate = value;
+		}
+	}
+	[Net] private int totalWood { get; set; } = 0;
+	[Net] private int totalGold { get; set; } = 0;
+	[Net] private int totalFood { get; set; } = 0;
+	[Net] private int totalWomen { get; set; } = 0;
+	[Net] private float totalEnergy { get; set; } = 0;
+	[Net] private float maxEnergy { get; set; } = 30; // Default value
+	[Net] private float energyRechargeRate { get; set; } = 1; // Energy per second
+	[Net] private DateTime lastEnergyUpdate { get; set; } = DateTime.UtcNow;
+
+	[Event.Tick.Server]
+	public void CalculateEnergy()
+	{
+		TotalEnergy += 
+	}
 
 	public static void GoblinArmyEnabled( bool enabled )
 	{
