@@ -1,0 +1,19 @@
+﻿@using GameJam.UpgradeSystem
+@using Sandbox.UI;
+
+@namespace GameJam.UI
+@inherits Actor
+@attribute [StyleSheet( "/UI/SkillTree/UpgradeInfoActor.scss" )]
+
+<root>
+	<AnimatedImage delay="0.7" src="textures/tests/msgbox"></AnimatedImage>
+	<div class="content">
+		test :3
+	</div>
+</root>
+
+@code {
+
+	protected override float WobbleAmount => 0;
+
+}
