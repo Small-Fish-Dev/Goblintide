@@ -29,12 +29,12 @@ public partial class SmartPanel<T> : Panel where T : Panel, new()
 
 	#region s&box Panel Input -> PanelHost
 
-	private struct InputTranslator<T>
+	private struct InputTranslator<TX>
 	{
-		public readonly T[] From;
+		public readonly TX[] From;
 		public readonly Action To;
 
-		public InputTranslator( T[] from, Action to )
+		public InputTranslator( TX[] from, Action to )
 		{
 			From = from;
 			To = to;
@@ -76,7 +76,7 @@ public partial class SmartPanel<T> : Panel where T : Panel, new()
 	private static readonly bool[] CiStatus = new bool[ActionCount];
 
 	[Event.Client.BuildInput]
-	private static void BuildInput()
+	private void BuildInput()
 	{
 		var vec = Input.AnalogMove;
 		const float threshold = 0.7f;
@@ -112,7 +112,7 @@ public partial class SmartPanel<T> : Panel where T : Panel, new()
 			if ( newStatus[i] == CiStatus[i] )
 				continue;
 
-			Instance.OnInputEvent( new InputEvent( (Action)i ).WithPressed( newStatus[i] ) );
+			OnInputEvent( new InputEvent( (Action)i ).WithPressed( newStatus[i] ) );
 
 			CiStatus[i] = newStatus[i];
 		}
