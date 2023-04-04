@@ -2,13 +2,13 @@
 
 namespace GameJam;
 
-public class SingletonPanel<T> : Panel where T : Panel, new()
+public partial class SmartPanel<T> : Panel where T : Panel, new()
 {
-	public static SingletonPanel<T> Instance { get; protected set; }
+	public static SmartPanel<T> Instance { get; protected set; }
 
 	public static bool IsOpen => Instance != null;
 
-	public SingletonPanel()
+	public SmartPanel()
 	{
 		Instance?.Delete( true );
 		Instance = this;

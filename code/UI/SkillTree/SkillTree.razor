@@ -2,21 +2,64 @@
 @using Sandbox.UI;
 
 @namespace GameJam.UI
-@inherits SingletonPanel<SkillTree>
+@inherits SmartPanel<SkillTree>
 @attribute [StyleSheet( "/UI/SkillTree/SkillTree.scss" )]
 
 <root>
 	<div class="backdrop">
 		<div class="gradient"></div>
 		<div class="gradient2"></div>
-		<PlayerView></PlayerView>
 		<div class="container" @ref=Container>
-			
+
 		</div>
 	</div>
 </root>
 
 @code {
+
+	public UpgradeActor SelectedActor { get; set; }
+
+	public void MoveActor( Vector2 direction )
+	{
+		if ( SelectedActor == null ) return;
+
+		var a = SelectedActor.Box.Rect.Center + direction;
+
+		var max = 999.0f;
+		UpgradeActor result = null;
+
+		foreach ( var actor in Descendants.OfType<UpgradeActor>() )
+		{
+			if ( actor == SelectedActor ) continue;
+
+			var b = actor.Box.Rect.Center;
+
+			var dist = a.Distance( b );
+
+			if ( !(dist < max) ) continue;
+
+			result = actor;
+			max = dist;
+		}
+
+		if ( result != null ) return;
+
+		Select( result );
+	}
+
+	private void Deselect()
+	{
+		SelectedActor?.SetClass( "selected", false );
+	}
+
+	private void Select( UpgradeActor actor )
+	{
+		Deselect();
+
+		SelectedActor = actor;
+
+		SelectedActor.SetClass( "selected", true );
+	}
 
 	public Panel Container
 	{
@@ -49,6 +92,9 @@
 				actor.Dependencies.Add( dependencyActor );
 			}
 		}
+		
+		// Set initial selected actor
+		Select(actors.FirstOrDefault());
 	}
 
 }

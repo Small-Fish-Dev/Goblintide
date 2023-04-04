@@ -2,12 +2,8 @@
 
 namespace GameJam;
 
-public class InputPanel : Panel
+public partial class SmartPanel<T> : Panel where T : Panel, new()
 {
-	private static readonly List<InputPanel> Instances = new();
-
-	public InputPanel() => Instances.Add( this );
-
 	public enum Action
 	{
 		Up, Down, Left, Right,
@@ -116,8 +112,7 @@ public class InputPanel : Panel
 			if ( newStatus[i] == CiStatus[i] )
 				continue;
 
-			foreach ( var instance in Instances )
-				instance.OnInputEvent( new InputEvent( (Action)i ).WithPressed( newStatus[i] ) );
+			Instance.OnInputEvent( new InputEvent( (Action)i ).WithPressed( newStatus[i] ) );
 
 			CiStatus[i] = newStatus[i];
 		}

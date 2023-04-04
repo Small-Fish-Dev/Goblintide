@@ -9,6 +9,10 @@
 	justify-content: center;
 	align-items: center;
 
+	&.selected {
+		background-color: red;
+	}
+	
 	.outer {
 		z-index: 1;
 		
