@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sandbox.UI;
+using System;
 using System.Collections.Generic;
 using static Sandbox.CitizenAnimationHelper;
 
@@ -75,7 +76,15 @@ public partial class Town : BaseNetworkable
 		{ "models/trees/shitty_pine_tree.vmdl", 1f },
 	};
 
-	public Town() { }
+	public Town() 
+	{
+		Event.Register( this );
+	}
+
+	~Town()
+	{
+		Event.Unregister( this );
+	}
 
 	public float NoiseValue( float x = 0f, float y = 0f, float scale = 10f )
 	{
@@ -293,6 +302,8 @@ public partial class Town : BaseNetworkable
 			fence.Delete();
 		}
 
+		TownFences.Clear();
+
 		var townDiameter = townWidth * 2 + 400f;
 		var perimeter = 2 * townDiameter * Math.PI;
 		var bestFence = townWidth >= 1200f ? PlaceableFences.First() : PlaceableFences.Last();
@@ -357,6 +368,34 @@ public partial class Town : BaseNetworkable
 		GameMgr.BroadcastFences( position, GameMgr.CurrentTown.TownRadius );
 		GameMgr.BroadcastTrees( position, GameMgr.CurrentTown.TownRadius );
 		GameMgr.CurrentTown.Generated = true;
+	}
+
+	TimeUntil checkFences { get; set; } = 0.2f;
+
+	[Event.Client.Frame]
+	public void CheckFences()
+	{
+		if ( checkFences )
+		{
+			List<WallObject> toBreak = new();
+			foreach ( var fence in TownFences )
+			{
+				var trace = Trace.Box( WallObject.Box, fence.Transform.PointToWorld( Vector3.Left * fence.Length / 2 ), fence.Transform.PointToWorld( Vector3.Right * fence.Length / 2 ) )
+					.EntitiesOnly()
+					.WithTag( "Goblins" )
+					.Run();
+
+				if ( trace.Hit )
+					toBreak.Add( fence );
+			}
+
+			for( int i = 0; i < toBreak.Count; i++ )
+			{
+				toBreak.First().Break();
+			}
+
+			checkFences = 0.2f;
+		}
 	}
 
 	public void DeleteTown()
