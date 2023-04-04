@@ -34,11 +34,18 @@ public class PlayerView : ScenePanel
 		{
 			var main = Sandbox.Camera.Main;
 
-			var position = Lord.Self.EyePosition;
-			position += Model.Rotation.Forward * 55;
-
-			Camera.Position = position;
-			Camera.Rotation = Rotation.LookAt( Lord.Self.EyePosition - position );
+			var playerOffset = Vector3.Down * 20;
+			var cameraOffset = Vector3.Up * 20;
+			var distance = 130;
+			
+			var a = Lord.Self.EyePosition;
+			a += Model.Rotation.Forward * distance;
+	
+			var b = Lord.Self.EyePosition;
+			b += playerOffset;
+	
+			Camera.Position = a;
+			Camera.Rotation = Rotation.LookAt( b - a );
 			Camera.FieldOfView = 20;
 			Camera.AntiAliasing = true;
 		}

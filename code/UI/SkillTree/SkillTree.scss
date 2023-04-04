@@ -7,48 +7,66 @@
 	pointer-events: all;
 
 	/* Parts */
-
-	.side {
-		/* Side panel */
+	.side-outer {
+		/* Side panel outer part */
 		position: absolute;
 		z-index: 1;
 		
-		width: 450px;
+		width: 480px;
 		height: 100%;
 		
+		transition: all 0.3s ease-in-out;
+
 		background-color: black;
 		
-		transition: all 0.3s ease-in-out;
-		
-		PlayerView {
-			width: 100%;
-			height: 100%;
-			
-			filter: invert(100);
-		}
+		justify-content: flex-end;
 		
 		&:intro {
 			left: -50%;
+		}
+		
+		.side-inner {
+			/* Inner part of the side panel - so the content and not the waves */
+			position: absolute;
+			z-index: 2;
+			
+			width: 100%;
+			height: 100%;
+			
+			PlayerView {
+				width: 100%;
+				height: 100%;
+
+				filter: invert(100);
+			}
+		}
+		
+		.side-waves {
+			position: absolute;
+			z-index: 3;
+			
+			width: 30%;
+			height: 100%;
 		}
 	}
 
 	.background {
 		/* Background - slides up and contains main */
 		position: absolute;
-		
+
 		width: 100%;
 		height: 100%;
-		
+
 		background-color: #0094FF;
-		
+
 		transition: all 0.3s ease-in-out;
 
 		&:intro {
 			opacity: 0;
 		}
-		
+
 		.main {
-			
+
 		}
 	}
 

@@ -6,8 +6,13 @@
 @attribute [StyleSheet( "/UI/SkillTree/SkillTree.scss" )]
 
 <root>
-	<div class="side">
-		<PlayerView></PlayerView>
+	<div class="side-outer">
+		<div class="side-inner">
+			<PlayerView></PlayerView>
+		</div>
+		<WavePanel class="side-waves">
+			
+		</WavePanel>
 	</div>
 	<div class="background">
 		<div class="main" @ref=MainPanel></div>

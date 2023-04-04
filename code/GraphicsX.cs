@@ -19,9 +19,9 @@ public static class GraphicsX
 		AddVertex( in vertex );
 	}
 
-	private static void MeshStart() => VertexList.Clear();
+	public static void MeshStart() => VertexList.Clear();
 
-	private static void MeshEnd( RenderAttributes attr = null )
+	public static void MeshEnd( RenderAttributes attr = null )
 	{
 		var attributes = attr ?? new RenderAttributes();
 
@@ -65,6 +65,6 @@ public static class GraphicsX
 		if ( handleMesh ) MeshEnd();
 	}
 
-	public static void Line( in Vector2 startPosition, in Vector2 endPosition, in float thickness, in Color color ) =>
-		Line( in thickness, in startPosition, in thickness, in endPosition, in color );
+	public static void Line( in Vector2 startPosition, in Vector2 endPosition, in float thickness, in Color color, in bool handleMesh = true) =>
+		Line( in thickness, in startPosition, in thickness, in endPosition, in color, handleMesh );
 }
