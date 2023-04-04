@@ -160,6 +160,9 @@ public partial class BaseNPC : BaseCharacter
 		Drop( Armor );
 		Drop( Weapon );
 
+		var position = Position + GetHeight() / 2f;
+		Particles.Create( "particles/impact.flesh-big.vpcf", position );
+
 		if ( Stealing.IsValid() )
 		{
 			Stealing.SetParent( null );
@@ -261,8 +264,12 @@ public partial class BaseNPC : BaseCharacter
 
 	public override void Damage( float amount, BaseCharacter attacker )
 	{
-		base.Damage( amount, attacker );
+		var direction = (attacker.Position - Position).Normal;
+		var position = Position + GetHeight() / 2f + direction * GetWidth();
+		Particles.Create( "particles/impact.flesh.vpcf", position );
+
 		PlayHurtSound();
+		base.Damage( amount, attacker );
 	}
 
 	TimeUntil nextCheapThink = 0f;

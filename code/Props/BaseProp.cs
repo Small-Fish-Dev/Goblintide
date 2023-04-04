@@ -74,6 +74,15 @@ public partial class BaseProp : BaseEntity
 		base.Kill();
 	}
 
+	public override void Damage( float amount, BaseCharacter attacker )
+	{
+		var direction = (attacker.Position - Position).Normal;
+		var position = Position + GetHeight() / 2f + direction * GetWidth();
+		Particles.Create( "particles/impact.wood.vpcf", position );
+
+		base.Damage( amount, attacker );
+	}
+
 	public static BaseProp FromPrefab( string prefabName )
 	{
 		if ( PrefabLibrary.TrySpawn<BaseProp>( prefabName, out var prop ) )
