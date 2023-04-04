@@ -77,6 +77,7 @@ public partial class BaseNPC
 	{
 		var validEntities = Entity.All
 			.OfType<BaseCharacter>()
+			.Where( x => !x.Disabled )
 			.Where( x => x.Faction != FactionType.None && x.Faction != Faction )
 			.Where( x => x.TotalAttackers < 3 );
 

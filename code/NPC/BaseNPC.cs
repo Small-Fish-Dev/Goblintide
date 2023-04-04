@@ -277,6 +277,7 @@ public partial class BaseNPC : BaseCharacter
 	[Event.Tick.Server]
 	public virtual void Think()
 	{
+		if ( Disabled ) return;
 		ComputeMotion();
 		ComputeNavigation();
 

@@ -103,6 +103,33 @@ public partial class GameMgr : GameManager
 		WorldMapHost.Start();
 	}
 
+	public static void GoblinArmyEnabled( bool enabled )
+	{
+		foreach ( var goblin in GoblinArmy )
+		{
+			goblin.Disabled = !enabled;
+		}
+	}
+
+	/// <summary>
+	/// InsideTown = Place them inside the town or in the forest?
+	/// </summary>
+	/// <param name="insideTown"></param>
+	public static void PlaceGoblinArmy( bool insideTown )
+	{
+		var currentTown = GameMgr.CurrentTown;
+		if ( currentTown == null ) return;
+		var clearingDistance = currentTown.TownRadius + 600f;
+		var forestSize = clearingDistance + 1000f;
+
+		foreach ( var goblin in GoblinArmy )
+		{
+			var distance = insideTown ? Game.Random.Float( -currentTown.TownRadius, currentTown.TownRadius ) : Game.Random.Float( clearingDistance, forestSize );
+			var newPosition = currentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
+			goblin.Position = newPosition;
+		}
+	}
+
 	public static void AddResource( Collectable type, int amount )
 	{
 		if ( type == Collectable.Wood )
