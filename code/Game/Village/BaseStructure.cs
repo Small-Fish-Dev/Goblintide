@@ -3,6 +3,15 @@
 [Prefab]
 public partial class BaseStructure : ModelEntity
 {
+	[Prefab, Net]
+	public string Title { get; set; }
+
+	[Prefab, Net]
+	public int Wood { get; set; }
+
+	[Prefab, Net]
+	public int Women { get; set; }
+
 	public BuildingEntry Entry { get; set; }
 
 	public override void Spawn()

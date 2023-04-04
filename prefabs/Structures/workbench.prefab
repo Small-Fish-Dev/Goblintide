@@ -3,14 +3,26 @@
   "Name": null,
   "Description": null,
   "Root": {
-    "Guid": "b8da4156-6b8b-4748-9c1d-8cf314c682d5",
+    "Guid": "66d4713a-a5ca-4a59-bd9e-14b7c042a55f",
     "Class": "BaseStructure",
     "Entities": [],
     "Components": [],
     "Keys": {
+      "Title": {
+        "Type": "String",
+        "Value": "\u0022Workbench\u0022"
+      },
+      "Wood": {
+        "Type": "Int32",
+        "Value": "10"
+      },
+      "Women": {
+        "Type": "Int32",
+        "Value": "0"
+      },
       "Model": {
         "Type": "Model",
-        "Value": "\u0022models/houses/tent_b.vmdl\u0022"
+        "Value": "\u0022models/stand/stand.vmdl\u0022"
       },
       "_name": {
         "Value": "\u0022Root Entity\u0022"
@@ -24,21 +36,7 @@
       "_scale": {
         "Value": "1"
       },
-      "_tags": {
-        "Value": "\u0022\u0022"
-      },
-      "Title": {
-        "Type": "String",
-        "Value": "\u0022Tent\u0022"
-      },
-      "Wood": {
-        "Type": "Int32",
-        "Value": "20"
-      },
-      "Women": {
-        "Type": "Int32",
-        "Value": "5"
-      }
+      "_tags": {}
     }
   }
 }
