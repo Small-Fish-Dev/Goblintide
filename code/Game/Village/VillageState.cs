@@ -28,6 +28,10 @@ public partial class VillageState : GameState
 			hud = HUD.Instance.AddChild<VillageHUD>();
 			return;
 		}
+		else
+		{
+			Town.GenerateEmptyTown( 5 );
+		}
 	}
 
 	public override void Changed( GameState state )
