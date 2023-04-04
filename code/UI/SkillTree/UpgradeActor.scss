@@ -10,7 +10,7 @@
 	align-items: center;
 
 	&.selected {
-		background-color: red;
+		border: 2px solid black;
 	}
 
 	.outer {
