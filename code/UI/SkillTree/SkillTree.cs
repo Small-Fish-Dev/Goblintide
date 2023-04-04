@@ -7,7 +7,6 @@ public partial class SkillTree
 {
 	private void GenerateUpgrades( Panel panel )
 	{
-	
 		foreach ( var upgrade in Upgrade.All )
 		{
 			var actor = new UpgradeActor( upgrade );

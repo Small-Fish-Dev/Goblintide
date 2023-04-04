@@ -6,18 +6,13 @@
 @attribute [StyleSheet( "/UI/SkillTree/UpgradeActor.scss" )]
 
 <root>
-	<div class="outer" @ref=Outer></div>
-	<div class="inner">
-		<img src="@Upgrade.Texture" />
-	</div>
+	<img src="@Upgrade.Texture" />
 </root>
 
 @code {
 
 	public Upgrade Upgrade { get; }
-
-	private Panel Outer { get; set; }
-
+	
 	private bool Available => Upgrade.Cost <= 15 && !Purchased && Dependencies.All( v => v.Purchased );
 	private bool Purchased => Lord.Self.HasUpgrade( Upgrade.Identifier );
 	private bool Expensive => Upgrade.Cost > 15 && !Purchased;
@@ -33,9 +28,9 @@
 	{
 		base.Tick();
 
-		Outer.SetClass( "available", Available );
-		Outer.SetClass( "purchased", Purchased );
-		Outer.SetClass( "expensive", Expensive );
+		SetClass( "available", Available );
+		SetClass( "purchased", Purchased );
+		SetClass( "expensive", Expensive );
 	}
 
 }
