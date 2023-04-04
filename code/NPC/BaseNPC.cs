@@ -184,6 +184,13 @@ public partial class BaseNPC : BaseCharacter
 		base.Kill();
 	}
 
+	protected override void OnDestroy()
+	{
+		if ( Faction == FactionType.Goblins )
+			GameMgr.GoblinArmy.Remove( this );
+		base.OnDestroy();
+	}
+
 	public static BaseNPC FromPrefab( string prefabName )
 	{
 		if ( PrefabLibrary.TrySpawn<BaseNPC>( prefabName, out var npc ) )

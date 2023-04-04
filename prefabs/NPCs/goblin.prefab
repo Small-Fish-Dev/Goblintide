@@ -22,6 +22,16 @@
             "Value": "[]"
           }
         }
+      },
+      {
+        "Guid": "a7546767-d394-41a5-a0a3-12491e575b1f",
+        "Class": "RandomMaterialGroupComponent",
+        "Keys": {
+          "_name": {
+            "Value": "\u0022RandomMaterialGroupComponent\u0022"
+          },
+          "_tags": {}
+        }
       }
     ],
     "Keys": {
