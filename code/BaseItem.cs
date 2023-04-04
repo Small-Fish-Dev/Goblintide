@@ -18,6 +18,7 @@ public partial class BaseItem : BaseEntity
 	[Prefab, Category( "Stats" )]
 	public ItemType Type { get; set; } = ItemType.None;
 	public bool Equipped = false;
+	public override bool BlockNav => false;
 
 	public override float GetWidth() => 20f;
 	public override float GetHeight() => 10f;
