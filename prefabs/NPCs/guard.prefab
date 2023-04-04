@@ -10,14 +10,31 @@
         "Guid": "0c2f9870-3ffd-49f3-94a6-b58398af89bf",
         "Class": "animated_entity",
         "Entities": [],
-        "Components": [],
+        "Components": [
+          {
+            "Guid": "8ab0af8d-e0cb-4f68-8562-47ba924ef8c5",
+            "Class": "RandomColorComponent",
+            "Keys": {
+              "ColorType": {
+                "Type": "ColorType",
+                "Value": "\u0022Shirts\u0022"
+              },
+              "_name": {
+                "Value": "\u0022RandomColorComponent\u0022"
+              },
+              "_tags": {
+                "Value": "[]"
+              }
+            }
+          }
+        ],
         "Keys": {
           "Model": {
             "Type": "Model",
             "Value": "\u0022models/clothes/peasant_trousers/peasant_trousers.vmdl\u0022"
           },
           "_name": {
-            "Value": "\u0022Untitled Entity\u0022"
+            "Value": "\u0022trousers\u0022"
           },
           "_localposition": {
             "Value": "\u00220,0,0\u0022"
@@ -34,6 +51,10 @@
           "_attachment": {
             "Type": "String",
             "Value": "\u0022_bonemerge\u0022"
+          },
+          "RenderColor": {
+            "Type": "Color",
+            "Value": "\u00221,1,1,1\u0022"
           }
         }
       },
@@ -41,14 +62,31 @@
         "Guid": "7ee0832e-0bb2-4099-853f-caab8164dd2d",
         "Class": "animated_entity",
         "Entities": [],
-        "Components": [],
+        "Components": [
+          {
+            "Guid": "c2f17338-c190-4f86-8bf9-7a83017744b9",
+            "Class": "RandomColorComponent",
+            "Keys": {
+              "_name": {
+                "Value": "\u0022RandomColorComponent\u0022"
+              },
+              "_tags": {
+                "Value": "[]"
+              },
+              "ColorType": {
+                "Type": "ColorType",
+                "Value": "\u0022Trousers\u0022"
+              }
+            }
+          }
+        ],
         "Keys": {
           "Model": {
             "Type": "Model",
             "Value": "\u0022models/clothes/guard_quilt_armor/quilt_armor.vmdl\u0022"
           },
           "_name": {
-            "Value": "\u0022Untitled Entity\u0022"
+            "Value": "\u0022armor\u0022"
           },
           "_localposition": {
             "Value": "\u00220,0,0\u0022"
@@ -129,68 +167,6 @@
             "Value": "\u0022_bonemerge\u0022"
           }
         }
-      },
-      {
-        "Guid": "ce605e7e-eaf6-4cd8-8ca2-bda743d69eb0",
-        "Class": "animated_entity",
-        "Entities": [],
-        "Components": [],
-        "Keys": {
-          "Model": {
-            "Type": "Model",
-            "Value": "\u0022models/citizen_clothes/hair/mutton_chops/models/mutton_chops.vmdl\u0022"
-          },
-          "_attachment": {
-            "Type": "String",
-            "Value": "\u0022_bonemerge\u0022"
-          },
-          "_name": {
-            "Value": "\u0022Untitled Entity\u0022"
-          },
-          "_localposition": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_localrotation": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_scale": {
-            "Value": "1"
-          },
-          "_tags": {
-            "Value": "\u0022\u0022"
-          }
-        }
-      },
-      {
-        "Guid": "fb63ec2d-2098-4483-9c38-07771a8694a3",
-        "Class": "animated_entity",
-        "Entities": [],
-        "Components": [],
-        "Keys": {
-          "Model": {
-            "Type": "Model",
-            "Value": "\u0022models/citizen_clothes/hair/eyebrows/models/eyebrows.vmdl\u0022"
-          },
-          "_attachment": {
-            "Type": "String",
-            "Value": "\u0022_bonemerge\u0022"
-          },
-          "_name": {
-            "Value": "\u0022Untitled Entity\u0022"
-          },
-          "_localposition": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_localrotation": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_scale": {
-            "Value": "1"
-          },
-          "_tags": {
-            "Value": "\u0022\u0022"
-          }
-        }
       }
     ],
     "Components": [
@@ -208,6 +184,46 @@
           "_tags": {
             "Value": "[]"
           }
+        }
+      },
+      {
+        "Guid": "558519e6-cefa-4b5a-9d90-30754bd595de",
+        "Class": "RandomMaterialGroupComponent",
+        "Keys": {
+          "_name": {
+            "Value": "\u0022RandomMaterialGroupComponent\u0022"
+          },
+          "_tags": {
+            "Value": "[]"
+          }
+        }
+      },
+      {
+        "Guid": "2c31a939-f05f-440d-8de8-4dd84142a4ac",
+        "Class": "RandomAccessoryComponent",
+        "Keys": {
+          "Type": {
+            "Type": "AccessoryType",
+            "Value": "\u0022Eyebrows\u0022"
+          },
+          "_name": {
+            "Value": "\u0022RandomAccessoryComponent\u0022"
+          },
+          "_tags": {}
+        }
+      },
+      {
+        "Guid": "ad7b6f30-f796-42dc-ac72-e74fd3318d00",
+        "Class": "RandomAccessoryComponent",
+        "Keys": {
+          "Type": {
+            "Type": "AccessoryType",
+            "Value": "\u0022FacialHair\u0022"
+          },
+          "_name": {
+            "Value": "\u0022RandomAccessoryComponent\u0022"
+          },
+          "_tags": {}
         }
       }
     ],

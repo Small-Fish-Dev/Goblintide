@@ -10,7 +10,20 @@
         "Guid": "6ef8dc0b-28e9-455a-85bd-b79517e8d4e3",
         "Class": "animated_entity",
         "Entities": [],
-        "Components": [],
+        "Components": [
+          {
+            "Guid": "ba53fcbb-e142-4f1c-916e-411c4f33c1f9",
+            "Class": "RandomColorComponent",
+            "Keys": {
+              "_name": {
+                "Value": "\u0022RandomColorComponent\u0022"
+              },
+              "_tags": {
+                "Value": "[]"
+              }
+            }
+          }
+        ],
         "Keys": {
           "Model": {
             "Type": "Model",
@@ -41,7 +54,20 @@
         "Guid": "74003ca1-6cc9-4ceb-83ec-efa610a349eb",
         "Class": "animated_entity",
         "Entities": [],
-        "Components": [],
+        "Components": [
+          {
+            "Guid": "0b906763-dcee-475d-9e9c-aed74727c46f",
+            "Class": "RandomColorComponent",
+            "Keys": {
+              "_name": {
+                "Value": "\u0022RandomColorComponent\u0022"
+              },
+              "_tags": {
+                "Value": "[]"
+              }
+            }
+          }
+        ],
         "Keys": {
           "Model": {
             "Type": "Model",
@@ -77,68 +103,6 @@
           "Model": {
             "Type": "Model",
             "Value": "\u0022models/clothes/peasant_shoes/peasant_shoes.vmdl\u0022"
-          },
-          "_attachment": {
-            "Type": "String",
-            "Value": "\u0022_bonemerge\u0022"
-          },
-          "_name": {
-            "Value": "\u0022Untitled Entity\u0022"
-          },
-          "_localposition": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_localrotation": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_scale": {
-            "Value": "1"
-          },
-          "_tags": {
-            "Value": "\u0022\u0022"
-          }
-        }
-      },
-      {
-        "Guid": "ddd3ebff-df26-4400-b99c-5ea884cb17c8",
-        "Class": "animated_entity",
-        "Entities": [],
-        "Components": [],
-        "Keys": {
-          "Model": {
-            "Type": "Model",
-            "Value": "\u0022models/citizen_clothes/hair/hair_tight_ponytail/models/hair_tight_ponytail_blonde.vmdl\u0022"
-          },
-          "_attachment": {
-            "Type": "String",
-            "Value": "\u0022_bonemerge\u0022"
-          },
-          "_name": {
-            "Value": "\u0022Untitled Entity\u0022"
-          },
-          "_localposition": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_localrotation": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_scale": {
-            "Value": "1"
-          },
-          "_tags": {
-            "Value": "\u0022\u0022"
-          }
-        }
-      },
-      {
-        "Guid": "61447c4c-3e93-455e-ace1-81386545c4a7",
-        "Class": "animated_entity",
-        "Entities": [],
-        "Components": [],
-        "Keys": {
-          "Model": {
-            "Type": "Model",
-            "Value": "\u0022models/citizen_clothes/hair/eyebrows/models/eyebrows.vmdl\u0022"
           },
           "_attachment": {
             "Type": "String",
@@ -208,6 +172,34 @@
           "_tags": {
             "Value": "[]"
           }
+        }
+      },
+      {
+        "Guid": "cbb58e20-bde3-40b5-9384-a5c4de05003b",
+        "Class": "RandomAccessoryComponent",
+        "Keys": {
+          "Type": {
+            "Type": "AccessoryType",
+            "Value": "\u0022FemaleHair\u0022"
+          },
+          "_name": {
+            "Value": "\u0022RandomAccessoryComponent\u0022"
+          },
+          "_tags": {}
+        }
+      },
+      {
+        "Guid": "5edd7ff5-d585-4056-bb82-bb5897aa36ed",
+        "Class": "RandomAccessoryComponent",
+        "Keys": {
+          "Type": {
+            "Type": "AccessoryType",
+            "Value": "\u0022Eyebrows\u0022"
+          },
+          "_name": {
+            "Value": "\u0022RandomAccessoryComponent\u0022"
+          },
+          "_tags": {}
         }
       }
     ],
