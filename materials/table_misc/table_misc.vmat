@@ -8,7 +8,7 @@ Layer0
 	F_AMBIENT_OCCLUSION_TEXTURE 1
 
 	//---- Ambient Occlusion ----
-	TextureAmbientOcclusion "materials/table_misc/table_misc_ao.png"
+	TextureAmbientOcclusion "materials/table_misc/table_misc_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
@@ -25,7 +25,7 @@ Layer0
 	g_flMetalness "0.000"
 
 	//---- Normal ----
-	TextureNormal "materials/table_misc/table_misc_normal.png"
+	TextureNormal "materials/table_misc/table_misc_normal.tga"
 
 	//---- Roughness ----
 	TextureRoughness "materials/table_misc/table_misc_rough.tga"
