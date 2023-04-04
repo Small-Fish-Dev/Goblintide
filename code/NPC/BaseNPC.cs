@@ -86,6 +86,7 @@ public partial class BaseNPC : BaseCharacter
 		Faction = DefaultFaction;
 		HitPoints = MaxHitPoints;
 		Tags.Add( "NPC" );
+		Tags.Add( Faction.ToString() );
 
 		CurrentBehaviour = BaseBehaviour;
 		CurrentSubBehaviour = BaseSubBehaviour;
