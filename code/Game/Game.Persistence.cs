@@ -36,9 +36,6 @@ partial class GameMgr
 			writer.Write( goblins.Length );
 			foreach ( var goblin in goblins )
 			{
-				if ( goblin == null || !goblin.IsValid )
-					continue;
-
 				writer.Write( goblin.Name.ToLower() );
 				writer.Write( goblin.DisplayName );
 			}
@@ -94,9 +91,9 @@ partial class GameMgr
 	}
 	#endregion
 
-	#region GameState Persistence
-	// TODO: Save WorldMap state & progress.
-	private static void gameStatePersist( object method )
+	#region Village Persistence
+	// TODO: Save all built structures and village size.
+	private static void villagePersist( object method )
 	{
 		// Handle saving first.
 		if ( method is BinaryWriter writer )
@@ -131,24 +128,6 @@ partial class GameMgr
 	}
 	#endregion
 
-	#region Village Persistence
-	// TODO: Save all built structures and village size.
-	private static void villagePersist( object method )
-	{
-		// Handle saving first.
-		if ( method is BinaryWriter writer )
-		{	
-			return;
-		}
-
-		// Handle loading save.
-		if ( method is BinaryReader reader )
-		{
-
-		}
-	}
-	#endregion
-
 	public static async Task<bool> GenerateSave( bool force = false )
 	{
 		if ( !ENABLE_SAVESYSTEM && !force )
@@ -162,11 +141,10 @@ partial class GameMgr
 		using var writer = new BinaryWriter( stream );
 
 		// Save all data.
-		gameStatePersist( writer );
 		lordPersist( writer );
-		goblinPersist( writer );
 		villagePersist( writer );
-
+		goblinPersist( writer );
+		
 		// Close the stream and finish.
 		stream.Close();
 
@@ -196,10 +174,9 @@ partial class GameMgr
 		try
 		{
 			// Read all data and act according to it.
-			gameStatePersist( reader );
 			lordPersist( reader );
-			goblinPersist( reader );
 			villagePersist( reader );
+			goblinPersist( reader );
 		}
 		catch ( Exception ex )
 		{
