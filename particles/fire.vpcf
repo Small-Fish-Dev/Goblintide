@@ -331,7 +331,7 @@
 			m_InputValue = 
 			{
 				m_nType = "PF_TYPE_NAMED_VALUE"
-				m_nMapType = "PF_MAP_TYPE_DIRECT"
+				m_nMapType = "PF_MAP_TYPE_MULT"
 				m_NamedValue = "Size"
 				m_flLiteralValue = 50.0
 				m_nControlPoint = 0
@@ -359,7 +359,7 @@
 				m_flNoiseImgPreviewScale = 1.0
 				m_bNoiseImgPreviewLive = true
 				m_nInputMode = "PF_INPUT_MODE_CLAMPED"
-				m_flMultFactor = 1.0
+				m_flMultFactor = 1.5
 				m_flInput0 = 0.0
 				m_flInput1 = 1.0
 				m_flOutput0 = 0.0
