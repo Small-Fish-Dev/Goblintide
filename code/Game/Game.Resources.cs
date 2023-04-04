@@ -46,7 +46,7 @@ public partial class GameMgr
 			Instance.totalWomen = value;
 		}
 	}
-	public static float TotalEnergy
+	public static double TotalEnergy
 	{
 		get => Instance.totalEnergy;
 		set
@@ -54,7 +54,7 @@ public partial class GameMgr
 			Instance.totalEnergy = Math.Clamp( value, 0, MaxEnergy );
 		}
 	}
-	public static float MaxEnergy
+	public static double MaxEnergy
 	{
 		get => Instance.maxEnergy;
 		set
@@ -62,7 +62,7 @@ public partial class GameMgr
 			Instance.maxEnergy = value;
 		}
 	}
-	public static float EnergyRechargeRate
+	public static double EnergyRechargeRate
 	{
 		get => Instance.energyRechargeRate;
 		set
@@ -70,7 +70,7 @@ public partial class GameMgr
 			Instance.energyRechargeRate = value;
 		}
 	}
-	public static DateTime LastEnergyUpdate
+	public static long LastEnergyUpdate
 	{
 		get => Instance.lastEnergyUpdate;
 		set
@@ -82,17 +82,16 @@ public partial class GameMgr
 	[Net] private int totalGold { get; set; } = 0;
 	[Net] private int totalFood { get; set; } = 0;
 	[Net] private int totalWomen { get; set; } = 0;
-	[Net] private float totalEnergy { get; set; } = 10;
-	[Net] private float maxEnergy { get; set; } = 30; // Default value = 30
-	[Net] private float energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
-	[Net] private DateTime lastEnergyUpdate { get; set; } = DateTime.UtcNow;
+	[Net] private double totalEnergy { get; set; } = 10;
+	[Net] private double maxEnergy { get; set; } = 30; // Default value = 30
+	[Net] private double energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
+	[Net] private long lastEnergyUpdate { get; set; } = DateTime.UtcNow.Ticks;
 
 	[Event.Tick.Server]
 	public void CalculateEnergy()
 	{
 		TotalEnergy += energyRechargeRate * Time.Delta;
-		LastEnergyUpdate = DateTime.UtcNow;
-		Log.Info( TotalEnergy );
+		LastEnergyUpdate = DateTime.UtcNow.Ticks / 10000000;
 	}
 
 	/// <summary>
@@ -100,10 +99,10 @@ public partial class GameMgr
 	/// </summary>
 	public static void SetEnergyFromLastEnergyDate()
 	{
-		var currentTime = DateTime.UtcNow;
-		var difference = (currentTime - LastEnergyUpdate).TotalSeconds;
+		var currentTime = DateTime.UtcNow.Ticks / 10000000;
+		var difference = (currentTime - LastEnergyUpdate);
 		TotalEnergy += (float)difference * EnergyRechargeRate;
-		LastEnergyUpdate = DateTime.UtcNow;
+		LastEnergyUpdate = currentTime;
 	}
 
 	public static void GoblinArmyEnabled( bool enabled )

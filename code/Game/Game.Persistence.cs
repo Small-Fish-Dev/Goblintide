@@ -23,7 +23,6 @@ partial class GameMgr
 	[Net] private bool loaded { get; set; } = false;
 
 	#region Goblin Persistence
-	// TODO: Save & load equipment.
 	private static void goblinPersist( object method )
 	{
 		// Handle saving first.
@@ -83,6 +82,36 @@ partial class GameMgr
 					}
 				}
 			}
+		}
+	}
+	#endregion
+
+	#region Resources Persistence
+	private static void resourcesPersist( object method )
+	{
+		if ( method is BinaryWriter writer )
+		{
+			writer.Write( TotalWood );
+			writer.Write( TotalGold );
+			writer.Write( TotalFood );
+			writer.Write( TotalWomen );
+			writer.Write( TotalEnergy );
+			writer.Write( EnergyRechargeRate );
+			writer.Write( LastEnergyUpdate );
+
+			return;
+		}
+
+		// Handle loading save.
+		if ( method is BinaryReader reader )
+		{
+			TotalWood = reader.ReadInt32();
+			TotalGold = reader.ReadInt32();
+			TotalFood = reader.ReadInt32();
+			TotalWomen = reader.ReadInt32();
+			TotalEnergy = reader.ReadDouble();
+			EnergyRechargeRate = reader.ReadDouble();
+			LastEnergyUpdate = reader.ReadInt64();
 		}
 	}
 	#endregion
@@ -167,6 +196,7 @@ partial class GameMgr
 
 		// Save all data.
 		lordPersist( writer );
+		resourcesPersist( writer );
 		villagePersist( writer );
 		goblinPersist( writer );
 		
@@ -200,6 +230,7 @@ partial class GameMgr
 		{
 			// Read all data and act according to it.
 			lordPersist( reader );
+			resourcesPersist( reader );
 			villagePersist( reader );
 			goblinPersist( reader );
 		}
@@ -209,6 +240,7 @@ partial class GameMgr
 			shouldDelete = true;
 		}
 
+		SetEnergyFromLastEnergyDate();
 		PlaceGoblinArmy( true );
 		
 		// Tell everyone that we're done loading.
