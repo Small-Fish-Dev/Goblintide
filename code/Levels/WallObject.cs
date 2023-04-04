@@ -14,7 +14,7 @@ public partial class WallObject : SceneObject
 
 	public void Break()
 	{
-
+		if ( !this.IsValid() ) return;
 		Sound.FromWorld( "sounds/physics/breaking/break_wood_plank.sound", Position );
 		Particles.Create( Length > 110f ? "particles/wood_shatter_large.vpcf" : "particles/wood_shatter.vpcf", Position );
 		Breakables.Break( Model, Position, Rotation, 1f, Color.White );

@@ -385,7 +385,7 @@ public partial class Town : BaseNetworkable
 					.WithTag( "Goblins" )
 					.Run();
 
-				if ( trace.Hit )
+				if ( trace.Hit && fence.IsValid() )
 					toBreak.Add( fence );
 			}
 
