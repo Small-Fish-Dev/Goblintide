@@ -38,6 +38,7 @@ partial class GameMgr
 			{
 				writer.Write( goblin.Name.ToLower() );
 				writer.Write( goblin.DisplayName );
+				writer.Write( goblin.GetMaterialGroup() ); 
 			}
 
 			return;
@@ -51,12 +52,14 @@ partial class GameMgr
 			{
 				var prefabName = reader.ReadString();
 				var name = reader.ReadString();
+				var materialGroup = reader.ReadInt32();
 				var npc = BaseNPC.FromPrefab( $"prefabs/npcs/{prefabName}.prefab" );
 				if ( npc == null || !npc.IsValid )
 					continue;
 
 				npc.Position = Lord.Position + Vector3.Random.WithZ( 0 ) * 100f;
 				npc.DisplayName = name;
+				npc.SetMaterialGroup( materialGroup );
 			}
 		}
 	}

@@ -1,6 +1,4 @@
 ﻿UpgradeActor {
-	position: absolute;
-	
 	width: 120px;
 	height: 120px;
 
@@ -8,7 +6,7 @@
 
 	justify-content: center;
 	align-items: center;
-
+	
 	&.selected {
 		border: 2px solid black;
 	}
@@ -20,17 +18,6 @@
 
 		width: 80px;
 		height: 80px;
-
-		/*transform: rotate(45deg);
-		border: rgb(180, 180, 180) 2px solid;
-
-		&.available {
-			border: white 3px solid;
-		}
-		*/
-		&.expensive {
-			/* border: rgb(220, 80, 80) 2px solid; */
-		}
 	}
 
 	.inner {
@@ -47,7 +34,7 @@
 			width: 100%;
 			height: 100%;
 
-			image-rendering: nearest-neighbor;
+			image-rendering: pixelated;
 		}
 	}
 }
