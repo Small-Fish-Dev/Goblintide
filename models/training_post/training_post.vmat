@@ -1,0 +1,8 @@
+"Layer0"
+{
+	"shader"		"shaders/complex.shader_c"
+	"TextureColor"		"models/training_post/training_post_color.tga"
+	"TextureAmbientOcclusion"		"models/training_post/training_post_ao.tga"
+	"TextureNormal"		"models/training_post/training_post_normal.tga"
+	"TextureRoughness"		"models/training_post/training_post_rough.tga"
+}
