@@ -31,13 +31,13 @@
 				allow-translate>
 			</AnimatedImage>
 			<div class="inner">
-				<WiggleNumber Value=@GameMgr.TotalIQ Scale=@(0.6f)></WiggleNumber>
+				<WiggleNumber Value=@GameMgr.TotalIQ Scale=@( 0.6f )></WiggleNumber>
 			</div>
 		</div>
 	</div>
 	<div class="background" allow-translate>
 		<div class="main" @ref=MainPanel allow-translate>
-			
+
 		</div>
 	</div>
 </root>
@@ -101,7 +101,9 @@
 
 		Camera.Bounds = new Rect( -50, -50, 100, 100 )
 			.Grow( 300, 1400, 300, 200 )
-			.Grow( 200 );
+			.Grow( 200 )
+			.Shrink( 0, 0, 700, 0 );
+		Camera.Position -= Vector2.Up * 400;
 	}
 
 }

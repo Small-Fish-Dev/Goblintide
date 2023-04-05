@@ -19,8 +19,6 @@
 			background-repeat: no-repeat;
 			
 			image-rendering: pixelated;
-			
-			filter: invert(100);
 		}
 	}
 </style>
@@ -28,14 +26,24 @@
 <root>
 	@foreach ( var c in Value.ToString() )
 	{
-		<AnimatedImage class="image" src=@($"textures/tests/number/{c}")></AnimatedImage>
+		<AnimatedImage style="@(InvertString)" class="image" src=@($"textures/tests/number/{c}")></AnimatedImage>
 	}
 </root>
 
 @code {
 	public int Value { get; set; } = 0;
 	public float Scale { get; set; } = 0.8f;
+	public bool Invert { get; set; } = true;
 
+	private string InvertString
+	{
+		get
+		{
+			if ( Invert ) return "filter: invert(100)";
+			return "";
+		}
+	}
+	
 	public float ImageHeight => 116 * Scale;
 	public float ImageWidth => ((float)64 / 116) * ImageHeight;
 }
