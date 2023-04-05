@@ -54,6 +54,7 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 		var entity = FindByIndex( idx );
 		if ( entity is not Generator generator ) return;
 		Town.GenerateTown( (float)generator.Size, 2f );
+		GameMgr.SetState<RaidingState>();
 	}
 
 	public static void RequestServerGenerate( Generator generator )

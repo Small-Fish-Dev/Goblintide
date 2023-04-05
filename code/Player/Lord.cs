@@ -47,10 +47,17 @@ public partial class Lord : BaseCharacter
 		base.Simulate( cl );
 
 		// Overview mode toggle.
-		if ( Input.Released( InputButton.Score ) )
+		if ( GameMgr.State is VillageState )
 		{
-			Overview = !Overview;
-			OverviewOffset = 0;
+			if ( Input.Released( InputButton.Score ) )
+			{
+				Overview = !Overview;
+				OverviewOffset = 0;
+			}
+		}
+		else
+		{
+			Overview = false;
 		}
 
 		SimulateController();
