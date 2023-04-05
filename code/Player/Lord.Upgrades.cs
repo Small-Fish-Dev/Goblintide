@@ -64,17 +64,27 @@ public partial class Lord
 
 		if ( CombinedUpgrades.AuraOfFear > 0f )
 		{
+			foreach ( var enemy in allEnemies )
+			{
+				enemy.BaseDiligency = enemy.RootPrefab.GetValue<float>( "BaseDiligency" );
+			}
+
 			foreach( var enemy in closeEnemies )
 			{
 				enemy.BaseDiligency = enemy.RootPrefab.GetValue<float>( "BaseDiligency" ) - CombinedUpgrades.AuraOfFear;
 			}
 		}
 
-		if ( CombinedUpgrades.AuraOfRespect > 0f )
+		if ( CombinedUpgrades.AuraOfRespect > 0f || CombinedUpgrades.GoblinSchool > 0f)
 		{
+			foreach ( var ally in allAllies )
+			{
+				ally.BaseDiligency = ally.RootPrefab.GetValue<float>( "BaseDiligency" ) + CombinedUpgrades.GoblinSchool;
+			}
+
 			foreach ( var ally in closeAllies )
 			{
-				ally.BaseDiligency = ally.RootPrefab.GetValue<float>( "BaseDiligency" ) + CombinedUpgrades.AuraOfRespect;
+				ally.BaseDiligency += CombinedUpgrades.AuraOfRespect;
 			}
 		}
 	}
