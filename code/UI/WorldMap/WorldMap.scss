@@ -8,10 +8,11 @@
 	cursor: default;
 
 	.container {
-		width: 90%;
 		height: 90%;
+		aspect-ratio: 1.5;
 		background-image: url(ui/overworldmap.png);
 		background-size: 200%;
+		background-repeat: no-repeat;
 		background-position: center;
 		align-items: center;
 		justify-content: center;
