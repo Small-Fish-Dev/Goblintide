@@ -69,5 +69,13 @@ public partial class Lord
 				enemy.BaseDiligency = enemy.RootPrefab.GetValue<float>( "BaseDiligency" ) - CombinedUpgrades.AuraOfFear;
 			}
 		}
+
+		if ( CombinedUpgrades.AuraOfRespect > 0f )
+		{
+			foreach ( var ally in closeAllies )
+			{
+				ally.BaseDiligency = ally.RootPrefab.GetValue<float>( "BaseDiligency" ) + CombinedUpgrades.AuraOfRespect;
+			}
+		}
 	}
 }
