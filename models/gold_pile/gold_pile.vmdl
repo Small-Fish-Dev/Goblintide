@@ -17,6 +17,10 @@
 								from = "gold.vmat"
 								to = "materials/gold/gold.vmat"
 							},
+							{
+								from = "throne.vmat"
+								to = "models/gold_pile/throne.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
@@ -54,6 +58,24 @@
 							]
 						}
 					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "wood.sheet"
+						collision_tags = "solid"
+						origin = [ 0.815962, 0.649511, 10.272452 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 24.478619, 26.526379, 20.92243 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "wood.sheet"
+						collision_tags = "solid"
+						origin = [ -10.096409, 0.649511, 32.303505 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.695007, 26.526379, 23.042828 ]
+					},
 				]
 			},
 			{
@@ -77,6 +99,22 @@
 							[
 								"gold_pile",
 							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						filename = "models/gold_pile/throne.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
 						}
 					},
 				]
