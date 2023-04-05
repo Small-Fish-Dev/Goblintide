@@ -31,8 +31,8 @@
 	{
 		var vector2 = new Vector2
 		{
-			x = (Box.Rect.Left - Parent.Box.Rect.Left) * -ScaleFromScreen,
-			y = (Box.Rect.Top - Parent.Box.Rect.Top) * -ScaleFromScreen
+			x = (Box.Rect.Left - Parent.Box.Rect.Left) * ScaleFromScreen,
+			y = (Box.Rect.Top - Parent.Box.Rect.Top) * ScaleFromScreen
 		};
 		return ModifyInitialPosition( vector2 );
 	}
@@ -53,6 +53,8 @@
 	{
 		base.Tick();
 
+		Style.Position = PositionMode.Absolute;
+		
 		if ( ReadyToPosition )
 		{
 			if ( _nextWobble )
