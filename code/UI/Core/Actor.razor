@@ -16,12 +16,22 @@
 	{
 		get
 		{
+			if ( !ReadyToPosition )
+			{
+				Log.Warning( $"Tried to position {this} before it was ready" );
+				return Vector2.Zero;
+			}
 			_position ??= GetInitialPosition();
 			return _position.Value;
 		}
 
 		set
 		{
+			if ( !ReadyToPosition )
+			{
+				Log.Warning( $"Tried to position {this} before it was ready" );
+				return;
+			}
 			_position = value;
 			PositionHasChanged();
 		}
@@ -54,7 +64,7 @@
 		base.Tick();
 
 		Style.Position = PositionMode.Absolute;
-		
+
 		if ( ReadyToPosition )
 		{
 			if ( _nextWobble )
@@ -79,7 +89,8 @@
 
 		if ( Box.Rect is { Width: 0, Height: 0 } ) return;
 
-		Position = Position;
+		_position ??= GetInitialPosition();
+		PositionHasChanged();
 
 		ReadyToPosition = true;
 	}
