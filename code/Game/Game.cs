@@ -86,14 +86,14 @@ public partial class GameMgr : GameManager
 	}
 
 	[ClientRpc]
-	public static void BroadcastTrees( Vector3 position, float townWidth )
+	public static void BroadcastTrees()
 	{
-		Town.PlaceTrees( position, townWidth );
+		Town.PlaceTrees();
 	}
 
 	[ClientRpc]
-	public static void BroadcastFences( Vector3 position, float townWidth )
+	public static void BroadcastFences()
 	{
-		Town.PlaceFences( position, townWidth );
+		Town.PlaceFences();
 	}
 }
