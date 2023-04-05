@@ -87,5 +87,10 @@ public partial class Lord
 				ally.BaseDiligency += CombinedUpgrades.AuraOfRespect;
 			}
 		}
+
+		if ( CombinedUpgrades.Swiftness > 0f )
+		{
+			WalkSpeed = BaseWalkSpeed * ( 1 + CombinedUpgrades.Swiftness );
+		}
 	}
 }

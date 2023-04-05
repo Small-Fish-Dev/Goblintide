@@ -8,7 +8,8 @@ public partial class Lord : BaseCharacter
 
 	public override FactionType DefaultFaction { get; set; } = FactionType.Goblins;
 
-	public float WalkSpeed => 140f;
+	public float BaseWalkSpeed { get; set; } = 140f;
+	public float WalkSpeed { get; set; } = 140f;
 
 	public override float CollisionWidth { get; set; } = 20f;
 	public override float CollisionHeight { get; set; } = 40f;
