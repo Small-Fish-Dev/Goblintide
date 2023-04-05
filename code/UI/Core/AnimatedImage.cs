@@ -4,6 +4,8 @@ namespace GameJam.UI;
 
 public class AnimatedImage : Image
 {
+	private static readonly List<(string, Texture)> Cache = new();
+
 	private readonly List<Texture> _textures = new();
 	private readonly List<Texture> _transition = new();
 
@@ -24,6 +26,8 @@ public class AnimatedImage : Image
 	{
 		base.Tick();
 
+		Style.Opacity = _loaded ? 1 : 0;
+		
 		if ( _next )
 			Next();
 	}
@@ -54,6 +58,19 @@ public class AnimatedImage : Image
 
 		void LoadTexture( string src )
 		{
+			Log.Info( $"Looking for {src}" );
+			
+			foreach ( var (cachedSrc, cachedTexture) in Cache )
+			{
+				if ( cachedSrc != src )
+					continue;
+
+				output.Add( cachedTexture );
+				return;
+			}
+
+			Log.Info( $"Loading new texture @ {src}" );
+
 			var texture = Texture.Load( FileSystem.Mounted, src );
 			if ( texture == null )
 			{
@@ -61,6 +78,7 @@ public class AnimatedImage : Image
 				return;
 			}
 
+			Cache.Add( (src, texture) );
 			output.Add( texture );
 		}
 
@@ -102,23 +120,28 @@ public class AnimatedImage : Image
 
 	public override void SetProperty( string name, string value )
 	{
-		base.SetProperty( name, value );
-
-		if ( _loaded ) return;
+		if ( _loaded )
+		{
+			base.SetProperty( name, value );
+			return;
+		}
+		
 		switch ( name )
 		{
 			case "delay":
 				_changeDelay = value.ToFloat( 1 );
-				break;
+				return;
 			case "transition-delay":
 				_transitionDelay = value.ToFloat( 1 );
-				break;
+				return;
 			case "src":
 				LoadSrc( value, false );
-				break;
+				return;
 			case "transition-src":
 				LoadSrc( value, true );
-				break;
+				return;
 		}
+		
+		base.SetProperty( name, value );
 	}
 }
