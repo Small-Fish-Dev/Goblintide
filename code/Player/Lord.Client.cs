@@ -4,8 +4,8 @@ namespace GameJam;
 
 public partial class Lord
 {
-	[Net, Predicted]
-	public bool Overview { get; set; } = true;
+	[Net, Predicted] public bool Overview { get; set; } = true;
+
 	public Vector3 OverviewOffset
 	{
 		get => overviewOffset;
@@ -13,14 +13,15 @@ public partial class Lord
 		{
 			var radius = GameMgr.CurrentTown != null
 				? GameMgr.CurrentTown.TownRadius
-				: GameMgr.State is VillageState village 
-					? village.Radius 
+				: GameMgr.State is VillageState village
+					? village.Radius
 					: 1000f;
 			overviewOffset = value.Normal * MathX.Clamp( value.Length, -radius, radius );
 		}
 	}
 
 	Vector3 overviewOffset;
+
 	Vector3 pointOfInterest => GameMgr.CurrentTown != null
 		? GameMgr.CurrentTown.Position
 		: GameMgr.State is VillageState village
@@ -60,6 +61,9 @@ public partial class Lord
 	private const float PitchBounds = 40.0f;
 	private const float PitchBoundsPointing = 65.0f;
 
+	/// <summary> Delay after the last look input until the camera is followed </summary>
+	private const float DelayBeforeFollow = 1.0f;
+
 	#endregion
 
 	#region Camera and Input Variables
@@ -69,6 +73,7 @@ public partial class Lord
 	private float _lastTraceDistance;
 	private bool _isMovingBackwards;
 	private bool _isMoving;
+	private RealTimeUntil _followDelay;
 
 	// Offsets
 	// (+x == Right, +y == Up) 
@@ -97,6 +102,8 @@ public partial class Lord
 	/// <summary> Whether or not the camera should follow the player movement </summary>
 	private bool ShouldFollowMovement()
 	{
+		if ( !_followDelay )
+			return false;
 		if ( !_isMoving )
 			return false;
 		if ( _isMovingBackwards )
@@ -252,7 +259,7 @@ public partial class Lord
 		{
 			CameraStageOne();
 			CameraStageTwo();
-			
+
 			return;
 		}
 
@@ -278,6 +285,8 @@ public partial class Lord
 
 		_isMoving = direction.Length != 0.0f;
 		_isMovingBackwards = direction.Normal.x < -0.8;
+
+		if ( _analogLook != Angles.Zero ) _followDelay = DelayBeforeFollow;
 
 		InputDirection = direction.x * Camera.Rotation.Forward.Normal + -(direction.y * Camera.Rotation.Right.Normal);
 
