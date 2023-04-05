@@ -45,6 +45,6 @@ partial class GameMgr
 		old?.Changed( current );
 
 		// Call initialize.
-		current.Initialize();
+		current?.Initialize();
 	}
 }
