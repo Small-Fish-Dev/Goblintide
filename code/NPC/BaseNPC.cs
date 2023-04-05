@@ -25,7 +25,7 @@ public enum Bodygroups
 [Prefab, Category( "NPC" )]
 public partial class BaseNPC : BaseCharacter
 {
-	public Prefab RootPrefab { get; set; }
+	public Prefab.Entry RootPrefab { get; set; }
 
 	[Prefab, Category( "Stats" )]
 	public virtual float AttackPower { get; set; } = 0.5f;
@@ -198,7 +198,7 @@ public partial class BaseNPC : BaseCharacter
 
 		if ( PrefabLibrary.TrySpawn<BaseNPC>( prefabName, out var npc ) )
 		{
-			npc.RootPrefab = npcPrefab;
+			npc.RootPrefab = npcPrefab.Root;
 			return npc;
 		}
 

@@ -41,4 +41,33 @@ public partial class Lord
 	}
 
 	public bool HasUpgrade( string identifier ) => Upgrades.Contains( identifier );
+
+	public void SimulateUpgrades()
+	{
+		if ( !Game.IsServer ) return;
+		if ( CombinedUpgrades == null ) return;
+
+		var allNPCs = Entity.All
+			.OfType<BaseNPC>();
+
+		var allAllies = allNPCs
+				.Where( x => x.Faction == Faction );
+
+		var allEnemies = allNPCs
+				.Where( x => x.Faction != Faction );
+
+		var closeAllies = allAllies
+			.Where( x => x.FastRelativeInRangeCheck( this, 400f ) );
+
+		var closeEnemies = allEnemies
+			.Where( x => x.FastRelativeInRangeCheck( this, 400f ) );
+
+		if ( CombinedUpgrades.AuraOfFear > 0f )
+		{
+			foreach( var enemy in closeEnemies )
+			{
+				enemy.BaseDiligency = enemy.RootPrefab.GetValue<float>( "BaseDiligency" ) - CombinedUpgrades.AuraOfFear;
+			}
+		}
+	}
 }

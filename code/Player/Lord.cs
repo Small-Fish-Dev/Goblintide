@@ -55,6 +55,7 @@ public partial class Lord : BaseCharacter
 		SimulateController();
 		SimulateAnimations();
 		SimulateCommanding();
+		SimulateUpgrades();
 
 		Scale = 1.2f; //Idk why it doesn't work on Spawn()
 	}

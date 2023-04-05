@@ -75,7 +75,6 @@ public partial class WorldMap
 		foreach ( var actor in Actors )
 			actor.Position = actor.Offset + MousePosition  * ScaleFromScreen;
 
-		Log.Info( position );
 		position = offset + MousePosition;
 		Container.Style.BackgroundPositionX = position.x;
 		Container.Style.BackgroundPositionY = position.y;
