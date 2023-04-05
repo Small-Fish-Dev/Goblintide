@@ -1,4 +1,6 @@
-﻿namespace GameJam;
+﻿using GameJam.UI;
+
+namespace GameJam;
 
 public partial class RaidingState : GameState
 {
@@ -13,6 +15,8 @@ public partial class RaidingState : GameState
 		if ( Game.IsClient )
 		{
 			hud = HUD.Instance.AddChild<RaidingHUD>();
+			WorldMap.Delete();
+			SkillTree.Delete();
 			return;
 		}
 	}

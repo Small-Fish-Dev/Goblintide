@@ -12,20 +12,20 @@
 
 @code {
 
-	private WorldMapHost.Generator Entry { get; set; }
+    private WorldMapHost.Generator Entry { get; set; }
 
-	public GeneratorActor( WorldMapHost.Generator entry )
-	{
-		Entry = entry;
+    public GeneratorActor( WorldMapHost.Generator entry )
+    {
+        Entry = entry;
 
-		Position = entry.MapPosition;
-	}
+        Position = entry.MapPosition;
+    }
 
-	protected override void OnClick( MousePanelEvent e )
-	{
-		base.OnClick( e );
+    protected override void OnClick( MousePanelEvent e )
+    {
+        base.OnClick( e );
 
-		WorldMapHost.RequestServerGenerate( Entry );
-	}
+        WorldMapHost.RequestServerGenerate( Entry );
+    }
 
 }
