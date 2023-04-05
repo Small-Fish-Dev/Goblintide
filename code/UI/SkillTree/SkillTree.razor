@@ -51,8 +51,6 @@
 	public void Select( UpgradeActor actor )
 	{
 		ClearSelection();
-
-		// SelectedActor?.SetClass( "selected", false );
 		
 		SelectedActor = actor;
 
@@ -61,6 +59,8 @@
 		if ( SelectedActor.ReadyToPosition )
 		{
 			UpgradeInfo ??= MainPanel.AddChild<UpgradeInfoActor>();
+
+			UpgradeInfo.UpgradeActor = SelectedActor;
 
 			UpgradeInfo.PanelCamera = Camera;
 
