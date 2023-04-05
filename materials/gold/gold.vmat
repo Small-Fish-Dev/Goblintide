@@ -17,7 +17,7 @@ Layer0
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "models/sacks/sack_gold_color.png"
+	TextureColor "materials/gold/gold_color.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -26,21 +26,21 @@ Layer0
 	g_bFogEnabled "1"
 
 	//---- Metalness ----
-	TextureMetalness "models/sacks/sack_gold_metal.png"
+	TextureMetalness "materials/gold/gold_metal.png"
 
 	//---- Normal ----
-	TextureNormal "models/sacks/sack_gold_normal.png"
+	TextureNormal "materials/gold/gold_normal.png"
 
 	//---- Roughness ----
-	TextureRoughness "models/sacks/sack_gold_rough.png"
+	TextureRoughness "materials/gold/gold_rough.png"
 
 	//---- Self Illum ----
 	g_flSelfIllumAlbedoFactor "1.000"
 	g_flSelfIllumBrightness "1.000"
 	g_flSelfIllumScale "16.000"
 	g_vSelfIllumScrollSpeed "[0.000 0.000]"
-	g_vSelfIllumTint "[0.960784 1.000000 0.639216 0.000000]"
-	TextureSelfIllumMask "models/sacks/sack_gold_metal.png"
+	g_vSelfIllumTint "[0.960784 1.000000 0.639216 0.945098]"
+	TextureSelfIllumMask "materials/gold/gold_metal.png"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
