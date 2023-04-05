@@ -36,6 +36,17 @@
 						use_global_default = false
 						global_default_material = ""
 					},
+					{
+						_class = "MaterialGroup"
+						name = "secondary"
+						remaps = 
+						[
+							{
+								from = "models/clothes/guard_quilt_armor/quilt_armor.vmat"
+								to = "models/clothes/guard_quilt_armor/quilt_armor2.vmat"
+							},
+						]
+					},
 				]
 			},
 			{

@@ -26,6 +26,16 @@
                 "Value": "[]"
               }
             }
+          },
+          {
+            "Guid": "c7275299-9f90-4bb0-a317-72e9d0420b71",
+            "Class": "RandomMaterialGroupComponent",
+            "Keys": {
+              "_name": {
+                "Value": "\u0022RandomMaterialGroupComponent\u0022"
+              },
+              "_tags": {}
+            }
           }
         ],
         "Keys": {
@@ -77,6 +87,16 @@
                 "Type": "ColorType",
                 "Value": "\u0022Trousers\u0022"
               }
+            }
+          },
+          {
+            "Guid": "2a9996bf-508e-4eec-9026-5b585b6839fe",
+            "Class": "RandomMaterialGroupComponent",
+            "Keys": {
+              "_name": {
+                "Value": "\u0022RandomMaterialGroupComponent\u0022"
+              },
+              "_tags": {}
             }
           }
         ],
@@ -209,7 +229,9 @@
           "_name": {
             "Value": "\u0022RandomAccessoryComponent\u0022"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "[]"
+          }
         }
       },
       {
@@ -223,7 +245,9 @@
           "_name": {
             "Value": "\u0022RandomAccessoryComponent\u0022"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "[]"
+          }
         }
       }
     ],
@@ -317,7 +341,7 @@
       },
       "StartingWeapon": {
         "Type": "String",
-        "Value": "\u0022prefabs/items/club.prefab\u0022"
+        "Value": "\u0022prefabs/items/sword.prefab\u0022"
       },
       "Voice": {
         "Type": "VoiceType",

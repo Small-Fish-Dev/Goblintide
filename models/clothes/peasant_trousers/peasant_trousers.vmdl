@@ -36,6 +36,17 @@
 						use_global_default = true
 						global_default_material = "models/clothes/peasant_trousers/trousers.vmat"
 					},
+					{
+						_class = "MaterialGroup"
+						name = "secondary"
+						remaps = 
+						[
+							{
+								from = "models/clothes/peasant_trousers/trousers.vmat"
+								to = "models/clothes/peasant_trousers/trousers2.vmat"
+							},
+						]
+					},
 				]
 			},
 			{

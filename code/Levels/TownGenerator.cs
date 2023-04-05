@@ -369,7 +369,9 @@ public partial class Town : BaseNetworkable
 		GameMgr.CurrentTown.Generated = true;
 	}
 
-	public static async void GenerateEmptyTown( float townSize )
+	public RaidableBuilding Throne { get; set; } = null; 
+
+	public static async void GenerateEmptyTown( float townSize, bool goldPile = true )
 	{
 		GameMgr.CurrentTown?.DeleteTown();
 
@@ -382,6 +384,13 @@ public partial class Town : BaseNetworkable
 			TownType.Town => new Vector3( -4100f, 5414f, 512f ),
 			_ => new Vector3( 55f, 292.05f, 512f ),
 		};
+
+		if ( goldPile )
+		{
+			GameMgr.CurrentTown.Throne = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/goldpile.prefab" );
+			GameMgr.CurrentTown.Throne.Position = GameMgr.CurrentTown.Position + Vector3.Down * 2f;
+			GameMgr.CurrentTown.TownEntities.Add( GameMgr.CurrentTown.Throne );
+		}
 
 		GameMgr.BroadcastFences();
 		GameMgr.BroadcastTrees();
