@@ -78,14 +78,39 @@ public partial class GameMgr
 			Instance.lastEnergyUpdate = value;
 		}
 	}
-	[Net] private int totalWood { get; set; } = 0;
-	[Net] private int totalGold { get; set; } = 0;
-	[Net] private int totalFood { get; set; } = 0;
-	[Net] private int totalWomen { get; set; } = 0;
+	[Net, Change(nameof(EmitWoodChange))] private int totalWood { get; set; } = 0;
+	[Net, Change( nameof( EmitGoldChange ) )] private int totalGold { get; set; } = 0;
+	[Net, Change( nameof( EmitFoodChange ) )] private int totalFood { get; set; } = 0;
+	[Net, Change( nameof( EmitWomenChange ) )] private int totalWomen { get; set; } = 0;
 	[Net] private double totalEnergy { get; set; } = 10;
 	[Net] private double maxEnergy { get; set; } = 30; // Default value = 30
 	[Net] private double energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
 	[Net] private long lastEnergyUpdate { get; set; } = DateTime.UtcNow.Ticks;
+
+	void EmitWoodChange(int oldValue, int newValue)
+	{
+		Game.AssertClient();
+		Log.Info( "a" );
+		Event.Run( "resources.wood", newValue );
+	}
+
+	void EmitGoldChange( int oldValue, int newValue )
+	{
+		Game.AssertClient();
+		Event.Run( "resources.gold", newValue );
+	}
+
+	void EmitFoodChange( int oldValue, int newValue )
+	{
+		Game.AssertClient();
+		Event.Run( "resources.food", newValue );
+	}
+
+	void EmitWomenChange( int oldValue, int newValue )
+	{
+		Game.AssertClient();
+		Event.Run( "resources.women", newValue );
+	}
 
 	[Event.Tick.Server]
 	public void CalculateEnergy()
@@ -142,6 +167,32 @@ public partial class GameMgr
 			TotalFood += amount;
 		if ( type == Collectable.Woman )
 			TotalWomen += amount;
+	}
+
+	[ConCmd.Admin("wood")]
+	public static void AddWood( int amount )
+	{
+		TotalWood += amount;
+	}
+	[ConCmd.Admin( "gold" )]
+	public static void AddGold( int amount )
+	{
+		TotalGold += amount;
+	}
+	[ConCmd.Admin( "food" )]
+	public static void AddFood( int amount )
+	{
+		TotalFood += amount;
+	}
+	[ConCmd.Admin( "women" )]
+	public static void AddWomen( int amount )
+	{
+		TotalWood += amount;
+	}
+	[ConCmd.Admin( "energy" )]
+	public static void AddEnergy( int amount )
+	{
+		TotalEnergy += amount;
 	}
 
 }

@@ -1,0 +1,27 @@
+﻿@using Sandbox.UI;
+
+@namespace GameJam
+@inherits Panel
+
+<root>
+    <img src=@($"ui/resources/{ResourceName.ToLower()}.png") />
+    <span>@ResourceAmount</span>
+</root>
+
+@code {
+    public string ResourceName { get; set; }
+
+    public DateTime LastUpdate { get; private set; } = DateTime.Now;
+    public int ResourceAmount { get; set; }
+
+    public void OnValueChange(int newValue)
+    {
+        ResourceAmount = newValue;
+        LastUpdate = DateTime.Now;
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(LastUpdate);
+    }
+}
