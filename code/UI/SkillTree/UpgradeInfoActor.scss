@@ -1,32 +1,55 @@
 ﻿UpgradeInfoActor {
-	position: relative;
-	
 	width: 412px;
 	height: 412px;
-	
+
 	AnimatedImage {
 		z-index: 1;
 
 		position: absolute;
-		
+
 		width: 100%;
 		height: 100%;
 
-		background-position: center;
+		background-position: 0% 13%;
 		background-size: cover;
 		background-repeat: no-repeat;
 
 		image-rendering: pixelated;
 	}
-	
+
 	.content {
 		z-index: 2;
 
-		position: absolute;
-		
+		position: relative;
+
+		top: 15%;
+
+		width: 100%;
+		height: 55%;
+
 		color: white;
 		font-size: 50px;
-		
-		margin: 80px;
+
+		margin: 50px;
+
+		.add-btn {
+			width: 100px;
+			height: 70px;
+
+			top: 70%;
+			right: 0;
+
+			background-position: center;
+			background-size: contain;
+			background-repeat: no-repeat;
+
+			image-rendering: pixelated;
+		}
+
+		transition: all 0.3s ease-in-out;
+
+		&:intro {
+			opacity: 0;
+		}
 	}
 }

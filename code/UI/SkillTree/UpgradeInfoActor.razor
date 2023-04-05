@@ -6,7 +6,12 @@
 @attribute [StyleSheet( "/UI/SkillTree/UpgradeInfoActor.scss" )]
 
 <root>
-	<AnimatedImage 
+	@if ( Upgrade == null )
+	{
+		return;
+	}
+
+	<AnimatedImage
 		delay="0.3"
 		src="textures/tests/msgbox"
 		transition-src="textures/tests/msgbox-transition/005.png"
@@ -14,14 +19,17 @@
 		transition-src="textures/tests/msgbox-transition/003.png"
 		transition-src="textures/tests/msgbox-transition/002.png"
 		transition-src="textures/tests/msgbox-transition/001.png"
-		transition-delay="0.03"
-	></AnimatedImage>
+		transition-delay="0.03">
+	</AnimatedImage>
 	<div class="content">
-		test :3
+		@Upgrade.Title
+		<AnimatedImage class="add-btn" src="textures/tests/msgbox-bits/add-btn.png"></AnimatedImage>
 	</div>
 </root>
 
 @code {
+
+	public Upgrade Upgrade { get; set; }
 
 	protected override float WobbleAmount => 0;
 

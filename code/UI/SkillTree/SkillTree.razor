@@ -1,5 +1,4 @@
-﻿@using GameJam.UpgradeSystem
-@using Sandbox.UI;
+﻿@using Sandbox.UI;
 
 @namespace GameJam.UI
 @inherits SmartPanel<SkillTree>
@@ -24,29 +23,51 @@
 		</div>
 	</div>
 	<div class="background">
-		<div class="main" @ref=MainPanel>
-			<UpgradeInfoActor style="left: 145px; top: 360px"></UpgradeInfoActor>
-		</div>
+		<div class="main" @ref=MainPanel></div>
 	</div>
 </root>
 
 @code {
 
 	private UpgradeActor SelectedActor { get; set; }
+	private UpgradeInfoActor UpgradeInfo { get; set; }
 
-	private void Select( UpgradeActor actor )
+	public void Select( UpgradeActor actor )
 	{
 		SelectedActor?.SetClass( "selected", false );
 
 		SelectedActor = actor;
 
 		SelectedActor.SetClass( "selected", true );
+
+		if ( SelectedActor.ReadyToPosition )
+		{
+			UpgradeInfo ??= MainPanel.AddChild<UpgradeInfoActor>();
+
+			UpgradeInfo.QueuePosition( () =>
+			{
+				var position = SelectedActor.Position;
+				position.x -= UpgradeInfo.Size.x / 2;
+				position.x += SelectedActor.Size.x / 2;
+
+				position.y -= UpgradeInfo.Size.y;
+
+				UpgradeInfo.Position = position;
+				UpgradeInfo.Upgrade = SelectedActor.Upgrade;
+			} );
+		}
 	}
+
+	private Panel _mainPanel;
 
 	private Panel MainPanel
 	{
-		get => null;
-		set { GenerateUpgrades( value ); }
+		get => _mainPanel;
+		set
+		{
+			_mainPanel = value;
+			GenerateUpgrades( MainPanel );
+		}
 	}
 
 	public SkillTree() => WorldMap.Delete();

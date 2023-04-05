@@ -12,7 +12,7 @@
 @code {
 
 	public Upgrade Upgrade { get; }
-	
+
 	private bool Available => Upgrade.Cost <= 15 && !Purchased && Dependencies.All( v => v.Purchased );
 	private bool Purchased => Lord.Self.HasUpgrade( Upgrade.Identifier );
 	private bool Expensive => Upgrade.Cost > 15 && !Purchased;
@@ -34,6 +34,13 @@
 		SetClass( "available", Available );
 		SetClass( "purchased", Purchased );
 		SetClass( "expensive", Expensive );
+	}
+
+	protected override void OnClick( MousePanelEvent e )
+	{
+		base.OnClick( e );
+		
+		((SkillTree)SkillTree.Instance).Select( this );
 	}
 
 }
