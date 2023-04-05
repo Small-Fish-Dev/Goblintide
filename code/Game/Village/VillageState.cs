@@ -75,6 +75,9 @@ public partial class VillageState : GameState
 
 		// Block movement if in overview mode.
 		GameMgr.Lord.BlockMovement = GameMgr.Lord.Overview;
+
+		if ( GameMgr.CurrentTown.Throne.IsValid() )
+			GameMgr.CurrentTown.Throne.Position = GameMgr.CurrentTown.Position + Vector3.Down * 2f + Vector3.Up * Math.Min( (float)Math.Sqrt( GameMgr.TotalGold ), 100f );
 	}
 
 	[ConCmd.Admin( "SpawnStructure" )]
