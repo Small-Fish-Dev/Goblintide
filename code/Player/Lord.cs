@@ -79,5 +79,11 @@ public partial class Lord : BaseCharacter
 			Debug.Value( "Faction", lord.Faction );
 			Debug.Value( "Hit Points", lord.HitPoints );
 		}, ShowLordInfo );
+
+		Debug.Section( "Lord Upgrades", () =>
+		{
+			var lord = (Lord)Game.LocalPawn;
+			foreach ( var upgrade in lord.Upgrades ) Debug.Add( upgrade );
+		} );
 	}
 }
