@@ -22,6 +22,22 @@ public partial class GameMgr
 			Instance.totalGold = value;
 		}
 	}
+	public static int TotalIQ
+	{
+		get => Instance.totalIQ;
+		set
+		{
+			Instance.totalIQ = value;
+		}
+	}
+	public static int MaxIQ
+	{
+		get => Instance.maxIQ;
+		set
+		{
+			Instance.maxIQ = value;
+		}
+	}
 	public static int TotalWood
 	{
 		get => Instance.totalWood;
@@ -80,10 +96,12 @@ public partial class GameMgr
 	}
 	[Net, Change(nameof(EmitWoodChange))] private int totalWood { get; set; } = 0;
 	[Net, Change( nameof( EmitGoldChange ) )] private int totalGold { get; set; } = 0;
+	[Net, Change( nameof( EmitIQChange ) )] private int totalIQ { get; set; } = 0;
 	[Net, Change( nameof( EmitFoodChange ) )] private int totalFood { get; set; } = 0;
 	[Net, Change( nameof( EmitWomenChange ) )] private int totalWomen { get; set; } = 0;
 	[Net] private double totalEnergy { get; set; } = 10;
 	[Net] private double maxEnergy { get; set; } = 30; // Default value = 30
+	[Net] private int maxIQ { get; set; } = 0;
 	[Net] private double energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
 	[Net] private long lastEnergyUpdate { get; set; } = DateTime.UtcNow.Ticks;
 
@@ -97,6 +115,11 @@ public partial class GameMgr
 	{
 		Game.AssertClient();
 		Event.Run( "resources.gold", newValue );
+	}
+	void EmitIQChange( int oldValue, int newValue )
+	{
+		Game.AssertClient();
+		Event.Run( "resources.iq", newValue );
 	}
 
 	void EmitFoodChange( int oldValue, int newValue )
@@ -127,6 +150,13 @@ public partial class GameMgr
 		var difference = (currentTime - LastEnergyUpdate);
 		TotalEnergy += (float)difference * EnergyRechargeRate;
 		LastEnergyUpdate = currentTime;
+	}
+
+	[ConCmd.Admin("iq")]
+	public static void AddIQ( int amount )
+	{
+		TotalIQ += amount;
+		MaxIQ += amount;
 	}
 
 	public static void GoblinArmyEnabled( bool enabled )

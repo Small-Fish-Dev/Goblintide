@@ -93,6 +93,8 @@ partial class GameMgr
 		{
 			writer.Write( TotalWood );
 			writer.Write( TotalGold );
+			writer.Write( TotalIQ );
+			writer.Write( MaxIQ );
 			writer.Write( TotalFood );
 			writer.Write( TotalWomen );
 			writer.Write( TotalEnergy );
@@ -107,6 +109,8 @@ partial class GameMgr
 		{
 			TotalWood = reader.ReadInt32();
 			TotalGold = reader.ReadInt32();
+			TotalIQ = reader.ReadInt32();
+			MaxIQ = reader.ReadInt32();
 			TotalFood = reader.ReadInt32();
 			TotalWomen = reader.ReadInt32();
 			TotalEnergy = reader.ReadDouble();
