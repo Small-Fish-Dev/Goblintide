@@ -103,7 +103,28 @@
         "Guid": "7ee0832e-0bb2-4099-853f-caab8164dd2d",
         "Class": "animated_entity",
         "Entities": [],
-        "Components": [],
+        "Components": [
+          {
+            "Guid": "4af1b0fd-8684-4e0e-9413-f3eb673d4223",
+            "Class": "RandomMaterialGroupComponent",
+            "Keys": {
+              "_name": {
+                "Value": "\u0022RandomMaterialGroupComponent\u0022"
+              },
+              "_tags": {}
+            }
+          },
+          {
+            "Guid": "8c1c1890-e963-4704-a86a-9e1316bf2439",
+            "Class": "RandomColorComponent",
+            "Keys": {
+              "_name": {
+                "Value": "\u0022RandomColorComponent\u0022"
+              },
+              "_tags": {}
+            }
+          }
+        ],
         "Keys": {
           "Model": {
             "Type": "Model",

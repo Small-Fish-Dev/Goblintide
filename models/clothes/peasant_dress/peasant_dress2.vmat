@@ -14,13 +14,13 @@ Layer0
 	//---- Ambient Occlusion ----
 	g_flAmbientOcclusionDirectDiffuse "0.000"
 	g_flAmbientOcclusionDirectSpecular "0.000"
-	TextureAmbientOcclusion "models/clothes/peasant_dress/dress_ao.tga"
+	TextureAmbientOcclusion "models/clothes/peasant_dress/dress2_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "models/clothes/peasant_dress/dress_color.tga"
-	TextureTintMask "models/clothes/peasant_dress/dress_mask.tga"
+	TextureColor "models/clothes/peasant_dress/dress2_color.tga"
+	TextureTintMask "models/clothes/peasant_dress/dress2_mask.tga"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -29,13 +29,13 @@ Layer0
 	g_bFogEnabled "1"
 
 	//---- Metalness ----
-	TextureMetalness "models/clothes/peasant_dress/dress_metal.tga"
+	TextureMetalness "models/clothes/peasant_dress/dress2_metal.tga"
 
 	//---- Normal ----
-	TextureNormal "models/clothes/peasant_dress/dress_normal.tga"
+	TextureNormal "models/clothes/peasant_dress/dress2_normal.tga"
 
 	//---- Roughness ----
-	TextureRoughness "models/clothes/peasant_dress/dress_rough.tga"
+	TextureRoughness "models/clothes/peasant_dress/dress2_rough.tga"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"

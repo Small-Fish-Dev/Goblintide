@@ -36,6 +36,17 @@
 						use_global_default = false
 						global_default_material = ""
 					},
+					{
+						_class = "MaterialGroup"
+						name = "secondary"
+						remaps = 
+						[
+							{
+								from = "models/clothes/peasant_shirt/shirt.vmat"
+								to = "models/clothes/peasant_shirt/shirt2.vmat"
+							},
+						]
+					},
 				]
 			},
 			{
