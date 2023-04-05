@@ -122,6 +122,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
+						name = "goblin"
 						filename = "models/goblin/goblin.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -145,6 +146,66 @@
 						_class = "RenderMeshFile"
 						name = "crown"
 						filename = "models/crown/crown.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "LOD1"
+						children = 
+						[
+							{
+								_class = "RemoveBoneAndChildren"
+								bone_names = 
+								[
+									"hand_L",
+									"hand_R",
+									"ball_L",
+									"ball_R",
+								]
+							},
+						]
+						filename = "models/goblin/goblin_LOD1.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "LOD2"
+						children = 
+						[
+							{
+								_class = "RemoveBoneAndChildren"
+								bone_names = 
+								[
+									"hand_L",
+									"hand_R",
+									"ball_L",
+									"ball_R",
+								]
+							},
+						]
+						filename = "models/goblin/goblin_LOD2.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -674,11 +735,46 @@
 								_class = "BodyGroupChoice"
 								meshes = 
 								[
-									"unnamed_1",
+									"goblin",
+									"LOD1",
+									"LOD2",
 								]
 							},
 						]
 						hidden_in_tools = false
+					},
+				]
+			},
+			{
+				_class = "LODGroupList"
+				children = 
+				[
+					{
+						_class = "LODGroup"
+						switch_threshold = 0.0
+						meshes = 
+						[
+							"goblin",
+							"crown",
+						]
+					},
+					{
+						_class = "LODGroup"
+						switch_threshold = 10.0
+						meshes = 
+						[
+							"LOD1",
+							"crown",
+						]
+					},
+					{
+						_class = "LODGroup"
+						switch_threshold = 30.0
+						meshes = 
+						[
+							"LOD2",
+							"crown",
+						]
 					},
 				]
 			},
