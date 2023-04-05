@@ -22,8 +22,8 @@
 			</AnimatedImage>
 		</div>
 	</div>
-	<div class="background">
-		<div class="main" @ref=MainPanel></div>
+	<div class="background" allow-translate>
+		<div class="main" @ref=MainPanel allow-translate></div>
 	</div>
 </root>
 
@@ -44,6 +44,8 @@
 		{
 			UpgradeInfo ??= MainPanel.AddChild<UpgradeInfoActor>();
 
+			UpgradeInfo.PanelCamera = Camera;
+
 			UpgradeInfo.QueuePosition( () =>
 			{
 				var position = SelectedActor.Position;
@@ -56,6 +58,14 @@
 				UpgradeInfo.Upgrade = SelectedActor.Upgrade;
 			} );
 		}
+	}
+
+	public void ClearSelection()
+	{
+		SelectedActor?.SetClass( "selected", false );
+		UpgradeInfo?.Delete();
+		UpgradeInfo = null;
+		SelectedActor = null;
 	}
 
 	private Panel _mainPanel;
