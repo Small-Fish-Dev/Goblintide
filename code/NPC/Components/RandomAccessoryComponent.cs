@@ -110,8 +110,14 @@ public partial class RandomAccessoryComponent : CharacterComponent
 		if ( !Game.IsServer ) return;
 
 		Accessory = new ModelEntity();
-		Accessory.SetModel( GetAccessoryFromType( Type ) );
-		Accessory.SetParent( Entity, true );
+		var model = GetAccessoryFromType( Type );
+		if ( model == "" ) Accessory.Delete();
+		else
+		{
+			Accessory.SetModel( GetAccessoryFromType( Type ) );
+			Accessory.SetParent( Entity, true );
+		}
+		
 	}
 
 	private string GetAccessoryFromType( AccessoryType accessoryType )

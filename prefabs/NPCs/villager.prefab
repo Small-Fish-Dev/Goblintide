@@ -20,6 +20,10 @@
               },
               "_tags": {
                 "Value": "[]"
+              },
+              "colorType": {
+                "Type": "ColorType",
+                "Value": "\u0022Shirts\u0022"
               }
             }
           },
@@ -30,7 +34,9 @@
               "_name": {
                 "Value": "\u0022RandomMaterialGroupComponent\u0022"
               },
-              "_tags": {}
+              "_tags": {
+                "Value": "[]"
+              }
             }
           }
         ],
@@ -74,6 +80,10 @@
               },
               "_tags": {
                 "Value": "[]"
+              },
+              "colorType": {
+                "Type": "ColorType",
+                "Value": "\u0022Trousers\u0022"
               }
             }
           },
@@ -84,7 +94,9 @@
               "_name": {
                 "Value": "\u0022RandomMaterialGroupComponent\u0022"
               },
-              "_tags": {}
+              "_tags": {
+                "Value": "[]"
+              }
             }
           }
         ],

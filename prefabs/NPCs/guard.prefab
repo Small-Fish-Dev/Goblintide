@@ -17,7 +17,7 @@
             "Keys": {
               "ColorType": {
                 "Type": "ColorType",
-                "Value": "\u0022Shirts\u0022"
+                "Value": "\u0022Trousers\u0022"
               },
               "_name": {
                 "Value": "\u0022RandomColorComponent\u0022"
@@ -34,7 +34,9 @@
               "_name": {
                 "Value": "\u0022RandomMaterialGroupComponent\u0022"
               },
-              "_tags": {}
+              "_tags": {
+                "Value": "[]"
+              }
             }
           }
         ],
@@ -85,7 +87,7 @@
               },
               "ColorType": {
                 "Type": "ColorType",
-                "Value": "\u0022Trousers\u0022"
+                "Value": "\u0022Shirts\u0022"
               }
             }
           },
@@ -96,7 +98,9 @@
               "_name": {
                 "Value": "\u0022RandomMaterialGroupComponent\u0022"
               },
-              "_tags": {}
+              "_tags": {
+                "Value": "[]"
+              }
             }
           }
         ],
