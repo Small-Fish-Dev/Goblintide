@@ -114,7 +114,39 @@ partial class GameMgr
 			LastEnergyUpdate = reader.ReadInt64();
 		}
 	}
-	#endregion
+	#endregion	
+	
+	#region World Map Persistence
+	private static void worldMapPersist( object method )
+	{
+		// Handle saving first.
+		if ( method is BinaryWriter writer )
+		{
+			int count = WorldMapHost.Entries.Count();
+			writer.Write( count );
+
+			foreach ( WorldMapHost.Generator entry in WorldMapHost.Entries )
+			{
+				writer.Write( entry.MapPosition );
+				writer.Write( entry.Size );
+			}
+			return;
+		}
+
+		// Handle loading save.
+		if ( method is BinaryReader reader )
+		{
+			int count = reader.ReadInt32();
+
+			for ( int i = 0; i < count; i++ )
+			{
+				var position = reader.ReadVector2();
+				var size = reader.ReadDouble();
+				new WorldMapHost.Generator( position, size );
+			}
+		}
+	}
+#endregion
 
 	#region Lord Persistence
 	// TODO: Save Lord upgrades.
@@ -197,6 +229,7 @@ partial class GameMgr
 		// Save all data.
 		lordPersist( writer );
 		resourcesPersist( writer );
+		worldMapPersist( writer );
 		villagePersist( writer );
 		goblinPersist( writer );
 		
@@ -231,6 +264,7 @@ partial class GameMgr
 			// Read all data and act according to it.
 			lordPersist( reader );
 			resourcesPersist( reader );
+			worldMapPersist( reader );
 			villagePersist( reader );
 			goblinPersist( reader );
 		}

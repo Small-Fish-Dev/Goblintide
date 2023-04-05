@@ -90,7 +90,6 @@ public partial class GameMgr
 	void EmitWoodChange(int oldValue, int newValue)
 	{
 		Game.AssertClient();
-		Log.Info( "a" );
 		Event.Run( "resources.wood", newValue );
 	}
 

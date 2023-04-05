@@ -79,6 +79,10 @@ public partial class GameMgr : GameManager
 		// Load the save.
 		SetState<VillageState>();
 		LoadSave();
+
+		if ( WorldMapHost.IsEmpty )
+			WorldMapHost.GenerateNew();
+
 	}
 
 	[ClientRpc]
