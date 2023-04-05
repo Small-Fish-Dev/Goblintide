@@ -44,7 +44,7 @@
 	<panel class="structures" @ref=structureContainer >
 		@{
 			var structures = ResourceLibrary.GetAll<Prefab>()
-				.Where( p => p.Root.Class == "BaseStructure" );
+				.Where( p => p?.Root?.Class == "BaseStructure" );
 
 			foreach ( var structure in structures )
 			{
