@@ -20,7 +20,7 @@ public partial class RaidingState : GameState
 	public override void Changed( GameState state )
 	{
 		hud?.Delete( true );
-		
+
 		if ( Game.IsServer )
 		{
 			foreach ( var entity in Entity.All.OfType<BaseStructure>() )
