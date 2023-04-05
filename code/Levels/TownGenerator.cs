@@ -102,37 +102,36 @@ public partial class Town : BaseNetworkable
 		return Noise.Fbm( 2, x / scale, y / scale );
 	}
 
-	internal async Task<bool> TryPlaceProp( Dictionary<string, float> list, Random rand, Vector3 position, float x, float y, float density, Vector2 threshold, bool lookAtCenter = false  )
+	internal bool TryPlaceProp( Dictionary<string, float> list, Random rand, Vector3 position, float x, float y, float density, Vector2 threshold, bool lookAtCenter = false  )
 	{
 		var noise = NoiseValue( x, y );
+
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
-			var spawnedEntity = BaseProp.FromPrefab( WeightedList.RandomKey( rand, list ) );
-			if ( spawnedEntity == null )
-				return false;
+			var chosenPrefab = WeightedList.RandomKey( rand, list );
+			Prefab prefab;
 
-			await GameTask.RunInThreadAsync( () =>
-			{
-				var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
-				var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
-				spawnedEntity.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
-				spawnedEntity.Rotation = lookAtCenter ? Rotation.LookAt( spawnedEntity.Position - position ) : Rotation.FromYaw( rand.Next( 360 ) );
-				var traceCheck = Trace.Body( spawnedEntity.PhysicsBody, spawnedEntity.Position )
-					.Ignore( spawnedEntity )
-					.EntitiesOnly()
-					.Run();
+			if ( !ResourceLibrary.TryGet<Prefab>( chosenPrefab, out prefab ) ) return false;
 
-				if ( traceCheck.Hit )
-				{
-					spawnedEntity.Delete();
-					return false;
-				}
-				else
-				{
-					Town.TownEntities.Add( spawnedEntity );
-					return true;
-				}
-			} );
+			var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+			var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
+			var chosenPosition = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
+			var chosenRotation = lookAtCenter ? Rotation.LookAt( chosenPosition - position ) : Rotation.FromYaw( rand.Next( 360 ) );
+
+			var model = GameMgr.PrecachedModels[ prefab.Root.GetValue<string>( "Model" ) ];
+
+			var traceCheck = Trace.Box( model.PhysicsBounds, chosenPosition, chosenPosition )
+				.EntitiesOnly()
+				.Run();
+
+			if ( traceCheck.Hit ) return false;
+
+			var spawnedEntity = BaseProp.FromPrefab( chosenPrefab );
+			if ( spawnedEntity == null ) return false;
+
+			Town.TownEntities.Add( spawnedEntity );
+			return true;
+
 		}
 
 		return false;
@@ -233,7 +232,7 @@ public partial class Town : BaseNetworkable
 		return true;
 	}
 
-	internal async Task<bool> PlaceProps( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold, bool lookAtCenter = false )
+	internal void PlaceProps( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold, bool lookAtCenter = false )
 	{
 		var townRadiusSquared = TownRadius * TownRadius;
 		var mainRoadSize = 60f + TownRadius / 15f;
@@ -247,11 +246,9 @@ public partial class Town : BaseNetworkable
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
-				if ( await GameMgr.CurrentTown.TryPlaceProp( list, rand, position, x, y, density, new Vector2( threshold.x, threshold.y ), lookAtCenter ) )
-					continue;
+				GameMgr.CurrentTown.TryPlaceProp( list, rand, position, x, y, density, new Vector2( threshold.x, threshold.y ), lookAtCenter );
 			}
 		}
-		return true;
 	}
 
 	internal async Task<bool> PlaceNPCs( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold )
@@ -360,8 +357,8 @@ public partial class Town : BaseNetworkable
 		else
 			await GameMgr.CurrentTown.PlaceHouses( PlaceableHousesSmall, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0f, 0.4f ), true );
 
-		await GameMgr.CurrentTown.PlaceProps( PlaceableBigProps, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.35f, 0.4f ) );
-		await GameMgr.CurrentTown.PlaceProps( PlaceableSmallProps, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.43f, 0.47f ) );
+		GameMgr.CurrentTown.PlaceProps( PlaceableBigProps, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.35f, 0.4f ) );
+		GameMgr.CurrentTown.PlaceProps( PlaceableSmallProps, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.43f, 0.47f ) );
 		await GameMgr.CurrentTown.PlaceNPCs( PlaceablePeople, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.7f, 1f ) );
 		GameMgr.BroadcastFences();
 		GameMgr.BroadcastTrees();

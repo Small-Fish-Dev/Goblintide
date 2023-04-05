@@ -61,7 +61,6 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 			Town.GenerateTown( (float)generator.Size, 2f );
 			GameMgr.SetState<RaidingState>();
 			GameMgr.TotalEnergy -= energyRequired;
-			Log.Info( GameMgr.TotalEnergy );
 		}
 	}
 
