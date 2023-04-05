@@ -21,7 +21,17 @@ public partial class WorldMap
 		foreach ( var entry in WorldMapHost.Entries )
 		{
 			if ( entry is WorldMapHost.Generator generator )
-				Container.AddChild( new GeneratorActor( generator ) );
+			{
+				var panel = new GeneratorActor( generator );
+				Container.AddChild( panel );
+				var size = 300f * (float)Math.Sqrt( generator.Size / 5 );
+
+				panel.Style.SetBackgroundImage( "ui/camp.png" );
+				if ( size > 1200f )
+					panel.Style.SetBackgroundImage( "ui/town.png" );
+				if ( size > 2500f )
+					panel.Style.SetBackgroundImage( "ui/castle.png" );
+			}
 		}
 	}
 
