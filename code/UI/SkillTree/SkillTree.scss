@@ -87,6 +87,48 @@
 				image-rendering: pixelated;
 			}
 		}
+		
+		.flag {
+			z-index: 4;
+			
+			position: absolute;
+			left: 100%;
+
+			AnimatedImage {
+				z-index: 3;
+				
+				width: 300px;
+				height: 270px;
+
+				position: absolute;
+
+				transform: rotate(20deg);
+				
+				background-size: cover;
+				background-repeat: no-repeat;
+				
+				image-rendering: pixelated;
+			}
+			
+			.inner {
+				z-index: 5;
+
+				width: 350px;
+				height: 230px;
+				
+				position: absolute;
+				
+				color: white;
+
+				font-family: 'Comic Sans MS';
+				font-size: 40px;
+				
+				transform: rotate(30deg);
+				
+				justify-content: center;
+				align-items: center;
+			}
+		}
 	}
 
 	.background {
