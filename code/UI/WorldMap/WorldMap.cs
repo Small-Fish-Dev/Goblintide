@@ -51,7 +51,7 @@ public partial class WorldMap
 		if ( e.MouseButton != MouseButtons.Left ) return;
 
 		foreach ( var actor in Actors )
-			actor.Offset = actor.Position - MousePosition;
+			actor.Offset = actor.Position - MousePosition * ScaleFromScreen;
 
 		offset = position - MousePosition;
 
@@ -73,7 +73,7 @@ public partial class WorldMap
 			return;
 
 		foreach ( var actor in Actors )
-			actor.Position = actor.Offset + MousePosition;
+			actor.Position = actor.Offset + MousePosition  * ScaleFromScreen;
 
 		Log.Info( position );
 		position = offset + MousePosition;
