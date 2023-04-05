@@ -701,6 +701,17 @@
 						use_global_default = false
 						global_default_material = ""
 					},
+					{
+						_class = "MaterialGroup"
+						name = "secondary"
+						remaps = 
+						[
+							{
+								from = "models/containers/box/box.vmat"
+								to = "models/containers/box/box2.vmat"
+							},
+						]
+					},
 				]
 			},
 			{

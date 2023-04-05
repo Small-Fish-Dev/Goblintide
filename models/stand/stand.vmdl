@@ -36,6 +36,17 @@
 						use_global_default = true
 						global_default_material = "models/stand/stand.vmat"
 					},
+					{
+						_class = "MaterialGroup"
+						name = "secondary"
+						remaps = 
+						[
+							{
+								from = "models/stand/stand.vmat"
+								to = "models/stand/stand2.vmat"
+							},
+						]
+					},
 				]
 			},
 			{
