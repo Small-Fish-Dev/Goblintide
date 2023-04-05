@@ -1,0 +1,44 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/blendable.shader_c"
+
+	F_MULTIBLEND 1 // 2 Layers
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Material ----
+	TextureColor "materials/default/default_color.tga"
+	TextureTintMask "materials/default/default.tga"
+
+	//---- Material A ----
+	g_flTintColorA "[1.000000 1.000000 1.000000 0.000000]"
+	TextureAmbientOcclusionA "materials/ground_dirt/ground_dirt_ao.tga"
+	TextureBlendMaskA "materials/ground_dirt/ground_dirt_height.tga"
+	TextureColorA "materials/ground_dirt/ground_dirt_color.tga"
+	TextureMetalnessA "materials/default/default_metal.tga"
+	TextureNormalA "materials/ground_dirt/ground_dirt_normal.tga"
+	TextureRoughnessA "materials/ground_dirt/ground_dirt_rough.tga"
+	TextureTintMaskA "materials/default/default.tga"
+
+	//---- Material B ----
+	g_flBlendSoftnessB "0.100"
+	g_flTintColorB "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordScale2 "[1.000 1.000]"
+	TextureAmbientOcclusionB "materials/twig_c/twig_c_ao.tga"
+	TextureBlendMaskB "materials/twig_c/twig_c_height.tga"
+	TextureColorB "materials/twig_c/twig_c_color.tga"
+	TextureMetalnessB "materials/default/default_metal.tga"
+	TextureNormalB "materials/twig_c/twig_c_normal.tga"
+	TextureRoughnessB "materials/twig_c/twig_c_rough.tga"
+	TextureTintMaskB "materials/default/default.tga"
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "dirt"
+		WorldMappingWidth "128"
+		WorldMappingHeight "128"
+	}
+}
