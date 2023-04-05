@@ -220,7 +220,7 @@ public static class Creator
 			.Next( "Fortitude IV",
 				v =>
 					v.WithTexture( "aura/aura3.png" )
-						.PlaceAt( Vector2.Down * 1200 + Vector2.Left * 300 ) )
+						.PlaceAt( Vector2.Down * 1200 + Vector2.Left * 450 ) )
 			.Build();
 
 

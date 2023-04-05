@@ -66,7 +66,7 @@ public partial class SkillTree
 
 		if ( _dragging )
 		{
-			Camera.Position += (MousePosition - _lastMousePos) * ScaleFromScreen;
+			Camera.Position -= (MousePosition - _lastMousePos) * ScaleFromScreen;
 		}
 
 		_lastMousePos = MousePosition;

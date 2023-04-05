@@ -58,6 +58,7 @@ public partial class Town : BaseNetworkable
 
 	public static Dictionary<string, float> PlaceableSmallProps { get; set; } = new()
 	{
+		{ "prefabs/props/box.prefab", 3f },
 		{ "prefabs/props/barrel.prefab", 2f },
 		{ "prefabs/props/largecrate.prefab", 2f },
 		{ "prefabs/props/smallcrate.prefab", 3f },

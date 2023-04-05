@@ -5,12 +5,11 @@ namespace GameJam.UI;
 public partial class WorldMap
 {
 	private Panel Container { get; set; }
-	private Vector2 offset { get; set; }
-	private Vector2 position { get; set; }
 
 	public IEnumerable<Actor> Actors => Descendants.OfType<Actor>();
 
 	private bool _dragging;
+	private Vector2 _lastMousePos;
 
 	protected override void OnAfterTreeRender( bool firstTime )
 	{
@@ -22,7 +21,7 @@ public partial class WorldMap
 		{
 			if ( entry is WorldMapHost.Generator generator )
 			{
-				var panel = new GeneratorActor( generator );
+				var panel = new GeneratorActor( generator ) { PanelCamera = Camera };
 				Container.AddChild( panel );
 				var size = 300f * (float)Math.Sqrt( generator.Size / 5 );
 
@@ -50,11 +49,6 @@ public partial class WorldMap
 
 		if ( e.MouseButton != MouseButtons.Left ) return;
 
-		foreach ( var actor in Actors )
-			actor.Offset = actor.Position - MousePosition * ScaleFromScreen;
-
-		offset = position - MousePosition;
-
 		_dragging = true;
 	}
 
@@ -69,14 +63,22 @@ public partial class WorldMap
 	{
 		base.OnMouseMove( e );
 
-		if ( !_dragging )
-			return;
+		if ( _dragging )
+		{
+			Camera.Position -= (MousePosition - _lastMousePos) * ScaleFromScreen;
 
-		foreach ( var actor in Actors )
-			actor.Position = actor.Offset + MousePosition  * ScaleFromScreen;
+			Container.Style.BackgroundPositionX = Camera.Negative.x * ScaleToScreen;
+			Container.Style.BackgroundPositionY = Camera.Negative.y * ScaleToScreen;
+		}
 
-		position = offset + MousePosition;
-		Container.Style.BackgroundPositionX = position.x;
-		Container.Style.BackgroundPositionY = position.y;
+		_lastMousePos = MousePosition;
+	}
+
+	public override void Tick()
+	{
+		base.Tick();
+
+		Container.Style.BackgroundPositionX = Camera.Negative.x * ScaleToScreen;
+		Container.Style.BackgroundPositionY = Camera.Negative.y * ScaleToScreen;
 	}
 }

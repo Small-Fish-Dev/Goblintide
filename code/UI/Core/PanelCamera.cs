@@ -4,15 +4,33 @@ public class PanelCamera
 {
 	private Vector2 _position = Vector2.Zero;
 
+	public Rect? Bounds;
+
 	public Vector2 Position
 	{
 		get => _position;
 		set
 		{
 			_position = value;
+			if ( Bounds.HasValue )
+			{
+				var bounds = Bounds.Value;
+				if ( _position.x < bounds.Left )
+					_position.x = bounds.Left;
+				if ( _position.x > bounds.Right )
+					_position.x = bounds.Right;
+
+				if ( _position.y < bounds.Top )
+					_position.y = bounds.Top;
+				if ( _position.y > bounds.Bottom )
+					_position.y = bounds.Bottom;
+			}
+
 			PropagateUpdate();
 		}
 	}
+
+	public Vector2 Negative => -Position;
 
 	private void PropagateUpdate()
 	{

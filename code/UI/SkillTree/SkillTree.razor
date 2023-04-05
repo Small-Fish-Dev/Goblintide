@@ -1,4 +1,5 @@
-﻿@using Sandbox.UI;
+﻿@using GameJam.UI.Core
+@using Sandbox.UI;
 
 @namespace GameJam.UI
 @inherits SmartPanel<SkillTree>
@@ -15,10 +16,11 @@
 				</AnimatedImage>
 			</div>
 		</div>
-		<div class="waves">
+		<div class="waves" allow-translate>
 			<AnimatedImage
 				delay="0.7"
-				src="textures/tests/waves">
+				src="textures/tests/waves"
+				allow-translate>
 			</AnimatedImage>
 		</div>
 	</div>
@@ -80,5 +82,13 @@
 		}
 	}
 
-	public SkillTree() => WorldMap.Delete();
+	public SkillTree()
+	{
+		WorldMap.Delete();
+
+		Camera.Bounds = new Rect( -50, -50, 100, 100 )
+			.Grow( 300, 1400, 300, 200 )
+			.Grow( 200 );
+	}
+
 }
