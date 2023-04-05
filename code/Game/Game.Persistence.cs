@@ -314,6 +314,26 @@ partial class GameMgr
 		GameTask.RunInThreadAsync( () => GenerateSave( true ) );
 	}
 
+	TimeUntil nextSave { get; set; } = 15f;
+	[Event.Tick.Server]
+	public void AutoSave()
+	{
+		if ( nextSave )
+		{
+			nextSave = 15f;
+
+			if ( GameMgr.State is VillageState )
+			{
+				Log.Info( "Autosaving..." );
+				GameTask.RunInThreadAsync( async () =>
+				{
+					await GenerateSave( true );
+					Log.Info( "Finished autosaving" );
+				} );
+			}
+		}
+	}
+
 	[ConCmd.Server]
 	public static void RequestLoad()
 	{
