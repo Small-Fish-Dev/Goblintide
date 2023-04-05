@@ -257,6 +257,7 @@ partial class GameMgr
 		if ( !FileSystem.Data.FileExists( SAVE_PATH ) )
 		{
 			// Do we need to do initial stuff if the save doesn't exist?
+			Loaded = true;
 			return false;
 		}
 

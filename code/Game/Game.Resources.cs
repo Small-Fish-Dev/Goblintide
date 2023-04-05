@@ -139,7 +139,19 @@ public partial class GameMgr
 	[Event.Tick.Server]
 	public void CalculateEnergy()
 	{
-		TotalEnergy += energyRechargeRate * Time.Delta;
+		if ( !GameMgr.Loaded ) return;
+
+		var maxIncrease = 1f;
+		if ( Lord.CombinedUpgrades != null && Lord.CombinedUpgrades.EnduranceTraining > 0f )
+			maxIncrease += Lord.CombinedUpgrades.EnduranceTraining;
+
+		MaxEnergy = 30f * maxIncrease;
+
+		var boostSpeed = 1f;
+		if ( Lord.CombinedUpgrades != null && Lord.CombinedUpgrades.RecoveryTraining > 0f )
+			boostSpeed += Lord.CombinedUpgrades.RecoveryTraining;
+
+		TotalEnergy += EnergyRechargeRate * boostSpeed * Time.Delta;
 		LastEnergyUpdate = DateTime.UtcNow.Ticks / 10000000;
 	}
 
@@ -150,7 +162,12 @@ public partial class GameMgr
 	{
 		var currentTime = DateTime.UtcNow.Ticks / 10000000;
 		var difference = (currentTime - LastEnergyUpdate);
-		TotalEnergy += (float)difference * EnergyRechargeRate;
+
+		var boostSpeed = 1f;
+		if ( Lord.CombinedUpgrades != null && Lord.CombinedUpgrades.RecoveryTraining > 0f )
+			boostSpeed += Lord.CombinedUpgrades.RecoveryTraining;
+
+		TotalEnergy += (float)difference * EnergyRechargeRate * boostSpeed;
 		LastEnergyUpdate = currentTime;
 	}
 
