@@ -173,6 +173,8 @@ partial class GameMgr
 				var identifier = reader.ReadString();
 				Lord.AddUpgrade( identifier );
 			}
+
+			Lord.CombineUpgrades();
 		}
 	}
 	#endregion
