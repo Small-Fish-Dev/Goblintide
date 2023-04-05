@@ -114,7 +114,7 @@
 			{
 				var position = Position;
 				position = DoPositionEffect( position );
-				position += PanelCamera?.Position ?? Vector2.Zero;
+				position -= PanelCamera?.Position ?? Vector2.Zero;
 				Style.Left = Length.Pixels( position.x.Floor() );
 				Style.Top = Length.Pixels( position.y.Floor() );
 
