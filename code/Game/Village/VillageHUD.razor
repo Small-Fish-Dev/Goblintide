@@ -86,15 +86,10 @@
 			{
 				var root = structure.Root;
 				var name = root.GetValue<string>( "Title" );
-				var icon = structure.GetIcon();
 
 				<panel class="slot">
 					<label class="title">@name</label>
-
-					@if ( icon != null )
-					{
-						<image class="icon" src="@(icon)" />
-					}
+					<PrefabIcon class="icon" Prefab="@structure" />
 				</panel>
 			}
 		}

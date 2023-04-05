@@ -1,0 +1,21 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+
+@namespace GameJam
+@inherits Image
+
+@code {
+
+	private Prefab _prefab;
+
+	public Prefab Prefab
+	{
+		get => _prefab;
+		set
+		{
+			_prefab = value;
+			Texture = _prefab.GetIcon();
+		}
+	}
+
+}
