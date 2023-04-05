@@ -5,11 +5,19 @@ using static Sandbox.CitizenAnimationHelper;
 
 namespace GameJam;
 
+public enum TownType
+{
+	Camp,
+	Village,
+	Town
+}
+
 public partial class Town : BaseNetworkable
 {
 	[Net] public bool Generated { get; private set; } = false;
 	[Net] public float TownSize { get; set; } = 0f;
-	[Net] public float TownRadius { get; set; } = 0f;
+	public float TownRadius => 300f * (float)Math.Sqrt( TownSize / 5 );
+	public TownType TownType => TownRadius >= 1200f ? ( TownRadius >= 2500f ? TownType.Town : TownType.Village ) : TownType.Camp;
 	public float ForestRadius => TownRadius + 1000f;
 	[Net] public Vector3 Position { get; set; } = Vector3.Zero;
 	public Vector3 MinBounds => Position - new Vector3( TownRadius ).WithZ(0);
@@ -268,14 +276,14 @@ public partial class Town : BaseNetworkable
 		return true;
 	}
 
-	public static void PlaceTrees( Vector3 position, float townWidth )
+	public static void PlaceTrees()
 	{
 		foreach( var tree in TownTrees )
 		{
 			tree.Delete();
 		}
 
-		var clearingDistance = townWidth + 400f;
+		var clearingDistance = GameMgr.CurrentTown.TownRadius + 400f;
 		var forestSize = clearingDistance + 1200f;
 		var clearingSquared = clearingDistance * clearingDistance;
 		var forestSizeSquared = forestSize * forestSize;
@@ -289,12 +297,12 @@ public partial class Town : BaseNetworkable
 				if ( squaredDistance < clearingSquared ) continue;
 				if ( squaredDistance > forestSizeSquared ) continue;
 
-				TryPlaceTree( PlaceableTrees, position, x, y, new Vector2( 0f, 0.43f ) );
+				TryPlaceTree( PlaceableTrees, GameMgr.CurrentTown.Position, x, y, new Vector2( 0f, 0.43f ) );
 			}
 		}
 	}
 
-	public static void PlaceFences( Vector3 position, float townWidth )
+	public static void PlaceFences()
 	{
 
 		foreach ( var fence in TownFences )
@@ -304,12 +312,12 @@ public partial class Town : BaseNetworkable
 
 		TownFences.Clear();
 
-		var townDiameter = townWidth * 2 + 400f;
+		var townDiameter = GameMgr.CurrentTown.TownRadius * 2 + 400f;
 		var perimeter = 2 * townDiameter * Math.PI;
-		var bestFence = townWidth >= 1200f ? PlaceableFences.First() : PlaceableFences.Last();
+		var bestFence = GameMgr.CurrentTown.TownType == TownType.Camp ? PlaceableFences.Last() : PlaceableFences.First();
 		var fenceSize = bestFence.Value;
 		int fenceCount = (int)Math.Ceiling( perimeter / fenceSize / 2 );
-		var mainRoadSize = 60f + townWidth / 15f;
+		var mainRoadSize = 60f + GameMgr.CurrentTown.TownRadius / 15f;
 
 		for ( int i = 0; i < fenceCount; i++ )
 		{
@@ -318,8 +326,8 @@ public partial class Town : BaseNetworkable
 			var y = townDiameter / 2 * (float)Math.Sin( angle );
 			if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
-			var fencePosition = position + Vector3.Forward * x + Vector3.Right * y;
-			var transform = new Transform( fencePosition, Rotation.LookAt( fencePosition - position ) );
+			var fencePosition = GameMgr.CurrentTown.Position + Vector3.Forward * x + Vector3.Right * y;
+			var transform = new Transform( fencePosition, Rotation.LookAt( fencePosition - GameMgr.CurrentTown.Position ) );
 			var spawnedFence = new WallObject( Game.SceneWorld, bestFence.Key, transform, bestFence.Value );
 			TownFences.Add( spawnedFence );
 		}
@@ -331,42 +339,33 @@ public partial class Town : BaseNetworkable
 
 		GameMgr.CurrentTown = new Town();
 		GameMgr.CurrentTown.TownSize = townSize;
-		GameMgr.CurrentTown.TownRadius = 300f * (float)Math.Sqrt( GameMgr.CurrentTown.TownSize / 5 );
-		var position = new Vector3( 55f, 292.05f, 512f );
 
-		if ( GameMgr.CurrentTown.TownRadius > 1200f )
+		GameMgr.CurrentTown.Position = GameMgr.CurrentTown.TownType switch
 		{
-			position = new Vector3( 4586f, 452f, 512f );
-			var wellEntity = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/well.prefab" );
-			wellEntity.Position = position + Vector3.Down * 0.05f;
-			wellEntity.Rotation = Rotation.FromYaw( Game.Random.Int( 360 ) );
-			GameMgr.CurrentTown.TownEntities.Add( wellEntity );
-		}
-		if ( GameMgr.CurrentTown.TownRadius > 2500f )
-		{
-			position = new Vector3( -4100f, 5414f, 512f );
-			var wellEntity = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/well.prefab" );
-			wellEntity.Position = position + Vector3.Down * 0.05f;
-			wellEntity.Rotation = Rotation.FromYaw( Game.Random.Int( 360 ) );
-			GameMgr.CurrentTown.TownEntities.Add( wellEntity );
-		}
+			TownType.Village => new Vector3( 4586f, 452f, 512f ),
+			TownType.Town => new Vector3( -4100f, 5414f, 512f ),
+			_ => new Vector3( 55f, 292.05f, 512f ),
+		};
 
-		GameMgr.CurrentTown.Position = position;
+		var wellEntity = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/well.prefab" );
+		wellEntity.Position = GameMgr.CurrentTown.Position + Vector3.Down * 0.05f;
+		wellEntity.Rotation = Rotation.FromYaw( Game.Random.Int( 360 ) );
+		GameMgr.CurrentTown.TownEntities.Add( wellEntity );
 
 		var rand = new Random( GameMgr.CurrentTown.Seed );
 
-		if ( GameMgr.CurrentTown.TownRadius > 2500f )
-			await GameMgr.CurrentTown.PlaceHouses( PlaceableHousesBig, rand, position, density, new Vector2( 0f, 0.33f ), true );
-		else if ( GameMgr.CurrentTown.TownRadius > 1200f )
-			await GameMgr.CurrentTown.PlaceHouses( PlaceableHousesMedium, rand, position, density, new Vector2( 0f, 0.35f ), true );
+		if ( GameMgr.CurrentTown.TownType == TownType.Town )
+			await GameMgr.CurrentTown.PlaceHouses( PlaceableHousesBig, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0f, 0.33f ), true );
+		else if ( GameMgr.CurrentTown.TownType == TownType.Village )
+			await GameMgr.CurrentTown.PlaceHouses( PlaceableHousesMedium, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0f, 0.35f ), true );
 		else
-			await GameMgr.CurrentTown.PlaceHouses( PlaceableHousesSmall, rand, position, density, new Vector2( 0f, 0.4f ), true );
+			await GameMgr.CurrentTown.PlaceHouses( PlaceableHousesSmall, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0f, 0.4f ), true );
 
-		await GameMgr.CurrentTown.PlaceProps( PlaceableBigProps, rand, position, density, new Vector2( 0.35f, 0.4f ) );
-		await GameMgr.CurrentTown.PlaceProps( PlaceableSmallProps, rand, position, density, new Vector2( 0.43f, 0.47f ) );
-		await GameMgr.CurrentTown.PlaceNPCs( PlaceablePeople, rand, position, density, new Vector2( 0.7f, 1f ) );
-		GameMgr.BroadcastFences( position, GameMgr.CurrentTown.TownRadius );
-		GameMgr.BroadcastTrees( position, GameMgr.CurrentTown.TownRadius );
+		await GameMgr.CurrentTown.PlaceProps( PlaceableBigProps, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.35f, 0.4f ) );
+		await GameMgr.CurrentTown.PlaceProps( PlaceableSmallProps, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.43f, 0.47f ) );
+		await GameMgr.CurrentTown.PlaceNPCs( PlaceablePeople, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.7f, 1f ) );
+		GameMgr.BroadcastFences();
+		GameMgr.BroadcastTrees();
 		GameMgr.CurrentTown.Generated = true;
 	}
 
@@ -376,21 +375,16 @@ public partial class Town : BaseNetworkable
 
 		GameMgr.CurrentTown = new Town();
 		GameMgr.CurrentTown.TownSize = townSize;
-		GameMgr.CurrentTown.TownRadius = 300f * (float)Math.Sqrt( GameMgr.CurrentTown.TownSize / 5 );
-		var position = new Vector3( 55f, 292.05f, 512f );
 
-		if ( GameMgr.CurrentTown.TownRadius > 1200f )
-			position = new Vector3( 4586f, 452f, 512f );
+		GameMgr.CurrentTown.Position = GameMgr.CurrentTown.TownType switch
+		{
+			TownType.Village => new Vector3( 4586f, 452f, 512f ),
+			TownType.Town => new Vector3( -4100f, 5414f, 512f ),
+			_ => new Vector3( 55f, 292.05f, 512f ),
+		};
 
-		if ( GameMgr.CurrentTown.TownRadius > 2500f )
-			position = new Vector3( -4100f, 5414f, 512f );
-
-		GameMgr.CurrentTown.Position = position;
-
-		var rand = new Random( GameMgr.CurrentTown.Seed );
-
-		GameMgr.BroadcastFences( position, GameMgr.CurrentTown.TownRadius );
-		GameMgr.BroadcastTrees( position, GameMgr.CurrentTown.TownRadius );
+		GameMgr.BroadcastFences();
+		GameMgr.BroadcastTrees();
 		GameMgr.CurrentTown.Generated = true;
 	}
 
