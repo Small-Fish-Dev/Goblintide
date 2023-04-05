@@ -57,7 +57,7 @@ public partial class Lord
 	private const float FollowStillRotationLerp = 0.5f;
 
 	private const float DistanceLerp = 15.0f;
-	private const float PitchBounds = 25.0f;
+	private const float PitchBounds = 40.0f;
 	private const float PitchBoundsPointing = 65.0f;
 
 	#endregion
