@@ -305,6 +305,7 @@ public partial class Lord
 			var lord = (Lord)Game.LocalPawn;
 			Debug.Value( "Position", Camera.Position );
 			Debug.Value( "Rotation", Camera.Rotation );
+			Debug.Value( "Follow Delay", $"{lord._followDelay.Relative:0.00}" );
 			Debug.Value( "Rotation (interim)", lord._interimCameraRotation );
 			Debug.Value( "Trace Distance", lord._lastTraceDistance );
 			Debug.Value( "Proposed Distance", lord._proposedCameraDistance );
