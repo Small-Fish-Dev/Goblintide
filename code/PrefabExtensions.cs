@@ -9,7 +9,7 @@ public static class PrefabExtensions
 	/// </summary>
 	/// <param name="prefab"></param>
 	/// <returns></returns>
-	public static Texture CreateIcon( this Prefab prefab )
+	public static Texture GetIcon( this Prefab prefab )
 	{
 		if ( cache.TryGetValue( prefab, out var tex ) )
 			return tex;
@@ -48,7 +48,7 @@ public static class PrefabExtensions
 		var sceneImage = SceneImage.Get( camera, 256 );
 		world = null;
 		camera = null;
-
+		
 		// Cache value.
 		cache.Add( prefab, sceneImage );
 
