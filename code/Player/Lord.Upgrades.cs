@@ -42,6 +42,37 @@ public partial class Lord
 
 	public bool HasUpgrade( string identifier ) => Upgrades.Contains( identifier );
 
+	[ConCmd.Server( "gb_buyupgrade" )]
+	public static void BuyUpgrade( string identifier )
+	{
+		Game.AssertServer();
+
+		if ( ConsoleSystem.Caller.Pawn is not Lord caller )
+			return;
+
+		var upgrade = Upgrade.Find( identifier );
+		if ( upgrade == null )
+		{
+			Log.Warning( $"{ConsoleSystem.Caller.Name} tried to buy unknown upgrade {identifier}" );
+			return;
+		}
+
+		if ( upgrade.Cost > GameMgr.TotalIQ )
+		{
+			Log.Warning( $"{ConsoleSystem.Caller.Name} doesn't have the funds for upgrade {identifier}" );
+			return;
+		}
+
+		if ( caller.HasUpgrade( identifier ) )
+		{
+			Log.Warning( $"{ConsoleSystem.Caller.Name} already has upgrade {identifier}" );
+			return;
+		}
+
+		GameMgr.TotalIQ -= upgrade.Cost;
+		caller.AddUpgrade( identifier );
+	}
+
 	public void SimulateUpgrades()
 	{
 		if ( !Game.IsServer ) return;
@@ -51,10 +82,10 @@ public partial class Lord
 			.OfType<BaseNPC>();
 
 		var allAllies = allNPCs
-				.Where( x => x.Faction == Faction );
+			.Where( x => x.Faction == Faction );
 
 		var allEnemies = allNPCs
-				.Where( x => x.Faction != Faction );
+			.Where( x => x.Faction != Faction );
 
 		var closeAllies = allAllies
 			.Where( x => x.FastRelativeInRangeCheck( this, 400f ) );
@@ -69,13 +100,13 @@ public partial class Lord
 				enemy.BaseDiligency = enemy.RootPrefab.GetValue<float>( "BaseDiligency" );
 			}
 
-			foreach( var enemy in closeEnemies )
+			foreach ( var enemy in closeEnemies )
 			{
 				enemy.BaseDiligency -= CombinedUpgrades.AuraOfFear;
 			}
 		}
 
-		if ( CombinedUpgrades.AuraOfRespect > 0f || CombinedUpgrades.GoblinSchool > 0f)
+		if ( CombinedUpgrades.AuraOfRespect > 0f || CombinedUpgrades.GoblinSchool > 0f )
 		{
 			foreach ( var ally in allAllies )
 			{
@@ -103,7 +134,7 @@ public partial class Lord
 
 		if ( CombinedUpgrades.Swiftness > 0f )
 		{
-			WalkSpeed = BaseWalkSpeed * ( 1f + CombinedUpgrades.Swiftness );
+			WalkSpeed = BaseWalkSpeed * (1f + CombinedUpgrades.Swiftness);
 		}
 	}
 }

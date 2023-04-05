@@ -31,7 +31,7 @@
 			test description! this is a description!
 		</div>
 		<div class="context">
-			<AnimatedImage class="add-btn" path="textures/tests/msgbox-bits/add-btn"></AnimatedImage>
+			<AnimatedImage class="add-btn" path="textures/tests/msgbox-bits/add-btn" onclick=@( () => SkillTree.BuyUpgrade( Upgrade ) )></AnimatedImage>
 		</div>
 	</div>
 </root>
@@ -39,7 +39,7 @@
 @code {
 
 	public Upgrade Upgrade { get; set; }
-	
+
 	protected override float WobbleAmount => 0;
 
 }

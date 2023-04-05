@@ -1,4 +1,5 @@
 ﻿@using GameJam.UI.Core
+@using GameJam.UpgradeSystem
 @using Sandbox.UI;
 
 @namespace GameJam.UI
@@ -52,7 +53,7 @@
 		ClearSelection();
 
 		// SelectedActor?.SetClass( "selected", false );
-
+		
 		SelectedActor = actor;
 
 		SelectedActor.SetClass( "selected", true );
@@ -77,6 +78,30 @@
 		}
 
 		UpgradeInfo?.StateHasChanged();
+	}
+
+	public static void BuyUpgrade( Upgrade upgrade )
+	{
+		if ( GameMgr.TotalIQ < upgrade.Cost )
+		{
+			Log.Warning( $"Tried to buy {upgrade} without the funds!" );
+			return;
+		}
+
+		if ( Lord.Self.HasUpgrade( upgrade.Identifier ) )
+		{
+			Log.Warning( $"Tried to buy {upgrade} - we already have it!" );
+			return;
+		}
+
+		Lord.BuyUpgrade( upgrade.Identifier );
+
+		((SkillTree)Instance).ClearSelection();
+
+		foreach ( var upgradeActor in ((SkillTree)Instance).Descendants.OfType<UpgradeActor>() )
+		{
+			upgradeActor.StateHasChanged();
+		}
 	}
 
 	public void ClearSelection()
