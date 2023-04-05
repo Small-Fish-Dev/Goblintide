@@ -4,10 +4,10 @@
 @inherits Panel
 
 <style>
-	WiggleNumber {	
+	WiggleText {	
 		.image {
-			width: @(ImageWidth)px;
-			height: @(ImageHeight)px;
+			width: @( ImageWidth )px;
+			height: @( ImageHeight )px;
 			
 			background-size: contain;
 			background-repeat: no-repeat;
@@ -18,14 +18,21 @@
 </style>
 
 <root>
-	@foreach ( var c in Value.ToString() )
+	@foreach ( var c in Value )
 	{
-		<AnimatedImage style="@(InvertString)" class="image" path=@($"textures/tests/number/{c}")></AnimatedImage>
+		if ( char.IsDigit( c ) )
+		{
+			<AnimatedImage style="@( InvertString )" class="image" path=@( $"textures/tests/number/{c}" )></AnimatedImage>
+		}
+		else
+		{
+			<AnimatedImage style="@( InvertString )" class="image" path=@( $"textures/tests/upper/{c}" )></AnimatedImage>
+		}
 	}
 </root>
 
 @code {
-	public int Value { get; set; } = 0;
+	public string Value { get; set; } = "0";
 	public float Scale { get; set; } = 0.8f;
 	public bool Invert { get; set; } = true;
 
@@ -37,13 +44,13 @@
 			return "";
 		}
 	}
-	
+
 	public float ImageHeight => 116 * Scale;
 	public float ImageWidth => ((float)64 / 116) * ImageHeight;
 
 	protected override int BuildHash()
 	{
-		return Value;
+		return HashCode.Combine( Value, Value.Length );
 	}
 
 }

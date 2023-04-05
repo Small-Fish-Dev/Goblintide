@@ -25,14 +25,14 @@
 	</AnimatedImage>
 	<div class="content">
 		<div class="title">
-			@Upgrade.Title
+			<WiggleText Value=@Upgrade.Title></WiggleText>
 		</div>
 		<div class="description">
-			Description of what this upgrade does
+			:3
 		</div>
 		<div class="context">
-			<WiggleNumber class="number" Value=@Upgrade.Cost>
-			</WiggleNumber>
+			<WiggleText class="number" Value=@($"{Upgrade.Cost}")>
+			</WiggleText>
 			<AnimatedImage class="add-btn" path="textures/tests/msgbox-bits/add-btn"></AnimatedImage>
 		</div>
 	</div>
@@ -41,7 +41,7 @@
 @code {
 
 	public Upgrade Upgrade { get; set; }
-
+	
 	protected override float WobbleAmount => 0;
 
 }
