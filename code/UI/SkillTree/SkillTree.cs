@@ -9,7 +9,7 @@ public partial class SkillTree
 	{
 		foreach ( var upgrade in Upgrade.All )
 		{
-			var actor = new UpgradeActor( upgrade ) { PanelCamera = Camera };
+			var actor = new UpgradeActor( Camera, upgrade );
 			panel.AddChild( actor );
 		}
 

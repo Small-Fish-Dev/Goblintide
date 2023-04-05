@@ -13,11 +13,33 @@
 
 	internal Vector2 Offset;
 
-	public PanelCamera PanelCamera;
+	private PanelCamera _panelCamera;
+
+	public PanelCamera PanelCamera
+	{
+		get => _panelCamera;
+		set
+		{
+			if ( _panelCamera == value ) return;
+			_panelCamera?.Unregister( this );
+			_panelCamera = value;
+			_panelCamera?.Register( this );
+		}
+	}
 
 	public Vector2 Size => Box.Rect.Size * ScaleFromScreen;
 
 	private Queue<Action> _postReadyQueue = new();
+
+	public Actor( PanelCamera camera )
+	{
+		_panelCamera = camera;
+		camera.Register( this );
+	}
+
+	public Actor()
+	{
+	}
 
 	public void QueuePosition( Action action )
 	{
