@@ -1,14 +1,27 @@
 ﻿GeneratorActor {
 	width: 100px;
 	height: 100px;
-
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
-
 	justify-content: center;
-	align-items: center;
-
+	align-items: flex-end;
+	cursor: pointer;
+	font-family: 'Patrick Hand';
 	font-size: 30px;
 	font-weight: bold;
+	text-stroke: 7px black;
+
+	&:hover {
+		width: 110px;
+		height: 110px;
+	}
+
+	.textContainer {
+		justify-content: center;
+		align-items: center;
+		top: 30px;
+		height: 50%;
+		width: 100%;
+	}
 }
