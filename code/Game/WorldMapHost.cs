@@ -53,8 +53,16 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 		Game.AssertServer();
 		var entity = FindByIndex( idx );
 		if ( entity is not Generator generator ) return;
-		Town.GenerateTown( (float)generator.Size, 2f );
-		GameMgr.SetState<RaidingState>();
+
+		var energyRequired = (int)( generator.Size / 2f );
+
+		if ( GameMgr.TotalEnergy >= energyRequired )
+		{
+			Town.GenerateTown( (float)generator.Size, 2f );
+			GameMgr.SetState<RaidingState>();
+			GameMgr.TotalEnergy -= energyRequired;
+			Log.Info( GameMgr.TotalEnergy );
+		}
 	}
 
 	public static void RequestServerGenerate( Generator generator )

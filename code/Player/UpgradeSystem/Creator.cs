@@ -114,7 +114,7 @@ public static class Creator
 		new Upgrade.Builder( "Recovery Training I" )
 			.ConfigureWith( v =>
 			{
-				v.RecoveryTraining = 0.5f; // +50%
+				v.RecoveryTraining = 1f; // +50%
 			} )
 			.WithTexture( "aura/aura1.png" )
 			.PlaceAt( Vector2.Down * 600 )
@@ -140,7 +140,7 @@ public static class Creator
 		new Upgrade.Builder( "Endurance Training I" )
 			.ConfigureWith( v =>
 			{
-				v.EnduranceTraining = 0.5f; // +50%
+				v.EnduranceTraining = 1f; // +50%
 			} )
 			.WithTexture( "aura/aura1.png" )
 			.PlaceAt( Vector2.Down * 750 )
