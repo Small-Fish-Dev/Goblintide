@@ -1,4 +1,6 @@
-﻿namespace GameJam;
+﻿using Sandbox.UI;
+
+namespace GameJam;
 
 [Prefab]
 public partial class BaseStructure : ModelEntity
@@ -41,5 +43,24 @@ public partial class BaseStructure : ModelEntity
 			return structure;
 
 		return null;
+	}
+
+	public override void OnNewModel( Model model )
+	{
+		base.OnNewModel( model );
+
+		if ( model == null )
+			return;
+
+		var navBlocker = new NavBlockerEntity();
+		navBlocker.PhysicsClear();
+		navBlocker.Model = model;
+		navBlocker.SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
+		navBlocker.Position = Position;
+		navBlocker.Rotation = Rotation;
+		navBlocker.PhysicsEnabled = false;
+		navBlocker.EnableDrawing = false;
+		navBlocker.Enable();
+		navBlocker.SetParent( this );
 	}
 }

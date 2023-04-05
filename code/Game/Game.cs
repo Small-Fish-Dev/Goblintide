@@ -85,6 +85,12 @@ public partial class GameMgr : GameManager
 
 	}
 
+	public override void RenderHud()
+	{
+		base.RenderHud();
+		Event.Run( nameof( GameEvents.Render ) );
+	}
+
 	[ClientRpc]
 	public static void BroadcastTrees()
 	{

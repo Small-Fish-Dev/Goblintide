@@ -1,5 +1,6 @@
 ﻿@using GameJam.UpgradeSystem
 @using Sandbox.UI;
+@using GameJam.UI.Core;
 
 @namespace GameJam.UI
 @inherits Actor
@@ -12,20 +13,28 @@
 	}
 
 	<AnimatedImage
+		class="background-image"
 		delay="0.5"
-		src="textures/tests/msgbox"
-		transition-src="textures/tests/msgbox-transition/005.png"
-		transition-src="textures/tests/msgbox-transition/004.png"
-		transition-src="textures/tests/msgbox-transition/003.png"
-		transition-src="textures/tests/msgbox-transition/002.png"
-		transition-src="textures/tests/msgbox-transition/001.png"
+		path="textures/tests/msgbox"
+		transition-path="textures/tests/msgbox-transition/005.png"
+		transition-path="textures/tests/msgbox-transition/004.png"
+		transition-path="textures/tests/msgbox-transition/003.png"
+		transition-path="textures/tests/msgbox-transition/002.png"
+		transition-path="textures/tests/msgbox-transition/001.png"
 		transition-delay="0.03">
 	</AnimatedImage>
 	<div class="content">
 		<div class="title">
-			
+			@Upgrade.Title
 		</div>
-		<AnimatedImage class="add-btn" src="textures/tests/msgbox-bits/add-btn"></AnimatedImage>
+		<div class="description">
+			Description of what this upgrade does
+		</div>
+		<div class="context">
+			<WiggleNumber class="number" Value=@Upgrade.Cost>
+			</WiggleNumber>
+			<AnimatedImage class="add-btn" path="textures/tests/msgbox-bits/add-btn"></AnimatedImage>
+		</div>
 	</div>
 </root>
 

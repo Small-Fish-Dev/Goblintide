@@ -4,13 +4,7 @@
 @inherits Panel
 
 <style>
-	WiggleNumber {
-		z-index: 6;
-	
-		position: absolute;
-		
-		justify-content: flex-start;
-	
+	WiggleNumber {	
 		.image {
 			width: @(ImageWidth)px;
 			height: @(ImageHeight)px;
@@ -26,7 +20,7 @@
 <root>
 	@foreach ( var c in Value.ToString() )
 	{
-		<AnimatedImage style="@(InvertString)" class="image" src=@($"textures/tests/number/{c}")></AnimatedImage>
+		<AnimatedImage style="@(InvertString)" class="image" path=@($"textures/tests/number/{c}")></AnimatedImage>
 	}
 </root>
 
@@ -46,4 +40,10 @@
 	
 	public float ImageHeight => 116 * Scale;
 	public float ImageWidth => ((float)64 / 116) * ImageHeight;
+
+	protected override int BuildHash()
+	{
+		return Value;
+	}
+
 }
