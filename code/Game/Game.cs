@@ -77,8 +77,11 @@ public partial class GameMgr : GameManager
 		}
 
 		// Load the save.
-		SetState<VillageState>();
 		LoadSave();
+		SetState<VillageState>();
+
+		SetEnergyFromLastEnergyDate();
+		PlaceGoblinArmy( true );
 
 		if ( WorldMapHost.IsEmpty )
 			WorldMapHost.GenerateNew();

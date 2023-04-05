@@ -14,6 +14,8 @@ public partial class GameMgr
 	}
 	[Net] private IList<BaseNPC> goblinArmy { get; set; }
 
+	public static double VillageSize { get; set; } = 5d;
+
 	public static int TotalGold
 	{
 		get => Instance.totalGold;

@@ -23,7 +23,7 @@ public partial class Town : BaseNetworkable
 	public Vector3 MinBounds => Position - new Vector3( TownRadius ).WithZ(0);
 	public Vector3 MaxBounds => Position + new Vector3( TownRadius ).WithZ(0);
 	public int Seed => TownSize.GetHashCode();
-	public List<Entity> TownEntities = new();
+	public static List<Entity> TownEntities = new();
 	public static List<SceneObject> TownTrees = new();
 	public static List<WallObject> TownFences = new();
 
@@ -129,7 +129,7 @@ public partial class Town : BaseNetworkable
 				}
 				else
 				{
-					GameMgr.CurrentTown.TownEntities.Add( spawnedEntity );
+					Town.TownEntities.Add( spawnedEntity );
 					return true;
 				}
 			} );
@@ -165,7 +165,7 @@ public partial class Town : BaseNetworkable
 				}
 				else
 				{
-					GameMgr.CurrentTown.TownEntities.Add( spawnedEntity );
+					Town.TownEntities.Add( spawnedEntity );
 					return true;
 				}
 			} );
@@ -203,7 +203,7 @@ public partial class Town : BaseNetworkable
 				spawnedNPC.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
 				spawnedNPC.Rotation = Rotation.FromYaw( rand.Next( 360 ) );
 
-				GameMgr.CurrentTown.TownEntities.Add( spawnedNPC );
+				Town.TownEntities.Add( spawnedNPC );
 			} );
 
 			return true;
@@ -349,7 +349,7 @@ public partial class Town : BaseNetworkable
 		var wellEntity = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/well.prefab" );
 		wellEntity.Position = GameMgr.CurrentTown.Position + Vector3.Down * 0.05f;
 		wellEntity.Rotation = Rotation.FromYaw( Game.Random.Int( 360 ) );
-		GameMgr.CurrentTown.TownEntities.Add( wellEntity );
+		Town.TownEntities.Add( wellEntity );
 
 		var rand = new Random( GameMgr.CurrentTown.Seed );
 
@@ -370,9 +370,12 @@ public partial class Town : BaseNetworkable
 
 	public RaidableBuilding Throne { get; set; } = null; 
 
-	public static async void GenerateEmptyTown( float townSize, bool goldPile = true )
+	public static async void GenerateEmptyTown( float townSize, bool goldPile = true, bool deleteOld = true )
 	{
-		GameMgr.CurrentTown?.DeleteTown();
+		if ( deleteOld )
+			GameMgr.CurrentTown?.DeleteTown();
+
+		var oldPosition = GameMgr.CurrentTown?.Position ?? new Vector3( 55f, 292.05f, 512f );
 
 		GameMgr.CurrentTown = new Town();
 		GameMgr.CurrentTown.TownSize = townSize;
@@ -384,16 +387,45 @@ public partial class Town : BaseNetworkable
 			_ => new Vector3( 55f, 292.05f, 512f ),
 		};
 
-		if ( goldPile )
+		if ( goldPile && deleteOld )
 		{
 			GameMgr.CurrentTown.Throne = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/goldpile.prefab" );
 			GameMgr.CurrentTown.Throne.Position = GameMgr.CurrentTown.Position + Vector3.Down * 2f;
-			GameMgr.CurrentTown.TownEntities.Add( GameMgr.CurrentTown.Throne );
+			Town.TownEntities.Add( GameMgr.CurrentTown.Throne );
+		}
+
+		if ( !deleteOld )
+		{
+			foreach ( var goblin in GameMgr.GoblinArmy )
+			{
+				var relativePosition = goblin.Position - oldPosition;
+				goblin.Position = GameMgr.CurrentTown.Position + relativePosition;
+			}
+			foreach ( var player in Entity.All.OfType<Lord>() )
+			{
+				var relativePosition = player.Position - oldPosition;
+				player.Position = GameMgr.CurrentTown.Position + relativePosition;
+			}
+			foreach ( var ent in TownEntities )
+			{
+				var relativePosition = ent.Position - oldPosition;
+				ent.Position = GameMgr.CurrentTown.Position + relativePosition;
+			}
 		}
 
 		GameMgr.BroadcastFences();
 		GameMgr.BroadcastTrees();
 		GameMgr.CurrentTown.Generated = true;
+	}
+
+	[Event("UpgradeBought")]
+	public static void CheckNewTownSize( string identifier )
+	{
+		if ( identifier.StartsWith( "Village Size" ) )
+		{
+			GameMgr.LoadVillageSize();
+			GenerateEmptyTown( (float)GameMgr.VillageSize, true, false );
+		}
 	}
 
 	TimeUntil checkFences { get; set; } = 0.2f;

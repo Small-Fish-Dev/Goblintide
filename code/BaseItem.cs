@@ -43,7 +43,7 @@ public partial class BaseItem : BaseEntity
 		if ( PrefabLibrary.TrySpawn<BaseItem>( prefabName, out var item ) )
 		{
 			if ( addToTown )
-				GameMgr.CurrentTown?.TownEntities.Add( item );
+				Town.TownEntities.Add( item );
 			return item;
 		}
 
@@ -53,7 +53,7 @@ public partial class BaseItem : BaseEntity
 		if ( entity != null )
 		{
 			if ( addToTown )
-				GameMgr.CurrentTown?.TownEntities.Add( entity );
+				Town.TownEntities.Add( entity );
 			return entity;
 		}
 

@@ -88,7 +88,7 @@ public static class Creator
 		new Upgrade.Builder( "Village Size I" )
 			.ConfigureWith( v =>
 			{
-				v.VillageSize = 50f; // +50
+				v.VillageSize = 25f; // +25
 			} )
 			.WithTexture( "aura/aura1.png" )
 			.PlaceAt( Vector2.Down * 450 )

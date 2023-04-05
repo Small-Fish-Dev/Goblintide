@@ -6,8 +6,8 @@ public partial class Lord
 {
 	[Net, Change( "NetUpgradesEvent" )] public List<string> Upgrades { get; set; } = new();
 
-	private Upgrade _combinedUpgrades;
-	public Upgrade CombinedUpgrades => _combinedUpgrades;
+	private static Upgrade _combinedUpgrades;
+	public static Upgrade CombinedUpgrades => _combinedUpgrades;
 
 	private void NetUpgradesEvent() => CombineUpgrades();
 
@@ -29,6 +29,7 @@ public partial class Lord
 			throw new Exception( $"Unknown upgrade {identifier}" );
 		Upgrades.Add( identifier );
 		CombineUpgrades();
+		Event.Run( "UpgradeBought", identifier );
 	}
 
 	public void RemoveUpgrade( string identifier )

@@ -280,9 +280,7 @@ partial class GameMgr
 			shouldDelete = true;
 		}
 
-		SetEnergyFromLastEnergyDate();
-		PlaceGoblinArmy( true );
-		
+		LoadVillageSize();
 		// Tell everyone that we're done loading.
 		Loaded = true;
 
@@ -294,6 +292,16 @@ partial class GameMgr
 			FileSystem.Data.DeleteFile( SAVE_PATH );
 
 		return true;
+	}
+
+	public static void LoadVillageSize()
+	{
+		if ( Lord.CombinedUpgrades == null ) return;
+
+		if ( Lord.CombinedUpgrades.VillageSize > 0f )
+		{
+			GameMgr.VillageSize = 5d + Lord.CombinedUpgrades.VillageSize;
+		}
 	}
 
 	[ConCmd.Server]
