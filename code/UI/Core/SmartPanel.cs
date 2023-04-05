@@ -1,4 +1,5 @@
-﻿using Sandbox.UI;
+﻿using GameJam.UI.Core;
+using Sandbox.UI;
 
 namespace GameJam;
 
@@ -7,6 +8,8 @@ public partial class SmartPanel<T> : Panel where T : Panel, new()
 	public static SmartPanel<T> Instance { get; protected set; }
 
 	public static bool IsOpen => Instance != null;
+
+	public PanelCamera Camera { get; } = new();
 
 	public SmartPanel()
 	{

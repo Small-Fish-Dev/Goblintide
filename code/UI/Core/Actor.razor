@@ -1,4 +1,5 @@
-﻿@using Sandbox.UI;
+﻿@using GameJam.UI.Core
+@using Sandbox.UI;
 @namespace GameJam.UI
 @inherits Panel
 
@@ -11,6 +12,8 @@
 	private bool _shouldUpdate;
 
 	internal Vector2 Offset;
+
+	public PanelCamera PanelCamera;
 
 	public Vector2 Size => Box.Rect.Size * ScaleFromScreen;
 
@@ -89,6 +92,7 @@
 			{
 				var position = Position;
 				position = DoPositionEffect( position );
+				position += PanelCamera?.Position ?? Vector2.Zero;
 				Style.Left = Length.Pixels( position.x.Floor() );
 				Style.Top = Length.Pixels( position.y.Floor() );
 
