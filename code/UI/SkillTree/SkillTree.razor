@@ -25,15 +25,20 @@
 		</div>
 		<div class="flag">
 			<AnimatedImage
+				class="flag-image"
 				delay="0.7"
 				src="textures/tests/flag"
 				allow-translate>
 			</AnimatedImage>
-			<div class="inner">@GameMgr.TotalIQ</div>
+			<div class="inner">
+				<WiggleNumber Value=@GameMgr.TotalIQ Scale=@(0.6f)></WiggleNumber>
+			</div>
 		</div>
 	</div>
 	<div class="background" allow-translate>
-		<div class="main" @ref=MainPanel allow-translate></div>
+		<div class="main" @ref=MainPanel allow-translate>
+			
+		</div>
 	</div>
 </root>
 

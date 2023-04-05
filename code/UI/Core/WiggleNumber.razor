@@ -1,0 +1,41 @@
+﻿@using Sandbox.UI;
+
+@namespace GameJam.UI.Core
+@inherits Panel
+
+<style>
+	WiggleNumber {
+		z-index: 6;
+	
+		position: absolute;
+		
+		justify-content: flex-start;
+	
+		.image {
+			width: @(ImageWidth)px;
+			height: @(ImageHeight)px;
+			
+			background-size: contain;
+			background-repeat: no-repeat;
+			
+			image-rendering: pixelated;
+			
+			filter: invert(100);
+		}
+	}
+</style>
+
+<root>
+	@foreach ( var c in Value.ToString() )
+	{
+		<AnimatedImage class="image" src=@($"textures/tests/number/{c}")></AnimatedImage>
+	}
+</root>
+
+@code {
+	public int Value { get; set; } = 0;
+	public float Scale { get; set; } = 0.8f;
+
+	public float ImageHeight => 116 * Scale;
+	public float ImageWidth => ((float)64 / 116) * ImageHeight;
+}
