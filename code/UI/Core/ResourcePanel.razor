@@ -3,6 +3,37 @@
 @namespace GameJam
 @inherits Panel
 
+<style>
+    ResourcePanel { 
+        position: relative;
+        background-color: #2c2825cc;
+        margin: 15px;
+        transform: rotate(3deg);
+        width: 96px;
+        height: 96px;
+        backdrop-filter: blur(8px);
+    }
+    span {
+        font-family: Roboto;
+        font-weight: 900;
+        font-size: 46px;
+        text-shadow: 4px 4px 0px black;
+        position: absolute;
+        bottom: -25px;
+        right: 5px;
+        transform: rotate(-3deg);
+    }
+    /* Why the fuck transform: translate(-50%, -50%) is not a thing */
+    img {
+        position: absolute;
+        top: 9%;
+        left: 9%;
+        width: 78px;
+        height: 78px;
+        transform: rotate(-3deg);
+    }
+</style>
+
 <root>
     <img src=@($"ui/resources/{ResourceName.ToLower()}.png") />
     <span>@ResourceAmount</span>
