@@ -5,6 +5,8 @@ namespace GameJam.UI;
 public partial class WorldMap
 {
 	private Panel Container { get; set; }
+	private Vector2 offset { get; set; }
+	private Vector2 position { get; set; }
 
 	public IEnumerable<Actor> Actors => Descendants.OfType<Actor>();
 
@@ -41,6 +43,8 @@ public partial class WorldMap
 		foreach ( var actor in Actors )
 			actor.Offset = actor.Position - MousePosition;
 
+		offset = position - MousePosition;
+
 		_dragging = true;
 	}
 
@@ -60,5 +64,10 @@ public partial class WorldMap
 
 		foreach ( var actor in Actors )
 			actor.Position = actor.Offset + MousePosition;
+
+		Log.Info( position );
+		position = offset + MousePosition;
+		Container.Style.BackgroundPositionX = position.x;
+		Container.Style.BackgroundPositionY = position.y;
 	}
 }
