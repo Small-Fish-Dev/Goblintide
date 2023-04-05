@@ -12,6 +12,20 @@
 
 	internal Vector2 Offset;
 
+	public Vector2 Size => Box.Rect.Size * ScaleFromScreen;
+
+	private Queue<Action> _postReadyQueue = new();
+
+	public void QueuePosition( Action action )
+	{
+		if ( ReadyToPosition )
+		{
+			action.Invoke();
+			return;
+		}
+		_postReadyQueue.Enqueue( action );
+	}
+
 	public Vector2 Position
 	{
 		get
@@ -90,6 +104,12 @@
 		PositionHasChanged();
 
 		ReadyToPosition = true;
+
+		foreach ( var action in _postReadyQueue )
+		{
+			action.Invoke();
+		}
+		_postReadyQueue = null;
 	}
 
 }
