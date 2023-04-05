@@ -30,13 +30,13 @@
           },
           "IsBreakable": {
             "Type": "Boolean",
-            "Value": "false"
+            "Value": "true"
           },
           "_name": {
             "Value": "\u0022Door\u0022"
           },
           "_localposition": {
-            "Value": "\u0022-127.5743,-30.93017,4.07582\u0022"
+            "Value": "\u0022-133.2917,-31.02862,4.07582\u0022"
           },
           "_localrotation": {
             "Value": "\u0022-0,-89.0135,-0\u0022"
