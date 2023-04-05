@@ -27,11 +27,6 @@
 
 		set
 		{
-			if ( !ReadyToPosition )
-			{
-				Log.Warning( $"Tried to position {this} before it was ready" );
-				return;
-			}
 			_position = value;
 			PositionHasChanged();
 		}
@@ -39,12 +34,12 @@
 
 	private Vector2 GetInitialPosition()
 	{
-		var vector2 = new Vector2
+		var position = new Vector2
 		{
 			x = (Box.Rect.Left - Parent.Box.Rect.Left) * ScaleFromScreen,
 			y = (Box.Rect.Top - Parent.Box.Rect.Top) * ScaleFromScreen
 		};
-		return ModifyInitialPosition( vector2 );
+		return ModifyInitialPosition( position );
 	}
 
 	protected virtual Vector2 ModifyInitialPosition( Vector2 position ) => position;
@@ -64,6 +59,8 @@
 		base.Tick();
 
 		Style.Position = PositionMode.Absolute;
+
+		Style.Opacity = !ReadyToPosition ? 0 : 1;
 
 		if ( ReadyToPosition )
 		{
