@@ -27,7 +27,7 @@ public class AnimatedImage : Image
 		base.Tick();
 
 		Style.Opacity = _loaded ? 1 : 0;
-		
+
 		if ( _next )
 			Next();
 	}
@@ -59,7 +59,7 @@ public class AnimatedImage : Image
 		void LoadTexture( string src )
 		{
 			Log.Info( $"Looking for {src}" );
-			
+
 			foreach ( var (cachedSrc, cachedTexture) in Cache )
 			{
 				if ( cachedSrc != src )
@@ -125,7 +125,10 @@ public class AnimatedImage : Image
 			base.SetProperty( name, value );
 			return;
 		}
-		
+
+		if ( name == "src" )
+			throw new Exception( $"src used to load {value}, please use path" );
+
 		switch ( name )
 		{
 			case "delay":
@@ -134,14 +137,14 @@ public class AnimatedImage : Image
 			case "transition-delay":
 				_transitionDelay = value.ToFloat( 1 );
 				return;
-			case "src":
+			case "path":
 				LoadSrc( value, false );
 				return;
-			case "transition-src":
+			case "transition-path":
 				LoadSrc( value, true );
 				return;
 		}
-		
+
 		base.SetProperty( name, value );
 	}
 }

@@ -1,8 +1,8 @@
 ﻿UpgradeInfoActor {
-	width: 412px;
-	height: 412px;
+	width: 331px;
+	height: 287px;
 
-	AnimatedImage {
+	.background-image {
 		z-index: 1;
 
 		position: absolute;
@@ -10,7 +10,7 @@
 		width: 100%;
 		height: 100%;
 
-		background-position: 0% 13%;
+		background-position: 0 0;
 		background-size: cover;
 		background-repeat: no-repeat;
 
@@ -22,36 +22,63 @@
 
 		position: relative;
 
-		top: 15%;
-
 		width: 100%;
-		height: 55%;
+		height: 70%;
 
 		color: white;
-		font-size: 50px;
 
-		margin: 50px;
+		font-family: PatrickHand;
+
+		justify-content: space-between;
+		flex-direction: column;
+
+		margin: 25px;
 
 		.title {
-			font-family: PatrickHand;
-			font-size: 40px;
-		}
-		
-		.add-btn {
-			width: 100px;
-			height: 70px;
+			width: 100%;
 
-			top: 70%;
-			right: 0;
-
-			background-position: center;
-			background-size: contain;
-			background-repeat: no-repeat;
-
-			image-rendering: pixelated;
+			font-size: 35px;
 		}
 
-		transition: all 0.3s ease-in-out;
+		.description {
+			width: 100%;
+			height: 60%;
+		}
+
+		.context {
+			width: 100%;
+			height: 40%;
+
+			.number {
+				width: 70%;
+				height: 100%;
+
+				justify-content: flex-start;
+				flex-direction: row;
+
+				font-size: 50px;
+				
+				WiggleNumber {
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+			.add-btn {
+				width: 100px;
+				height: 70px;
+
+				right: 0;
+
+				background-position: center;
+				background-size: contain;
+				background-repeat: no-repeat;
+
+				image-rendering: pixelated;
+			}
+		}
+
+		transition: all 0.4s ease-in-out;
 
 		&:intro {
 			opacity: 0;

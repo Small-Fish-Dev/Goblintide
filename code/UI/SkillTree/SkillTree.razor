@@ -12,14 +12,14 @@
 			<div class="center">
 				<AnimatedImage
 					delay="0.5"
-					src="textures/tests/crown">
+					path="textures/tests/crown">
 				</AnimatedImage>
 			</div>
 		</div>
 		<div class="waves" allow-translate>
 			<AnimatedImage
 				delay="0.7"
-				src="textures/tests/waves"
+				path="textures/tests/waves"
 				allow-translate>
 			</AnimatedImage>
 		</div>
@@ -27,7 +27,7 @@
 			<AnimatedImage
 				class="flag-image"
 				delay="0.7"
-				src="textures/tests/flag"
+				path="textures/tests/flag"
 				allow-translate>
 			</AnimatedImage>
 			<div class="inner">
@@ -73,6 +73,8 @@
 				UpgradeInfo.Upgrade = SelectedActor.Upgrade;
 			} );
 		}
+		
+		UpgradeInfo?.StateHasChanged();
 	}
 
 	public void ClearSelection()
