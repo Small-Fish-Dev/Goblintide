@@ -14,7 +14,7 @@
         "Keys": {
           "Model": {
             "Type": "Model",
-            "Value": "\u0022models/rust_structures/fences_walls/chainlink_fence_3x3_gate_door.vmdl\u0022"
+            "Value": "\u0022models/door/door.vmdl\u0022"
           },
           "FoodDropped": {
             "Type": "RangedFloat",
@@ -36,7 +36,7 @@
             "Value": "\u0022Door\u0022"
           },
           "_localposition": {
-            "Value": "\u0022-136.1771,119.0987,0.00001394015\u0022"
+            "Value": "\u0022-127.3262,96.36716,1.741542\u0022"
           },
           "_localrotation": {
             "Value": "\u0022-0,-89.0135,-0\u0022"
