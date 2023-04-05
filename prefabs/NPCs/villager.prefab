@@ -22,6 +22,16 @@
                 "Value": "[]"
               }
             }
+          },
+          {
+            "Guid": "460f6dcb-1016-4bc9-8e49-be087125444a",
+            "Class": "RandomMaterialGroupComponent",
+            "Keys": {
+              "_name": {
+                "Value": "\u0022RandomMaterialGroupComponent\u0022"
+              },
+              "_tags": {}
+            }
           }
         ],
         "Keys": {
@@ -65,6 +75,16 @@
               "_tags": {
                 "Value": "[]"
               }
+            }
+          },
+          {
+            "Guid": "cddbb76b-4b20-4a60-8dbc-c7a32b33e13d",
+            "Class": "RandomMaterialGroupComponent",
+            "Keys": {
+              "_name": {
+                "Value": "\u0022RandomMaterialGroupComponent\u0022"
+              },
+              "_tags": {}
             }
           }
         ],
@@ -198,7 +218,9 @@
           "_name": {
             "Value": "\u0022RandomMaterialGroupComponent\u0022"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "[]"
+          }
         }
       }
     ],

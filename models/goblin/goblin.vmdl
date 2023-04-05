@@ -16,6 +16,10 @@
 						[
 							{
 								from = "cylinder.vmat"
+								to = "cylinder.vmat"
+							},
+							{
+								from = "crown.vmat"
 								to = "models/crown/crown.vmat"
 							},
 						]
@@ -30,6 +34,10 @@
 							{
 								from = "models/goblin/materials/goblin.vmat"
 								to = "models/goblin/materials/goblin_yellow.vmat"
+							},
+							{
+								from = "crown.vmat"
+								to = "models/goblin/materials/goblin.vmat"
 							},
 						]
 					},
