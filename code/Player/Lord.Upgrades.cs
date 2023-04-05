@@ -71,7 +71,7 @@ public partial class Lord
 
 			foreach( var enemy in closeEnemies )
 			{
-				enemy.BaseDiligency = enemy.RootPrefab.GetValue<float>( "BaseDiligency" ) - CombinedUpgrades.AuraOfFear;
+				enemy.BaseDiligency -= CombinedUpgrades.AuraOfFear;
 			}
 		}
 
@@ -88,9 +88,22 @@ public partial class Lord
 			}
 		}
 
+		if ( CombinedUpgrades.BackseatGaming > 0f )
+		{
+			foreach ( var ally in allAllies )
+			{
+				ally.AttackSpeed = ally.RootPrefab.GetValue<float>( "AttackSpeed" );
+			}
+
+			foreach ( var ally in closeAllies )
+			{
+				ally.AttackSpeed *= (1f + CombinedUpgrades.BackseatGaming);
+			}
+		}
+
 		if ( CombinedUpgrades.Swiftness > 0f )
 		{
-			WalkSpeed = BaseWalkSpeed * ( 1 + CombinedUpgrades.Swiftness );
+			WalkSpeed = BaseWalkSpeed * ( 1f + CombinedUpgrades.Swiftness );
 		}
 	}
 }
