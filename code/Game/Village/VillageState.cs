@@ -30,7 +30,7 @@ public partial class VillageState : GameState
 		}
 		else
 		{
-			Town.GenerateEmptyTown( 5 );
+			Town.GenerateTown( 300f, 2f );
 		}
 	}
 

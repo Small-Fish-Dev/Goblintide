@@ -43,7 +43,7 @@
 
 	<panel class="structures" @ref=structureContainer >
 		@{
-			var structures = ResourceLibrary.GetAll<Prefab>()
+			/*var structures = ResourceLibrary.GetAll<Prefab>()
 				.Where( p => p.Root.Class == "BaseStructure" );
 
 			foreach ( var structure in structures )
@@ -52,7 +52,7 @@
 				var name = root.GetValue<string>( "Title" );
 
 				<panel class="slot">@name</panel>
-			}
+			}*/ // DISABLE FOR REPRO
 		}
 	</panel>
 </root>
