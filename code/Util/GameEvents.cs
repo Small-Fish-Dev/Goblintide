@@ -12,4 +12,15 @@ public static class GameEvents
 
 		}
 	}
+
+	/// <summary>
+	/// Called on RenderHud of GameManager.
+	/// </summary>
+	public class Render : EventAttribute
+	{
+		public Render() : base( nameof( Render ) )
+		{
+
+		}
+	}
 }
