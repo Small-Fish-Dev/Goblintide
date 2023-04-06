@@ -1,4 +1,6 @@
-﻿namespace GameJam;
+﻿using static GameJam.WorldMapHost;
+
+namespace GameJam;
 
 public partial class Lord : BaseCharacter
 {
@@ -40,6 +42,14 @@ public partial class Lord : BaseCharacter
 
 		SetMaterialGroup( "old" );
 		SetBodyGroup( "crown", 1 );
+	}
+	public override void Kill()
+	{
+		foreach( var goblin in GameMgr.GoblinArmy )
+		{
+			goblin.Delete();
+		}
+		GameMgr.SetState<VillageState>();
 	}
 
 	public override void Simulate( IClient cl )
