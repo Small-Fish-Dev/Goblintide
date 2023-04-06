@@ -58,7 +58,7 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 
 		if ( GameMgr.TotalEnergy >= energyRequired )
 		{
-			Town.GenerateTown( (float)generator.Size, 2f );
+			Town.GenerateTown( (float)generator.Size );
 			GameMgr.SetState<RaidingState>();
 			GameMgr.TotalEnergy -= energyRequired;
 		}
