@@ -17,6 +17,9 @@ public partial class SmartPanel<T> : Panel where T : Panel, new()
 		Instance = this;
 	}
 
+	[Event.Client.Frame]
+	private void Frame() => Camera.Tick();
+
 	public override void OnDeleted()
 	{
 		base.OnDeleted();
