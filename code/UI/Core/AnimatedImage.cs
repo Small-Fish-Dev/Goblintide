@@ -4,6 +4,8 @@ namespace GameJam.UI;
 
 public class AnimatedImage : Image
 {
+	public Action OnStart { get; set; }
+	
 	private static readonly List<(string, Texture)> Cache = new();
 
 	private readonly List<Texture> _textures = new();
@@ -43,7 +45,11 @@ public class AnimatedImage : Image
 		if ( _index >= input.Count )
 		{
 			_index = 0;
-			if ( _transitioning ) _transitioning = false;
+			if ( _transitioning )
+			{
+				OnStart?.Invoke();
+				_transitioning = false;
+			}
 		}
 
 		input = _transitioning ? _transition : _textures;

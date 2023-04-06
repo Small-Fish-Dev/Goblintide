@@ -25,11 +25,25 @@
 			transition-path="textures/tests/worldmap-transition/010.png"
 			transition-path="textures/tests/worldmap-transition/011.png"
 			transition-path="textures/tests/worldmap-transition/012.png"
-			transition-delay="0.016">
+			transition-delay="0.017"
+			OnStart=@( () => { Container.Style.Opacity = 1; } )>
 		</AnimatedImage>
 	</div>
 
-	<div class="container">
-		<div class="content"></div>
+	<div class="container" @ref=Container>
+		<div class="content">
+			s
+		</div>
 	</div>
 </root>
+
+@code {
+
+	public Panel Container { get; set; }
+
+	public WorldMap()
+	{
+		SkillTree.Delete();
+	}
+
+}
