@@ -72,7 +72,7 @@ public partial class BaseStructure : ModelEntity
 
 		if ( boundsTrace.Entity is not null )
 		{
-			Log.Error( "There is something in the way." );
+			EventLogger.Send( To.Everyone, "<red>There is something in the way.</red>" );
 			return;
 		}
 
@@ -80,7 +80,7 @@ public partial class BaseStructure : ModelEntity
 		var women = prefab.Root.GetValue<int>( "Women" );
 		if ( GameMgr.TotalWood < wood || GameMgr.TotalWomen < women )
 		{
-			Log.Error( "You have insufficient resources for that." );
+			EventLogger.Send( To.Everyone, "<red>You have insufficient resources for that.</red>" );
 			return;
 		}
 
