@@ -103,7 +103,7 @@ public partial class GameMgr : GameManager
 		SetEnergyFromLastEnergyDate();
 		PlaceGoblinArmy( true );
 
-		//if ( WorldMapHost.IsEmpty )
+		if ( WorldMapHost.IsEmpty )
 			WorldMapHost.GenerateNew();
 
 		// Broadcast nodes to client.
