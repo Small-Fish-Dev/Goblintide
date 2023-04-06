@@ -129,11 +129,12 @@ partial class GameMgr
 			int count = WorldMapHost.Entries.Count();
 			writer.Write( count );
 
-			foreach ( WorldMapHost.Generator entry in WorldMapHost.Entries )
+			foreach ( WorldMapHost.Node entry in WorldMapHost.Entries )
 			{
 				writer.Write( entry.MapPosition );
 				writer.Write( entry.Size );
 			}
+
 			return;
 		}
 
@@ -146,11 +147,11 @@ partial class GameMgr
 			{
 				var position = reader.ReadVector2();
 				var size = reader.ReadDouble();
-				new WorldMapHost.Generator( position, size );
+				new WorldMapHost.Node( position, size );
 			}
 		}
 	}
-#endregion
+	#endregion
 
 	#region Lord Persistence
 	// TODO: Save Lord upgrades.

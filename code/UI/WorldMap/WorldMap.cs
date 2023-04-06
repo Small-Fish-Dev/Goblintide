@@ -17,20 +17,17 @@ public partial class WorldMap
 
 		if ( !firstTime ) return;
 
-		foreach ( var entry in WorldMapHost.Entries )
+		foreach ( var generator in WorldMapHost.Entries )
 		{
-			if ( entry is WorldMapHost.Generator generator )
-			{
-				var panel = new GeneratorActor( generator ) { PanelCamera = Camera };
-				Container.AddChild( panel );
-				var size = 300f * (float)Math.Sqrt( generator.Size / 5 );
+			var panel = new GeneratorActor( generator ) { PanelCamera = Camera };
+			Container.AddChild( panel );
+			var size = 300f * (float)Math.Sqrt( generator.Size / 5 );
 
-				panel.Style.SetBackgroundImage( "ui/camp.png" );
-				if ( size > 1200f )
-					panel.Style.SetBackgroundImage( "ui/town.png" );
-				if ( size > 2500f )
-					panel.Style.SetBackgroundImage( "ui/castle.png" );
-			}
+			panel.Style.SetBackgroundImage( "ui/camp.png" );
+			if ( size > 1200f )
+				panel.Style.SetBackgroundImage( "ui/town.png" );
+			if ( size > 2500f )
+				panel.Style.SetBackgroundImage( "ui/castle.png" );
 		}
 	}
 

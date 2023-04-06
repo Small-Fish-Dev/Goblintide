@@ -1,30 +1,29 @@
-﻿namespace GameJam;
+﻿using System.IO;
+
+namespace GameJam;
 
 public partial class WorldMapHost : HostEntity<WorldMapHost>
 {
-	public static IEnumerable<IEntry> Entries => All.OfType<IEntry>();
+	public static IReadOnlyList<Node> Entries => entries;
 	public static bool IsEmpty { get; set; } = true;
 	public static float MapSize { get; set; } = 5000f;
 
-	public interface IEntry
+	private static List<Node> entries = new();
+
+	public class Node
 	{
-		public Vector2 MapPosition { get; }
-	}
+		public double Size { get; set; }
+		public Vector2 MapPosition { get; set; }
+		public int Index { get; }
 
-	public partial class Generator : Entity, IEntry
-	{
-		[Net] public double Size { get; set; }
-		[Net] public Vector2 MapPosition { get; set; }
-
-		public Generator() { }
-
-		public Generator( Vector2 position, double size ) : this()
+		public Node( Vector2 position, double size, int? id = null )
 		{
 			IsEmpty = false;
-			Transmit = TransmitType.Always;
-			if ( !Game.IsServer ) return;
 			MapPosition = position;
 			Size = size;
+			Index = id ?? entries.Count;
+			Log.Error( $"generated node {Index} on {(Game.IsServer ? "server" : "client")}" );
+			entries.Insert( Index, this );
 		}
 	}
 
@@ -42,31 +41,70 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 				var randomOffset = Vector2.Random.Normal * gaps / 4f;
 				var position = new Vector2( x, y ) * gaps + randomOffset;
 				var distanceFromCenter = position.Distance( Vector2.Zero );
-				new Generator( position, Math.Pow( distanceFromCenter / 40f, 1.4f ) );
+				var node = new Node( position, Math.Pow( distanceFromCenter / 40f, 1.4f ) );
 			}
 		}
 	}
 
-	[ConCmd.Server]
-	private static void ClientToServerGenerate( int idx )
+	public static void BroadcastNodes( To target = default )
 	{
 		Game.AssertServer();
-		var entity = FindByIndex( idx );
-		if ( entity is not Generator generator ) return;
 
-		var energyRequired = (int)( generator.Size / 2f );
+		using var stream = new MemoryStream();
+		using var writer = new BinaryWriter( stream );
+
+		writer.Write( entries.Count );
+		foreach ( var node in entries )
+		{
+			writer.Write( node.Index );
+			writer.Write( node.MapPosition );
+			writer.Write( node.Size );
+		}
+
+		SendNodeData( target, stream.ToArray() );
+	}
+
+	[ClientRpc]
+	public static void SendNodeData( byte[] data )
+	{
+		using var stream = new MemoryStream( data );
+		using var reader = new BinaryReader( stream );
+
+		var count = reader.ReadInt32();
+		Log.Error( count );
+		for ( int i = 0; i < count; i++ )
+		{
+			var index = reader.ReadInt32();
+			var position = reader.ReadVector2();
+			var size = reader.ReadDouble();
+
+			var node = new Node( position, size, index );
+		}
+	}
+
+	[ConCmd.Server]
+	private static void ClientToServerGenerate( int index )
+	{
+		Game.AssertServer();
+
+		// Failed to find node.
+		Node? node;
+		if ( (node = Entries.ElementAtOrDefault( index )) == null )
+			return;
+
+		var energyRequired = (int)( node.Size / 2f );
 
 		if ( GameMgr.TotalEnergy >= energyRequired )
 		{
-			Town.GenerateTown( (float)generator.Size );
+			Town.GenerateTown( (float)node.Size );
 			GameMgr.SetState<RaidingState>();
 			GameMgr.TotalEnergy -= energyRequired;
 		}
 	}
 
-	public static void RequestServerGenerate( Generator generator )
+	public static void RequestServerGenerate( Node generator )
 	{
 		Game.AssertClient();
-		ClientToServerGenerate( generator.NetworkIdent );
+		ClientToServerGenerate( generator.Index );
 	}
 }
