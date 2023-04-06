@@ -111,7 +111,9 @@
               "_name": {
                 "Value": "\u0022RandomMaterialGroupComponent\u0022"
               },
-              "_tags": {}
+              "_tags": {
+                "Value": "[]"
+              }
             }
           },
           {
@@ -121,7 +123,9 @@
               "_name": {
                 "Value": "\u0022RandomColorComponent\u0022"
               },
-              "_tags": {}
+              "_tags": {
+                "Value": "[]"
+              }
             }
           }
         ],
@@ -327,6 +331,10 @@
       "Voice": {
         "Type": "VoiceType",
         "Value": "\u0022Human\u0022"
+      },
+      "StartingWeapon": {
+        "Type": "String",
+        "Value": "\u0022prefabs/items/sword.prefab\u0022"
       }
     }
   }
