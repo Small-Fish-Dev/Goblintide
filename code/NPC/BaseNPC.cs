@@ -163,11 +163,22 @@ public partial class BaseNPC : BaseCharacter
 		if ( CurrentTarget != null )
 			CurrentTarget.TotalAttackers--;
 
-		Drop( Armor );
-		Drop( Weapon );
-
 		var position = Position + GetHeight() / 2f;
 		Particles.Create( "particles/impact.flesh-big.vpcf", position );
+
+		if ( Voice == VoiceType.Huwoman ) //fkuk
+		{
+			var collectable = BaseCollectable.FromPrefab( "prefabs/collectables/woman.prefab" );
+			if ( collectable != null )
+			{
+				collectable.Position = Position;
+				collectable.Rotation = Rotation;
+			}
+			Delete();
+		}
+
+		Drop( Armor );
+		Drop( Weapon );
 
 		if ( Stealing.IsValid() )
 		{
@@ -305,6 +316,11 @@ public partial class BaseNPC : BaseCharacter
 		if ( Disabled ) return;
 		ComputeMotion();
 		ComputeNavigation();
+
+		if ( Stealing.IsValid() )
+		{
+			Stealing.Position = Position + Vector3.Up * GetHeight();
+		}
 
 		if ( nextCheapThink )
 		{
