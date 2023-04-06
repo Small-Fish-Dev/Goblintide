@@ -211,7 +211,7 @@ public partial class BaseNPC
 
 	public void ComputeRevenge()
 	{
-		if ( LastAttackedBy.IsValid() && LastAttackedBy != CurrentTarget )
+		if ( LastAttackedBy.IsValid() && LastAttackedBy != CurrentTarget && !LastAttackedBy.Dead )
 		{
 			CurrentTarget = LastAttackedBy;
 		}
@@ -340,6 +340,12 @@ public partial class BaseNPC
 
 	public virtual void AttackingSubBehaviour()
 	{
+		if ( CurrentTarget is BaseNPC npc )
+			if ( npc.Dead )
+			{
+				CurrentTarget = null;
+				return;
+			}	
 		CurrentSubBehaviour = SubBehaviour.Attacking;
 
 		if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) ) // If the target moved
@@ -355,10 +361,6 @@ public partial class BaseNPC
 
 		if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) && !IsFollowingOrder )
 			CurrentTarget = null;
-
-		if ( CurrentTarget is BaseNPC npc )
-			if ( npc.Dead )
-				CurrentTarget = null;
 	}
 
 	public virtual void PanickingSubBehaviour()
@@ -378,11 +380,6 @@ public partial class BaseNPC
 		}
 		else
 			CurrentTarget = null;
-
-
-		if ( CurrentTarget is BaseNPC npc )
-			if ( npc.Dead )
-				CurrentTarget = null;
 	}
 
 	public virtual void DiligencyCheck()
@@ -491,6 +488,10 @@ public partial class BaseNPC
 				EquippingSubBehaviour();
 			else
 				AttackingSubBehaviour();
+
+			if ( CurrentTarget is BaseNPC npc )
+				if ( npc.Dead )
+					CurrentTarget = null;
 		}
 
 		ComputeRevenge();
@@ -523,6 +524,10 @@ public partial class BaseNPC
 		else
 		{
 			AttackingSubBehaviour();
+
+			if ( CurrentTarget is BaseNPC npc )
+				if ( npc.Dead )
+					CurrentTarget = null;
 		}
 
 		ComputeRevenge();
@@ -551,6 +556,10 @@ public partial class BaseNPC
 		else
 		{
 			PanickingSubBehaviour();
+
+			if ( CurrentTarget is BaseNPC npc )
+				if ( npc.Dead )
+					CurrentTarget = null;
 		}
 	}
 }
