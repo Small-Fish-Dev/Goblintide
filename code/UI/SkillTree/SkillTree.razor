@@ -82,7 +82,7 @@
 
 	public static void BuyUpgrade( Upgrade upgrade )
 	{
-		if ( GameMgr.TotalIQ < upgrade.Cost )
+		if ( GameMgr.TotalIQ < 1 )
 		{
 			Log.Warning( $"Tried to buy {upgrade} without the funds!" );
 			return;

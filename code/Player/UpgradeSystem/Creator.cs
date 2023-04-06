@@ -8,7 +8,7 @@ public static class Creator
 	private static void Build()
 	{
 		Upgrade.ClearAll();
-		new Upgrade.Builder( "Aura of Fear I" )
+		new Upgrade.Builder( "Aura of Fear I", "Enemies around you have lower diligence." )
 			.ConfigureWith( v =>
 			{
 				v.AuraOfFear = 0.05f; // -5%
@@ -16,9 +16,8 @@ public static class Creator
 			.WithTexture( "aura/aura1.png" )
 			.Next( "Aura of Fear II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
-						.PlaceAt( Vector2.Left * 150 ) )
+					v.WithTexture( "aura/aura2.png" )
+					.PlaceAt( Vector2.Left * 150 ) )
 			.Next( "Aura of Fear III",
 				v =>
 					v.WithTexture( "aura/aura3.png" )
@@ -33,7 +32,7 @@ public static class Creator
 						.PlaceAt( Vector2.Left * 600 ) )
 			.Build();
 
-		new Upgrade.Builder( "Aura of Respect I" )
+		new Upgrade.Builder( "Aura of Respect I", "Allies around you have higher diligence." )
 			.ConfigureWith( v =>
 			{
 				v.AuraOfRespect = 0.05f; // +5%
@@ -42,9 +41,8 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 150 )
 			.Next( "Aura of Respect II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
-						.PlaceAt( Vector2.Down * 150 + Vector2.Left * 150 ) )
+					v.WithTexture( "aura/aura2.png" )
+					.PlaceAt( Vector2.Down * 150 + Vector2.Left * 150 ) )
 			.Next( "Aura of Respect III",
 				v =>
 					v.WithTexture( "aura/aura3.png" )
@@ -59,7 +57,7 @@ public static class Creator
 						.PlaceAt( Vector2.Down * 150 + Vector2.Left * 600 ) )
 			.Build();
 
-		new Upgrade.Builder( "Goblin School I" )
+		new Upgrade.Builder( "Goblin School I", "Increase Base Goblin diligence." )
 			.ConfigureWith( v =>
 			{
 				v.GoblinSchool = 0.05f; // +5%
@@ -68,8 +66,7 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 300 )
 			.Next( "Goblin School II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "aura/aura2.png" )
 						.PlaceAt( Vector2.Down * 300 + Vector2.Left * 150 ) )
 			.Next( "Goblin School III",
 				v =>
@@ -85,7 +82,7 @@ public static class Creator
 						.PlaceAt( Vector2.Down * 300 + Vector2.Left * 600 ) )
 			.Build();
 
-		new Upgrade.Builder( "Village Size I" )
+		new Upgrade.Builder( "Village Size I", "Increase your village size." )
 			.ConfigureWith( v =>
 			{
 				v.VillageSize = 25f; // +25
@@ -94,8 +91,7 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 450 )
 			.Next( "Village Size II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "aura/aura2.png" )
 						.PlaceAt( Vector2.Down * 450 + Vector2.Left * 150 ) )
 			.Next( "Village Size III",
 				v =>
@@ -111,7 +107,7 @@ public static class Creator
 						.PlaceAt( Vector2.Down * 450 + Vector2.Left * 600 ) )
 			.Build();
 
-		new Upgrade.Builder( "Recovery Training I" )
+		new Upgrade.Builder( "Recovery Training I", "Increase your Energy recharge rate." )
 			.ConfigureWith( v =>
 			{
 				v.RecoveryTraining = 1f; // +50%
@@ -120,8 +116,7 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 600 )
 			.Next( "Recovery Training II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "aura/aura2.png" )
 						.PlaceAt( Vector2.Down * 600 + Vector2.Left * 150 ) )
 			.Next( "Recovery Training III",
 				v =>
@@ -137,7 +132,7 @@ public static class Creator
 						.PlaceAt( Vector2.Down * 600 + Vector2.Left * 600 ) )
 			.Build();
 
-		new Upgrade.Builder( "Endurance Training I" )
+		new Upgrade.Builder( "Endurance Training I", "Increase your max Energy." )
 			.ConfigureWith( v =>
 			{
 				v.EnduranceTraining = 1f; // +50%
@@ -146,8 +141,7 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 750 )
 			.Next( "Endurance Training II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "aura/aura2.png" )
 						.PlaceAt( Vector2.Down * 750 + Vector2.Left * 150 ) )
 			.Next( "Endurance Training III",
 				v =>
@@ -164,7 +158,7 @@ public static class Creator
 			.Build();
 
 
-		new Upgrade.Builder( "Swiftness I" )
+		new Upgrade.Builder( "Swiftness I", "Increase your walking speed." )
 			.ConfigureWith( v =>
 			{
 				v.Swiftness = 0.1f; // +10%
@@ -173,8 +167,7 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 900 )
 			.Next( "Swiftness II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "aura/aura2.png" )
 						.PlaceAt( Vector2.Down * 900 + Vector2.Left * 150 ) )
 			.Next( "Swiftness III",
 				v =>
@@ -182,7 +175,7 @@ public static class Creator
 						.PlaceAt( Vector2.Down * 900 + Vector2.Left * 300 ) )
 			.Build();
 
-		new Upgrade.Builder( "Sticky Fingers I" )
+		new Upgrade.Builder( "Sticky Fingers I", "More resources collected during the raid." )
 			.ConfigureWith( v =>
 			{
 				v.StickyFingers = 0.15f; // +15%
@@ -191,8 +184,7 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 1050 )
 			.Next( "Sticky Fingers II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "aura/aura2.png" )
 						.PlaceAt( Vector2.Down * 1050 + Vector2.Left * 150 ) )
 			.Next( "Sticky Fingers III",
 				v =>
@@ -201,7 +193,7 @@ public static class Creator
 			.Build();
 
 
-		new Upgrade.Builder( "Fortitude I" )
+		new Upgrade.Builder( "Fortitude I", "Increase your health." )
 			.ConfigureWith( v =>
 			{
 				v.Fortitude = 0.25f; // +25%
@@ -210,8 +202,7 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 1200 )
 			.Next( "Fortitude II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "aura/aura2.png" )
 						.PlaceAt( Vector2.Down * 1200 + Vector2.Left * 150 ) )
 			.Next( "Fortitude III",
 				v =>
@@ -224,7 +215,7 @@ public static class Creator
 			.Build();
 
 
-		new Upgrade.Builder( "Gumshoes I" )
+		new Upgrade.Builder( "Gumshoes I", "Decrease chances of being targetted." )
 			.ConfigureWith( v =>
 			{
 				v.Gumshoes = 0.25f; // +25%
@@ -233,8 +224,7 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 1350 )
 			.Next( "Gumshoes II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "aura/aura2.png" )
 						.PlaceAt( Vector2.Down * 1350 + Vector2.Left * 150 ) )
 			.Next( "Gumshoes III",
 				v =>
@@ -243,7 +233,7 @@ public static class Creator
 			.Build();
 
 
-		new Upgrade.Builder( "Backseat Gaming I" )
+		new Upgrade.Builder( "Backseat Gaming I", "Allies around you attack faster." )
 			.ConfigureWith( v =>
 			{
 				v.BackseatGaming = 0.20f; // -20%
@@ -252,8 +242,7 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 1500 )
 			.Next( "Backseat Gaming II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "aura/aura2.png" )
 						.PlaceAt( Vector2.Down * 1500 + Vector2.Left * 150 ) )
 			.Next( "Backseat Gaming III",
 				v =>
@@ -262,7 +251,7 @@ public static class Creator
 			.Build();
 
 
-		new Upgrade.Builder( "Nature's Call I" )
+		new Upgrade.Builder( "Nature's Call I", "Allies move faster while retreating to the forest." )
 			.ConfigureWith( v =>
 			{
 				v.NatureCalls = 0.15f; // +15%
@@ -271,8 +260,7 @@ public static class Creator
 			.PlaceAt( Vector2.Down * 1650 )
 			.Next( "Nature's Call II",
 				v =>
-					v.WithCost( 25 )
-						.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "aura/aura2.png" )
 						.PlaceAt( Vector2.Down * 1650 + Vector2.Left * 150 ) )
 			.Next( "Nature's Call III",
 				v =>

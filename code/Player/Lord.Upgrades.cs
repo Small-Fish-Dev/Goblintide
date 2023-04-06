@@ -58,7 +58,7 @@ public partial class Lord
 			return;
 		}
 
-		if ( upgrade.Cost > GameMgr.TotalIQ )
+		if ( GameMgr.TotalIQ > 0 )
 		{
 			Log.Warning( $"{ConsoleSystem.Caller.Name} doesn't have the funds for upgrade {identifier}" );
 			return;
@@ -70,7 +70,7 @@ public partial class Lord
 			return;
 		}
 
-		GameMgr.TotalIQ -= upgrade.Cost;
+		GameMgr.TotalIQ--;
 		caller.AddUpgrade( identifier );
 	}
 

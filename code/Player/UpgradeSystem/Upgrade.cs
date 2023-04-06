@@ -21,15 +21,16 @@ public class Upgrade
 
 	public static void ClearAll() => BuiltUpgrades.Clear();
 
-	private Upgrade( string identifier, string title )
+	private Upgrade( string identifier, string title, string description )
 	{
 		Identifier = identifier;
 		Title = title;
+		Description = description;
 	}
 
 	public string Identifier { get; }
 	public string Title;
-	public int Cost;
+	public string Description;
 	public string Texture;
 
 	/// <summary> Position of upgrade on skill tree, with 0 being the center </summary>
@@ -78,13 +79,14 @@ public class Upgrade
 		}
 	}
 
-	public override string ToString() => $"{Identifier} ({Title}): {Dependencies?.Count} deps, {Cost} cost";
+	public override string ToString() => $"{Identifier} ({Title}): {Dependencies?.Count} deps";
 
 	public struct Builder
 	{
 		private List<Builder> _next;
 		private readonly string _identifier;
 		private readonly string _title;
+		private readonly string _description;
 
 		private Action<Upgrade> _postBuild;
 
@@ -92,16 +94,16 @@ public class Upgrade
 		private string _last;
 		private string _texture;
 		private Vector2 _position;
-		private int _cost;
 
-		public Builder( string identifier )
+		public Builder( string identifier, string description )
 		{
 			_identifier = identifier;
 			_title = identifier;
+			_description = description;
 			_last = identifier;
 		}
 
-		private Builder( string identifier, string dependency ) : this( identifier )
+		private Builder( string identifier, string description, string dependency ) : this( identifier, description )
 		{
 			_dependency = dependency;
 		}
@@ -118,12 +120,6 @@ public class Upgrade
 			return this;
 		}
 
-		public Builder WithCost( int cost )
-		{
-			_cost = cost;
-			return this;
-		}
-
 		public Builder WithTexture( string texture, bool full = false )
 		{
 			_texture = full ? texture : $"textures/upgrades/{texture}";
@@ -133,7 +129,7 @@ public class Upgrade
 		public Builder Next( string identifier, Func<Builder, Builder> creator = null )
 		{
 			_next ??= new List<Builder>();
-			var builder = new Builder( identifier, _last ) { _postBuild = _postBuild };
+			var builder = new Builder( identifier, "", _last ) { _postBuild = _postBuild };
 			var next = creator?.Invoke( builder ) ?? builder;
 			_last = next._identifier;
 			_next.Add( next );
@@ -143,7 +139,7 @@ public class Upgrade
 		public Upgrade Build()
 		{
 			var instance =
-				new Upgrade( _identifier, _title ) { Position = _position, Cost = _cost, Texture = _texture };
+				new Upgrade( _identifier, _title, _description ) { Position = _position, Texture = _texture };
 			_postBuild?.Invoke( instance );
 
 			instance.Dependencies ??= new List<string>();
