@@ -79,9 +79,9 @@
 			if ( value >= pow )
 			{
 				var floored = Math.Floor( value / pow );
-				var number = floored.ToString();
+				var number = $"{floored:N0}";
 				result = number
-					+ (number.Length < 2 ? $",{(Math.Floor( value / pow * 10 ) - floored * 10):N0}" : string.Empty)
+					+ (number.Length < 2 && value > 10 ? $",{(Math.Floor( value / pow * 10 ) - floored * 10):N0}" : string.Empty)
 					+ suff;
 			}
 			else
