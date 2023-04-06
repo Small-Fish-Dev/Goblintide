@@ -31,7 +31,7 @@
 	</div>
 
 	<div class="container" @ref=Container>
-		<div class="content">
+		<div class="content" @ref=Content>
 			s
 		</div>
 	</div>
@@ -40,10 +40,97 @@
 @code {
 
 	public Panel Container { get; set; }
+	public Panel Content { get; set; }
+
+	private static int MaxDistance = 600;
+
+	public class PlacePairing
+	{
+		public readonly WorldMapHost.Node Node;
+		public PlaceActor PlaceActor;
+
+		public PlacePairing( WorldMapHost.Node a, PlaceActor b )
+		{
+			Node = a;
+			PlaceActor = b;
+		}
+	}
+
+	public readonly List<PlacePairing> Pairings = new();
 
 	public WorldMap()
 	{
 		SkillTree.Delete();
+
+		Log.Info( "Generating pairings" );
+		foreach ( var entry in WorldMapHost.Entries )
+		{
+			Pairings.Add( new PlacePairing( entry, null ) );
+		}
+	}
+
+	public float GetDistanceToCamera( Vector2 position )
+	{
+		var a = position;
+		a -= Screen.Size / 2;
+		return a.Distance( Camera.Position );
+	}
+
+	private async Task GenerateActors()
+	{
+		Log.Info( "Generating actors" );
+
+		await GameTask.Delay( 100 );
+
+		RealTimeSince count = 0;
+
+		foreach ( var pairing in Pairings.Where( pairing => !(GetDistanceToCamera( pairing.Node.MapPosition ) > MaxDistance) ) )
+		{
+			pairing.PlaceActor = new PlaceActor( pairing.Node );
+		}
+
+		Log.Info( $"Generated actors in {count.Relative*1000}ms" );
+	}
+
+	private async void Initialize()
+	{
+		await GameTask.RunInThreadAsync( GenerateActors );
+
+		RealTimeSince count = 0;
+		
+		Log.Info( "Appending actors" );
+		foreach ( var pairing in Pairings )
+		{
+			if ( pairing.PlaceActor == null ) continue;
+
+			pairing.PlaceActor.PanelCamera = Camera;
+
+			Content.AddChild( pairing.PlaceActor );
+		}
+		Log.Info( $"Appended actors in {count.Relative*1000}ms" );
+	}
+
+	protected override void OnAfterTreeRender( bool firstTime )
+	{
+		base.OnAfterTreeRender( firstTime );
+
+		if ( !firstTime ) return;
+
+		Initialize();
+	}
+
+	public override void Tick()
+	{
+		base.Tick();
+
+		// Clean up invisible actors
+		foreach ( var pairing in Pairings )
+		{
+			if ( GetDistanceToCamera( pairing.Node.MapPosition ) < MaxDistance ) continue;
+
+			pairing.PlaceActor?.Delete( immediate: true );
+			pairing.PlaceActor = null;
+		}
 	}
 
 }
