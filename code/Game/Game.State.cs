@@ -50,4 +50,17 @@ partial class GameMgr
 		// Call initialize.
 		current?.Initialize();
 	}
+
+	[ConCmd.Admin( "startraid" )]
+	public static void StartRaid( double size )
+	{
+		var energyRequired = (int)(size / 2f);
+
+		if ( GameMgr.TotalEnergy >= energyRequired )
+		{
+			Town.GenerateTown( (float)size );
+			GameMgr.SetState<RaidingState>();
+			GameMgr.TotalEnergy -= energyRequired;
+		}
+	}
 }
