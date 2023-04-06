@@ -32,6 +32,18 @@
           },
           "_tags": {
             "Value": "[]"
+          },
+          "WeightedMaterialGroups": {
+            "Type": "Boolean",
+            "Value": "true"
+          },
+          "MaterialGroups": {
+            "Type": "Dictionary\u00602",
+            "Value": "{\r\n  \u00221\u0022: 0,\r\n  \u00220\u0022: 0\r\n}"
+          },
+          "MaterialGroupsAndWeight": {
+            "Type": "Dictionary\u00602",
+            "Value": "{\r\n  \u00220\u0022: 5,\r\n  \u00221\u0022: 4,\r\n  \u00222\u0022: 3,\r\n  \u00223\u0022: 3,\r\n  \u00224\u0022: 2,\r\n  \u00225\u0022: 0.5,\r\n  \u00226\u0022: 0.5,\r\n  \u00228\u0022: 3\r\n}"
           }
         }
       },
@@ -46,7 +58,9 @@
           "_name": {
             "Value": "\u0022RandomAccessoryComponent\u0022"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "[]"
+          }
         }
       }
     ],
