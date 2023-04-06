@@ -32,12 +32,16 @@
 						weights = 
 						[
 							{
+								bone = "pelvis"
+								weight = 0.752632
+							},
+							{
 								bone = "spine_0"
-								weight = 0.247159
+								weight = 0.873684
 							},
 							{
 								bone = "spine_1"
-								weight = 0.590909
+								weight = 1.0
 							},
 							{
 								bone = "spine_2"
@@ -83,6 +87,44 @@
 							},
 						]
 						master_morph_weight = 1.0
+						morph_weights = [  ]
+					},
+					{
+						_class = "WeightList"
+						name = "torsorightarm"
+						default_weight = 0.0
+						weights = 
+						[
+							{
+								bone = "clavicle_L"
+								weight = 0.0
+							},
+							{
+								bone = "head"
+								weight = 0.0
+							},
+							{
+								bone = "neck_0"
+								weight = 0.0
+							},
+							{
+								bone = "pelvis"
+								weight = 0.205263
+							},
+							{
+								bone = "spine_0"
+								weight = 0.610526
+							},
+							{
+								bone = "spine_1"
+								weight = 0.834211
+							},
+							{
+								bone = "spine_2"
+								weight = 0.0
+							},
+						]
+						master_morph_weight = -1.0
 						morph_weights = [  ]
 					},
 				]
@@ -1944,6 +1986,27 @@
 						take = 0
 						reverse = false
 					},
+					{
+						_class = "AnimFile"
+						name = "attack_terry"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/terry/attack_terry.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 20.0
+						take = 0
+						reverse = false
+					},
 				]
 				default_root_bone_name = ""
 			},
@@ -2139,6 +2202,35 @@
 					},
 				]
 				bone_cull_type = "Aggressive"
+			},
+			{
+				_class = "AnimConstraintList"
+				children = 
+				[
+					{
+						_class = "AnimConstraintTiltTwist"
+						name = "Ulna_R_rotation"
+						children = 
+						[
+							{
+								_class = "AnimConstraintBoneInput"
+								parent_bone = "hand_R"
+								relative_origin = [ 0.0, 0.0, 0.0 ]
+								relative_angles = [ 0.0, 0.0, 0.0 ]
+								weight = 1.0
+							},
+							{
+								_class = "AnimConstraintSlave"
+								parent_bone = "arm_lower_R_twist1"
+								relative_origin = [ 0.0, 0.0, 0.0 ]
+								relative_angles = [ 0.0, 0.0, 0.0 ]
+								weight = 0.65
+							},
+						]
+						input_axis = 0
+						slave_axis = 0
+					},
+				]
 			},
 		]
 		model_archetype = ""

@@ -601,7 +601,7 @@
 							},
 							{
 								bone = "pelvis"
-								weight = 0.394886
+								weight = 0.0
 							},
 							{
 								bone = "spine_0"

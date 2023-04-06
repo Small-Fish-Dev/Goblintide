@@ -15,7 +15,7 @@
 				{
 					_class = "CStateMachineAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ 32.0, -32.0 ]
+					m_vecPosition = [ 640.0, -112.0 ]
 					m_nNodeID = 
 					{
 						m_id = 151463538
@@ -70,7 +70,7 @@
 							{
 								m_nodeID = 
 								{
-									m_id = 1565808826
+									m_id = 2028269164
 								}
 								m_outputID = 
 								{
@@ -168,7 +168,7 @@
 							{
 								m_nodeID = 
 								{
-									m_id = 1682918933
+									m_id = 1523767670
 								}
 								m_outputID = 
 								{
@@ -189,6 +189,162 @@
 					]
 					m_bBlockWaningTags = false
 					m_bLockStateWhenWaning = false
+				}
+			},
+			{
+				key = 
+				{
+					m_id = 211001149
+				}
+				value = 
+				{
+					_class = "CLookAtAnimNode"
+					m_sName = ""
+					m_vecPosition = [ -80.0, -112.0 ]
+					m_nNodeID = 
+					{
+						m_id = 211001149
+					}
+					m_networkMode = "ClientPredicted"
+					m_sNote = ""
+					m_inputConnection = 
+					{
+						m_nodeID = 
+						{
+							m_id = 1126820342
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
+					}
+					m_target = "VectorParameter"
+					m_param = 
+					{
+						m_id = 621277204
+					}
+					m_weightParam = 
+					{
+						m_id = 4294967295
+					}
+					m_lookatChainName = "lookat"
+					m_attachmentName = "eyes"
+					m_flYawLimit = 90.0
+					m_flPitchLimit = 90.0
+					m_bResetBase = true
+					m_bLockWhenWaning = false
+					m_bUseHysteresis = false
+					m_flHysteresisInnerAngle = 1.0
+					m_flHysteresisOuterAngle = 20.0
+					m_damping = 
+					{
+						_class = "CAnimInputDamping"
+						m_speedFunction = "Spring"
+						m_fSpeedScale = 30.0
+						m_fMinSpeed = 0.0
+						m_fMaxTension = 960.0
+					}
+				}
+			},
+			{
+				key = 
+				{
+					m_id = 259380290
+				}
+				value = 
+				{
+					_class = "CSubtractAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -176.0, 80.0 ]
+					m_nNodeID = 
+					{
+						m_id = 259380290
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_baseInputConnection = 
+					{
+						m_nodeID = 
+						{
+							m_id = 1263959981
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
+					}
+					m_subtractInputConnection = 
+					{
+						m_nodeID = 
+						{
+							m_id = 1683353895
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
+					}
+					m_timingBehavior = "UseChild1"
+					m_flTimingBlend = 0.5
+					m_footMotionTiming = "Child1"
+					m_bResetBase = false
+					m_bResetSubtract = true
+					m_bApplyChannelsSeparately = true
+				}
+			},
+			{
+				key = 
+				{
+					m_id = 281492420
+				}
+				value = 
+				{
+					_class = "CLookAtAnimNode"
+					m_sName = ""
+					m_vecPosition = [ 256.0, 0.0 ]
+					m_nNodeID = 
+					{
+						m_id = 281492420
+					}
+					m_networkMode = "ClientPredicted"
+					m_sNote = ""
+					m_inputConnection = 
+					{
+						m_nodeID = 
+						{
+							m_id = 1714824899
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
+					}
+					m_target = "VectorParameter"
+					m_param = 
+					{
+						m_id = 621277204
+					}
+					m_weightParam = 
+					{
+						m_id = 4294967295
+					}
+					m_lookatChainName = "lookat"
+					m_attachmentName = "eyes"
+					m_flYawLimit = 90.0
+					m_flPitchLimit = 90.0
+					m_bResetBase = true
+					m_bLockWhenWaning = false
+					m_bUseHysteresis = false
+					m_flHysteresisInnerAngle = 1.0
+					m_flHysteresisOuterAngle = 20.0
+					m_damping = 
+					{
+						_class = "CAnimInputDamping"
+						m_speedFunction = "Spring"
+						m_fSpeedScale = 30.0
+						m_fMinSpeed = 0.0
+						m_fMaxTension = 960.0
+					}
 				}
 			},
 			{
@@ -216,13 +372,35 @@
 			{
 				key = 
 				{
+					m_id = 622091403
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -1120.0, 80.0 ]
+					m_nNodeID = 
+					{
+						m_id = 622091403
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "attack_terry"
+					m_playbackSpeed = 1.0
+					m_bLoop = false
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 709687771
 				}
 				value = 
 				{
 					_class = "CStateMachineAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -784.0, 112.0 ]
+					m_vecPosition = [ -880.0, 64.0 ]
 					m_nNodeID = 
 					{
 						m_id = 709687771
@@ -277,7 +455,7 @@
 							{
 								m_nodeID = 
 								{
-									m_id = 1353907061
+									m_id = 1193335559
 								}
 								m_outputID = 
 								{
@@ -334,7 +512,7 @@
 							{
 								m_nodeID = 
 								{
-									m_id = 1981481258
+									m_id = 622091403
 								}
 								m_outputID = 
 								{
@@ -360,13 +538,34 @@
 			{
 				key = 
 				{
+					m_id = 964341339
+				}
+				value = 
+				{
+					_class = "CSingleFrameAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -672.0, 176.0 ]
+					m_nNodeID = 
+					{
+						m_id = 964341339
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_sequenceName = "Melee_Punch_Idle_Standing_02"
+					m_nFrameIndex = 0
+					m_tagSpans = [  ]
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 1024719624
 				}
 				value = 
 				{
 					_class = "CRootAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ 416.0, -32.0 ]
+					m_vecPosition = [ 848.0, -112.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1024719624
@@ -377,7 +576,7 @@
 					{
 						m_nodeID = 
 						{
-							m_id = 2028269164
+							m_id = 151463538
 						}
 						m_outputID = 
 						{
@@ -546,7 +745,7 @@
 				{
 					_class = "CSingleFrameAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -592.0, 128.0 ]
+					m_vecPosition = [ -688.0, 80.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1171451288
@@ -561,13 +760,34 @@
 			{
 				key = 
 				{
+					m_id = 1193335559
+				}
+				value = 
+				{
+					_class = "CSingleFrameAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -1120.0, 32.0 ]
+					m_nNodeID = 
+					{
+						m_id = 1193335559
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_sequenceName = "attack_terry"
+					m_nFrameIndex = 0
+					m_tagSpans = [  ]
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 1253341992
 				}
 				value = 
 				{
 					_class = "CBoneMaskAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -560.0, 48.0 ]
+					m_vecPosition = [ -656.0, 0.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1253341992
@@ -621,7 +841,7 @@
 				{
 					_class = "CBoneMaskAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -352.0, 48.0 ]
+					m_vecPosition = [ -448.0, 0.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1263959981
@@ -669,35 +889,13 @@
 			{
 				key = 
 				{
-					m_id = 1353907061
-				}
-				value = 
-				{
-					_class = "CSequenceAnimNode"
-					m_sName = "Unnamed"
-					m_vecPosition = [ -1056.0, 112.0 ]
-					m_nNodeID = 
-					{
-						m_id = 1353907061
-					}
-					m_networkMode = "ServerAuthoritative"
-					m_sNote = ""
-					m_tagSpans = [  ]
-					m_sequenceName = "Melee_Punch_Idle_Standing_02"
-					m_playbackSpeed = 1.0
-					m_bLoop = true
-				}
-			},
-			{
-				key = 
-				{
 					m_id = 1359951844
 				}
 				value = 
 				{
 					_class = "CBlend2DAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -784.0, 48.0 ]
+					m_vecPosition = [ -880.0, 0.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1359951844
@@ -733,7 +931,7 @@
 						{
 							_class = "CBlend2DItem"
 							m_tagSpans = [  ]
-							m_sequenceName = "Melee_Punch_Idle_Standing_02"
+							m_sequenceName = "IdlePose_Default"
 							m_blendValue = [ 0.0, 0.0 ]
 						},
 						{
@@ -782,75 +980,151 @@
 			{
 				key = 
 				{
-					m_id = 1565808826
+					m_id = 1523767670
 				}
 				value = 
 				{
-					_class = "CLookAtAnimNode"
-					m_sName = ""
-					m_vecPosition = [ -160.0, -128.0 ]
+					_class = "CSolveIKChainAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ 448.0, 0.0 ]
 					m_nNodeID = 
 					{
-						m_id = 1565808826
+						m_id = 1523767670
 					}
-					m_networkMode = "ClientPredicted"
+					m_networkMode = "ServerAuthoritative"
 					m_sNote = ""
 					m_inputConnection = 
 					{
 						m_nodeID = 
 						{
-							m_id = 1126820342
+							m_id = 281492420
 						}
 						m_outputID = 
 						{
 							m_id = 4294967295
 						}
 					}
-					m_target = "VectorParameter"
-					m_param = 
-					{
-						m_id = 621277204
-					}
-					m_weightParam = 
-					{
-						m_id = 4294967295
-					}
-					m_lookatChainName = "lookat"
-					m_attachmentName = "eyes"
-					m_flYawLimit = 90.0
-					m_flPitchLimit = 90.0
-					m_bResetBase = true
-					m_bLockWhenWaning = false
-					m_bUseHysteresis = false
-					m_flHysteresisInnerAngle = 1.0
-					m_flHysteresisOuterAngle = 20.0
-					m_damping = 
-					{
-						_class = "CAnimInputDamping"
-						m_speedFunction = "Spring"
-						m_fSpeedScale = 30.0
-						m_fMinSpeed = 0.0
-						m_fMaxTension = 960.0
-					}
+					m_IkChains = 
+					[
+						{
+							_class = "CSolveIKChainAnimNodeChainData"
+							m_IkChain = "right_leg_IK"
+							m_SolverSettingSource = "SOLVEIKCHAINANIMNODESETTINGSOURCE_Default"
+							m_OverrideSolverSettings = 
+							{
+								m_SolverType = "IKSOLVER_TwoBone"
+							}
+							m_TargetSettingSource = "SOLVEIKCHAINANIMNODESETTINGSOURCE_Default"
+							m_OverrideTargetSettings = 
+							{
+								m_TargetSource = "Bone"
+								m_Bone = 
+								{
+									m_Name = ""
+								}
+								m_AnimgraphParameterNamePosition = 
+								{
+									m_id = 4294967295
+								}
+								m_TargetCoordSystem = "World Space"
+							}
+							m_DebugSetting = "SOLVEIKCHAINANIMNODEDEBUGSETTING_None"
+							m_flDebugNormalizedLength = 1.0
+							m_vDebugOffset = [ 0.0, 0.0, 0.0 ]
+						},
+						{
+							_class = "CSolveIKChainAnimNodeChainData"
+							m_IkChain = "left_leg_IK"
+							m_SolverSettingSource = "SOLVEIKCHAINANIMNODESETTINGSOURCE_Default"
+							m_OverrideSolverSettings = 
+							{
+								m_SolverType = "IKSOLVER_TwoBone"
+							}
+							m_TargetSettingSource = "SOLVEIKCHAINANIMNODESETTINGSOURCE_Default"
+							m_OverrideTargetSettings = 
+							{
+								m_TargetSource = "Bone"
+								m_Bone = 
+								{
+									m_Name = ""
+								}
+								m_AnimgraphParameterNamePosition = 
+								{
+									m_id = 4294967295
+								}
+								m_TargetCoordSystem = "World Space"
+							}
+							m_DebugSetting = "SOLVEIKCHAINANIMNODEDEBUGSETTING_None"
+							m_flDebugNormalizedLength = 1.0
+							m_vDebugOffset = [ 0.0, 0.0, 0.0 ]
+						},
+					]
 				}
 			},
 			{
 				key = 
 				{
-					m_id = 1682918933
+					m_id = 1683353895
 				}
 				value = 
 				{
-					_class = "CLookAtAnimNode"
-					m_sName = "Look At Torso"
-					m_vecPosition = [ -160.0, 48.0 ]
+					_class = "CSubtractAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -384.0, 144.0 ]
 					m_nNodeID = 
 					{
-						m_id = 1682918933
+						m_id = 1683353895
 					}
-					m_networkMode = "ClientPredicted"
+					m_networkMode = "ServerAuthoritative"
 					m_sNote = ""
-					m_inputConnection = 
+					m_baseInputConnection = 
+					{
+						m_nodeID = 
+						{
+							m_id = 964341339
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
+					}
+					m_subtractInputConnection = 
+					{
+						m_nodeID = 
+						{
+							m_id = 2078921978
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
+					}
+					m_timingBehavior = "UseChild1"
+					m_flTimingBlend = 0.5
+					m_footMotionTiming = "Child1"
+					m_bResetBase = true
+					m_bResetSubtract = true
+					m_bApplyChannelsSeparately = true
+				}
+			},
+			{
+				key = 
+				{
+					m_id = 1714824899
+				}
+				value = 
+				{
+					_class = "CBoneMaskAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ 48.0, 0.0 ]
+					m_nNodeID = 
+					{
+						m_id = 1714824899
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_weightListName = "torsorightarm"
+					m_inputConnection1 = 
 					{
 						m_nodeID = 
 						{
@@ -861,32 +1135,30 @@
 							m_id = 4294967295
 						}
 					}
-					m_target = "VectorParameter"
-					m_param = 
+					m_inputConnection2 = 
 					{
-						m_id = 621277204
+						m_nodeID = 
+						{
+							m_id = 259380290
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
 					}
-					m_weightParam = 
+					m_blendSpace = "BlendSpace_Parent"
+					m_bUseBlendScale = false
+					m_blendValueSource = "Parameter"
+					m_blendParameter = 
 					{
 						m_id = 4294967295
 					}
-					m_lookatChainName = "lookat_torso"
-					m_attachmentName = "eyes"
-					m_flYawLimit = 90.0
-					m_flPitchLimit = 90.0
-					m_bResetBase = true
-					m_bLockWhenWaning = false
-					m_bUseHysteresis = false
-					m_flHysteresisInnerAngle = 1.0
-					m_flHysteresisOuterAngle = 20.0
-					m_damping = 
-					{
-						_class = "CAnimInputDamping"
-						m_speedFunction = "Spring"
-						m_fSpeedScale = 30.0
-						m_fMinSpeed = 0.0
-						m_fMaxTension = 960.0
-					}
+					m_timingBehavior = "UseChild2"
+					m_flTimingBlend = 0.5
+					m_flRootMotionBlend = 0.0
+					m_footMotionTiming = "Child1"
+					m_bResetChild1 = true
+					m_bResetChild2 = true
 				}
 			},
 			{
@@ -983,35 +1255,13 @@
 			{
 				key = 
 				{
-					m_id = 1981481258
-				}
-				value = 
-				{
-					_class = "CSequenceAnimNode"
-					m_sName = "Unnamed"
-					m_vecPosition = [ -1040.0, 176.0 ]
-					m_nNodeID = 
-					{
-						m_id = 1981481258
-					}
-					m_networkMode = "ServerAuthoritative"
-					m_sNote = ""
-					m_tagSpans = [  ]
-					m_sequenceName = "Melee_Punch_Attack_Right"
-					m_playbackSpeed = 1.0
-					m_bLoop = false
-				}
-			},
-			{
-				key = 
-				{
 					m_id = 2028269164
 				}
 				value = 
 				{
 					_class = "CSolveIKChainAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ 224.0, -32.0 ]
+					m_vecPosition = [ 128.0, -112.0 ]
 					m_nNodeID = 
 					{
 						m_id = 2028269164
@@ -1022,7 +1272,7 @@
 					{
 						m_nodeID = 
 						{
-							m_id = 151463538
+							m_id = 211001149
 						}
 						m_outputID = 
 						{
@@ -1084,6 +1334,28 @@
 							m_vDebugOffset = [ 0.0, 0.0, 0.0 ]
 						},
 					]
+				}
+			},
+			{
+				key = 
+				{
+					m_id = 2078921978
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -688.0, 224.0 ]
+					m_nNodeID = 
+					{
+						m_id = 2078921978
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "Melee_Punch_Idle_Standing_02"
+					m_playbackSpeed = 0.5
+					m_bLoop = true
 				}
 			},
 			{
