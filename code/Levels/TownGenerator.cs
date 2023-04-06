@@ -82,7 +82,7 @@ public partial class Town : BaseNetworkable
 
 	public static Dictionary<string, float> PlaceableTrees { get; set; } = new()
 	{
-		{ "models/trees/shitty_pine_tree.vmdl", 1f },
+		{ "models/trees/pine_tree.vmdl", 1f },
 	};
 
 	public Town() 
