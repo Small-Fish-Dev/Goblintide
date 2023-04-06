@@ -4,10 +4,10 @@
 @inherits Panel
 
 <root>
-    <ResourcePanel @ref=WoodPanel ResourceName="Wood" ResourceAmount=@GameMgr.TotalWood></ResourcePanel>
+    <ResourcePanel style="transform: rotate(3deg);" @ref=WoodPanel ResourceName="Wood" ResourceAmount=@GameMgr.TotalWood></ResourcePanel>
     <ResourcePanel @ref=GoldPanel ResourceName="Gold" ResourceAmount=@GameMgr.TotalGold></ResourcePanel>
-    <ResourcePanel @ref=FoodPanel ResourceName="Food" ResourceAmount=@GameMgr.TotalFood></ResourcePanel>
-    <ResourcePanel @ref=WomenPanel ResourceName="Women" ResourceAmount=@GameMgr.TotalWomen></ResourcePanel>
+    <ResourcePanel style="transform: rotate(1deg);" @ref=FoodPanel ResourceName="Food" ResourceAmount=@GameMgr.TotalFood></ResourcePanel>
+    <ResourcePanel style="transform: rotate(-2deg);" @ref=WomenPanel ResourceName="Women" ResourceAmount=@GameMgr.TotalWomen></ResourcePanel>
 </root>
 
 <style>
@@ -19,6 +19,10 @@
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
+
+		ResourcePanel {
+			margin-right: 16px;
+		}
         
         transition: all .3s ease-in-out;
 
