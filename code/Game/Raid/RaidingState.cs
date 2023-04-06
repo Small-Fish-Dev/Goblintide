@@ -19,6 +19,12 @@ public partial class RaidingState : GameState
 			SkillTree.Delete();
 			return;
 		}
+		else
+		{
+			GameMgr.GoblinArmyEnabled( false );
+			GameMgr.PlaceGoblinArmy( false );
+			GameMgr.Lord.Position = GameMgr.CurrentTown.Position + Vector3.Backward * ( GameMgr.CurrentTown.TownRadius + 400f );
+		}
 	}
 
 	public override void Changed( GameState state )

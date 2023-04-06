@@ -45,11 +45,13 @@ public partial class Lord : BaseCharacter
 	}
 	public override void Kill()
 	{
-		foreach( var goblin in GameMgr.GoblinArmy )
-		{
-			goblin.Delete();
-		}
+		for ( int i = 0; i < GameMgr.GoblinArmy.Count; i++ )
+			GameMgr.GoblinArmy.First()?.Delete();
+
 		GameMgr.SetState<VillageState>();
+
+		HitPoints = MaxHitPoints;
+		TotalAttackers = 0;
 	}
 
 	public override void Simulate( IClient cl )

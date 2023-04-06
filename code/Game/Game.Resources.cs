@@ -12,7 +12,7 @@ public partial class GameMgr
 			Instance.goblinArmy = value;
 		}
 	}
-	[Net] private IList<BaseNPC> goblinArmy { get; set; }
+	[Net] private IList<BaseNPC> goblinArmy { get; set; } = new();
 
 	public static double VillageSize { get; set; } = 5d;
 

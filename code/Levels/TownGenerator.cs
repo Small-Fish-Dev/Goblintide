@@ -319,6 +319,8 @@ public partial class Town : BaseNetworkable
 
 		GameMgr.CurrentTown.RNG = new Random( GameMgr.CurrentTown.Seed );
 
+		Log.Warning( GameMgr.CurrentTown.RNG );
+
 		GameMgr.CurrentTown.Position = GameMgr.CurrentTown.TownType switch
 		{
 			TownType.Village => new Vector3( 4586f, 452f, 512f ),
@@ -333,18 +335,6 @@ public partial class Town : BaseNetworkable
 
 		GameMgr.BroadcastFences();
 		GameMgr.BroadcastTrees();
-
-		/*if ( GameMgr.CurrentTown.TownType == TownType.Town )
-			GameMgr.CurrentTown.PlaceHouses( PlaceableHousesBig, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0f, 0.33f ), true );
-		else if ( GameMgr.CurrentTown.TownType == TownType.Village )
-			GameMgr.CurrentTown.PlaceHouses( PlaceableHousesMedium, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0f, 0.35f ), true );
-		else
-			GameMgr.CurrentTown.PlaceHouses( PlaceableHousesSmall, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0f, 0.4f ), true );
-
-		GameMgr.CurrentTown.PlaceProps( PlaceableBigProps, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.35f, 0.4f ) );
-		GameMgr.CurrentTown.PlaceProps( PlaceableSmallProps, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.43f, 0.47f ) );
-		await GameMgr.CurrentTown.PlaceNPCs( PlaceablePeople, rand, GameMgr.CurrentTown.Position, density, new Vector2( 0.7f, 1f ) );
-		GameMgr.CurrentTown.Generated = true;*/
 	}
 
 	[Event.Tick.Server]
@@ -415,7 +405,7 @@ public partial class Town : BaseNetworkable
 					nextGenerate = Time.Delta / 2f;
 			}
 
-			Log.Error( $"Placing {(PlacingHouses ? "Houses" : ( PlacingBigProps ? "Big Props" : ( PlacingSmallProps ? "Small Props" : "NPCs" ) ))} [{Math.Ceiling( GenerationProgress * 100 )}%]" );
+			//Log.Error( $"Placing {(PlacingHouses ? "Houses" : ( PlacingBigProps ? "Big Props" : ( PlacingSmallProps ? "Small Props" : "NPCs" ) ))} [{Math.Ceiling( GenerationProgress * 100 )}%]" );
 		}
 	}
 
