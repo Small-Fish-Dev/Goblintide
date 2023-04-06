@@ -51,10 +51,11 @@ public class PlayerView : ScenePanel
 
 		Model.CurrentSequence.Time = Lord.Self.CurrentSequence.Time;
 		Model.Rotation = Lord.Self.Rotation;
-		if ( _next )
+		/*if ( _next )
 		{
 			Model.Update( Time.Delta * 440 ); // 440 seems like a good amount :3
 			_next = TickDelay;
-		}
+		}*/
+		Model.Update( Time.Delta );
 	}
 }
