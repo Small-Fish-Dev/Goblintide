@@ -122,6 +122,8 @@
 		var name = root.GetValue<string>( "Model" );
 
 		buildObject = new SceneObject( Game.SceneWorld, name );
+		buildObject.SetMaterialOverride( Material.Load( "materials/building/building_transparent.vmat" ) );
+		buildObject.Attributes.Set( "color", Color.Red );
 		structurePrefab = structure;
 	}
 
@@ -182,7 +184,12 @@
 			var canBuild = boundsTrace.Entity is null 
 				&& GameMgr.TotalWood >= structurePrefab.Root.GetValue<int>( "Wood" )
 				&& GameMgr.TotalWomen >= structurePrefab.Root.GetValue<int>( "Women" );
-			DebugOverlay.Box( buildObject.Bounds.Mins, buildObject.Bounds.Maxs, canBuild ? Color.White : Color.Red );
+
+			var color = canBuild
+				? Color.White
+				: Color.Red;
+			buildObject.Attributes.Set( "color", color );
+			DebugOverlay.Box( buildObject.Bounds.Mins, buildObject.Bounds.Maxs, color );
 		}
 	}
 }
