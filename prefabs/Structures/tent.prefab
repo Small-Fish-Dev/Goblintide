@@ -6,7 +6,18 @@
     "Guid": "b8da4156-6b8b-4748-9c1d-8cf314c682d5",
     "Class": "BaseStructure",
     "Entities": [],
-    "Components": [],
+    "Components": [
+      {
+        "Guid": "ea72e71f-0890-4be8-8e45-bf1b6fb5f122",
+        "Class": "TentComponent",
+        "Keys": {
+          "_name": {
+            "Value": "\u0022TentComponent\u0022"
+          },
+          "_tags": {}
+        }
+      }
+    ],
     "Keys": {
       "Model": {
         "Type": "Model",
