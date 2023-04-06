@@ -6,6 +6,64 @@ public class PanelCamera
 
 	public Rect? Bounds;
 
+	private struct Animation
+	{
+		public float EndTime;
+		public float StartTime;
+		public Vector2 From;
+		public Vector2 To;
+		public Func<float, float> EasingFunction;
+	}
+
+	public void Tick()
+	{
+		_animations.RemoveAll( v => Time.Now > v.EndTime );
+		foreach ( var animation in _animations )
+		{
+			var f = Time.Now.Remap( animation.StartTime, animation.EndTime );
+			var e = animation.EasingFunction( f );
+			Position = Vector2.Lerp( animation.From, animation.To, e );
+		}
+	}
+
+	private readonly List<Animation> _animations = new();
+
+	public void AddAnimation( float length, Vector2 end, string easing = "ease-in-out" )
+	{
+		var startTime = Time.Now;
+
+		if ( _animations.Count != 0 )
+		{
+			var lastAnimation = _animations.Last();
+			startTime = lastAnimation.EndTime;
+		}
+
+		var animation = new Animation
+		{
+			From = Position, To = end, EndTime = startTime + length, StartTime = startTime
+		};
+
+		var fn = Easing.GetFunction( easing );
+		animation.EasingFunction = v => fn( v );
+
+		_animations.Add( animation );
+	}
+
+	public void NewAnimation( float length, Vector2 end, string easing = "ease-in-out" )
+	{
+		_animations.Clear();
+
+		var animation = new Animation
+		{
+			From = Position, To = end, EndTime = Time.Now + length, StartTime = Time.Now
+		};
+
+		var fn = Easing.GetFunction( easing );
+		animation.EasingFunction = v => fn( v );
+
+		_animations.Add( animation );
+	}
+
 	public Vector2 Position
 	{
 		get => _position;
@@ -32,6 +90,15 @@ public class PanelCamera
 
 	public Vector2 Negative => -Position;
 
+	public Vector2 GetActorCameraCenter( Actor actor )
+	{
+		var cam = actor.Rect.Center;
+		var screen = Screen.Size;
+		screen.x *= 0.7f;
+		cam -= screen / 2;
+		return cam;
+	}
+	
 	private void PropagateUpdate()
 	{
 		foreach ( var r in _refs.Where( r => r.IsAlive ) )
