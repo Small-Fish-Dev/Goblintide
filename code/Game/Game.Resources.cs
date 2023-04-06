@@ -21,7 +21,7 @@ public partial class GameMgr
 		get => Instance.totalGold;
 		set
 		{
-			Instance.totalGold = value;
+			Instance.totalGold = value.Clamp( 0, int.MaxValue );
 		}
 	}
 	public static int TotalIQ
@@ -29,7 +29,7 @@ public partial class GameMgr
 		get => Instance.totalIQ;
 		set
 		{
-			Instance.totalIQ = value;
+			Instance.totalIQ = value.Clamp( 0, int.MaxValue );
 		}
 	}
 	public static int MaxIQ
@@ -37,7 +37,7 @@ public partial class GameMgr
 		get => Instance.maxIQ;
 		set
 		{
-			Instance.maxIQ = value;
+			Instance.maxIQ = value.Clamp( 0, int.MaxValue );
 		}
 	}
 	public static int TotalWood
@@ -45,7 +45,7 @@ public partial class GameMgr
 		get => Instance.totalWood;
 		set
 		{
-			Instance.totalWood = value;
+			Instance.totalWood = value.Clamp( 0, int.MaxValue );
 		}
 	}
 	public static int TotalFood
@@ -53,7 +53,7 @@ public partial class GameMgr
 		get => Instance.totalFood;
 		set
 		{
-			Instance.totalFood = value;
+			Instance.totalFood = value.Clamp( 0, int.MaxValue );
 		}
 	}
 	public static int TotalWomen
@@ -61,7 +61,7 @@ public partial class GameMgr
 		get => Instance.totalWomen;
 		set
 		{
-			Instance.totalWomen = value;
+			Instance.totalWomen = value.Clamp( 0, int.MaxValue );
 		}
 	}
 	public static double TotalEnergy
@@ -77,7 +77,7 @@ public partial class GameMgr
 		get => Instance.maxEnergy;
 		set
 		{
-			Instance.maxEnergy = value;
+			Instance.maxEnergy = value.Clamp( 0, double.MaxValue );
 		}
 	}
 	public static double EnergyRechargeRate
@@ -85,7 +85,7 @@ public partial class GameMgr
 		get => Instance.energyRechargeRate;
 		set
 		{
-			Instance.energyRechargeRate = value;
+			Instance.energyRechargeRate = value.Clamp( 0, double.MaxValue );
 		}
 	}
 	public static long LastEnergyUpdate
@@ -93,7 +93,7 @@ public partial class GameMgr
 		get => Instance.lastEnergyUpdate;
 		set
 		{
-			Instance.lastEnergyUpdate = value;
+			Instance.lastEnergyUpdate = value.Clamp( 0, long.MaxValue );
 		}
 	}
 	[Net, Change(nameof(EmitWoodChange))] private int totalWood { get; set; } = 0;
@@ -107,7 +107,7 @@ public partial class GameMgr
 	[Net] private double energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
 	[Net] private long lastEnergyUpdate { get; set; } = DateTime.UtcNow.Ticks;
 
-	void EmitWoodChange(int oldValue, int newValue)
+	void EmitWoodChange( int oldValue, int newValue )
 	{
 		Game.AssertClient();
 		Event.Run( "resources.wood", newValue );
@@ -235,7 +235,7 @@ public partial class GameMgr
 	[ConCmd.Admin( "women" )]
 	public static void AddWomen( int amount )
 	{
-		TotalWood += amount;
+		TotalWomen += amount;
 	}
 	[ConCmd.Admin( "energy" )]
 	public static void AddEnergy( int amount )
