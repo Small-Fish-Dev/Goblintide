@@ -251,11 +251,11 @@
       },
       "AttackPower": {
         "Type": "Single",
-        "Value": "3"
+        "Value": "1"
       },
       "WalkSpeed": {
         "Type": "Single",
-        "Value": "180"
+        "Value": "160"
       },
       "AttackSpeed": {
         "Type": "Single",
@@ -290,7 +290,7 @@
       },
       "AttackRange": {
         "Type": "Single",
-        "Value": "50"
+        "Value": "20"
       },
       "BaseDiligency": {
         "Type": "Single",
@@ -326,7 +326,7 @@
       },
       "MaxHitPoints": {
         "Type": "Single",
-        "Value": "50"
+        "Value": "30"
       },
       "Voice": {
         "Type": "VoiceType",

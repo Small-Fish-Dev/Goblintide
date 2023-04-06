@@ -124,7 +124,8 @@ public partial class BaseNPC
 	{
 		var validEntities = Entity.All
 			.OfType<BaseCollectable>()
-			.Where( x => !x.Locked);
+			.Where( x => !x.Locked)
+			.Where( x => !x.StolenBy.IsValid());
 
 		var radiusSquared = radius * radius;
 
@@ -211,7 +212,7 @@ public partial class BaseNPC
 
 	public void ComputeRevenge()
 	{
-		if ( LastAttackedBy.IsValid() && LastAttackedBy != CurrentTarget )
+		if ( LastAttackedBy.IsValid() && LastAttackedBy != CurrentTarget && !LastAttackedBy.Dead )
 		{
 			CurrentTarget = LastAttackedBy;
 		}
@@ -302,9 +303,18 @@ public partial class BaseNPC
 
 		if ( !Stealing.IsValid() )
 		{
+			var collectable = CurrentTarget as BaseCollectable;
+
+			if ( collectable.IsValid() )
+				if ( collectable.StolenBy.IsValid() )
+				{
+					CurrentTarget = null;
+					return;
+				}
+
 			if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
 			{
-				if ( CurrentTarget is BaseCollectable collectable )
+				if ( collectable.IsValid() )
 					Steal( collectable );
 			}
 			else
@@ -318,11 +328,6 @@ public partial class BaseNPC
 		}
 		else
 		{
-			if ( Stealing.StolenBy != ( this as BaseCharacter ) )
-			{
-				CurrentSubBehaviour = BaseSubBehaviour;
-			}
-
 			if ( !IsFollowingPath )
 			{
 				NavigateToForest();
@@ -340,6 +345,12 @@ public partial class BaseNPC
 
 	public virtual void AttackingSubBehaviour()
 	{
+		if ( CurrentTarget is BaseNPC npc )
+			if ( npc.Dead )
+			{
+				CurrentTarget = null;
+				return;
+			}	
 		CurrentSubBehaviour = SubBehaviour.Attacking;
 
 		if ( CurrentTarget.Position.DistanceSquared( LastKnownTargetPosition ) >= (float)Math.Pow( AttackRange, 2 ) ) // If the target moved
@@ -355,10 +366,6 @@ public partial class BaseNPC
 
 		if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) && !IsFollowingOrder )
 			CurrentTarget = null;
-
-		if ( CurrentTarget is BaseNPC npc )
-			if ( npc.Dead )
-				CurrentTarget = null;
 	}
 
 	public virtual void PanickingSubBehaviour()
@@ -378,11 +385,6 @@ public partial class BaseNPC
 		}
 		else
 			CurrentTarget = null;
-
-
-		if ( CurrentTarget is BaseNPC npc )
-			if ( npc.Dead )
-				CurrentTarget = null;
 	}
 
 	public virtual void DiligencyCheck()
@@ -491,6 +493,10 @@ public partial class BaseNPC
 				EquippingSubBehaviour();
 			else
 				AttackingSubBehaviour();
+
+			if ( CurrentTarget is BaseNPC npc )
+				if ( npc.Dead )
+					CurrentTarget = null;
 		}
 
 		ComputeRevenge();
@@ -523,6 +529,10 @@ public partial class BaseNPC
 		else
 		{
 			AttackingSubBehaviour();
+
+			if ( CurrentTarget is BaseNPC npc )
+				if ( npc.Dead )
+					CurrentTarget = null;
 		}
 
 		ComputeRevenge();
@@ -551,6 +561,10 @@ public partial class BaseNPC
 		else
 		{
 			PanickingSubBehaviour();
+
+			if ( CurrentTarget is BaseNPC npc )
+				if ( npc.Dead )
+					CurrentTarget = null;
 		}
 	}
 }

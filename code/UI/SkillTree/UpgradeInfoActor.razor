@@ -26,10 +26,12 @@
 	<div class="content">
 		<div class="title">
 			<WiggleText Value=@Upgrade.Title></WiggleText>
+        </div>
+
+        <div class="description">
+            @Upgrade.Description
 		</div>
-		<div class="description">
-			test description! this is a description!
-		</div>
+		
 		<div class="context">
 			@if ( UpgradeActor?.Available == true )
 			{

@@ -131,6 +131,9 @@ public partial class Lord
 		if ( SkillTree.IsOpen )
 			return CameraDistance * 1.4f;
 
+		if ( WorldMap.IsOpen )
+			return CameraDistance * 0.2f;
+		
 		if ( !Pointing )
 			return CameraDistance;
 		return CameraDistance / 2f;

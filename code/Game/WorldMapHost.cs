@@ -90,14 +90,7 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 		if ( (node = Entries.ElementAtOrDefault( index )) == null )
 			return; // Failed to find node.
 
-		var energyRequired = (int)( node.Size / 2f );
-
-		if ( GameMgr.TotalEnergy >= energyRequired )
-		{
-			Town.GenerateTown( (float)node.Size );
-			GameMgr.SetState<RaidingState>();
-			GameMgr.TotalEnergy -= energyRequired;
-		}
+		GameMgr.StartRaid( node.Size );
 	}
 
 	public static void RequestServerGenerate( Node generator )

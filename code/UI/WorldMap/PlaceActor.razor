@@ -1,0 +1,55 @@
+﻿@using GameJam.UI.Core
+@using Sandbox.UI;
+
+@namespace GameJam.UI
+@inherits Actor
+@attribute [StyleSheet( "/UI/WorldMap/PlaceActor.scss" )]
+
+<style>
+	PlaceActor {
+		.camp {
+			width: 50px;
+			height: 50px;
+		
+			filter: invert(100);
+		}
+	}
+</style>
+
+<root>
+	@if ( Node.Size > 2500 )
+	{
+		
+	} else if ( Node.Size > 1200 )
+	{
+		
+	}
+	else
+	{
+		<AnimatedImage
+			class="camp"
+			delay="1"
+			path="textures/tests/camp">
+		</AnimatedImage>
+	}
+</root>
+
+@code {
+
+	private WorldMapHost.Node Node { get; }
+
+	public PlaceActor( WorldMapHost.Node node )
+	{
+		Node = node;
+	}
+
+	protected override Vector2 ModifyInitialPosition( Vector2 position ) => position + Node.MapPosition;
+
+	protected override void OnClick( MousePanelEvent e )
+	{
+		base.OnClick( e );
+
+		WorldMapHost.RequestServerGenerate( Node );
+	}
+
+}

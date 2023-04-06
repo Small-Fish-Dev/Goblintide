@@ -8,7 +8,7 @@ Layer0
 	F_AMBIENT_OCCLUSION_TEXTURE 1
 
 	//---- Ambient Occlusion ----
-	TextureAmbientOcclusion "models/spawner/src/textures/campfire/campfire_init_dirt_ao.png"
+	TextureAmbientOcclusion "materials/ground_dirt/ground_dirt_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
@@ -25,7 +25,7 @@ Layer0
 	g_flMetalness "0.000"
 
 	//---- Normal ----
-	TextureNormal "models/spawner/src/textures/campfire/campfire_init_dirt_normal.png"
+	TextureNormal "materials/ground_dirt/ground_dirt_normal.tga"
 
 	//---- Roughness ----
 	TextureRoughness "materials/ground_dirt/ground_dirt_rough.tga"

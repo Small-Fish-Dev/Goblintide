@@ -14,9 +14,9 @@
 
 	public Upgrade Upgrade { get; }
 
-	public bool Available => Upgrade.Cost <= GameMgr.TotalIQ && !Purchased && Dependencies.All( v => v.Purchased );
+	public bool Available => 0 < GameMgr.TotalIQ && !Purchased && Dependencies.All( v => v.Purchased );
 	public bool Purchased => Lord.Self.HasUpgrade( Upgrade.Identifier );
-	public bool Expensive => Upgrade.Cost > GameMgr.TotalIQ && !Purchased;
+	public bool Expensive => 1 > GameMgr.TotalIQ && !Purchased;
 
 	protected override float WobbleDelay => Available ? 0.4f : 0.9f;
 	protected override float WobbleAmount => Available ? 3 : 2;

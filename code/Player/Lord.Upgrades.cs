@@ -58,7 +58,7 @@ public partial class Lord
 			return;
 		}
 
-		if ( upgrade.Cost > GameMgr.TotalIQ )
+		if ( GameMgr.TotalIQ < 1 )
 		{
 			Log.Warning( $"{ConsoleSystem.Caller.Name} doesn't have the funds for upgrade {identifier}" );
 			return;
@@ -70,7 +70,7 @@ public partial class Lord
 			return;
 		}
 
-		GameMgr.TotalIQ -= upgrade.Cost;
+		GameMgr.TotalIQ--;
 		caller.AddUpgrade( identifier );
 	}
 
@@ -98,7 +98,8 @@ public partial class Lord
 		{
 			foreach ( var enemy in allEnemies )
 			{
-				enemy.BaseDiligency = enemy.RootPrefab.GetValue<float>( "BaseDiligency" );
+				if ( enemy.RootPrefab != null )
+					enemy.BaseDiligency = enemy.RootPrefab.GetValue<float>( "BaseDiligency" );
 			}
 
 			foreach ( var enemy in closeEnemies )
@@ -111,7 +112,8 @@ public partial class Lord
 		{
 			foreach ( var ally in allAllies )
 			{
-				ally.BaseDiligency = ally.RootPrefab.GetValue<float>( "BaseDiligency" ) + CombinedUpgrades.GoblinSchool;
+				if ( ally.RootPrefab != null )
+					ally.BaseDiligency = ally.RootPrefab.GetValue<float>( "BaseDiligency" ) + CombinedUpgrades.GoblinSchool;
 			}
 
 			foreach ( var ally in closeAllies )
@@ -124,7 +126,8 @@ public partial class Lord
 		{
 			foreach ( var ally in allAllies )
 			{
-				ally.AttackSpeed = ally.RootPrefab.GetValue<float>( "AttackSpeed" );
+				if ( ally.RootPrefab != null )
+					ally.AttackSpeed = ally.RootPrefab.GetValue<float>( "AttackSpeed" );
 			}
 
 			foreach ( var ally in closeAllies )
