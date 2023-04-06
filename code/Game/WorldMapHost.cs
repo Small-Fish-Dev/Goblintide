@@ -22,7 +22,7 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 			MapPosition = position;
 			Size = size;
 			Index = id ?? entries.Count;
-			Log.Error( $"generated node {Index} on {(Game.IsServer ? "server" : "client")}" );
+
 			entries.Insert( Index, this );
 		}
 	}
@@ -71,7 +71,6 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 		using var reader = new BinaryReader( stream );
 
 		var count = reader.ReadInt32();
-		Log.Error( count );
 		for ( int i = 0; i < count; i++ )
 		{
 			var index = reader.ReadInt32();
