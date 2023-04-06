@@ -109,54 +109,55 @@
 </root>
 
 @code {
-	Panel structureContainer;
+    Panel structureContainer;
 
-	Prefab buildPrefab;
-	SceneObject? buildObject;
+    Prefab buildPrefab;
+    SceneObject? buildObject;
 
-	private void startBuilding( Prefab structure )
-	{
-		buildObject?.Delete();
-		buildPrefab = structure;
+    private void startBuilding( Prefab structure )
+    {
+        buildObject?.Delete();
+        buildPrefab = structure;
 
-		var root = structure.Root;
-		var name = root.GetValue<string>( "Model" );
+        var root = structure.Root;
+        var name = root.GetValue<string>( "Model" );
 
-		buildObject = new SceneObject( Game.SceneWorld, name );
+        buildObject = new SceneObject( Game.SceneWorld, name );
 
-	}
+    }
 
-	public override void Tick()
-	{
-		if ( Game.LocalPawn is not Lord pawn )
-			return;
+    public override void Tick()
+    {
+        if ( Game.LocalPawn is not Lord pawn )
+            return;
 
-		structureContainer?.SetClass( "hidden", !pawn.Overview );
+        structureContainer?.SetClass( "hidden", !pawn.Overview );
 
-		if ( buildObject != null )
-		{
-			if ( !pawn.Overview )
-			{
-				buildObject.Delete();
-				buildObject = null;
+        if ( buildObject != null )
+        {
+            if ( !pawn.Overview )
+            {
+                buildObject.Delete();
+                buildObject = null;
 
-				return;
-			}
+                return;
+            }
 
-			var dir = Screen.GetDirection( Mouse.Position );
-			var ray = new Ray( Camera.Position, dir );
+            var dir = Screen.GetDirection( Mouse.Position );
+            var ray = new Ray( Camera.Position, dir );
 
-			var trace = Trace.Ray( ray, 10000f )
-				.WorldOnly()
-				.Run();
+            var trace = Trace.Ray( ray, 10000f)
+                .WorldOnly()
+                .Run();
 
-			var town = GameMgr.CurrentTown;
-			if ( town == null )
-				return;
+            var town = GameMgr.CurrentTown;
+            if ( town == null )
+                return;
 
-			var center = town.Position;
+            var center = town.Position;
 
-			buildObject.Position = (town.Position + trace.EndPosition.Normal * MathX.Clamp( trace.EndPosition.Length, -town.TownRadius * 2, town.TownRadius * 2 ))
+            var difference = (trace.HitPosition - town.Position);
+            buildObject.Position = (town.Position + difference.Normal * Math.Clamp(difference.Length, -town.TownRadius, town.TownRadius))
 				.WithZ( town.Position.z );
 			buildObject.Rotation = Rotation.LookAt( buildObject.Position - town.Position );
 		}
