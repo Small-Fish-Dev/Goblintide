@@ -30,6 +30,11 @@ public partial class VillageState : GameState
 		GameMgr.Lord.Position = GameMgr.CurrentTown.Throne.Position + 50f;
 		GameMgr.GoblinArmyEnabled( true );
 		GameMgr.PlaceGoblinArmy( true );
+
+		foreach( var goblin in GameMgr.GoblinArmy )
+		{
+			goblin.BaseDiligency = 1;
+		}
 	}
 
 	public override void Changed( GameState state )
@@ -40,6 +45,12 @@ public partial class VillageState : GameState
 		{
 			foreach ( var entity in Entity.All.OfType<BaseStructure>() )
 				entity.Delete();
+
+
+			foreach ( var goblin in GameMgr.GoblinArmy )
+			{
+				goblin.BaseDiligency = goblin.RootPrefab.GetValue<float>("BaseDiligency");
+			}
 		}
 	}
 

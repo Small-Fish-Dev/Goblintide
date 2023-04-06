@@ -77,6 +77,7 @@ public partial class Lord
 	public void SimulateUpgrades()
 	{
 		if ( !Game.IsServer ) return;
+		if ( GameMgr.State is not RaidingState ) return;
 		if ( CombinedUpgrades == null ) return;
 
 		var allNPCs = Entity.All
