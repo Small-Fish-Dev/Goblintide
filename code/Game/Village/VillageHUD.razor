@@ -114,6 +114,16 @@
 	Prefab structurePrefab;
 	SceneObject? buildObject;
 
+	[Event.Hotload]
+	private void hotload()
+	{
+		if ( !Game.IsClient )
+			return;
+
+		buildObject?.Delete();
+		buildObject = null;
+	}
+
 	private void startBuilding( Prefab structure )
 	{
 		buildObject?.Delete();
@@ -133,7 +143,7 @@
 
 		if ( e.Button == "mouseleft" && !e.Pressed )
 		{
-			if ( buildObject != null && structurePrefab != null )
+			if (buildObject != null && structurePrefab != null && !structureContainer.HasHovered)
 			{
 				BaseStructure.RequestBuild( structurePrefab.ResourceName, buildObject.Bounds.Mins, buildObject.Bounds.Maxs );
 				buildObject?.Delete();
