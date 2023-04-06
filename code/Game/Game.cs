@@ -59,7 +59,7 @@ public partial class GameMgr : GameManager
 		{ "models/containers/smallcrate/smallcrate.vmdl", Model.Load( "models/containers/smallcrate/smallcrate.vmdl" ) },
 		{ "models/fence/fence.vmdl", Model.Load( "models/fence/fence.vmdl" ) },
 		{ "models/logwall/logwall.vmdl", Model.Load( "models/logwall/logwall.vmdl" ) },
-		{ "models/trees/shitty_pine_tree.vmdl", Model.Load( "models/trees/shitty_pine_tree.vmdl" ) },
+		{ "models/trees/shitty_pine_tree2.vmdl", Model.Load( "models/trees/shitty_pine_tree2.vmdl" ) },
 		{ "models/stand/stand.vmdl", Model.Load( "models/stand/stand.vmdl" ) },
 		{ "models/waggon/waggon.vmdl", Model.Load( "models/waggon/waggon.vmdl" ) }
 	};
