@@ -1,0 +1,35 @@
+﻿@using GameJam.UI.Core
+@using GameJam.UpgradeSystem
+@using Sandbox.UI;
+
+@namespace GameJam.UI
+@inherits SmartPanel<WorldMap>
+@attribute [StyleSheet( "/UI/WorldMap/WorldMap.scss" )]
+
+<root>
+	<div class="background">
+		<AnimatedImage
+			class="background-image"
+			delay="1"
+			path="textures/tests/worldmap"
+			transition-path="textures/tests/worldmap-transition/000.png"
+			transition-path="textures/tests/worldmap-transition/001.png"
+			transition-path="textures/tests/worldmap-transition/002.png"
+			transition-path="textures/tests/worldmap-transition/003.png"
+			transition-path="textures/tests/worldmap-transition/004.png"
+			transition-path="textures/tests/worldmap-transition/005.png"
+			transition-path="textures/tests/worldmap-transition/006.png"
+			transition-path="textures/tests/worldmap-transition/007.png"
+			transition-path="textures/tests/worldmap-transition/008.png"
+			transition-path="textures/tests/worldmap-transition/009.png"
+			transition-path="textures/tests/worldmap-transition/010.png"
+			transition-path="textures/tests/worldmap-transition/011.png"
+			transition-path="textures/tests/worldmap-transition/012.png"
+			transition-delay="0.016">
+		</AnimatedImage>
+	</div>
+
+	<div class="container">
+		<div class="content"></div>
+	</div>
+</root>
