@@ -33,6 +33,7 @@
 			</AnimatedImage>
 			<div class="inner">
 				<WiggleText Value=@( $"{GameMgr.TotalIQ}" ) Scale=@( 0.6f )></WiggleText>
+				<WiggleText Value=@( $"iq" ) Scale=@( 0.4f )></WiggleText>
 			</div>
 		</div>
 	</div>
@@ -133,6 +134,5 @@
 			.Grow( 200 )
 			.Shrink( 0, 0, 700, 0 );
 		Camera.Position -= Vector2.Up * 400;
-	}
-
+    }
 }
