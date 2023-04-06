@@ -58,7 +58,7 @@ public class AnimatedImage : Image
 
 		void LoadTexture( string src )
 		{
-			Log.Info( $"Looking for {src}" );
+			// Log.Info( $"Looking for {src}" );
 
 			foreach ( var (cachedSrc, cachedTexture) in Cache )
 			{
