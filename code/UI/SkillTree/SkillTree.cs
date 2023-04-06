@@ -25,9 +25,6 @@ public partial class SkillTree
 				actor.Dependencies.Add( dependencyActor );
 			}
 		}
-
-		// Set initial selected actor
-		Select( actors.FirstOrDefault() );
 	}
 
 	private bool _dragging;
