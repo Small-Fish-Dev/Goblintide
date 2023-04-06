@@ -22,7 +22,7 @@
       },
       "Model": {
         "Type": "Model",
-        "Value": "\u0022models/stand/stand.vmdl\u0022"
+        "Value": "\u0022models/table/table.vmdl\u0022"
       },
       "_name": {
         "Value": "\u0022Root Entity\u0022"
@@ -36,7 +36,9 @@
       "_scale": {
         "Value": "1"
       },
-      "_tags": {}
+      "_tags": {
+        "Value": "\u0022\u0022"
+      }
     }
   }
 }

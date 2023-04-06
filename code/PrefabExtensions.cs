@@ -22,19 +22,19 @@ public static class PrefabExtensions
 
 		// Position and rotation according to model.
 		var pos = model.Bounds.Center
-			+ Vector3.Up * 100f
-			+ Vector3.Backward * (100f + model.Bounds.Maxs.x * 2);
+			+ Vector3.Up * 20f
+			+ Vector3.Backward * (25f + model.Bounds.Maxs.x * 2);
 		var rot = Rotation.LookAt( model.Bounds.Center - pos );
 
 		// Create scene.
 		var world = new SceneWorld();
-		var obj = new SceneObject( world, model, Transform.Zero );
-		var light = new SceneSpotLight( world )
+		var obj = new SceneObject( world, model, new Transform( Vector3.Zero, Rotation.FromYaw( 45f ) ) );
+		var light = new SceneLight( world )
 		{
-			Position = pos + pos.Normal * 20f,
-			Rotation = rot,
-			LightColor = Color.White * 50f,
-			Radius = 500
+			Position = pos,
+			Rotation = rot.Inverse,
+			LightColor = Color.White * 4f,
+			Radius = 1000,
 		};
 
 		var camera = new SceneCamera( "sceneimage" )
