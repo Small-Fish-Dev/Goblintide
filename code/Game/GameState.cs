@@ -28,6 +28,6 @@ public abstract partial class GameState : BaseNetworkable
 	/// <param name="state">The new state.</param>
 	public virtual void Changed( GameState state )
 	{
-		Event.Unregister( this );
+		
 	}
 }

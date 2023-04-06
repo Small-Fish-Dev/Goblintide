@@ -28,13 +28,11 @@ public partial class VillageState : GameState
 			hud = HUD.Instance.AddChild<VillageHUD>();
 			return;
 		}
-		else
-		{
-			Town.GenerateEmptyTown( (float)GameMgr.VillageSize );
-			GameMgr.Lord.Position = GameMgr.CurrentTown.Throne.Position + 50f;
-			GameMgr.GoblinArmyEnabled( true );
-			GameMgr.PlaceGoblinArmy( false );
-		}
+
+		Town.GenerateEmptyTown( (float)GameMgr.VillageSize );
+		GameMgr.Lord.Position = GameMgr.CurrentTown.Throne.Position + 50f;
+		GameMgr.GoblinArmyEnabled( true );
+		GameMgr.PlaceGoblinArmy( false );
 	}
 
 	public override void Changed( GameState state )
@@ -46,7 +44,6 @@ public partial class VillageState : GameState
 			foreach ( var entity in Entity.All.OfType<BaseStructure>() )
 				entity.Delete();
 		}
-		base.Changed( state );
 	}
 
 	public static bool TrySpawnStructure( BuildingEntry entry )
