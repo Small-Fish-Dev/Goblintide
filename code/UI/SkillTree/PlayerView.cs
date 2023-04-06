@@ -53,7 +53,7 @@ public class PlayerView : ScenePanel
 		Model.Rotation = Lord.Self.Rotation;
 		if ( _next )
 		{
-			Model.Update( Time.Delta * 440 );
+			Model.Update( Time.Delta * 440 ); // 440 seems like a good amount :3
 			_next = TickDelay;
 		}
 	}
