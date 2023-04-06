@@ -270,7 +270,7 @@
       },
       "AttackPower": {
         "Type": "Single",
-        "Value": "1"
+        "Value": "0.7"
       },
       "WalkSpeed": {
         "Type": "Single",
@@ -309,7 +309,7 @@
       },
       "AttackRange": {
         "Type": "Single",
-        "Value": "30"
+        "Value": "25"
       },
       "BaseDiligency": {
         "Type": "Single",
@@ -337,7 +337,7 @@
       },
       "MaxHitPoints": {
         "Type": "Single",
-        "Value": "12"
+        "Value": "10"
       },
       "StartingArmor": {
         "Type": "String",
@@ -345,7 +345,7 @@
       },
       "StartingWeapon": {
         "Type": "String",
-        "Value": "\u0022prefabs/items/sword.prefab\u0022"
+        "Value": "\u0022prefabs/items/club.prefab\u0022"
       },
       "Voice": {
         "Type": "VoiceType",

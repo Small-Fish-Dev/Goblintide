@@ -2,5 +2,43 @@
   "SchemaVersion": 1,
   "Name": null,
   "Description": null,
-  "Root": null
+  "Root": {
+    "Guid": "121b6666-32d5-4256-aba7-4b67ac4116c2",
+    "Class": "BaseItem",
+    "Entities": [],
+    "Components": [],
+    "Keys": {
+      "IncreasedAttack": {
+        "Type": "Single",
+        "Value": "1"
+      },
+      "IncreasedRange": {
+        "Type": "Single",
+        "Value": "400"
+      },
+      "Type": {
+        "Type": "ItemType",
+        "Value": "\u0022Weapon\u0022"
+      },
+      "Model": {
+        "Type": "Model",
+        "Value": "\u0022models/weapons/staff/staff.vmdl\u0022"
+      },
+      "_name": {
+        "Value": "\u0022Root Entity\u0022"
+      },
+      "_localposition": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_localrotation": {
+        "Value": "\u00220,0,0\u0022"
+      },
+      "_scale": {
+        "Value": "1"
+      },
+      "_tags": {
+        "Value": "\u0022\u0022"
+      }
+    }
+  }
 }
