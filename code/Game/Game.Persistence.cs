@@ -215,7 +215,7 @@ partial class GameMgr
 					Position = reader.ReadVector3()
 				};
 
-				VillageState.TrySpawnStructure( entry );
+				VillageState.TrySpawnStructure( entry, out var structure );
 			}
 		}
 	}

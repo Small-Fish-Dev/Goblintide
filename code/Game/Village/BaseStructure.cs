@@ -22,6 +22,9 @@ public partial class BaseStructure : ModelEntity
 
 		foreach ( var component in Components.GetAll<StructureComponent>() )
 			component.Initialize();
+
+		Tags.Add( "solid" );
+		Tags.Add( "structure" );
 	}
 
 	public override void ClientSpawn()
@@ -45,11 +48,62 @@ public partial class BaseStructure : ModelEntity
 		return null;
 	}
 
+	[ConCmd.Server]
+	public static void RequestBuild( string prefabName, Vector3 mins, Vector3 maxs )
+	{
+		if ( ConsoleSystem.Caller.Pawn is not Lord pawn )
+			return;
+
+		var town = GameMgr.CurrentTown;
+		if ( town == null )
+			return;
+
+		// Find prefab.
+		var prefab = ResourceLibrary.GetAll<Prefab>()
+			.FirstOrDefault( p => p.ResourceName == prefabName );
+		if ( prefab == null )
+			return;
+
+		// Make sure we are able to place it.
+		var bounds = new BBox( mins, maxs );
+		var boundsTrace = Trace.Box( bounds, Vector3.Zero, Vector3.Zero )
+			.WithTag( "structure" )
+			.Run();
+
+		if ( boundsTrace.Entity is not null )
+		{
+			Log.Error( "There is something in the way." );
+			return;
+		}
+
+		var wood = prefab.Root.GetValue<int>( "Wood" );
+		var women = prefab.Root.GetValue<int>( "Women" );
+		if ( GameMgr.TotalWood < wood || GameMgr.TotalWomen < women )
+		{
+			Log.Error( "You have insufficient resources for that." );
+			return;
+		}
+
+		// Create structure.
+		var entry = new BuildingEntry()
+		{
+			PrefabName = prefabName,
+			Position = bounds.Center.WithZ( town.Position.z )
+		};
+
+		if ( !VillageState.TrySpawnStructure( entry, out var structure ) )
+			return;
+
+		// Take from resources.
+		GameMgr.TotalWood -= wood;
+		GameMgr.TotalWomen -= women;
+	}
+
 	public override void OnNewModel( Model model )
 	{
 		base.OnNewModel( model );
 
-		if ( model == null )
+		if ( model == null || Game.IsClient )
 			return;
 
 		var navBlocker = new NavBlockerEntity();

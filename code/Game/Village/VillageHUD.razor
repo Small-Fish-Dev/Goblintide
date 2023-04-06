@@ -109,57 +109,80 @@
 </root>
 
 @code {
-    Panel structureContainer;
+	Panel structureContainer;
 
-    Prefab buildPrefab;
-    SceneObject? buildObject;
+	Prefab structurePrefab;
+	SceneObject? buildObject;
 
-    private void startBuilding( Prefab structure )
-    {
-        buildObject?.Delete();
-        buildPrefab = structure;
+	private void startBuilding( Prefab structure )
+	{
+		buildObject?.Delete();
 
-        var root = structure.Root;
-        var name = root.GetValue<string>( "Model" );
+		var root = structure.Root;
+		var name = root.GetValue<string>( "Model" );
 
-        buildObject = new SceneObject( Game.SceneWorld, name );
+		buildObject = new SceneObject( Game.SceneWorld, name );
+		structurePrefab = structure;
+	}
 
-    }
+	public override void OnButtonEvent( ButtonEvent e )
+	{
+		base.OnButtonEvent( e );
 
-    public override void Tick()
-    {
-        if ( Game.LocalPawn is not Lord pawn )
-            return;
+		if ( e.Button == "mouseleft" && !e.Pressed )
+		{
+			if ( buildObject != null && structurePrefab != null )
+			{
+				BaseStructure.RequestBuild( structurePrefab.ResourceName, buildObject.Bounds.Mins, buildObject.Bounds.Maxs );
+				buildObject?.Delete();
+				buildObject = null;
+			}
+		}
+	}
 
-        structureContainer?.SetClass( "hidden", !pawn.Overview );
+	public override void Tick()
+	{
+		if ( Game.LocalPawn is not Lord pawn )
+			return;
 
-        if ( buildObject != null )
-        {
-            if ( !pawn.Overview )
-            {
-                buildObject.Delete();
-                buildObject = null;
+		structureContainer?.SetClass( "hidden", !pawn.Overview );
 
-                return;
-            }
+		if ( buildObject != null && buildObject.IsValid() )
+		{
+			if ( !pawn.Overview )
+			{
+				buildObject.Delete();
+				buildObject = null;
 
-            var dir = Screen.GetDirection( Mouse.Position );
-            var ray = new Ray( Camera.Position, dir );
+				return;
+			}
 
-            var trace = Trace.Ray( ray, 10000f)
-                .WorldOnly()
-                .Run();
+			var dir = Screen.GetDirection( Mouse.Position );
+			var ray = new Ray( Camera.Position, dir );
 
-            var town = GameMgr.CurrentTown;
-            if ( town == null )
-                return;
+			var trace = Trace.Ray( ray, 10000f)
+				.WorldOnly()
+				.Run();
 
-            var center = town.Position;
+			var town = GameMgr.CurrentTown;
+			if ( town == null )
+				return;
 
-            var difference = (trace.HitPosition - town.Position);
-            buildObject.Position = (town.Position + difference.Normal * Math.Clamp(difference.Length, -town.TownRadius, town.TownRadius))
+			var difference = (trace.HitPosition - town.Position);
+			var targetPosition = (town.Position + difference.Normal * Math.Clamp(difference.Length, -town.TownRadius, town.TownRadius))
 				.WithZ( town.Position.z );
+
+			buildObject.Position = Vector3.Lerp( buildObject.Position, targetPosition, 10f * Time.Delta );
 			buildObject.Rotation = Rotation.LookAt( buildObject.Position - town.Position );
+
+			var boundsTrace = Trace.Box( buildObject.Bounds, Vector3.Zero, Vector3.Zero )
+				.WithTag( "structure" )
+				.Run();
+
+			var canBuild = boundsTrace.Entity is null 
+				&& GameMgr.TotalWood >= structurePrefab.Root.GetValue<int>( "Wood" )
+				&& GameMgr.TotalWomen >= structurePrefab.Root.GetValue<int>( "Women" );
+			DebugOverlay.Box( buildObject.Bounds.Mins, buildObject.Bounds.Maxs, canBuild ? Color.White : Color.Red );
 		}
 	}
 }

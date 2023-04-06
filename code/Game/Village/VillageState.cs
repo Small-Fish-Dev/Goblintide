@@ -43,22 +43,27 @@ public partial class VillageState : GameState
 		}
 	}
 
-	public static bool TrySpawnStructure( BuildingEntry entry )
+	public static bool TrySpawnStructure( BuildingEntry entry, out BaseStructure structure )
 	{
+		structure = null;
+
 		if ( !Structures.Contains( entry ) )
+		{
 			Structures.Add( entry );
+			Log.Error( "Registered structure." );
+		}
 
 		if ( instance == null )
 			return false;
 
-		var structure = BaseStructure.FromPrefab( entry.PrefabName );
-		var pos = new Vector3( entry.Position.x, entry.Position.y, GameMgr.CurrentTown.Position.z );
+		structure = BaseStructure.FromPrefab( entry.PrefabName );
 		if ( structure == null )
 			return false;
 
+		var pos = new Vector3( entry.Position.x, entry.Position.y, GameMgr.CurrentTown.Position.z );
 		structure.Position = pos;
 
-		var rotation = Rotation.LookAt( pos - GameMgr.CurrentTown.Position.z );
+		var rotation = Rotation.LookAt( pos - GameMgr.CurrentTown.Position );
 		structure.Rotation = Rotation.FromYaw( rotation.Yaw() );
 		structure.Entry = entry;
 
@@ -85,6 +90,6 @@ public partial class VillageState : GameState
 		{
 			PrefabName = name, 
 			Position = new Vector3( x, y )
-		} );
+		}, out var structure );
 	}
 }
