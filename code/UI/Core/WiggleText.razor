@@ -20,13 +20,26 @@
 <root>
 	@foreach ( var c in Value )
 	{
-		if ( char.IsDigit( c ) )
+		switch ( c )
 		{
-			<AnimatedImage style="@( InvertString )" class="image" path=@( $"textures/tests/number/{c}" )></AnimatedImage>
-		}
-		else
-		{
-			<AnimatedImage style="@( InvertString )" class="image" path=@( $"textures/tests/upper/{c}" )></AnimatedImage>
+			case ',':
+				<AnimatedImage style="@InvertString" class="image" path=@( "textures/tests/generic/comma" )></AnimatedImage>
+				break;
+			case '.':
+				<AnimatedImage style="@InvertString" class="image" path=@( "textures/tests/generic/dot" )></AnimatedImage>
+				break;
+			default:
+				{
+					if ( char.IsDigit( c ) )
+					{
+						<AnimatedImage style="@InvertString" class="image" path=@( $"textures/tests/number/{c}" )></AnimatedImage>
+					}
+					else
+					{
+						<AnimatedImage style="@InvertString" class="image" path=@( $"textures/tests/upper/{c}" )></AnimatedImage>
+					}
+					break;
+				}
 		}
 	}
 </root>
