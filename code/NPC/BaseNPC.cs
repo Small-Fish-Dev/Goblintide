@@ -320,6 +320,7 @@ public partial class BaseNPC : BaseCharacter
 		if ( Stealing.IsValid() )
 		{
 			Stealing.Position = Position + Vector3.Up * GetHeight();
+			Stealing.StolenBy = this;
 		}
 
 		if ( nextCheapThink )

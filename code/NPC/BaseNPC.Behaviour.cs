@@ -124,7 +124,8 @@ public partial class BaseNPC
 	{
 		var validEntities = Entity.All
 			.OfType<BaseCollectable>()
-			.Where( x => !x.Locked);
+			.Where( x => !x.Locked)
+			.Where( x => !x.StolenBy.IsValid());
 
 		var radiusSquared = radius * radius;
 
@@ -302,9 +303,18 @@ public partial class BaseNPC
 
 		if ( !Stealing.IsValid() )
 		{
+			var collectable = CurrentTarget as BaseCollectable;
+
+			if ( collectable.IsValid() )
+				if ( collectable.StolenBy.IsValid() )
+				{
+					CurrentTarget = null;
+					return;
+				}
+
 			if ( FastRelativeInRangeCheck( CurrentTarget, AttackRange ) )
 			{
-				if ( CurrentTarget is BaseCollectable collectable )
+				if ( collectable.IsValid() )
 					Steal( collectable );
 			}
 			else
@@ -318,11 +328,6 @@ public partial class BaseNPC
 		}
 		else
 		{
-			if ( Stealing.StolenBy != ( this as BaseCharacter ) )
-			{
-				CurrentSubBehaviour = BaseSubBehaviour;
-			}
-
 			if ( !IsFollowingPath )
 			{
 				NavigateToForest();
