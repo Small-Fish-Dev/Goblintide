@@ -30,6 +30,22 @@
           "_name": {
             "Value": "\u0022RandomMaterialGroupComponent\u0022"
           },
+          "_tags": {
+            "Value": "[]"
+          }
+        }
+      },
+      {
+        "Guid": "668584f2-5b08-47dc-9ffa-de369812b8e6",
+        "Class": "RandomAccessoryComponent",
+        "Keys": {
+          "Type": {
+            "Type": "AccessoryType",
+            "Value": "\u0022GoblinExtras\u0022"
+          },
+          "_name": {
+            "Value": "\u0022RandomAccessoryComponent\u0022"
+          },
           "_tags": {}
         }
       }

@@ -12,7 +12,8 @@ public enum AccessoryType
 	FemaleHair,
 	Eyebrows,
 	FacialHair,
-	ClothingExtras
+	ClothingExtras,
+	GoblinExtras
 }
 
 [Prefab]
@@ -108,6 +109,14 @@ public partial class RandomAccessoryComponent : CharacterComponent
 		"models/clothes/inner_shirt/inner_shirt.vmdl"
 	};
 
+	public static List<string> GoblinExtras = new()
+	{
+		"",
+		"",
+		"",
+		"models/goblin/accessories/gobo_necklace.vmdl",
+	};
+
 	[Prefab]
 	public AccessoryType Type { get; set; }
 
@@ -141,6 +150,8 @@ public partial class RandomAccessoryComponent : CharacterComponent
 				return new Random().FromList( Eyebrows );
 			case AccessoryType.ClothingExtras:
 				return new Random().FromList( ClothingExtras );
+			case AccessoryType.GoblinExtras:
+				return new Random().FromList( GoblinExtras );
 			default:
 				return "";
 

@@ -1,0 +1,8 @@
+"Layer0"
+{
+	"shader"		"shaders/complex.shader_c"
+	"TextureColor"		"models/goblin/accessories/gobo_necklace_color.tga"
+	"TextureAmbientOcclusion"		"models/goblin/accessories/gobo_necklace_ao.tga"
+	"TextureNormal"		"models/goblin/accessories/gobo_necklace_normal.tga"
+	"TextureRoughness"		"models/goblin/accessories/gobo_necklace_rough.tga"
+}
