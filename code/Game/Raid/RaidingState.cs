@@ -68,6 +68,8 @@ public partial class RaidingState : GameState
 				Log.Info( "Finished autosaving" );
 			} );
 		}
+
+		base.Changed( state );
 	}
 
 	[Event.Tick.Server]

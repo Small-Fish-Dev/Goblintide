@@ -46,6 +46,7 @@ public partial class VillageState : GameState
 			foreach ( var entity in Entity.All.OfType<BaseStructure>() )
 				entity.Delete();
 		}
+		base.Changed( state );
 	}
 
 	public static bool TrySpawnStructure( BuildingEntry entry )
@@ -70,7 +71,7 @@ public partial class VillageState : GameState
 		return true;
 	}
 
-	[Event.Tick]
+	[Event.Tick.Server]
 	private void onTick()
 	{
 		if ( GameMgr.Lord == null )
