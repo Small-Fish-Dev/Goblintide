@@ -8,6 +8,8 @@ public class PlayerView : ScenePanel
 
 	private bool _animated = false;
 	private readonly TimeUntil _animate = 0.4f;
+	private TimeUntil _next = 0.0f;
+	public float TickDelay = 0.3f;
 
 	public PlayerView()
 	{
@@ -49,6 +51,10 @@ public class PlayerView : ScenePanel
 
 		Model.CurrentSequence.Time = Lord.Self.CurrentSequence.Time;
 		Model.Rotation = Lord.Self.Rotation;
-		Model.Update( Time.Delta );
+		if ( _next )
+		{
+			Model.Update( Time.Delta * 440 );
+			_next = TickDelay;
+		}
 	}
 }
