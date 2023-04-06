@@ -4,7 +4,7 @@ namespace GameJam;
 
 public partial class Lord
 {
-	[Net, Predicted] public bool Overview { get; set; } = true;
+	[Net, Predicted] public bool Overview { get; set; } = false;
 
 	public Vector3 OverviewOffset
 	{

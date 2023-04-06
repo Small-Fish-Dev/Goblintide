@@ -97,8 +97,8 @@ public partial class GameMgr : GameManager
 		}
 
 		// Load the save.
-		LoadSave();
 		SetState<VillageState>();
+		LoadSave();
 
 		SetEnergyFromLastEnergyDate();
 		PlaceGoblinArmy( true );
