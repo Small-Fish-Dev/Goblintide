@@ -216,7 +216,7 @@ public partial class Town : BaseNetworkable
 
 	internal static void TryPlaceTree( Dictionary<string, float> list, Vector3 position, float x, float y, Vector2 threshold )
 	{
-		var noise = NoiseFBM( x, y, 3f );
+		var noise = NoiseFBM( x, y, 7f );
 
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
