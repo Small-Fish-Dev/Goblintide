@@ -78,10 +78,11 @@
 
 			if ( value >= pow )
 			{
-				var val = Math.Floor( value / pow * 10 )
-					.ToString()
-					.Insert( 1, "," );
-				result = $"{val}{suff}";
+				var floored = Math.Floor( value / pow );
+				var number = floored.ToString();
+				result = number
+					+ (number.Length < 2 ? $",{(Math.Floor( value / pow * 10 ) - floored * 10):N0}" : string.Empty)
+					+ suff;
 			}
 			else
 				return result;
