@@ -13,9 +13,6 @@ public partial class VillageState : GameState
 	/// </summary>
 	public static List<BuildingEntry> Structures { get; } = new();
 
-	[Net] public float Radius { get; set; } = 500f;
-	[Net] public Vector3 Position { get; set; } = Vector3.Up * 512;
-
 	VillageHUD hud;
 	static VillageState instance;
 
@@ -55,13 +52,13 @@ public partial class VillageState : GameState
 			return false;
 
 		var structure = BaseStructure.FromPrefab( entry.PrefabName );
-		var pos = new Vector3( entry.Position.x, entry.Position.y, instance.Position.z );
+		var pos = new Vector3( entry.Position.x, entry.Position.y, GameMgr.CurrentTown.Position.z );
 		if ( structure == null )
 			return false;
 
 		structure.Position = pos;
 
-		var rotation = Rotation.LookAt( pos - instance.Position );
+		var rotation = Rotation.LookAt( pos - GameMgr.CurrentTown.Position.z );
 		structure.Rotation = Rotation.FromYaw( rotation.Yaw() );
 		structure.Entry = entry;
 

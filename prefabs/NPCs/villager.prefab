@@ -234,6 +234,20 @@
             "Value": "[]"
           }
         }
+      },
+      {
+        "Guid": "a1f3516b-d6b8-4c87-848d-0130ffec892b",
+        "Class": "RandomAccessoryComponent",
+        "Keys": {
+          "Type": {
+            "Type": "AccessoryType",
+            "Value": "\u0022ClothingExtras\u0022"
+          },
+          "_name": {
+            "Value": "\u0022RandomAccessoryComponent\u0022"
+          },
+          "_tags": {}
+        }
       }
     ],
     "Keys": {
