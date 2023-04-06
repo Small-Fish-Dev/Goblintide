@@ -1,0 +1,56 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/blendable.shader_c"
+
+	F_MULTIBLEND 2 // 3 Layers
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Material ----
+	TextureColor "materials/default/default_color.tga"
+	TextureTintMask "materials/default/default.tga"
+
+	//---- Material A ----
+	g_flTintColorA "[0.482353 0.392157 0.360784 0.000000]"
+	TextureAmbientOcclusionA "materials/bricks_a/brickz_ao.tga"
+	TextureBlendMaskA "materials/bricks_a/brickz_height.tga"
+	TextureColorA "materials/bricks_a/brickz_color.tga"
+	TextureMetalnessA "materials/default/default_metal.tga"
+	TextureNormalA "materials/bricks_a/brickz_normal.tga"
+	TextureRoughnessA "materials/bricks_a/brickz_rough.tga"
+	TextureTintMaskA "materials/bricks_a/brickz_mask.tga"
+
+	//---- Material B ----
+	g_flBlendSoftnessB "0.100"
+	g_flTintColorB "[0.666667 0.576471 0.411765 0.000000]"
+	g_vTexCoordScale2 "[1.000 1.000]"
+	TextureAmbientOcclusionB "materials/plaster_a/plaster_a_ao.tga"
+	TextureBlendMaskB "materials/bricks_a/brickz_mask.tga"
+	TextureColorB "materials/plaster_a/plaster_a_color.tga"
+	TextureMetalnessB "materials/default/default_metal.tga"
+	TextureNormalB "materials/plaster_a/plaster_a_normal.tga"
+	TextureRoughnessB "materials/plaster_a/plaster_a_rough.tga"
+	TextureTintMaskB "materials/default/default.tga"
+
+	//---- Material C ----
+	g_flBlendSoftnessC "0.100"
+	g_flTintColorC "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordScale3 "[1.000 1.000]"
+	TextureAmbientOcclusionC "materials/twig_c/twig_c_ao.tga"
+	TextureBlendMaskC "materials/twig_c/twig_c_height.tga"
+	TextureColorC "materials/twig_c/twig_c_color.tga"
+	TextureMetalnessC "materials/default/default_metal.tga"
+	TextureNormalC "materials/twig_c/twig_c_normal.tga"
+	TextureRoughnessC "materials/twig_c/twig_c_rough.tga"
+	TextureTintMaskC "materials/default/default.tga"
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "brick"
+		WorldMappingWidth "128"
+		WorldMappingHeight "128"
+	}
+}
