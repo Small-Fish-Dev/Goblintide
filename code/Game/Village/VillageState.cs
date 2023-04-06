@@ -32,6 +32,8 @@ public partial class VillageState : GameState
 		{
 			Town.GenerateEmptyTown( (float)GameMgr.VillageSize );
 			GameMgr.Lord.Position = GameMgr.CurrentTown.Throne.Position + 50f;
+			GameMgr.GoblinArmyEnabled( true );
+			GameMgr.PlaceGoblinArmy( false );
 		}
 	}
 

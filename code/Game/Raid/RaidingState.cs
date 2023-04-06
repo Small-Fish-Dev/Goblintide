@@ -48,6 +48,7 @@ public partial class RaidingState : GameState
 			GameMgr.GoblinArmyEnabled( false );
 			GameMgr.PlaceGoblinArmy( false );
 			GameMgr.Lord.Position = GameMgr.CurrentTown.Position + Vector3.Backward * ( GameMgr.CurrentTown.TownRadius + 400f );
+			GameMgr.Lord.Rotation = Rotation.LookAt( GameMgr.CurrentTown.Position - GameMgr.Lord.Position );
 		}
 	}
 
@@ -117,11 +118,14 @@ public partial class RaidingState : GameState
 				}
 			}
 
-			if ( GameMgr.Lord.Position.Distance( GameMgr.CurrentTown.Position ) >= GameMgr.CurrentTown.ForestRadius )
-			{
-				Log.Error( $"Escape to the forest! The guards are coming!" );
-				CurrentState = RaidState.PostRaid;
-			}
+			Log.Error( $"Escape to the forest! The guards are coming!" );
+
+			
+		}
+
+		if ( GameMgr.Lord.Position.Distance( GameMgr.CurrentTown.Position ) >= GameMgr.CurrentTown.ForestRadius )
+		{
+			CurrentState = RaidState.PostRaid;
 		}
 
 	}
