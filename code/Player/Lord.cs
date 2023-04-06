@@ -45,10 +45,13 @@ public partial class Lord : BaseCharacter
 	}
 	public override void Kill()
 	{
-		for ( int i = 0; i < GameMgr.GoblinArmy.Count; i++ )
-			GameMgr.GoblinArmy.First()?.Delete();
+		if ( GameMgr.State is not VillageState )
+		{
+			for ( int i = 0; i < GameMgr.GoblinArmy.Count; i++ )
+				GameMgr.GoblinArmy.First()?.Delete();
 
-		GameMgr.SetState<VillageState>();
+			GameMgr.SetState<VillageState>();
+		}
 
 		HitPoints = MaxHitPoints;
 		TotalAttackers = 0;

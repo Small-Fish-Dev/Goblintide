@@ -319,8 +319,6 @@ public partial class Town : BaseNetworkable
 
 		GameMgr.CurrentTown.RNG = new Random( GameMgr.CurrentTown.Seed );
 
-		Log.Warning( GameMgr.CurrentTown.RNG );
-
 		GameMgr.CurrentTown.Position = GameMgr.CurrentTown.TownType switch
 		{
 			TownType.Village => new Vector3( 4586f, 452f, 512f ),
@@ -347,7 +345,7 @@ public partial class Town : BaseNetworkable
 		var townRadiusSquared = townRadius * townRadius;
 		var mainRoadSize = 60f + townRadius / 15f;
 
-		while ( nextGenerate && IsGenerating )
+		while ( nextGenerate && IsGenerating && !GameMgr.CurrentTown.Generated )
 		{
 			currentCheck = ( currentCheck + 1 ) % ( totalRows * totalRows );
 			var squaredDistance = currentX * 50f * currentX * 50f + currentY * 50f * currentY * 50f;
@@ -407,6 +405,11 @@ public partial class Town : BaseNetworkable
 
 			//Log.Error( $"Placing {(PlacingHouses ? "Houses" : ( PlacingBigProps ? "Big Props" : ( PlacingSmallProps ? "Small Props" : "NPCs" ) ))} [{Math.Ceiling( GenerationProgress * 100 )}%]" );
 		}
+
+		if ( !IsGenerating && !GameMgr.CurrentTown.Generated )
+		{
+			GameMgr.CurrentTown.Generated = true;
+		}
 	}
 
 	public RaidableBuilding Throne { get; set; } = null; 
@@ -427,6 +430,8 @@ public partial class Town : BaseNetworkable
 			TownType.Town => new Vector3( -4100f, 5414f, 512f ),
 			_ => new Vector3( 55f, 292.05f, 512f ),
 		};
+
+		GameMgr.CurrentTown.RNG = new Random( GameMgr.CurrentTown.Seed );
 
 		if ( goldPile && deleteOld )
 		{
