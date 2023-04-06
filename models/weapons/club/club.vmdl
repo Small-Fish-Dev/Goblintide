@@ -38,9 +38,31 @@
 				[
 					{
 						_class = "RenderMeshFile"
+						name = "1"
 						filename = "models/weapons/club/club.fbx"
 						import_translation = [ 0.0, 0.0, -250.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"Plane_001",
+								"Plane_002",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "2"
+						filename = "models/weapons/club/club.fbx"
+						import_translation = [ 0.0, 0.0, 250.0 ]
+						import_rotation = [ -90.0, 0.0, 0.0 ]
 						import_scale = 1.0
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
@@ -83,6 +105,34 @@
 						radius = 120.0
 						point0 = [ 8.600586, -50.35144, -238.664429 ]
 						point1 = [ 14.585266, -5.644043, 1198.717773 ]
+					},
+				]
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "goblin"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"1",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"2",
+								]
+							},
+						]
+						hidden_in_tools = false
 					},
 				]
 			},
