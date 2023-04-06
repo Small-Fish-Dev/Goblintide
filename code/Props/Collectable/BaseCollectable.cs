@@ -23,6 +23,7 @@ public partial class BaseCollectable : BaseEntity
 	public Collectable Type { get; private set; } = Collectable.Invalid;
 	[Prefab]
 	public bool IsRagdoll { get; private set; } = false;
+	public BaseCharacter StolenBy { get; set; } = null;
 	public int Value { get; set; } = 1;
 	public bool Locked { get; set; } = false;
 	public override bool BlockNav => false;

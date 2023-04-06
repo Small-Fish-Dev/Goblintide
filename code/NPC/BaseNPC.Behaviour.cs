@@ -78,6 +78,7 @@ public partial class BaseNPC
 		var validEntities = Entity.All
 			.OfType<BaseCharacter>()
 			.Where( x => !x.Disabled )
+			.Where( x => !x.Dead )
 			.Where( x => x.Faction != FactionType.None && x.Faction != Faction )
 			.Where( x => x.TotalAttackers < 3 );
 
@@ -317,6 +318,11 @@ public partial class BaseNPC
 		}
 		else
 		{
+			if ( Stealing.StolenBy != ( this as BaseCharacter ) )
+			{
+				CurrentSubBehaviour = BaseSubBehaviour;
+			}
+
 			if ( !IsFollowingPath )
 			{
 				NavigateToForest();
@@ -349,6 +355,10 @@ public partial class BaseNPC
 
 		if ( !FastRelativeInRangeCheck( CurrentTarget, DetectRange ) && !IsFollowingOrder )
 			CurrentTarget = null;
+
+		if ( CurrentTarget is BaseNPC npc )
+			if ( npc.Dead )
+				CurrentTarget = null;
 	}
 
 	public virtual void PanickingSubBehaviour()
@@ -368,6 +378,11 @@ public partial class BaseNPC
 		}
 		else
 			CurrentTarget = null;
+
+
+		if ( CurrentTarget is BaseNPC npc )
+			if ( npc.Dead )
+				CurrentTarget = null;
 	}
 
 	public virtual void DiligencyCheck()

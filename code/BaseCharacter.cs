@@ -14,6 +14,7 @@ public partial class BaseCharacter : BaseEntity
 
 	public override bool BlockNav { get; set; } = false;
 	[Net] bool disabled { get; set; } = false;
+	[Net] public bool Dead { get; set; } = false;
 	public bool Disabled
 	{
 		get { return disabled; }

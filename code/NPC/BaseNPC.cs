@@ -167,21 +167,24 @@ public partial class BaseNPC : BaseCharacter
 		if ( Stealing.IsValid() )
 		{
 			Stealing.SetParent( null );
+			Stealing.StolenBy = null;
 			Stealing.Locked = false;
 		}
 
 		// Log Gobblin DN deaths...
-		if ( Game.IsServer 
-			&& Faction == FactionType.Goblins )
+		if ( Game.IsServer && Faction == FactionType.Goblins )
 		{
 			var input = deathStrings[Game.Random.Int( deathStrings.Length - 1 )]
 				.Replace( "%attacker", LastAttackedBy?.DisplayName ?? "Unknown Entity" )
 				.Replace( "%target", DisplayName );
 
 			EventLogger.Send( To.Everyone, $"{input}", 3 );
+
+			GameMgr.GoblinArmy.Remove( this );
+			Town.TownEntities.Add( this );
 		}
 
-		base.Kill();
+		Dead = true;
 	}
 
 	protected override void OnDestroy()
@@ -289,6 +292,11 @@ public partial class BaseNPC : BaseCharacter
 	[Event.Tick.Server]
 	public virtual void Think()
 	{
+		if ( Dead )
+		{
+			SetAnimParameter( "dead", true );
+			return;
+		}
 		if ( Disabled ) return;
 		ComputeMotion();
 		ComputeNavigation();
