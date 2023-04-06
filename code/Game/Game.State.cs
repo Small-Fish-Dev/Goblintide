@@ -30,7 +30,9 @@ partial class GameMgr
 		if ( newState == null )
 			return null;
 
-		Event.Unregister( State );
+		if ( State != null )
+			Event.Unregister( State );
+
 		State?.Changed( newState );
 		newState.Initialize();
 
