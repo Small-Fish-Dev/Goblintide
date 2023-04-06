@@ -85,11 +85,10 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 	private static void ClientToServerGenerate( int index )
 	{
 		Game.AssertServer();
-
-		// Failed to find node.
-		Node? node;
+		
+		Node node;
 		if ( (node = Entries.ElementAtOrDefault( index )) == null )
-			return;
+			return; // Failed to find node.
 
 		var energyRequired = (int)( node.Size / 2f );
 
