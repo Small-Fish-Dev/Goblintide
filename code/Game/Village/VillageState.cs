@@ -48,10 +48,7 @@ public partial class VillageState : GameState
 		structure = null;
 
 		if ( !Structures.Contains( entry ) )
-		{
 			Structures.Add( entry );
-			Log.Error( "Registered structure." );
-		}
 
 		if ( instance == null )
 			return false;
