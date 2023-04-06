@@ -1,5 +1,6 @@
 ﻿@using Sandbox;
 @using Sandbox.UI;
+@using GameJam.UI.Core;
 
 @namespace GameJam
 @inherits Panel
@@ -19,7 +20,9 @@
 			width: 100%;
 			flex-direction: row;
 			height: 80px;
-			background-color: white;
+			background-color: darken(#2c2825cc, 0.5);
+			box-shadow: 0px 0px 45px #00000096;
+			border-top: 4px #2c2825cc;
 			bottom: 0px;
 			transform: translateY(0%);
 			justify-content: center;
@@ -28,41 +31,46 @@
 			.slot {
 				width: 100px;
 				aspect-ratio: 1;
-				background-color: rgba(black, 0.8);
-				margin-right: 20px;
-				margin-left: 20px;
+				margin-right: 40px;
+				margin-left: 40px;
 				bottom: 50%;
-				border: 2px white;
-				transition: width 0.25s ease-in, bottom 0.25s ease-in;
-				//white-space: nowrap;
-				text-align: center;
 				backdrop-filter: blur(5px);
+				background-color: #2c2825cc;
+				box-shadow: 0px 0px 45px #00000096;
+				transform: translateX(-50%) rotate(-2deg);
+				transition: width 0.25s ease-in, bottom 0.25s ease-in, transform 0.2s ease-in-out, border 0.2s ease-in-out;
+				border: 0px white;
 
 				&:hover {
-					width: 140;
+					width: 140px;
 					bottom: 80px;
+					border: 3px rgba(white, 0.5);
 				}
 
 				.title {
-					position: absolute;
 					left: 50%;
-					top: -50px;
-					min-height: 40px;
-					font-size: 18px;
-					text-stroke: 4px black;
-					text-shadow: 4px 4px 4px black;
-					transform: translateX( -50% );
-					padding: 5px; 
-					padding-right: 8px;
-					background-color: rgba(black, 0.8);
-					border-radius: 10px;
-					flex-shrink: 1;
+					top: -45px;
+					background-color: #2c2825cc;
+					box-shadow: 0px 0px 45px #00000096;
+					border-radius: 5px;
+					transform: translateX(-50%) rotate(-2deg);
+					transition: transform 0.2s ease-in-out;
+					padding: 5px;
+					height: 35px;
+					flex-shrink: 0;
+					transform-origin: center;
+				}
+
+				.shadow {
+					position: absolute;
+					transform: translate(7px 7px);
 				}
 				
 				.icon {
+					position: absolute;
 					width: 100%;
 					height: 100%;
-					background-size: cover;
+					background-size: 100%;
 					background-position: center;
 				}
 			}
@@ -81,14 +89,16 @@
 		@{
 			var structures = ResourceLibrary.GetAll<Prefab>()
 				.Where( p => p?.Root?.Class == "BaseStructure" );
-
 			foreach ( var structure in structures )
 			{
 				var root = structure.Root;
 				var name = root.GetValue<string>( "Title" );
 
-				<panel class="slot">
-					<label class="title">@name</label>
+				<panel class="slot" style="transform: rotate(@(Game.Random.Int( -3, 3)))" >
+					<panel class="title" style="transform: translateX(-50%) rotate(@(Game.Random.Int( -3, 3)))">
+						<WiggleText Scale="@(0.22f)" Invert="@(false)" class="shadow" Value="@(name)" />
+						<WiggleText Scale="@(0.22f)" Value="@(name)" />
+					</panel>
 					<PrefabIcon class="icon" Prefab="@structure" />
 				</panel>
 			}
