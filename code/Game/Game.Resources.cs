@@ -199,7 +199,7 @@ public partial class GameMgr
 
 		foreach ( var goblin in GoblinArmy )
 		{
-			var distance = insideTown ? Game.Random.Float( -currentTown.TownRadius, currentTown.TownRadius ) : Game.Random.Float( clearingDistance, forestSize );
+			var distance = insideTown ? Game.Random.Float( 150f, currentTown.TownRadius * 2 ) : Game.Random.Float( clearingDistance, forestSize );
 			var newPosition = currentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
 			goblin.Position = newPosition;
 		}
