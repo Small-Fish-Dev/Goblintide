@@ -421,7 +421,7 @@ public partial class Town : BaseNetworkable
 
 	public RaidableBuilding Throne { get; set; } = null; 
 
-	public static async void GenerateEmptyTown( float townSize, bool goldPile = true, bool deleteOld = true )
+	public static void GenerateEmptyTown( float townSize, bool goldPile = true, bool deleteOld = true )
 	{
 		if ( deleteOld )
 			GameMgr.CurrentTown?.DeleteTown();
