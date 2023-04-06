@@ -16,6 +16,8 @@ public partial class BaseItem : BaseEntity
 	[Prefab, Category( "Stats" )]
 	public float IncreasedHealth { get; set; } = 0f;
 	[Prefab, Category( "Stats" )]
+	public float IncreasedRange { get; set; } = 0f;
+	[Prefab, Category( "Stats" )]
 	public ItemType Type { get; set; } = ItemType.None;
 	public bool Equipped = false;
 	public override bool BlockNav => false;

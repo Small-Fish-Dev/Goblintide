@@ -137,6 +137,7 @@ public partial class BaseNPC : BaseCharacter
 		item.Equipped = true;
 		HitPoints += item.IncreasedHealth;
 		AttackPower += item.IncreasedAttack;
+		AttackRange += item.IncreasedRange;
 
 		Town.TownEntities.Remove( item );
 	}
@@ -149,6 +150,10 @@ public partial class BaseNPC : BaseCharacter
 		item.EnableAllCollisions = true;
 
 		item.Equipped = false;
+
+		HitPoints -= item.IncreasedHealth;
+		AttackPower -= item.IncreasedAttack;
+		AttackRange -= item.IncreasedRange;
 
 		Town.TownEntities.Add( item );
 	}

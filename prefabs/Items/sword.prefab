@@ -32,7 +32,13 @@
       "_scale": {
         "Value": "1"
       },
-      "_tags": {}
+      "_tags": {
+        "Value": "\u0022\u0022"
+      },
+      "IncreasedRange": {
+        "Type": "Single",
+        "Value": "25"
+      }
     }
   }
 }

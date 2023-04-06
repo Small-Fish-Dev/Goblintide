@@ -34,6 +34,10 @@
       "Type": {
         "Type": "ItemType",
         "Value": "\u0022Weapon\u0022"
+      },
+      "IncreasedRange": {
+        "Type": "Single",
+        "Value": "15"
       }
     }
   }
