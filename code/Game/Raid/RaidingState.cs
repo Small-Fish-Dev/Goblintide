@@ -29,6 +29,13 @@ public partial class RaidingState : GameState
 		{
 			foreach ( var entity in Entity.All.OfType<BaseStructure>() )
 				entity.Delete();
+
+			Log.Info( "Autosaving..." );
+			GameTask.RunInThreadAsync( async () =>
+			{
+				await GameMgr.GenerateSave( true );
+				Log.Info( "Finished autosaving" );
+			} );
 		}
 	}
 
