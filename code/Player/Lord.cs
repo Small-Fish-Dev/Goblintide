@@ -47,7 +47,8 @@ public partial class Lord : BaseCharacter
 	{
 		if ( GameMgr.State is not VillageState )
 		{
-			for ( int i = 0; i < GameMgr.GoblinArmy.Count; i++ )
+			var count = GameMgr.GoblinArmy.Count;
+			for ( int i = 0; i < count; i++ )
 				GameMgr.GoblinArmy.First()?.Delete();
 
 			GameMgr.SetState<VillageState>();
