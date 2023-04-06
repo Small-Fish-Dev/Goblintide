@@ -2,6 +2,8 @@
 
 partial class GameMgr
 {
+	public static Sound Music;
+
 	/// <summary>
 	/// The current GameState.
 	/// </summary>

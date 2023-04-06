@@ -52,6 +52,7 @@ public partial class Lord : BaseCharacter
 				GameMgr.GoblinArmy.First()?.Delete();
 
 			GameMgr.SetState<VillageState>();
+			Sound.FromScreen( "sounds/ui/trumpets_failfare.sound" );
 		}
 
 		HitPoints = MaxHitPoints;

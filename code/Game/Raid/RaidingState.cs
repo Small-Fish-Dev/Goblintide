@@ -41,6 +41,8 @@ public partial class RaidingState : GameState
 			hud = HUD.Instance.AddChild<RaidingHUD>();
 			WorldMap.Delete();
 			SkillTree.Delete();
+			GameMgr.Music.Stop();
+			GameMgr.Music = Sound.FromScreen( "sounds/music/evil_march.sound" );
 			return;
 		}
 
@@ -150,5 +152,22 @@ public partial class RaidingState : GameState
 	public void OncurrentStateChanged( RaidState oldState, RaidState newState ) // RUNS ON CLIENT
 	{
 
+		if ( newState == RaidState.Sneaking )
+		{
+			GameMgr.Music.Stop();
+			GameMgr.Music = Sound.FromScreen( "sounds/music/exotic_battle.sound" );
+		}
+
+		if ( newState == RaidState.Raiding )
+		{
+			GameMgr.Music.Stop();
+			GameMgr.Music = Sound.FromScreen( "sounds/music/failing_defense.sound" );
+			Sound.FromScreen( "sounds/ui/trumpets_start.sound" );
+		}
+
+		if ( newState == RaidState.PostRaid )
+		{
+			Sound.FromScreen( "sounds/ui/trumpets_fanfare.sound" );
+		}
 	}
 }
