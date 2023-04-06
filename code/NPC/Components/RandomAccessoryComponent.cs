@@ -11,7 +11,8 @@ public enum AccessoryType
 	MaleHair,
 	FemaleHair,
 	Eyebrows,
-	FacialHair
+	FacialHair,
+	ClothingExtras
 }
 
 [Prefab]
@@ -101,6 +102,12 @@ public partial class RandomAccessoryComponent : CharacterComponent
 		"models/citizen_clothes/hair/hair_tight_ponytail/models/hair_tight_ponytail_red.vmdl_c",
 	};
 
+	public static List<string> ClothingExtras = new()
+	{
+		"",
+		"models/clothes/inner_shirt/inner_shirt.vmdl"
+	};
+
 	[Prefab]
 	public AccessoryType Type { get; set; }
 
@@ -132,6 +139,8 @@ public partial class RandomAccessoryComponent : CharacterComponent
 				return new Random().FromList( Beards );
 			case AccessoryType.Eyebrows:
 				return new Random().FromList( Eyebrows );
+			case AccessoryType.ClothingExtras:
+				return new Random().FromList( ClothingExtras );
 			default:
 				return "";
 
