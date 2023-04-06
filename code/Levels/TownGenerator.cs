@@ -106,7 +106,7 @@ public partial class Town : BaseNetworkable
 
 	internal static bool TryPlaceProp( Dictionary<string, float> list, Vector3 position, Vector2 threshold, bool lookAtCenter = false  )
 	{
-		var noise = NoiseValue( currentX, currentY );
+		var noise = NoiseValue( currentX * 50f, currentY * 50f );
 		var rand = GameMgr.CurrentTown.RNG;
 
 		if ( noise >= threshold.x && noise <= threshold.y )
@@ -119,11 +119,11 @@ public partial class Town : BaseNetworkable
 			var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * 25f;
 			var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * 25f;
 			var chosenPosition = position + new Vector3( randomOffsetX, randomOffsetY, 0 );
-			var chosenRotation = lookAtCenter ? Rotation.LookAt( chosenPosition - position ) : Rotation.FromYaw( rand.Next( 360 ) );
+			var chosenRotation = lookAtCenter ? Rotation.LookAt( chosenPosition - GameMgr.CurrentTown.Position ) : Rotation.FromYaw( rand.Next( 360 ) );
 
-			var model = GameMgr.PrecachedModels[ prefab.Root.GetValue<string>( "Model" ) ];
+			var model = GameMgr.PrecachedModels[prefab.Root.GetValue<string>( "Model" )];
 
-			var traceCheck = Trace.Box( model.PhysicsBounds, chosenPosition, chosenPosition )
+			var traceCheck = Trace.Box( model.PhysicsBounds * 1.5f, chosenPosition, chosenPosition )
 				.EntitiesOnly()
 				.Run();
 
@@ -131,6 +131,9 @@ public partial class Town : BaseNetworkable
 
 			var spawnedEntity = BaseProp.FromPrefab( chosenPrefab );
 			if ( spawnedEntity == null ) return false;
+
+			spawnedEntity.Position = chosenPosition;
+			spawnedEntity.Rotation = chosenRotation;
 
 			Town.TownEntities.Add( spawnedEntity );
 			return true;
@@ -162,12 +165,47 @@ public partial class Town : BaseNetworkable
 			var traceCheck = Trace.Box( model.PhysicsBounds * 1.5f, chosenPosition, chosenPosition )
 				.EntitiesOnly()
 				.Run();
+
 			if ( traceCheck.Hit ) return false;
+
 			var spawnedEntity = RaidableBuilding.FromPrefab( chosenPrefab );
 			if ( spawnedEntity == null ) return false;
 
 			spawnedEntity.Position = chosenPosition;
 			spawnedEntity.Rotation = chosenRotation;
+
+			Town.TownEntities.Add( spawnedEntity );
+			return true;
+
+		}
+
+		return false;
+	}
+
+	internal static bool TryPlaceNPC( Dictionary<string, float> list, Vector3 position, Vector2 threshold )
+	{
+		var noise = NoiseValue( currentX * 50f, currentY * 50f );
+		var rand = GameMgr.CurrentTown.RNG;
+
+		if ( noise >= threshold.x && noise <= threshold.y )
+		{
+			var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * 25f;
+			var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * 25f;
+			var chosenPosition = position + new Vector3( randomOffsetX, randomOffsetY, 0 );
+			var chosenRotation = Rotation.FromYaw( rand.Next( 360 ) );
+
+			var traceCheck = Trace.Box( new BBox(0f, 50f), chosenPosition, chosenPosition )
+				.EntitiesOnly()
+				.Run();
+
+			if ( traceCheck.Hit ) return false;
+
+			var spawnedEntity = BaseNPC.FromPrefab( WeightedList.RandomKey( rand, list ) );
+			if ( spawnedEntity == null ) return false;
+
+			spawnedEntity.Position = chosenPosition;
+			spawnedEntity.Rotation = chosenRotation;
+
 			Town.TownEntities.Add( spawnedEntity );
 			return true;
 
@@ -187,52 +225,6 @@ public partial class Town : BaseNetworkable
 				
 			TownTrees.Add( spawnedTree );
 		}
-	}
-
-	internal async Task<bool> TryForNPCs( Random rand, Vector3 position, float x, float y, float density, Vector2 threshold )
-	{
-		var noise = NoiseValue( x, y );
-		if ( noise >= threshold.x && noise <= threshold.y )
-		{
-			var spawnedNPC = BaseNPC.FromPrefab( WeightedList.RandomKey( rand, PlaceablePeople ) );
-			if ( spawnedNPC == null )
-				return false;
-
-			await GameTask.RunInThreadAsync( () =>
-			{
-				var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
-				var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * (50f / density);
-				spawnedNPC.Position = position + new Vector3( x + randomOffsetX, y + randomOffsetY, 0 );
-				spawnedNPC.Rotation = Rotation.FromYaw( rand.Next( 360 ) );
-
-				Town.TownEntities.Add( spawnedNPC );
-			} );
-
-			return true;
-		}
-
-		return false;
-	}
-
-	internal async Task<bool> PlaceNPCs( Dictionary<string, float> list, Random rand, Vector3 position, float density, Vector2 threshold )
-	{
-		var townRadiusSquared = TownRadius * TownRadius;
-		var mainRoadSize = 60f + TownRadius / 15f;
-
-		for ( float x = -TownRadius; x <= TownRadius; x += 100f / density )
-		{
-			for ( float y = -TownRadius; y <= TownRadius; y += 100f / density )
-			{
-				var squaredDistance = x * x + y * y;
-
-				if ( squaredDistance > townRadiusSquared ) continue;
-				if ( y < mainRoadSize && y > -mainRoadSize ) continue;
-
-				if ( await GameMgr.CurrentTown.TryForNPCs( rand, position, x, y, density, new Vector2( threshold.x, threshold.y ) ) )
-					continue;
-			}
-		}
-		return true;
 	}
 
 	public static void PlaceTrees()
@@ -292,14 +284,19 @@ public partial class Town : BaseNetworkable
 		}
 	}
 
-	internal static double housesProgress { get; set; } = 0d;
-	internal static double bigPropsProgress { get; set; } = 0d;
-	internal static double smallPropsProgress { get; set; } = 0d;
-	internal static double npcsProgress { get; set; } = 0d;
+	public static double HousesGenerationProgress { get; set; } = 0d;
+	public static double BigPropsGenerationProgress { get; set; } = 0d;
+	public static double SmallPropsGenerationProgress { get; set; } = 0d;
+	public static double NpcsGenerationProgress { get; set; } = 0d;
 
-	public static double GenerationProgress => (housesProgress + bigPropsProgress + smallPropsProgress + npcsProgress) / 4d;
+	public static bool PlacingHouses => HousesGenerationProgress < 1d && BigPropsGenerationProgress == 0d && IsGenerating;
+	public static bool PlacingBigProps => BigPropsGenerationProgress < 1d && HousesGenerationProgress >= 1d && IsGenerating;
+	public static bool PlacingSmallProps => SmallPropsGenerationProgress < 1d && BigPropsGenerationProgress >= 1d && IsGenerating;
+	public static bool PlacingNpcs => NpcsGenerationProgress < 1d && SmallPropsGenerationProgress >= 1d && IsGenerating;
 
-	public static bool IsGenerating => GenerationProgress < 0.25d;
+	public static double GenerationProgress => (HousesGenerationProgress + BigPropsGenerationProgress + SmallPropsGenerationProgress + NpcsGenerationProgress) / 4d;
+
+	public static bool IsGenerating => GenerationProgress < 1d;
 
 	static int currentCheck = -1;
 	static int totalRows => (int)(GameMgr.CurrentTown.TownRadius * 2f / 50f);
@@ -315,10 +312,10 @@ public partial class Town : BaseNetworkable
 		GameMgr.CurrentTown.TownSize = townSize;
 
 		currentCheck = -1;
-		housesProgress = 0d;
-		bigPropsProgress = 0d;
-		smallPropsProgress = 0d;
-		npcsProgress = 0d;
+		HousesGenerationProgress = 0d;
+		BigPropsGenerationProgress = 0d;
+		SmallPropsGenerationProgress = 0d;
+		NpcsGenerationProgress = 0d;
 
 		GameMgr.CurrentTown.RNG = new Random( GameMgr.CurrentTown.Seed );
 
@@ -362,29 +359,63 @@ public partial class Town : BaseNetworkable
 
 		while ( nextGenerate && IsGenerating )
 		{
-			currentCheck++;
+			currentCheck = ( currentCheck + 1 ) % ( totalRows * totalRows );
+			var squaredDistance = currentX * 50f * currentX * 50f + currentY * 50f * currentY * 50f;
 
-			if ( housesProgress < 1d )
+			if ( HousesGenerationProgress < 1d )
 			{
-				var squaredDistance = currentX * 50f * currentX * 50f + currentY * 50f * currentY * 50f;
-
-				housesProgress = Math.Clamp( housesProgress + 1d / (totalRows * totalRows), 0d, 1d );
+				HousesGenerationProgress = Math.Clamp( HousesGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
 
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
 
 				if ( GameMgr.CurrentTown.TownType == TownType.Town )
 					if ( TryPlaceHouse( PlaceableHousesBig, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0f, 0.33f ), true ) )
-						nextGenerate = Time.Delta;
+						nextGenerate = Time.Delta / 2f;
 
 				if ( GameMgr.CurrentTown.TownType == TownType.Village )
 					if ( TryPlaceHouse( PlaceableHousesMedium, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0f, 0.35f ), true ) )
-						nextGenerate = Time.Delta;
+						nextGenerate = Time.Delta / 2f;
 
 				if ( GameMgr.CurrentTown.TownType == TownType.Camp )
 					if ( TryPlaceHouse( PlaceableHousesSmall, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0f, 0.4f ), true ) )
-						nextGenerate = Time.Delta;
+						nextGenerate = Time.Delta / 2f;
 			}
+
+			if ( BigPropsGenerationProgress < 1d && HousesGenerationProgress >= 1d )
+			{
+				BigPropsGenerationProgress = Math.Clamp( BigPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+
+				if ( squaredDistance > townRadiusSquared ) continue;
+				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
+				
+				if ( TryPlaceProp( PlaceableBigProps, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0.44f, 0.45f ) ) )
+						nextGenerate = Time.Delta / 2f;
+			}
+
+			if ( SmallPropsGenerationProgress < 1d && BigPropsGenerationProgress >= 1d )
+			{
+				SmallPropsGenerationProgress = Math.Clamp( SmallPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+
+				if ( squaredDistance > townRadiusSquared ) continue;
+				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
+
+				if ( TryPlaceProp( PlaceableSmallProps, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0.35f, 0.42f ) ) )
+					nextGenerate = Time.Delta / 2f;
+			}
+
+			if ( NpcsGenerationProgress < 1d && SmallPropsGenerationProgress >= 1d )
+			{
+				NpcsGenerationProgress = Math.Clamp( NpcsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+
+				if ( squaredDistance > townRadiusSquared ) continue;
+				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
+
+				if ( TryPlaceNPC( PlaceablePeople, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0.66f, 1.0f ) ) )
+					nextGenerate = Time.Delta / 2f;
+			}
+
+			Log.Error( $"Placing {(PlacingHouses ? "Houses" : ( PlacingBigProps ? "Big Props" : ( PlacingSmallProps ? "Small Props" : "NPCs" ) ))} [{Math.Ceiling( GenerationProgress * 100 )}%]" );
 		}
 	}
 
