@@ -40,6 +40,7 @@
 				transform: translateX(-50%) rotate(-2deg);
 				transition: width 0.25s ease-in, bottom 0.25s ease-in, transform 0.2s ease-in-out, border 0.2s ease-in-out;
 				border: 4px #2c2825cc;
+				pointer-events: auto;
 
 				&:hover {
 					width: 140px;
@@ -95,7 +96,7 @@
 				var root = structure.Root;
 				var name = root.GetValue<string>( "Title" );
 
-				<panel class="slot" style="transform: rotate(@(Game.Random.Int( -3, 3)))" >
+				<panel class="slot" style="transform: rotate(@(Game.Random.Int( -3, 3)))" @onclick=@(() => startBuilding( structure ))>
 					<panel class="title" style="transform: translateX(-50%) rotate(@(Game.Random.Int( -3, 3)))">
 						<WiggleText Scale="@(0.22f)" Invert="@(false)" class="shadow" Value="@(name)" />
 						<WiggleText Scale="@(0.22f)" Value="@(name)" />
@@ -110,11 +111,54 @@
 @code {
 	Panel structureContainer;
 
+	Prefab buildPrefab;
+	SceneObject? buildObject;
+
+	private void startBuilding( Prefab structure )
+	{
+		buildObject?.Delete();
+		buildPrefab = structure;
+
+		var root = structure.Root;
+		var name = root.GetValue<string>( "Model" );
+
+		buildObject = new SceneObject( Game.SceneWorld, name );
+
+	}
+
 	public override void Tick()
 	{
 		if ( Game.LocalPawn is not Lord pawn )
 			return;
 
 		structureContainer?.SetClass( "hidden", !pawn.Overview );
+
+		if ( buildObject != null )
+		{
+			if ( !pawn.Overview )
+			{
+				buildObject.Delete();
+				buildObject = null;
+
+				return;
+			}
+
+			var dir = Screen.GetDirection( Mouse.Position );
+			var ray = new Ray( Camera.Position, dir );
+
+			var trace = Trace.Ray( ray, 10000f )
+				.WorldOnly()
+				.Run();
+
+			var town = GameMgr.CurrentTown;
+			if ( town == null )
+				return;
+
+			var center = town.Position;
+
+			buildObject.Position = (town.Position + trace.EndPosition.Normal * MathX.Clamp( trace.EndPosition.Length, -town.TownRadius * 2, town.TownRadius * 2 ))
+				.WithZ( town.Position.z );
+			buildObject.Rotation = Rotation.LookAt( buildObject.Position - town.Position );
+		}
 	}
 }

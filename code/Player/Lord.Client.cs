@@ -11,12 +11,11 @@ public partial class Lord
 		get => overviewOffset;
 		set
 		{
-			var radius = GameMgr.CurrentTown != null
-				? GameMgr.CurrentTown.TownRadius
-				: GameMgr.State is VillageState village
-					? village.Radius
-					: 1000f;
-			overviewOffset = value.Normal * MathX.Clamp( value.Length, -radius, radius );
+			var town = GameMgr.CurrentTown;
+			if ( town == null )
+				return;
+
+			overviewOffset = value.Normal * MathX.Clamp( value.Length, -town.TownRadius * 2, town.TownRadius * 2 );
 		}
 	}
 
@@ -24,9 +23,7 @@ public partial class Lord
 
 	Vector3 pointOfInterest => GameMgr.CurrentTown != null
 		? GameMgr.CurrentTown.Position
-		: GameMgr.State is VillageState village
-			? village.Position
-			: Vector3.Zero;
+		: Vector3.Up * 512;
 
 	#region Player Configuration
 
