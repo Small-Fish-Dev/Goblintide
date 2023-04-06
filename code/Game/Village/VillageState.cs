@@ -31,6 +31,7 @@ public partial class VillageState : GameState
 		else
 		{
 			Town.GenerateEmptyTown( (float)GameMgr.VillageSize );
+			GameMgr.Lord.Position = GameMgr.CurrentTown.Throne.Position + 50f;
 		}
 	}
 
