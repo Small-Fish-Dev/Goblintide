@@ -29,15 +29,19 @@
 			}
 			z-index: 3;
 		}
+
+		.resources {
+			z-index: 3;
+		}
 	}
 </style>
 
 <root>
 	<eventlogger/>
-	<gameplayhints/>
+	<gameplayhints />
 	<crosshair />
 
-	<resources />
+	<resources class="resources" />
 
 	<panel class="inputContainer">
 		<inputglyph text="Skill Tree" button=@InputButton.Chat />
@@ -52,7 +56,6 @@
 
 	public HUD()
 	{
-		Instance?.Delete( true );
 		Instance = this;
 		WorldMapContent.Create();
 	}
@@ -118,7 +121,8 @@
 	{
 		if ( Game.IsClient )
 		{
-			Instance?.Delete();
+			Instance?.DeleteChildren( true );
+			Instance?.Delete( true );
 			Instance = null;
 
 			new HUD();

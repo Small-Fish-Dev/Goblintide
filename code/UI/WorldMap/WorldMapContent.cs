@@ -96,8 +96,8 @@ public partial class WorldMapContent
 		_maxDistanceX = Content.Box.Rect.Width / 2 * ScaleFromScreen;
 		_maxDistanceY = Content.Box.Rect.Height / 2 * ScaleFromScreen;
 
-		_maxDistanceX *= 0.96f;
-		_maxDistanceY *= 0.96f;
+		_maxDistanceX *= 0.94f;
+		_maxDistanceY *= 0.92f;
 		
 		_fadeDistanceX = _maxDistanceX * 0.8f;
 		_fadeDistanceY = _maxDistanceY * 0.8f;
@@ -107,7 +107,6 @@ public partial class WorldMapContent
 			if ( !pairing.PlaceActor.ReadyToPosition ) continue;
 
 			var distance = GetDistanceToCamera( pairing.PlaceActor );
-			
 			if ( distance.x > _maxDistanceX || distance.y > _maxDistanceY )
 			{
 				// Should be removed / hidden
