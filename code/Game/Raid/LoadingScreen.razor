@@ -11,7 +11,11 @@
         width: 100%;
         height: 100%;
         background-image: url(ui/blackboard.png);
+        background-repeat: repeat;
         background-size: 100%;
+        
+        image-rendering: pixelated;
+        
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -40,4 +44,28 @@
 	{
 		return Town.GenerationText.GetHashCode();
 	}
+
+	private float _position;
+
+	private TimeUntil _next;
+	
+	public override void Tick()
+	{
+		base.Tick();
+
+		if ( _next )
+		{
+			var x = 0;
+			x += Random.Shared.Int( 0, 3 );
+			
+			var y = 0;
+			y += Random.Shared.Int( 0, 3 );
+			
+			Style.BackgroundPositionX = Length.Percent( x );
+			Style.BackgroundPositionY = Length.Percent( y );
+
+			_next = 0.4f;
+		}
+	}
+
 }
