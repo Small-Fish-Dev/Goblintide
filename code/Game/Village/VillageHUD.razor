@@ -81,6 +81,21 @@
 				transform: translateY(250%);
 			}
 		}
+
+		.inputContainer {
+			position: absolute;
+			right: 30px;
+			bottom: 30px;
+			justify-content: flex-start;
+			flex-direction: column;
+			align-items: flex-end;
+			
+			InputGlyph {
+				margin-top: 10px;
+				flex-grow: 0;
+				flex-shrink: 0;
+			}
+		}
 	}
 </style>
 
@@ -105,6 +120,12 @@
 				</panel>
 			}
 		}
+	</panel>
+
+	<panel class="inputContainer">
+		<inputglyph text="Skill Tree" button=@InputButton.Chat />
+		<inputglyph text="Overview" button=@InputButton.Score />
+		<inputglyph text="Map" button=@InputButton.Reload />
 	</panel>
 </root>
 
