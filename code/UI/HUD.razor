@@ -96,7 +96,7 @@
 		Log.Info( $"new game state {GameMgr.State}" );
 		StateHasChanged();
 	}
-	
+
 
 	public override void OnButtonEvent( ButtonEvent e )
 	{
@@ -123,7 +123,7 @@
 			var fraction = Mouse.Position / Screen.Size;
 			cursor.Style.Left = Length.Fraction( fraction.x );
 			cursor.Style.Top = Length.Fraction( fraction.y );
-			cursor.SetClass( "hidden", !Mouse.Visible );
+			cursor.SetClass( "hidden", !Mouse.Visible || Dragging );
 		}
 
 	// Capture mouse. ?

@@ -75,7 +75,7 @@ public class AnimatedImage : Image
 				return;
 			}
 
-			Log.Info( $"Loading new texture @ {src}" );
+			// Log.Info( $"Loading new texture @ {src}" );
 
 			var texture = Texture.Load( FileSystem.Mounted, src );
 			if ( texture == null )
