@@ -6,7 +6,18 @@
     "Guid": "821da309-ee14-4d20-98e1-19cd8374bc1d",
     "Class": "BaseStructure",
     "Entities": [],
-    "Components": [],
+    "Components": [
+      {
+        "Guid": "c7a0c4c2-d77d-468f-8c03-25a996366408",
+        "Class": "ShackComponent",
+        "Keys": {
+          "_name": {
+            "Value": "\u0022ShackComponent\u0022"
+          },
+          "_tags": {}
+        }
+      }
+    ],
     "Keys": {
       "Title": {
         "Type": "String",

@@ -24,6 +24,16 @@ public partial class GameMgr
 			Instance.maxArmySize = value;
 		}
 	}
+	[Net] private double goblinPerSecond { get; set; } = 0;
+
+	public static double GoblinPerSecond
+	{
+		get => Instance.goblinPerSecond;
+		set
+		{
+			Instance.goblinPerSecond = value;
+		}
+	}
 
 	public static double VillageSize { get; set; } = 5d;
 

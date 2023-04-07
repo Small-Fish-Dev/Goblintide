@@ -32,34 +32,6 @@
           },
           "_tags": {
             "Value": "[]"
-          },
-          "WeightedMaterialGroups": {
-            "Type": "Boolean",
-            "Value": "true"
-          },
-          "MaterialGroups": {
-            "Type": "Dictionary\u00602",
-            "Value": "{\r\n  \u00221\u0022: 0,\r\n  \u00220\u0022: 0\r\n}"
-          },
-          "MaterialGroupsAndWeight": {
-            "Type": "Dictionary\u00602",
-            "Value": "{\r\n  \u00227\u0022: 6,\r\n  \u00225\u0022: 1,\r\n  \u00224\u0022: 2,\r\n  \u00223\u0022: 6,\r\n  \u00222\u0022: 8,\r\n  \u00221\u0022: 8,\r\n  \u00220\u0022: 10\r\n}"
-          }
-        }
-      },
-      {
-        "Guid": "668584f2-5b08-47dc-9ffa-de369812b8e6",
-        "Class": "RandomAccessoryComponent",
-        "Keys": {
-          "Type": {
-            "Type": "AccessoryType",
-            "Value": "\u0022GoblinExtras\u0022"
-          },
-          "_name": {
-            "Value": "\u0022RandomAccessoryComponent\u0022"
-          },
-          "_tags": {
-            "Value": "[]"
           }
         }
       }
@@ -131,6 +103,14 @@
       "MaxHitPoints": {
         "Type": "Single",
         "Value": "3"
+      },
+      "StartingArmor": {
+        "Type": "String",
+        "Value": "\u0022prefabs/items/helmet.prefab\u0022"
+      },
+      "StartingWeapon": {
+        "Type": "String",
+        "Value": "\u0022prefabs/items/club.prefab\u0022"
       }
     }
   }

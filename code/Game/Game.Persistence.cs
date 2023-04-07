@@ -22,6 +22,9 @@ partial class GameMgr
 
 	[Net] private bool loaded { get; set; } = false;
 
+	public static long LastUpdate { get; set; }
+	public static int SecondsSinceLastUpdate => (int)(DateTime.UtcNow.Ticks / 10000000 - LastUpdate);
+
 	#region Goblin Persistence
 	private static void goblinPersist( object method )
 	{
@@ -234,6 +237,7 @@ partial class GameMgr
 		using var writer = new BinaryWriter( stream );
 
 		// Save all data.
+		writer.Write( DateTime.UtcNow.Ticks / 10000000 ); // last update
 		lordPersist( writer );
 		resourcesPersist( writer );
 		worldMapPersist( writer );
@@ -270,6 +274,7 @@ partial class GameMgr
 		try
 		{
 			// Read all data and act according to it.
+			LastUpdate = reader.ReadInt64();
 			lordPersist( reader );
 			resourcesPersist( reader );
 			worldMapPersist( reader );
@@ -283,6 +288,7 @@ partial class GameMgr
 		}
 
 		LoadVillageSize();
+		LoadNewGoblins();
 		// Tell everyone that we're done loading.
 		Loaded = true;
 
@@ -303,6 +309,23 @@ partial class GameMgr
 		if ( Lord.CombinedUpgrades.VillageSize > 0f )
 		{
 			GameMgr.VillageSize = 5d + Lord.CombinedUpgrades.VillageSize;
+		}
+	}
+
+	public static void LoadNewGoblins()
+	{
+		var newGoblins = Math.Min( (int)(GameMgr.SecondsSinceLastUpdate * GameMgr.GoblinPerSecond), GameMgr.MaxArmySize - GameMgr.GoblinArmy.Count );
+		
+		for ( int i = 0; i < newGoblins; i++ )
+		{
+			var newGoblin = BaseNPC.FromPrefab( "prefabs/npcs/goblin.prefab" );
+			if ( newGoblin.IsValid() )
+			{
+				GameMgr.GoblinArmy.Add( newGoblin );
+				var distance = Game.Random.Float( 150f, GameMgr.CurrentTown.TownRadius * 2 );
+				var newPosition = GameMgr.CurrentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
+				newGoblin.Position = newPosition;
+			}
 		}
 	}
 

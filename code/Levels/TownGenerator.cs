@@ -453,6 +453,11 @@ public partial class Town : BaseNetworkable
 				var relativePosition = player.Position - oldPosition;
 				player.Position = GameMgr.CurrentTown.Position + relativePosition;
 			}
+			foreach ( var structure in Entity.All.OfType<BaseStructure>() )
+			{
+				var relativePosition = structure.Position - oldPosition;
+				structure.Position = GameMgr.CurrentTown.Position + relativePosition;
+			}
 			foreach ( var ent in TownEntities )
 			{
 				var relativePosition = ent.Position - oldPosition;

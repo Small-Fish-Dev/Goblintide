@@ -14,7 +14,9 @@
           "_name": {
             "Value": "\u0022TentComponent\u0022"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "[]"
+          }
         }
       }
     ],
@@ -44,11 +46,11 @@
       },
       "Wood": {
         "Type": "Int32",
-        "Value": "20"
+        "Value": "10"
       },
       "Women": {
         "Type": "Int32",
-        "Value": "5"
+        "Value": "1"
       }
     }
   }
