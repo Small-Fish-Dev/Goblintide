@@ -18,12 +18,12 @@ public static class Debug
 		public PreDrawAttribute() : base( PreDrawEventName ) { }
 	}
 
-	[ConVar.Client( "gdbg" )] private static bool Enabled { get; set; } = true;
-	[ConVar.Client( "gdbg_player" )] private static bool ShowPlayerInfo { get; set; } = true;
-	[ConVar.Client( "gdbg_input" )] private static bool ShowInputInfo { get; set; } = true;
-	[ConVar.Client( "gdbg_git" )] private static bool ShowGitInfo { get; set; } = true;
+	[ConVar.Client( "gdbg" )] private static bool Enabled { get; set; } = false;
+	[ConVar.Client( "gdbg_player" )] private static bool ShowPlayerInfo { get; set; } = false;
+	[ConVar.Client( "gdbg_input" )] private static bool ShowInputInfo { get; set; } = false;
+	[ConVar.Client( "gdbg_git" )] private static bool ShowGitInfo { get; set; } = false;
 
-	[ConVar.Client( "gdbg_ext_npc" )] private static bool ShowExtendedNpcData { get; set; } = true;
+	[ConVar.Client( "gdbg_ext_npc" )] private static bool ShowExtendedNpcData { get; set; } = false;
 
 	[ConVar.Client( "gdbg_git_shorttags" )]
 	private static bool ShortenTags { get; set; } = true;
