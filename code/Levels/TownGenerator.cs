@@ -285,17 +285,17 @@ public partial class Town : BaseNetworkable
 		}
 	}
 
-	public static double HousesGenerationProgress { get; set; } = 0d;
-	public static double BigPropsGenerationProgress { get; set; } = 0d;
-	public static double SmallPropsGenerationProgress { get; set; } = 0d;
-	public static double NpcsGenerationProgress { get; set; } = 0d;
+	[Net] public double HousesGenerationProgress { get; set; } = 0d;
+	[Net] public double BigPropsGenerationProgress { get; set; } = 0d;
+	[Net] public double SmallPropsGenerationProgress { get; set; } = 0d;
+	[Net] public double NpcsGenerationProgress { get; set; } = 0d;
 
-	public static bool PlacingHouses => HousesGenerationProgress < 1d && BigPropsGenerationProgress == 0d && IsGenerating;
-	public static bool PlacingBigProps => BigPropsGenerationProgress < 1d && HousesGenerationProgress >= 1d && IsGenerating;
-	public static bool PlacingSmallProps => SmallPropsGenerationProgress < 1d && BigPropsGenerationProgress >= 1d && IsGenerating;
-	public static bool PlacingNpcs => NpcsGenerationProgress < 1d && SmallPropsGenerationProgress >= 1d && IsGenerating;
+	public static bool PlacingHouses => GameMgr.CurrentTown.HousesGenerationProgress < 1d && GameMgr.CurrentTown.BigPropsGenerationProgress == 0d && IsGenerating;
+	public static bool PlacingBigProps => GameMgr.CurrentTown.BigPropsGenerationProgress < 1d && GameMgr.CurrentTown.HousesGenerationProgress >= 1d && IsGenerating;
+	public static bool PlacingSmallProps => GameMgr.CurrentTown.SmallPropsGenerationProgress < 1d && GameMgr.CurrentTown.BigPropsGenerationProgress >= 1d && IsGenerating;
+	public static bool PlacingNpcs => GameMgr.CurrentTown.NpcsGenerationProgress < 1d && GameMgr.CurrentTown.SmallPropsGenerationProgress >= 1d && IsGenerating;
 
-	public static double GenerationProgress => (HousesGenerationProgress + BigPropsGenerationProgress + SmallPropsGenerationProgress + NpcsGenerationProgress) / 4d;
+	public static double GenerationProgress => (GameMgr.CurrentTown.HousesGenerationProgress + GameMgr.CurrentTown.BigPropsGenerationProgress + GameMgr.CurrentTown.SmallPropsGenerationProgress + GameMgr.CurrentTown.NpcsGenerationProgress) / 4d;
 	public static string GenerationText => $"Placing {(PlacingHouses ? "Houses" : ( PlacingBigProps ? "Big Props" : ( PlacingSmallProps ? "Small Props" : "NPCs" ) ))}... [{Math.Ceiling( GenerationProgress * 100 )}%]";
 
 	public static bool IsGenerating => GenerationProgress < 1d;
@@ -314,10 +314,10 @@ public partial class Town : BaseNetworkable
 		GameMgr.CurrentTown.TownSize = townSize;
 
 		currentCheck = -1;
-		HousesGenerationProgress = 0d;
-		BigPropsGenerationProgress = 0d;
-		SmallPropsGenerationProgress = 0d;
-		NpcsGenerationProgress = 0d;
+		GameMgr.CurrentTown.HousesGenerationProgress = 0d;
+		GameMgr.CurrentTown.BigPropsGenerationProgress = 0d;
+		GameMgr.CurrentTown.SmallPropsGenerationProgress = 0d;
+		GameMgr.CurrentTown.NpcsGenerationProgress = 0d;
 
 		GameMgr.CurrentTown.RNG = new Random( GameMgr.CurrentTown.Seed );
 
@@ -352,9 +352,9 @@ public partial class Town : BaseNetworkable
 			currentCheck = ( currentCheck + 1 ) % ( totalRows * totalRows );
 			var squaredDistance = currentX * 50f * currentX * 50f + currentY * 50f * currentY * 50f;
 
-			if ( HousesGenerationProgress < 1d )
+			if ( GameMgr.CurrentTown.HousesGenerationProgress < 1d )
 			{
-				HousesGenerationProgress = Math.Clamp( HousesGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+				GameMgr.CurrentTown.HousesGenerationProgress = Math.Clamp( GameMgr.CurrentTown.HousesGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
 
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
@@ -372,9 +372,9 @@ public partial class Town : BaseNetworkable
 						nextGenerate = Time.Delta / 2f;
 			}
 
-			if ( BigPropsGenerationProgress < 1d && HousesGenerationProgress >= 1d )
+			if ( GameMgr.CurrentTown.BigPropsGenerationProgress < 1d && GameMgr.CurrentTown.HousesGenerationProgress >= 1d )
 			{
-				BigPropsGenerationProgress = Math.Clamp( BigPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+				GameMgr.CurrentTown.BigPropsGenerationProgress = Math.Clamp( GameMgr.CurrentTown.BigPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
 
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
@@ -383,9 +383,9 @@ public partial class Town : BaseNetworkable
 						nextGenerate = Time.Delta / 2f;
 			}
 
-			if ( SmallPropsGenerationProgress < 1d && BigPropsGenerationProgress >= 1d )
+			if ( GameMgr.CurrentTown.SmallPropsGenerationProgress < 1d && GameMgr.CurrentTown.BigPropsGenerationProgress >= 1d )
 			{
-				SmallPropsGenerationProgress = Math.Clamp( SmallPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+				GameMgr.CurrentTown.SmallPropsGenerationProgress = Math.Clamp( GameMgr.CurrentTown.SmallPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
 
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
@@ -394,9 +394,9 @@ public partial class Town : BaseNetworkable
 					nextGenerate = Time.Delta / 2f;
 			}
 
-			if ( NpcsGenerationProgress < 1d && SmallPropsGenerationProgress >= 1d )
+			if ( GameMgr.CurrentTown.NpcsGenerationProgress < 1d && GameMgr.CurrentTown.SmallPropsGenerationProgress >= 1d )
 			{
-				NpcsGenerationProgress = Math.Clamp( NpcsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+				GameMgr.CurrentTown.NpcsGenerationProgress = Math.Clamp( GameMgr.CurrentTown.NpcsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
 
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
