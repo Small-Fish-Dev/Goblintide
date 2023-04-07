@@ -45,30 +45,30 @@ public partial class BaseProp : BaseEntity
 				Breakables.Break( this, result );
 		}
 
-		Sound.FromWorld( "sounds/physics/breaking/break_wood_plank.sound", Position );
+		Sound.FromWorld( "sounds/physics/breaking/break_wood_plank.sound", Position + Vector3.Up * GetHeight() / 2f );
 
 		string particlePath = "particles/wood_shatter.vpcf";
 		if ( GetWidth() > 100f ) particlePath = "particles/wood_shatter_large.vpcf";
 
-		Particles.Create( particlePath, Position );
+		Particles.Create( particlePath, Position + Vector3.Up * GetHeight() / 2f );
 
 		if ( GoldDropped.x > 0 )
 		{
 			var gold = BaseCollectable.FromPrefab( "prefabs/collectables/gold.prefab" );
 			gold.Value = Game.Random.Int( (int)GoldDropped.x, (int)GoldDropped.y );
-			gold.Position = Position;
+			gold.Position = Position + Vector3.Up * GetHeight() / 2f;
 		}
 		if ( WoodDropped.x > 0 )
 		{
 			var wood = BaseCollectable.FromPrefab( "prefabs/collectables/wood.prefab" );
 			wood.Value = Game.Random.Int( (int)WoodDropped.x, (int)WoodDropped.y );
-			wood.Position = Position;
+			wood.Position = Position + Vector3.Up * GetHeight() / 2f;
 		}
 		if ( FoodDropped.x > 0 )
 		{
 			var food = BaseCollectable.FromPrefab( "prefabs/collectables/food.prefab" );
 			food.Value = Game.Random.Int( (int)FoodDropped.x, (int)FoodDropped.y );
-			food.Position = Position;
+			food.Position = Position + Vector3.Up * GetHeight() / 2f;
 		}
 
 		base.Kill();
