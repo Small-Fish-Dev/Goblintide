@@ -27,6 +27,7 @@ public partial class VillageState : GameState
 		}
 
 		Town.GenerateEmptyTown( (float)GameMgr.VillageSize );
+		GameMgr.LoadSave( true, true );
 		GameMgr.Lord.Position = GameMgr.CurrentTown.Throne.Position + 50f;
 		GameMgr.GoblinArmyEnabled( true );
 		GameMgr.PlaceGoblinArmy( true );
@@ -43,6 +44,9 @@ public partial class VillageState : GameState
 		
 		if ( Game.IsServer )
 		{
+
+			GameMgr.GenerateSave( true );
+
 			foreach ( var entity in Entity.All.OfType<BaseStructure>() )
 				entity.Delete();
 

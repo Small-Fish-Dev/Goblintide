@@ -26,7 +26,7 @@ partial class GameMgr
 	public static int SecondsSinceLastUpdate => (int)(DateTime.UtcNow.Ticks / 10000000 - LastUpdate);
 
 	#region Goblin Persistence
-	private static void goblinPersist( object method )
+	private static void goblinPersist( object method, bool villageOnly = false )
 	{
 		// Handle saving first.
 		if ( method is BinaryWriter writer )
@@ -59,6 +59,9 @@ partial class GameMgr
 				var materialGroup = reader.ReadInt32();
 				var weaponName = reader.ReadString();
 				var armorName = reader.ReadString();
+
+				if ( villageOnly ) continue;
+
 				var npc = BaseNPC.FromPrefab( $"prefabs/npcs/{prefabName}.prefab" );
 				if ( npc == null || !npc.IsValid )
 					continue;
@@ -93,7 +96,7 @@ partial class GameMgr
 	#endregion
 
 	#region Resources Persistence
-	private static void resourcesPersist( object method )
+	private static void resourcesPersist( object method, bool villageOnly = false )
 	{
 		if ( method is BinaryWriter writer )
 		{
@@ -113,21 +116,33 @@ partial class GameMgr
 		// Handle loading save.
 		if ( method is BinaryReader reader )
 		{
-			TotalWood = reader.ReadInt32();
-			TotalGold = reader.ReadInt32();
-			TotalIQ = reader.ReadInt32();
-			MaxIQ = reader.ReadInt32();
-			TotalFood = reader.ReadInt32();
-			TotalWomen = reader.ReadInt32();
-			TotalEnergy = reader.ReadDouble();
-			EnergyRechargeRate = reader.ReadDouble();
-			LastEnergyUpdate = reader.ReadInt64();
+			var wood = reader.ReadInt32();
+			var gold = reader.ReadInt32();
+			var iq = reader.ReadInt32();
+			var maxiq = reader.ReadInt32();
+			var food = reader.ReadInt32();
+			var women = reader.ReadInt32();
+			var energy = reader.ReadDouble();
+			var recharge = reader.ReadDouble();
+			var lastenergy = reader.ReadInt64();
+
+			if ( villageOnly ) return;
+
+			TotalWood = wood;
+			TotalGold = gold;
+			TotalIQ = iq;
+			MaxIQ = maxiq;
+			TotalFood = food;
+			TotalWomen = women;
+			TotalEnergy = energy;
+			EnergyRechargeRate = recharge;
+			LastEnergyUpdate = lastenergy;
 		}
 	}
 	#endregion	
 	
 	#region World Map Persistence
-	private static void worldMapPersist( object method )
+	private static void worldMapPersist( object method, bool villageOnly = false )
 	{
 		// Handle saving first.
 		if ( method is BinaryWriter writer )
@@ -153,6 +168,9 @@ partial class GameMgr
 			{
 				var position = reader.ReadVector2();
 				var size = reader.ReadDouble();
+
+				if ( villageOnly ) continue;
+
 				new WorldMapHost.Node( position, size );
 			}
 		}
@@ -161,7 +179,7 @@ partial class GameMgr
 
 	#region Lord Persistence
 	// TODO: Save Lord upgrades.
-	private static void lordPersist( object method )
+	private static void lordPersist( object method, bool villageOnly = false )
 	{
 		// Handle saving first.
 		if ( method is BinaryWriter writer )
@@ -182,8 +200,13 @@ partial class GameMgr
 			for ( int i = 0; i < count; i++ )
 			{
 				var identifier = reader.ReadString();
+
+				if ( villageOnly ) continue;
+
 				Lord.AddUpgrade( identifier );
 			}
+
+			if ( villageOnly ) return;
 
 			Lord.CombineUpgrades();
 		}
@@ -253,7 +276,7 @@ partial class GameMgr
 		return true;
 	}
 
-	public static async Task<bool> LoadSave( bool force = false )
+	public static async Task<bool> LoadSave( bool force = false, bool villageOnly = false )
 	{
 		if ( !ENABLE_SAVESYSTEM && !force )
 			return true;
@@ -278,11 +301,11 @@ partial class GameMgr
 		{
 			// Read all data and act according to it.
 			LastUpdate = reader.ReadInt64();
-			lordPersist( reader );
-			resourcesPersist( reader );
-			worldMapPersist( reader );
+			lordPersist( reader, villageOnly );
+			resourcesPersist( reader, villageOnly );
+			worldMapPersist( reader, villageOnly );
 			villagePersist( reader );
-			goblinPersist( reader );
+			goblinPersist( reader, villageOnly );
 		}
 		catch ( Exception ex )
 		{

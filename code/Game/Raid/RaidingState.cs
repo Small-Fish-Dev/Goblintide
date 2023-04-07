@@ -31,6 +31,7 @@ public partial class RaidingState : GameState
 	}
 	[Net] public TimeUntil TimeBeforeRaidStart { get; set; }
 	[Net] public TimeUntil TimeBeforeRaidEnds { get; set; }
+	[Net] public TimeUntil TimeBeforeNextState { get; set; }
 
 	public override void Initialize()
 	{
@@ -123,10 +124,15 @@ public partial class RaidingState : GameState
 			
 		}
 
-		if ( GameMgr.Lord.Position.Distance( GameMgr.CurrentTown.Position ) >= GameMgr.CurrentTown.ForestRadius )
+		if ( GameMgr.Lord.Position.Distance( GameMgr.CurrentTown.Position ) >= GameMgr.CurrentTown.ForestRadius && CurrentState != RaidState.PostRaid )
 		{
 			CurrentState = RaidState.PostRaid;
+			TimeBeforeNextState = 0.2f;
 		}
+
+		if ( CurrentState == RaidState.PostRaid )
+			if ( TimeBeforeNextState )
+				GameMgr.SetState<VillageState>();
 
 	}
 
@@ -139,12 +145,6 @@ public partial class RaidingState : GameState
 		{
 			TimeBeforeRaidEnds = (int)Math.Sqrt( GameMgr.CurrentTown.TownSize * 100 );
 			GameMgr.GoblinArmyEnabled( true );
-		}
-
-		if ( newState == RaidState.PostRaid )
-		{
-			//TODO SHOW THE POST RAID SCREEN
-			GameMgr.SetState<VillageState>();
 		}
 
 	}
@@ -167,6 +167,7 @@ public partial class RaidingState : GameState
 
 		if ( newState == RaidState.PostRaid )
 		{
+			GameMgr.Music.Stop();
 			Sound.FromScreen( "sounds/ui/trumpets_fanfare.sound" );
 		}
 	}
