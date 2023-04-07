@@ -17,12 +17,12 @@
         align-items: center;
         justify-content: center;
         opacity: 1;
-        transition: all 1s ease-in; 
+        transition: opacity 1s ease-in; 
         color: white;
             
-        &:outro {
-            opacity: 0;
-        }
+        &.hidden {
+			opacity: 0;
+		}
 
         .loadingText{
             font-family: 'Patrick Hand';
@@ -36,9 +36,8 @@
 </root>
 
 @code {
-
-    protected override int BuildHash()
-    {
-        return Time.Now.GetHashCode();
-    }
+	protected override int BuildHash()
+	{
+		return Town.GenerationText.GetHashCode();
+	}
 }

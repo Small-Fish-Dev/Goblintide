@@ -19,13 +19,10 @@
 </root>
 
 @code {
-    public LoadingScreen Loading { get; set; }
+    public static LoadingScreen Loading { get; set; }
 
-    [Event("FinishedLoadingMap")]
-    public void GetFinished()
-    {
-        Loading.Delete();
-    }
+	public static void ShowLoading( bool value )
+		=> Loading.SetClass( "hidden", !value );
 
     protected override int BuildHash()
     {

@@ -18,6 +18,7 @@ public partial class VillageState : GameState
 
 	public override void Initialize()
 	{
+		instance?.hud?.Delete( true );
 		instance = this;
 
 		if ( Game.IsClient )
@@ -42,7 +43,7 @@ public partial class VillageState : GameState
 
 	public override void Changed( GameState state )
 	{
-		hud?.Delete( true );
+		instance?.hud?.Delete( true );
 		
 		if ( Game.IsServer )
 		{

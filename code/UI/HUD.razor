@@ -37,6 +37,8 @@
 	<gameplayhints/>
 	<crosshair />
 
+	<resources />
+
 	<panel class="inputContainer">
 		<inputglyph text="Skill Tree" button=@InputButton.Chat />
 		<inputglyph text="Overview" button=@InputButton.Score />
@@ -45,21 +47,21 @@
 </root>
 
 @code {
-    public static HUD Instance { get; private set; }
-    public bool Dragging { get; set; } = false;
+	public static HUD Instance { get; private set; }
+	public bool Dragging { get; set; } = false;
 
-    public HUD()
-    {
-        Instance?.Delete( true );
-        Instance = this;
-        WorldMapContent.Create();
+	public HUD()
+	{
+		Instance?.Delete( true );
+		Instance = this;
+		WorldMapContent.Create();
 	}
 
 	public override void OnButtonEvent( ButtonEvent e )
 	{
 		base.OnButtonEvent( e );
 
-        // Mouse Right dragging.
+		// Mouse Right dragging.
 		if ( e.Button != "mouseright" )
 			return;
 
@@ -79,10 +81,10 @@
 			? "pointer"
 			: "default";
 
-			// Capture mouse. ?
+		// Capture mouse. ?
 		// SetMouseCapture( Dragging && pawn.Overview );
 
-        // Overview movement by mouse position.
+		// Overview movement by mouse position.
 		if ( !pawn.Overview )
 			return;
 
@@ -116,7 +118,10 @@
 	{
 		if ( Game.IsClient )
 		{
-			_ = new HUD();
+			Instance?.Delete();
+			Instance = null;
+
+			new HUD();
 			GameMgr.State?.Initialize(); // Reinitialize state on client.
 		}
 	}

@@ -85,8 +85,6 @@
 </style>
 
 <root>
-    <Resources></Resources>
-
 	<panel class="structures" @ref=structureContainer >
 		@{
 			var structures = ResourceLibrary.GetAll<Prefab>()
@@ -193,7 +191,8 @@
 
 			var canBuild = boundsTrace.Entity is null 
 				&& GameMgr.TotalWood >= structurePrefab.Root.GetValue<int>( "Wood" )
-				&& GameMgr.TotalWomen >= structurePrefab.Root.GetValue<int>( "Women" );
+				&& GameMgr.TotalWomen >= structurePrefab.Root.GetValue<int>("Women")
+				&& GameMgr.TotalFood >= structurePrefab.Root.GetValue<int>( "Food" );
 
 			var color = canBuild
 				? Color.White

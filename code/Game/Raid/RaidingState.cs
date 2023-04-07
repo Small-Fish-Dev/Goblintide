@@ -35,6 +35,7 @@ public partial class RaidingState : GameState
 
 	public override void Initialize()
 	{
+		instance?.hud?.Delete( true );
 		instance = this;
 
 		if ( Game.IsClient )
@@ -55,7 +56,7 @@ public partial class RaidingState : GameState
 
 	public override void Changed( GameState state )
 	{
-		hud?.Delete( true );
+		instance?.hud?.Delete( true );
 
 		if ( Game.IsServer )
 		{
@@ -158,7 +159,7 @@ public partial class RaidingState : GameState
 		{
 			GameMgr.Music.Stop();
 			GameMgr.Music = Sound.FromScreen( "sounds/music/exotic_battle.sound" );
-			Event.Run( "FinishedLoadingMap" );
+			RaidingHUD.ShowLoading( false );
 		}
 
 		if ( newState == RaidState.Raiding )
