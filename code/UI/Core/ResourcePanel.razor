@@ -46,54 +46,19 @@
     <img src=@($"ui/resources/{ResourceName.ToLower()}.png") />
 	<panel class="text">
         @{
-            var amount = formatNumber( ResourceAmount );
-			<WiggleText Scale="@(0.32f)" Tint=@Color.Black class="shadow" Value="@(amount)" />
-			<WiggleText Scale="@(0.32f)" Value="@(amount)" />
+			<WiggleText Scale="@(0.32f)" Tint=@Color.Black class="shadow" Value="@(ResourceAmount)" />
+			<WiggleText Scale="@(0.32f)" Value="@(ResourceAmount)" />
 		}
 	</panel>
 </root>
 
 @code {
     public string ResourceName { get; set; }
-    public int ResourceAmount { get; set; }
+    public string ResourceAmount { get; set; }
 
     TimeUntil nextWobble;
 
-    private enum Suffix
-    {
-        None, 
-        K, // Thousands
-        M, // Millions
-        B  // Billions
-    }
-
-    private static string formatNumber( long value )
-    {
-        var result = value.ToString();
-
-		foreach ( var suffix in Enum.GetValues( typeof( Suffix ) ) )
-		{
-			var pow = Math.Pow( 10, (int)suffix * 3 );
-			var suff = (int)suffix == 0
-				? string.Empty
-				: Enum.GetName( typeof( Suffix ), (int)suffix );
-
-			if ( value >= pow )
-			{
-				var floored = Math.Floor( value / pow );
-				var number = $"{floored:N0}";
-				result = number
-					+ (number.Length < 2 && value > 10 ? $",{(Math.Floor( value / pow * 10 ) - floored * 10):N0}" : string.Empty)
-					+ suff;
-			}
-			else
-				return result;
-		}
-
-		return result;
-	}
-
-	public void OnValueChange( int newValue )
+	public void OnValueChange( string newValue )
 	{
 		ResourceAmount = newValue;
 		DeleteChildren( true );

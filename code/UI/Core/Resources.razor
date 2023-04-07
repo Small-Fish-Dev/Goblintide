@@ -4,12 +4,12 @@
 @inherits Panel
 
 <root>
-    <ResourcePanel @ref=EnergyPanel ResourceName="Energy" ResourceAmount=@((int)GameMgr.TotalEnergy)></ResourcePanel>
-    <ResourcePanel @ref=ArmyPanel ResourceName="Goblin" ResourceAmount=@GameMgr.MaxArmySize></ResourcePanel>
-    <ResourcePanel @ref=WoodPanel ResourceName="Wood" ResourceAmount=@GameMgr.TotalWood></ResourcePanel>
-    <ResourcePanel @ref=GoldPanel ResourceName="Gold" ResourceAmount=@GameMgr.TotalGold></ResourcePanel>
-    <ResourcePanel @ref=FoodPanel ResourceName="Food" ResourceAmount=@GameMgr.TotalFood></ResourcePanel>
-    <ResourcePanel @ref=WomenPanel ResourceName="Women" ResourceAmount=@GameMgr.TotalWomen></ResourcePanel>
+    <ResourcePanel ResourceName="Energy" ResourceAmount=@(@Math.Round(GameMgr.TotalEnergy).ToString())></ResourcePanel>
+    <ResourcePanel ResourceName="Goblin" ResourceAmount=@(@GameMgr.GoblinArmy.Count.ToString()))></ResourcePanel>
+    <ResourcePanel ResourceName="Wood" ResourceAmount=@(@GameMgr.TotalWood.ToString())></ResourcePanel>
+    <ResourcePanel ResourceName="Gold" ResourceAmount=@(@GameMgr.TotalGold.ToString())></ResourcePanel>
+    <ResourcePanel ResourceName="Food" ResourceAmount=@(@GameMgr.TotalFood.ToString())></ResourcePanel>
+    <ResourcePanel ResourceName="Women" ResourceAmount=@(@GameMgr.TotalWomen.ToString())></ResourcePanel>
 </root>
 
 <style>
@@ -36,28 +36,9 @@
 </style>
 
 @code {
-    public ResourcePanel EnergyPanel { get; set; }
-    public ResourcePanel ArmyPanel { get; set; }
-    public ResourcePanel WoodPanel { get; set; }
-    public ResourcePanel GoldPanel { get; set; }
-    public ResourcePanel FoodPanel { get; set; }
-    public ResourcePanel WomenPanel { get; set; }
 
-    [Event("resources.energy")]
-    void OnEnergy(int newAmount) => EnergyPanel.OnValueChange(newAmount);
-
-    [Event("resources.army")]
-    void OnArmy(int newAmount) => ArmyPanel.OnValueChange(newAmount);
-
-    [Event("resources.wood")]
-    void OnWood(int newAmount) => WoodPanel.OnValueChange(newAmount);
-
-    [Event("resources.gold")]
-    void OnGold(int newAmount) => GoldPanel.OnValueChange(newAmount);
-
-    [Event("resources.food")]
-    void OnFood(int newAmount) => FoodPanel.OnValueChange(newAmount);
-
-    [Event("resources.women")]
-    void OnWomen(int newAmount) => WomenPanel.OnValueChange(newAmount);
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(GameMgr.GoblinArmy.Count + GameMgr.TotalWood + GameMgr.TotalGold + GameMgr.TotalFood + GameMgr.TotalWomen + GameMgr.TotalEnergy);
+    }
 }
