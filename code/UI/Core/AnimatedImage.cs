@@ -28,7 +28,7 @@ public class AnimatedImage : Image
 	{
 		base.Tick();
 
-		Style.Opacity = _loaded ? 1 : 0;
+		Style.Opacity = _loaded ? Style.Opacity : 0;
 
 		if ( _next )
 			Next();
@@ -122,6 +122,8 @@ public class AnimatedImage : Image
 		else if ( _textures.Count != 0 ) Texture = _textures[0];
 
 		_next = _transitioning ? _transitionDelay : _changeDelay;
+
+		Style.Opacity = 1;
 	}
 
 	public override void SetProperty( string name, string value )
