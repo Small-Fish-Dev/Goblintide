@@ -130,7 +130,7 @@ public class Upgrade
 		public Builder Next( string identifier, Func<Builder, Builder> creator = null )
 		{
 			_next ??= new List<Builder>();
-			var builder = new Builder( identifier, "", _last ) { _postBuild = _postBuild };
+			var builder = new Builder( identifier, _description, _last ) { _postBuild = _postBuild };
 			var next = creator?.Invoke( builder ) ?? builder;
 			_last = next._identifier;
 			_next.Add( next );
