@@ -95,27 +95,10 @@ public partial class WorldMapContent
 
 		foreach ( var pairing in _pairs )
 		{
-			/*8if ( pairing.PlaceActor == null )
-			{
-				// This actor doesn't exist - lets see if we should create it
-				var nodeDistance = GetDistanceToCamera( pairing.Node );
-				Log.Info( (nodeDistance) );
-				if ( nodeDistance.x > MaxDistanceX || nodeDistance.y > MaxDistanceY )
-					continue;
-
-				// Create it!
-				pairing.PlaceActor = new PlaceActor( pairing.Node ) { PanelCamera = PanelCamera };
-				Content.AddChild( pairing.PlaceActor );
-
-				continue;
-			}*/
-
 			if ( !pairing.PlaceActor.ReadyToPosition ) continue;
 
 			var distance = GetDistanceToCamera( pairing.PlaceActor );
-
-			DebugOverlay.ScreenText( $"{distance}", pairing.PlaceActor.Box.Rect.Position );
-
+			
 			if ( distance.x > MaxDistanceX || distance.y > MaxDistanceY )
 			{
 				// Should be removed / hidden
