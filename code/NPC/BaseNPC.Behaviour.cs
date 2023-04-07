@@ -407,7 +407,7 @@ public partial class BaseNPC
 	{
 		if ( CurrentTarget.IsValid() ) return;
 
-		CurrentTarget = FindBestTarget( DetectRange, false );
+		CurrentTarget = FindBestTarget( DetectRange, true );
 
 		if ( CurrentTarget.IsValid() )
 			RecalculateTargetNav();
