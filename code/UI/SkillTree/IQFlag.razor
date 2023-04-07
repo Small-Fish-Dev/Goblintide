@@ -1,0 +1,31 @@
+﻿@using GameJam.UI.Core
+@using GameJam.UpgradeSystem
+@using Sandbox.UI;
+
+@namespace GameJam.UI
+@inherits Panel
+@attribute [StyleSheet( "/UI/SkillTree/SkillTree.scss" )]
+
+<root>
+	<div @ref=@flag class="flag">
+		<AnimatedImage
+			class="flag-image"
+			delay="0.7"
+			path="textures/tests/flag"
+			allow-translate>
+		</AnimatedImage>
+		<div class="inner">
+			<WiggleText Value=@( $"{GameMgr.TotalIQ}" ) Scale=@( 0.6f )></WiggleText>
+			<WiggleText Value=@( $"iq" ) Scale=@( 0.4f )></WiggleText>
+		</div>
+	</div>
+</root>
+
+@code {
+	[Event( "resources.iq" )]
+	void iqRefresh( int value )
+	{
+		DeleteChildren( true );
+		StateHasChanged();
+	}
+}
