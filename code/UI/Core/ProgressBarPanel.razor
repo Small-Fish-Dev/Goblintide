@@ -7,7 +7,10 @@
     @if (IconPath != default) {
         <img src=@IconPath />
     }
-    <div class="progress-bar"></div>
+    <div class="progress-bar">
+        <div @ref=ProgressBarMeter class="progress-bar-meter">
+        </div>
+    </div>
 </root>
 
 <style>
@@ -32,4 +35,15 @@
 
 @code {
     public string IconPath { get; set; }
+    public float Max { get; set; }
+    public float Current { get; set; }
+    public ColorHsv ColorMin { get; set; } = new ColorHsv(0, 1, 1);
+    public ColorHsv ColorMax { get; set; } = new ColorHsv();
+
+    Panel ProgressBarMeter;
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Max, Current);
+    }
 }
