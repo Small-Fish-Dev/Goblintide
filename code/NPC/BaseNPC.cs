@@ -1,4 +1,5 @@
 ﻿using GameJam.Props.Collectable;
+using System.Runtime.InteropServices;
 
 namespace GameJam;
 
@@ -123,6 +124,10 @@ public partial class BaseNPC : BaseCharacter
 		if ( !item.IsValid() ) return;
 
 		item.EnableAllCollisions = false;
+
+		if ( Faction is FactionType.Goblins )
+			item.SetBodyGroup( "goblin", 1 );
+
 		item.SetParent( this, true );
 
 		if ( item.Type == ItemType.Armor )
