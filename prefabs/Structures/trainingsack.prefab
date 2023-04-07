@@ -54,7 +54,7 @@
       },
       "Wood": {
         "Type": "Int32",
-        "Value": "5"
+        "Value": "50"
       },
       "Women": {
         "Type": "Int32",
@@ -81,7 +81,7 @@
       },
       "Food": {
         "Type": "Int32",
-        "Value": "5"
+        "Value": "50"
       }
     }
   }
