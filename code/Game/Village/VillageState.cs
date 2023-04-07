@@ -106,6 +106,11 @@ public partial class VillageState : GameState
 		// Block movement if in overview mode.
 		GameMgr.Lord.BlockMovement = GameMgr.Lord.Overview;
 
+		if ( GameMgr.Lord.Position.Distance( GameMgr.CurrentTown.Position ) >= GameMgr.CurrentTown.ForestRadius - 200f )
+		{
+			GameMgr.Lord.Position = GameMgr.CurrentTown.Throne.Position + 20f;
+		}
+
 		if ( GameMgr.CurrentTown?.Throne?.IsValid() ?? false )
 			GameMgr.CurrentTown.Throne.Position = GameMgr.CurrentTown.Position + Vector3.Down * 2f + Vector3.Up * Math.Min( (float)Math.Sqrt( GameMgr.TotalGold ), 100f );
 	}

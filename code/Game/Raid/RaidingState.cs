@@ -120,7 +120,7 @@ public partial class RaidingState : GameState
 			
 		}
 
-		if ( GameMgr.Lord.Position.Distance( GameMgr.CurrentTown.Position ) >= GameMgr.CurrentTown.ForestRadius && CurrentState != RaidState.PostRaid )
+		if ( GameMgr.Lord.Position.Distance( GameMgr.CurrentTown.Position ) >= GameMgr.CurrentTown.ForestRadius - 200f && CurrentState != RaidState.PostRaid )
 		{
 			CurrentState = RaidState.PostRaid;
 			TimeBeforeNextState = 0.2f;
