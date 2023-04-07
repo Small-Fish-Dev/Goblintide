@@ -1,5 +1,6 @@
 ﻿@using Sandbox;
 @using Sandbox.UI;
+@using GameJam.UI.Core;
 
 @namespace GameJam
 @inherits Panel
@@ -7,42 +8,46 @@
 <style>
 	EventLogger {
 		position: absolute;
-		bottom: 25px;
-		right: 25px;
+		top: 30px;
+		left: 30px;
 		justify-content: flex-start;
 		flex-direction: column;
-		align-items: flex-end;
+		align-items: flex-start;
 
 		.container {
-			flex-direction: row;
+			transform: translateX(-50%) rotate(-2deg);
+			transition: transform 0.2s ease-in-out;
+			backdrop-filter: blur(5px);
+			background-color: #2c2825cc;
+			box-shadow: 0px 0px 25px #00000096;
+			padding: 5px;
+			border: 2px #2c2825cc;
+			min-height: 42px;
+			max-width: 600px;
 			flex-wrap: wrap;
-			text-align: left;
+			margin-bottom: 10px;
+			transform-origin: center;
+			flex-direction: row;
 			transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 			transform: translateX(0px);
-			max-width: 600px;
-			background-color: rgb(235, 205, 185);
-			padding: 10px;
-			border-radius: 10px;
-			border-bottom: 4px rgb(165, 135, 115);
-			margin-top: 5px;
+			align-content: center;
 
 			&:intro {
 				opacity: 0;
-				transform: translateX(100%);
+				transform: translateX(-100%);
 			}
 
 			&:outro {
 				opacity: 0;
-				transform: translateX(100%);
+				transform: translateX(-100%);
 			}
 
 			.label {
-				font-size: 16px;
-				color: white;
-				text-stroke: 4px black;
-				font-family: 'Comic Sans MS';
+				font-size: 24px;
+				font-family: PatrickHand;
+				text-stroke: 2px rgba(black, 0.5);
 				text-shadow: 2px 2px 2px black;
-				font-weight: bold;
+				flex-shrink: 0;
 			}
 		}
 	}
@@ -75,6 +80,9 @@
 				continue;
 			var log = current.Value;
 
+			if ( log.Panel.Style?.Transform?.IsEmpty() ?? false )
+				log.Panel.Style.Set( "transform", $"rotate({Game.Random.Int( -2, 2 )})" );
+
 			if ( events.First() == log && log.UntilDelete )
 			{
 				log.Panel?.Delete();
@@ -88,7 +96,7 @@
 	/// </summary>
 	/// <param name="input"></param>
 	/// <param name="time"></param>
-	public void Append( string input, float time = 5f )
+	public async void Append( string input, float time = 5f )
 	{
 		// Handle overflowing.
 		if ( events.Count >= Limit )
@@ -184,8 +192,8 @@
 	private void appendLabel( Panel parent, string text, Color color )
 	{
 		var label = parent.AddChild<Label>( "label" );
-		label.Text = text;
 		label.Style.FontColor = color;
+		label.Text = text;
 	}
 
 	/// <summary>
