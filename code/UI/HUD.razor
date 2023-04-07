@@ -62,10 +62,11 @@
 	<resources class="resources"/>
 
 	<panel class="inputContainer">
+		<inputglyph text="Overview" button=@InputButton.Score/>
+
 		@if ( GameMgr.State is VillageState )
 		{
 			<inputglyph text="Skill Tree" button=@InputButton.Chat/>
-			<inputglyph text="Overview" button=@InputButton.Score/>
 			<inputglyph text="Map" button=@InputButton.Reload/>
 		}
 		@if ( GameMgr.State is RaidingState )

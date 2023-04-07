@@ -7,10 +7,27 @@ public static class MenuControls
 	[Event.Client.BuildInput]
 	private static void BuildInput()
 	{
-		if ( GameMgr.State is VillageState)
+		if ( GameMgr.State is not VillageState )
+			return;
+
+		if ( Input.Pressed( InputButton.Reload ) )
 		{
-			if ( Input.Pressed( InputButton.Reload ) ) WorldMap.Toggle();
-			if ( Input.Pressed( InputButton.Chat ) ) SkillTree.Toggle();
+			WorldMap.Toggle();
+			closeOverview();
 		}
+		else if ( Input.Pressed( InputButton.Chat ) )
+		{
+			SkillTree.Toggle();
+			closeOverview();
+		}
+	}
+
+	[ConCmd.Server]
+	private static void closeOverview()
+	{
+		if ( ConsoleSystem.Caller.Pawn is not Lord pawn )
+			return;
+
+		pawn.Overview = false;
 	}
 }
