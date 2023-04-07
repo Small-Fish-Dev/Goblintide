@@ -40,7 +40,7 @@ public partial class Lord
 	#region Camera Configuration
 
 	/// <summary> Max distance from camera to player </summary>
-	public const float CameraDistance = 30f;
+	public const float CameraDistance = 50f;
 
 	private const float CameraRotationLerp = 20.0f;
 	private const float CameraRotationPointingLerp = 35.0f;
@@ -248,7 +248,7 @@ public partial class Lord
 		Camera.FirstPersonViewer = null;
 		Camera.ZNear = 2;
 		Camera.ZFar = 99999;
-		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Game.Preferences.FieldOfView );
+		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( 90f );
 	}
 
 	public void SimulateCamera()
