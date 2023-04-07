@@ -1,0 +1,21 @@
+﻿WorldMapContent {
+	position: absolute;
+	z-index: 1;
+	
+	width: 100%;
+	height: 100%;
+
+	justify-content: center;
+	align-items: center;
+	
+	.content {
+		width: 100%;
+		height: 85%;
+		
+		margin: 5%;
+		
+		background-color: black;
+	}
+
+	transition: all 0.35s ease-in-out;
+}

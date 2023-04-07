@@ -25,13 +25,18 @@
 			transition-path="textures/tests/worldmap-transition/010.png"
 			transition-path="textures/tests/worldmap-transition/011.png"
 			transition-path="textures/tests/worldmap-transition/012.png"
-			transition-delay="0.019"
-			OnStart=@( () => { Container.Style.Opacity = 1; } )>
+			transition-delay="0.021"
+			OnStart=@WorldMapContent.Show>
 		</AnimatedImage>
 	</div>
-
-	<div class="container" @ref=Container allow-translate>
-		<div class="content" @ref=Content allow-translate>
-		</div>
-	</div>
 </root>
+
+@code
+{
+	public override void OnDeleted()
+	{
+		base.OnDeleted();
+		
+		WorldMapContent.Hide();
+	}
+}
