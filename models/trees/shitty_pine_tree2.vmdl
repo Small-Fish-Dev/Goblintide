@@ -41,8 +41,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						name = "lod1"
-						filename = "models/trees/shitty_pine_tree2_LOD1.fbx"
+						filename = "models/trees/shitty_pine_tree3.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 0.3
