@@ -101,7 +101,8 @@ public partial class GameMgr
 		get => Instance.totalEnergy;
 		set
 		{
-			Instance.totalEnergy = Math.Clamp( value, 0, MaxEnergy );
+			if ( value > -999999 )
+				Instance.totalEnergy = Math.Clamp( value, 0, MaxEnergy );
 		}
 	}
 	public static double MaxEnergy
