@@ -28,30 +28,30 @@ public partial class BaseNPC : BaseCharacter
 {
 	public Prefab.Entry RootPrefab { get; set; }
 
+	[Prefab, Category( "Stats" ), Net]
+	public float AttackPower { get; set; } = 0.5f;
 	[Prefab, Category( "Stats" )]
-	public virtual float AttackPower { get; set; } = 0.5f;
+	public float AttackSpeed { get; set; } = 0.5f;
 	[Prefab, Category( "Stats" )]
-	public virtual float AttackSpeed { get; set; } = 0.5f;
+	public float AttackRange { get; set; } = 60f;
 	[Prefab, Category( "Stats" )]
-	public virtual float AttackRange { get; set; } = 60f;
-	[Prefab, Category( "Stats" )]
-	public virtual float DetectRange { get; set; } = 300f;
+	public float DetectRange { get; set; } = 300f;
 	[Prefab, Category( "Stats" )] 
-	public virtual float WalkSpeed { get; set; } = 120f;
+	public float WalkSpeed { get; set; } = 120f;
 	[Prefab, Category( "Stats" ), Description( "How diligent they are towards enacting their BaseBehaviour tasks. 0 = Never, 1 = Always")]
-	public virtual float BaseDiligency { get; set; } = 0.5f;
+	public float BaseDiligency { get; set; } = 0.5f;
 
 	[Prefab, Category( "Stats" ), Description( "How many seconds it makes diligency check which determines if they will do their BaseBehaviour tasks" )]
-	public virtual float DiligencyTimer { get; set; } = 3f;
+	public float DiligencyTimer { get; set; } = 3f;
 
 	[Prefab, Category( "Character" )]
-	public virtual Behaviour BaseBehaviour { get; set; } = Behaviour.None;
+	public Behaviour BaseBehaviour { get; set; } = Behaviour.None;
 
 	[Prefab, Category( "Character" )]
-	public virtual VoiceType Voice { get; set; } = VoiceType.None;
+	public VoiceType Voice { get; set; } = VoiceType.None;
 
 	[Prefab, Category( "Character" )]
-	public virtual SubBehaviour BaseSubBehaviour { get; set; } = SubBehaviour.None;
+	public SubBehaviour BaseSubBehaviour { get; set; } = SubBehaviour.None;
 
 	[Prefab, Category( "Character" )]
 	public override float CollisionWidth { get; set; } = 20f;
@@ -126,17 +126,17 @@ public partial class BaseNPC : BaseCharacter
 	public void SetLevel( int level )
 	{
 		Level = level;
-		MaxHitPoints += level / 4;
+		MaxHitPoints += (float)level / 2;
 		HitPoints = MaxHitPoints;
-		AttackPower += level / 4;
+		AttackPower += (float)level / 6;
 	}
 
 	public void IncreaseLevel()
 	{
 		Level++;
-		MaxHitPoints += 0.25f;
+		MaxHitPoints += 0.5f;
 		HitPoints += 0.25f;
-		AttackPower += 0.25f;
+		AttackPower += 0.1667f;
 	}
 
 	public void Equip( BaseItem item )
