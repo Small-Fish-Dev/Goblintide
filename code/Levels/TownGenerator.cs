@@ -249,7 +249,7 @@ public partial class Town : BaseNetworkable
 				if ( squaredDistance < clearingSquared ) continue;
 				if ( squaredDistance > forestSizeSquared ) continue;
 
-				TryPlaceTree( PlaceableTrees, GameMgr.CurrentTown.Position, x, y, new Vector2( 0f, 0.43f ) );
+				TryPlaceTree( PlaceableTrees, GameMgr.CurrentTown.Position, x, y, new Vector2( 0f, 0.46f ) );
 			}
 		}
 	}
