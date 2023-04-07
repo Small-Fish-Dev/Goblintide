@@ -145,7 +145,7 @@ public partial class RaidingState : GameState
 
 		if ( newState == RaidState.Raiding )
 		{
-			TimeBeforeRaidEnds = (int)Math.Sqrt( GameMgr.CurrentTown.TownSize * 100 );
+			TimeBeforeRaidEnds = (int)Math.Sqrt( GameMgr.CurrentTown.TownSize * 100 ) * 2f;
 			GameMgr.GoblinArmyEnabled( true );
 			if ( GameMgr.Tutorial )
 			{
