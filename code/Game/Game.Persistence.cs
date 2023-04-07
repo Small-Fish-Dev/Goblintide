@@ -263,6 +263,7 @@ partial class GameMgr
 		using var writer = new BinaryWriter( stream );
 
 		// Save all data.
+		writer.Write( GameMgr.Tutorial );
 		writer.Write( DateTime.UtcNow.Ticks / 10000000 ); // last update
 		lordPersist( writer );
 		resourcesPersist( writer );
@@ -300,6 +301,7 @@ partial class GameMgr
 		try
 		{
 			// Read all data and act according to it.
+			GameMgr.Tutorial = reader.ReadBoolean();
 			LastUpdate = reader.ReadInt64();
 			lordPersist( reader, villageOnly );
 			resourcesPersist( reader, villageOnly );

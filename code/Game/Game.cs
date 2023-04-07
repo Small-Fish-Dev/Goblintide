@@ -19,6 +19,7 @@ public partial class GameMgr : GameManager
 	/// The singleton for GameManager.
 	/// </summary>
 	public static GameMgr Instance { get; private set; }
+	public static bool Tutorial { get; set; } = true;
 
 	/// <summary>
 	/// The game's current Lord.
