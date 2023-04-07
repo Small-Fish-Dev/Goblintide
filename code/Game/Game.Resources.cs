@@ -231,7 +231,10 @@ public partial class GameMgr
 		if ( type == Collectable.Wood )
 			TotalWood += amount;
 		if ( type == Collectable.Gold )
+		{
 			TotalGold += amount;
+			TotalIQ++;
+		}
 		if ( type == Collectable.Food )
 			TotalFood += amount;
 		if ( type == Collectable.Woman )

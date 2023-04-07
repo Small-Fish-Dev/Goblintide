@@ -254,7 +254,6 @@ public partial class BaseNPC
 		Stealing = collectable;
 		Stealing.Locked = true;
 		Stealing.Position = Position + Vector3.Up * GetHeight();
-		Stealing.NavBlocker?.Delete();
 		Stealing.SetParent( this );
 	}
 
