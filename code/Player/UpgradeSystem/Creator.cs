@@ -295,7 +295,7 @@ public static class Creator
 						.PlaceAt( Vector2.Down * 1800 + Vector2.Left * 450 ) )
 			.Next( "Mac Mansions V",
 				v =>
-					v.WithTexture( "mansion/mansion4.png" )
+					v.WithTexture( "mansion/mansion5.png" )
 						.PlaceAt( Vector2.Down * 1800 + Vector2.Left * 600 ) )
 			.Build();
 	}
