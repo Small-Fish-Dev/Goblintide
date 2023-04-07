@@ -105,12 +105,10 @@
         "Value": "3"
       },
       "StartingArmor": {
-        "Type": "String",
-        "Value": "\u0022prefabs/items/helmet.prefab\u0022"
+        "Type": "null"
       },
       "StartingWeapon": {
-        "Type": "String",
-        "Value": "\u0022prefabs/items/club.prefab\u0022"
+        "Type": "null"
       }
     }
   }
