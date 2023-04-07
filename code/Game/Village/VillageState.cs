@@ -23,6 +23,8 @@ public partial class VillageState : GameState
 		if ( Game.IsClient )
 		{
 			hud = HUD.Instance.AddChild<VillageHUD>();
+			GameMgr.Music.Stop();
+			GameMgr.Music = Sound.FromScreen( "sounds/music/village_song.sound" );
 			return;
 		}
 
