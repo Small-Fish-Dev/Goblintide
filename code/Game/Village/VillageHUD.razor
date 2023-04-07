@@ -46,6 +46,7 @@
 					width: 140px;
 					bottom: 80px;
 					border: 4px rgba(white, 0.5);
+					cursor: pointer;
 				}
 
 				.title {
@@ -53,7 +54,6 @@
 					top: -45px;
 					background-color: #2c2825cc;
 					box-shadow: 0px 0px 45px #00000096;
-					border-radius: 5px;
 					transform: translateX(-50%) rotate(-2deg);
 					transition: transform 0.2s ease-in-out;
 					padding: 5px;
@@ -75,10 +75,87 @@
 					background-size: 100%;
 					background-position: center;
 				}
+
+				z-index: 3;
 			}
 
 			&.hidden {
 				transform: translateY(250%);
+				cursor: default;
+			}
+		}
+
+		.information {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			flex-direction: column;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			z-index: 2;
+			transition: opacity 0.3s ease-in-out;
+
+			&:intro {
+				opacity: 0;
+			}
+
+			&:outro {
+				opacity: 0;
+			}
+
+			.title {
+				padding: 5px;
+				height: 38px;
+				flex-shrink: 0;
+				transform-origin: center;
+				background-color: #2c2825cc;
+				box-shadow: 0px 0px 45px #00000096;
+				border: 2px #2c2825cc;
+				flex-grow: 0;
+
+				.shadow {
+					position: absolute;
+					margin-left: 8px;
+					margin-top: 8px;
+				}
+			}
+
+			.materials {
+				margin-top: 5px;
+				flex-direction: column;
+				background-color: #2c2825cc;
+				box-shadow: 0px 0px 45px #00000096;
+				border: 2px #2c2825cc;
+				padding: 5px;
+
+				.material {
+					flex-direction: row;
+
+					.icon {
+						width: 32px;
+						aspect-ratio: 1;
+						background-size: 100%;
+						background-repeat: no-repeat;
+						background-position: center;
+						padding-right: 5px;
+						right: 6px;
+					}
+
+					.shadow {
+						position: absolute;
+						margin-left: 34px;
+						margin-top: 2px;
+					}
+				}
+			}
+			
+			.inputHints {
+				margin-top: 5px;
+				flex-direction: row;
+
+				.margin {
+					margin-left: 10px;
+				}
 			}
 		}
 	}
@@ -111,6 +188,8 @@
 
 	Prefab structurePrefab;
 	SceneObject? buildObject;
+	Panel informationPanel;
+	TimeUntil nextWobble;
 
 	[Event.Hotload]
 	private void hotload()
@@ -120,10 +199,13 @@
 
 		buildObject?.Delete();
 		buildObject = null;
+
+		informationPanel?.Delete( true );
 	}
 
 	private void startBuilding( Prefab structure )
 	{
+		informationPanel?.Delete();
 		buildObject?.Delete();
 
 		var root = structure.Root;
@@ -133,19 +215,99 @@
 		buildObject.SetMaterialOverride( Material.Load( "materials/building/building_transparent.vmat" ) );
 		buildObject.Attributes.Set( "color", Color.Red );
 		structurePrefab = structure;
+
+		createInformationPanel( structure );
+	}
+
+	private void createInformationPanel( Prefab structure )
+	{
+		var root = structure.Root;
+		var title = root.GetValue<string>( "Title" );
+
+		informationPanel = AddChild<Panel>( "information" );
+
+		// Title
+		var titlePanel = informationPanel.AddChild<Panel>( "title" );
+		var shadow = titlePanel.AddChild<WiggleText>( "shadow" );
+		shadow.Scale = 0.22f;
+		shadow.Tint = Color.Black;
+		shadow.Value = title;
+
+		var text = titlePanel.AddChild<WiggleText>();
+		text.Scale = 0.22f;
+		text.Value = title;
+
+		// Inputs
+		var inputHints = informationPanel.AddChild<Panel>( "inputHints" );
+		var placeButton = inputHints.AddChild<InputGlyph>();
+		placeButton.Button = InputButton.PrimaryAttack;
+		placeButton.Text = $"Place";
+
+		var cancelButton = inputHints.AddChild<InputGlyph>( "margin" );
+		cancelButton.Button = InputButton.Zoom;
+		cancelButton.Text = $"Cancel";
+
+		// Materials
+		var materials = informationPanel.AddChild<Panel>( "materials" );
+		var targets = new[] { 
+			("Wood", GameMgr.TotalWood), 
+			("Women", GameMgr.TotalWomen), 
+			("Food", GameMgr.TotalFood) };
+		foreach ( var target in targets )
+		{
+			var materialName = target.Item1;
+			var totalAmount = target.Item2;
+
+			var value = root.GetValue<int>( materialName );
+			if ( value <= 0 ) 
+				continue;
+
+			var path = $"ui/resources/{materialName.ToLower()}.png";
+			var container = materials.AddChild<Panel>( "material" );
+
+			var image = container.AddChild<Image>( "icon" );
+			image.Style.SetBackgroundImage( path );
+
+			var valueShadow = container.AddChild<WiggleText>( "shadow" );
+			valueShadow.Scale = 0.22f;
+			valueShadow.Tint = Color.Black;
+			valueShadow.Value = value.ToString();
+
+			var valueText = container.AddChild<WiggleText>();
+			valueText.Scale = 0.22f;
+			valueText.Value = value.ToString();
+			valueText.Tint = totalAmount < value
+				? Color.Red
+				: Color.White;
+		}
 	}
 
 	public override void OnButtonEvent( ButtonEvent e )
 	{
 		base.OnButtonEvent( e );
 
-		if ( e.Button == "mouseleft" && !e.Pressed )
+		if ( e.Pressed )
+			return;
+
+		if ( e.Button == "mouseleft" )
 		{
-			if (buildObject != null && structurePrefab != null && !structureContainer.HasHovered)
+			if ( buildObject != null && structurePrefab != null && !structureContainer.HasHovered )
 			{
 				BaseStructure.RequestBuild( structurePrefab.ResourceName, buildObject.Bounds.Mins, buildObject.Bounds.Maxs );
 				buildObject?.Delete();
 				buildObject = null;
+
+				informationPanel?.Delete();
+			}
+		}
+		else if ( e.Button == "mousemiddle" )
+		{
+			if ( buildObject != null )
+			{
+				buildObject?.Delete();
+				buildObject = null;
+
+				informationPanel?.Delete();
 			}
 		}
 	}
@@ -164,6 +326,8 @@
 				buildObject.Delete();
 				buildObject = null;
 
+				informationPanel?.Delete( true );
+
 				return;
 			}
 
@@ -181,6 +345,19 @@
 			var difference = (trace.HitPosition - town.Position);
 			var targetPosition = (town.Position + difference.Normal * Math.Clamp(difference.Length, -town.TownRadius, town.TownRadius))
 				.WithZ( town.Position.z );
+
+			if ( informationPanel != null )
+			{
+				if ( nextWobble && !informationPanel.IsDeleting )
+				{
+					nextWobble = Game.Random.Float( 0.5f, 1.75f );
+					informationPanel.Style.Set( "transform", $"rotate({Game.Random.Int( -3, 3 )})" );
+				}
+
+				var position = buildObject.Bounds.Mins.WithX( buildObject.Bounds.Maxs.x ).ToScreen();
+				informationPanel.Style.Left = Length.Fraction( position.x + 0.01f );
+				informationPanel.Style.Top = Length.Fraction( position.y );
+			}
 
 			buildObject.Position = Vector3.Lerp( buildObject.Position, targetPosition, 10f * Time.Delta );
 			buildObject.Rotation = Rotation.LookAt( buildObject.Position - town.Position );
