@@ -4,12 +4,12 @@
 @inherits Panel
 
 <root>
-    <ResourcePanel ResourceName="Energy" ResourceAmount=@(@Math.Round(GameMgr.TotalEnergy).ToString())></ResourcePanel>
-    <ResourcePanel ResourceName="Goblin" ResourceAmount=@(@GameMgr.GoblinArmy.Count.ToString()))></ResourcePanel>
-    <ResourcePanel ResourceName="Wood" ResourceAmount=@(@GameMgr.TotalWood.ToString())></ResourcePanel>
-    <ResourcePanel ResourceName="Gold" ResourceAmount=@(@GameMgr.TotalGold.ToString())></ResourcePanel>
-    <ResourcePanel ResourceName="Food" ResourceAmount=@(@GameMgr.TotalFood.ToString())></ResourcePanel>
-    <ResourcePanel ResourceName="Women" ResourceAmount=@(@GameMgr.TotalWomen.ToString())></ResourcePanel>
+    <ResourcePanel ResourceName="Energy" ResourceAmount=@((int)Math.Round(GameMgr.TotalEnergy)) />
+    <ResourcePanel ResourceName="Goblin" ResourceAmount=@(GameMgr.GoblinArmy.Count) />
+    <ResourcePanel ResourceName="Wood" ResourceAmount=@(GameMgr.TotalWood) />
+    <ResourcePanel ResourceName="Gold" ResourceAmount=@(GameMgr.TotalGold) />
+    <ResourcePanel ResourceName="Food" ResourceAmount=@(GameMgr.TotalFood) />
+    <ResourcePanel ResourceName="Women" ResourceAmount=@(GameMgr.TotalWomen) />
 </root>
 
 <style>
@@ -36,9 +36,8 @@
 </style>
 
 @code {
-
     protected override int BuildHash()
     {
-        return HashCode.Combine(GameMgr.GoblinArmy.Count + GameMgr.TotalWood + GameMgr.TotalGold + GameMgr.TotalFood + GameMgr.TotalWomen + GameMgr.TotalEnergy);
+        return HashCode.Combine( GameMgr.GoblinArmy.Count, GameMgr.TotalWood, GameMgr.TotalGold, GameMgr.TotalFood, GameMgr.TotalWomen, GameMgr.TotalEnergy );
     }
 }

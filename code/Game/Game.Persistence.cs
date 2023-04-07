@@ -290,7 +290,8 @@ partial class GameMgr
 		{
 			// Do we need to do initial stuff if the save doesn't exist?
 			Loaded = true;
-			CreateInitialVillage();
+			if ( !villageOnly )
+				CreateInitialVillage();
 			return false;
 		}
 
