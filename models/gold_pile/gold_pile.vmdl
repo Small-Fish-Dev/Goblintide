@@ -46,7 +46,7 @@
 						import_scale = 1.0
 						faceMergeAngle = 10.0
 						maxHullVertices = 0
-						import_mode = "SingleHull"
+						import_mode = "HullPerElement"
 						optimization_algorithm = "Exact"
 						import_filter = 
 						{
@@ -98,6 +98,10 @@
 							exception_list = 
 							[
 								"gold_pile",
+								"gold_pile_006",
+								"gold_pile_008",
+								"gold_pile_007",
+								"gold_pile_009",
 							]
 						}
 					},

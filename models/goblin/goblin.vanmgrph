@@ -33,7 +33,7 @@
 						{
 							_class = "CBlend2DItem"
 							m_tagSpans = [  ]
-							m_sequenceName = "walk_N"
+							m_sequenceName = "death"
 							m_blendValue = [ 0.0, 30.0 ]
 						},
 						{
@@ -41,6 +41,24 @@
 							m_tagSpans = [  ]
 							m_sequenceName = "run_N"
 							m_blendValue = [ 0.0, 80.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "run_N"
+							m_blendValue = [ 0.0, -80.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "run_N"
+							m_blendValue = [ 20.0, 0.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "run_N"
+							m_blendValue = [ -20.0, 0.0 ]
 						},
 					]
 					m_blendSourceX = "Parameter"
