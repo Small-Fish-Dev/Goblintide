@@ -5,7 +5,47 @@
   "Root": {
     "Guid": "955e311d-752e-4e46-bfe7-61ac1c2485e1",
     "Class": "BaseStructure",
-    "Entities": [],
+    "Entities": [
+      {
+        "Guid": "79037f2d-6f27-4725-a260-434014a85e39",
+        "Class": "BaseProp",
+        "Entities": [],
+        "Components": [],
+        "Keys": {
+          "Model": {
+            "Type": "Model",
+            "Value": "\u0022models/training_post/training_post.vmdl\u0022"
+          },
+          "MaxHitPoints": {
+            "Type": "Single",
+            "Value": "100000000"
+          },
+          "DefaultFaction": {
+            "Type": "FactionType",
+            "Value": "\u0022Nature\u0022"
+          },
+          "IsBreakable": {
+            "Type": "Boolean",
+            "Value": "false"
+          },
+          "_name": {
+            "Value": "\u0022Untitled Entity\u0022"
+          },
+          "_localposition": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_localrotation": {
+            "Value": "\u00220,0,0\u0022"
+          },
+          "_scale": {
+            "Value": "1.02"
+          },
+          "_tags": {
+            "Value": "\u0022\u0022"
+          }
+        }
+      }
+    ],
     "Components": [],
     "Keys": {
       "Title": {
