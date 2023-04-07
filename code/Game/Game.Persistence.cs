@@ -288,6 +288,10 @@ partial class GameMgr
 		// Check if we can load a save.
 		if ( !FileSystem.Data.FileExists( SAVE_PATH ) )
 		{
+			if ( !Loaded )
+			{
+				CreateInitialVillage();
+			}
 			// Do we need to do initial stuff if the save doesn't exist?
 			Loaded = true;
 			return false;
@@ -374,6 +378,26 @@ partial class GameMgr
 		}
 	}
 
+	public static void CreateInitialVillage()
+	{
+
+		for ( int i = 0; i < 10; i++ )
+		{
+			var newGoblin = BaseNPC.FromPrefab( "prefabs/npcs/goblin.prefab" ); // Spawn 10 goblinis
+			if ( newGoblin.IsValid() )
+			{
+				GameMgr.GoblinArmy.Add( newGoblin );
+				var distance = Game.Random.Float( 150f, GameMgr.CurrentTown.TownRadius * 2 );
+				var newPosition = GameMgr.CurrentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
+				newGoblin.Position = newPosition;
+			}
+
+		}
+
+		SpawnStructure( "tent", Vector3.Forward * 270f );
+		SpawnStructure( "goblinshack", Vector3.Forward * 300f + Vector3.Left * 550f );
+	}
+
 	public static void GiveGoblinsWeapons()
 	{
 		var doesntHaveWeapon = GameMgr.GoblinArmy
@@ -396,6 +420,15 @@ partial class GameMgr
 					doesntHaveWeapon[i].Equip( chosenWeapon );
 			}
 		}
+	}
+
+	public static void SpawnStructure( string name, Vector3 position )
+	{
+		VillageState.TrySpawnStructure( new()
+		{
+			PrefabName = name,
+			Position = position
+		}, out var structure );
 	}
 
 	[ConCmd.Server]

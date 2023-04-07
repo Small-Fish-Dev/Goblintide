@@ -134,7 +134,7 @@ public partial class GameMgr
 	[Net, Change( nameof( EmitFoodChange ) )] private int totalFood { get; set; } = 0;
 	[Net, Change( nameof( EmitWomenChange ) )] private int totalWomen { get; set; } = 0;
 	[Net, Change( nameof( EmitEnergyChange ) )] private double totalEnergy { get; set; } = 30;
-	[Net] private double maxEnergy { get; set; } = 30; // Default value = 30
+	[Net] private double maxEnergy { get; set; } = 50; // Default value = 50
 	[Net] private int maxIQ { get; set; } = 0;
 	[Net] private double energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
 	[Net] private long lastEnergyUpdate { get; set; } = DateTime.UtcNow.Ticks;

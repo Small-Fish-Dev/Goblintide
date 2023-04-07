@@ -83,6 +83,7 @@ public partial class VillageState : GameState
 			return false;
 
 		structure = BaseStructure.FromPrefab( entry.PrefabName );
+
 		if ( structure == null )
 			return false;
 

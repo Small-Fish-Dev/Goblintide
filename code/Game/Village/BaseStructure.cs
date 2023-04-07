@@ -2,7 +2,7 @@
 
 namespace GameJam;
 
-[Prefab]
+[Prefab, Category( "Structures" )]
 public partial class BaseStructure : ModelEntity
 {
 	[Prefab, Net]
