@@ -13,22 +13,22 @@ public static class Creator
 			{
 				v.AuraOfFear = 0.05f; // -5%
 			} )
-			.WithTexture( "aura/aura1.png" )
+			.WithTexture( "fear/fear1.png" )
 			.Next( "Aura of Fear II",
 				v =>
-					v.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "fear/fear2.png" )
 					.PlaceAt( Vector2.Left * 150 ) )
 			.Next( "Aura of Fear III",
 				v =>
-					v.WithTexture( "aura/aura3.png" )
+					v.WithTexture( "fear/fear3.png" )
 						.PlaceAt( Vector2.Left * 300 ) )
 			.Next( "Aura of Fear IV",
 				v =>
-					v.WithTexture( "aura/aura4.png" )
+					v.WithTexture( "fear/fear4.png" )
 						.PlaceAt( Vector2.Left * 450 ) )
 			.Next( "Aura of Fear V",
 				v =>
-					v.WithTexture( "aura/aura5.png" )
+					v.WithTexture( "fear/fear5.png" )
 						.PlaceAt( Vector2.Left * 600 ) )
 			.Build();
 
@@ -62,23 +62,23 @@ public static class Creator
 			{
 				v.GoblinSchool = 0.05f; // +5%
 			} )
-			.WithTexture( "aura/aura1.png" )
+			.WithTexture( "school/school1.png" )
 			.PlaceAt( Vector2.Down * 300 )
 			.Next( "Goblin School II",
 				v =>
-					v.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "school/school2.png" )
 						.PlaceAt( Vector2.Down * 300 + Vector2.Left * 150 ) )
 			.Next( "Goblin School III",
 				v =>
-					v.WithTexture( "aura/aura3.png" )
+					v.WithTexture( "school/school3.png" )
 						.PlaceAt( Vector2.Down * 300 + Vector2.Left * 300 ) )
 			.Next( "Goblin School IV",
 				v =>
-					v.WithTexture( "aura/aura4.png" )
+					v.WithTexture( "school/school4.png" )
 						.PlaceAt( Vector2.Down * 300 + Vector2.Left * 450 ) )
 			.Next( "Goblin School V",
 				v =>
-					v.WithTexture( "aura/aura5.png" )
+					v.WithTexture( "school/school5.png" )
 						.PlaceAt( Vector2.Down * 300 + Vector2.Left * 600 ) )
 			.Build();
 
@@ -87,23 +87,23 @@ public static class Creator
 			{
 				v.VillageSize = 25f; // +25
 			} )
-			.WithTexture( "aura/aura1.png" )
+			.WithTexture( "expansion/expansion1.png" )
 			.PlaceAt( Vector2.Down * 450 )
 			.Next( "Village Size II",
 				v =>
-					v.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "expansion/expansion2.png" )
 						.PlaceAt( Vector2.Down * 450 + Vector2.Left * 150 ) )
 			.Next( "Village Size III",
 				v =>
-					v.WithTexture( "aura/aura3.png" )
+					v.WithTexture( "expansion/expansion3.png" )
 						.PlaceAt( Vector2.Down * 450 + Vector2.Left * 300 ) )
 			.Next( "Village Size IV",
 				v =>
-					v.WithTexture( "aura/aura4.png" )
+					v.WithTexture( "expansion/expansion4.png" )
 						.PlaceAt( Vector2.Down * 450 + Vector2.Left * 450 ) )
 			.Next( "Village Size V",
 				v =>
-					v.WithTexture( "aura/aura5.png" )
+					v.WithTexture( "expansion/expansion5.png" )
 						.PlaceAt( Vector2.Down * 450 + Vector2.Left * 600 ) )
 			.Build();
 
@@ -112,23 +112,23 @@ public static class Creator
 			{
 				v.RecoveryTraining = 1f; // +50%
 			} )
-			.WithTexture( "aura/aura1.png" )
+			.WithTexture( "recovery/recovery1.png" )
 			.PlaceAt( Vector2.Down * 600 )
 			.Next( "Recovery Training II",
 				v =>
-					v.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "recovery/recovery2.png" )
 						.PlaceAt( Vector2.Down * 600 + Vector2.Left * 150 ) )
 			.Next( "Recovery Training III",
 				v =>
-					v.WithTexture( "aura/aura3.png" )
+					v.WithTexture( "recovery/recovery3.png" )
 						.PlaceAt( Vector2.Down * 600 + Vector2.Left * 300 ) )
 			.Next( "Recovery Training IV",
 				v =>
-					v.WithTexture( "aura/aura4.png" )
+					v.WithTexture( "recovery/recovery4.png" )
 						.PlaceAt( Vector2.Down * 600 + Vector2.Left * 450 ) )
 			.Next( "Recovery Training V",
 				v =>
-					v.WithTexture( "aura/aura5.png" )
+					v.WithTexture( "recovery/recovery5.png" )
 						.PlaceAt( Vector2.Down * 600 + Vector2.Left * 600 ) )
 			.Build();
 
@@ -137,23 +137,23 @@ public static class Creator
 			{
 				v.EnduranceTraining = 1f; // +50%
 			} )
-			.WithTexture( "aura/aura1.png" )
+			.WithTexture( "endurance/endurance1.png" )
 			.PlaceAt( Vector2.Down * 750 )
 			.Next( "Endurance Training II",
 				v =>
-					v.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "endurance/endurance2.png" )
 						.PlaceAt( Vector2.Down * 750 + Vector2.Left * 150 ) )
 			.Next( "Endurance Training III",
 				v =>
-					v.WithTexture( "aura/aura3.png" )
+					v.WithTexture( "endurance/endurance3.png" )
 						.PlaceAt( Vector2.Down * 750 + Vector2.Left * 300 ) )
 			.Next( "Endurance Training IV",
 				v =>
-					v.WithTexture( "aura/aura4.png" )
+					v.WithTexture( "endurance/endurance4.png" )
 						.PlaceAt( Vector2.Down * 750 + Vector2.Left * 450 ) )
 			.Next( "Endurance Training V",
 				v =>
-					v.WithTexture( "aura/aura5.png" )
+					v.WithTexture( "endurance/endurance5.png" )
 						.PlaceAt( Vector2.Down * 750 + Vector2.Left * 600 ) )
 			.Build();
 
@@ -163,33 +163,16 @@ public static class Creator
 			{
 				v.Swiftness = 0.1f; // +10%
 			} )
-			.WithTexture( "aura/aura1.png" )
+			.WithTexture( "swiftness/swiftness1.png" )
 			.PlaceAt( Vector2.Down * 900 )
 			.Next( "Swiftness II",
 				v =>
-					v.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "swiftness/swiftness2.png" )
 						.PlaceAt( Vector2.Down * 900 + Vector2.Left * 150 ) )
 			.Next( "Swiftness III",
 				v =>
-					v.WithTexture( "aura/aura3.png" )
+					v.WithTexture( "swiftness/swiftness3.png" )
 						.PlaceAt( Vector2.Down * 900 + Vector2.Left * 300 ) )
-			.Build();
-
-		new Upgrade.Builder( "Sticky Fingers I", "More resources collected during the raid." )
-			.ConfigureWith( v =>
-			{
-				v.StickyFingers = 0.15f; // +15%
-			} )
-			.WithTexture( "aura/aura1.png" )
-			.PlaceAt( Vector2.Down * 1050 )
-			.Next( "Sticky Fingers II",
-				v =>
-					v.WithTexture( "aura/aura2.png" )
-						.PlaceAt( Vector2.Down * 1050 + Vector2.Left * 150 ) )
-			.Next( "Sticky Fingers III",
-				v =>
-					v.WithTexture( "aura/aura3.png" )
-						.PlaceAt( Vector2.Down * 1050 + Vector2.Left * 300 ) )
 			.Build();
 
 
@@ -215,38 +198,20 @@ public static class Creator
 			.Build();
 
 
-		new Upgrade.Builder( "Gumshoes I", "Decrease chances of being targetted." )
-			.ConfigureWith( v =>
-			{
-				v.Gumshoes = 0.25f; // +25%
-			} )
-			.WithTexture( "aura/aura1.png" )
-			.PlaceAt( Vector2.Down * 1350 )
-			.Next( "Gumshoes II",
-				v =>
-					v.WithTexture( "aura/aura2.png" )
-						.PlaceAt( Vector2.Down * 1350 + Vector2.Left * 150 ) )
-			.Next( "Gumshoes III",
-				v =>
-					v.WithTexture( "aura/aura3.png" )
-						.PlaceAt( Vector2.Down * 1350 + Vector2.Left * 300 ) )
-			.Build();
-
-
 		new Upgrade.Builder( "Backseat Gaming I", "Allies around you attack faster." )
 			.ConfigureWith( v =>
 			{
 				v.BackseatGaming = 0.20f; // -20%
 			} )
-			.WithTexture( "aura/aura1.png" )
+			.WithTexture( "backseat/backseat1.png" )
 			.PlaceAt( Vector2.Down * 1500 )
 			.Next( "Backseat Gaming II",
 				v =>
-					v.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "backseat/backseat2.png" )
 						.PlaceAt( Vector2.Down * 1500 + Vector2.Left * 150 ) )
 			.Next( "Backseat Gaming III",
 				v =>
-					v.WithTexture( "aura/aura3.png" )
+					v.WithTexture( "backseat/backseat3.png" )
 						.PlaceAt( Vector2.Down * 1500 + Vector2.Left * 300 ) )
 			.Build();
 
