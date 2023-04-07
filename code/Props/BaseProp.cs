@@ -37,6 +37,8 @@ public partial class BaseProp : BaseEntity
 
 	public override void Kill()
 	{
+		if ( this == null || !IsValid )
+			return;
 
 		if ( IsBreakable )
 		{
