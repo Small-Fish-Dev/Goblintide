@@ -13,6 +13,7 @@
 		width: 100%;
 		height: 100%;
 		color: white;
+		cursor: none;
 
 		.inputContainer {
 			position: absolute;
@@ -33,6 +34,23 @@
 		.resources {
 			z-index: 3;
 		}
+
+		.cursor {
+			position: absolute;
+			z-index: 5;
+			opacity: 1;
+			transition: opacity 0.3s ease-in-out;
+			background-image: url(ui/hand.png);
+			background-size: cover;
+			background-repeat: no-repeat;
+			width: 32px;
+			aspect-ratio: 1;
+			pointer-events: none;
+
+			&.hidden {
+				opacity: 0;
+			}
+		}
 	}
 </style>
 
@@ -48,11 +66,15 @@
 		<inputglyph text="Overview" button=@InputButton.Score />
 		<inputglyph text="Map" button=@InputButton.Reload />
 	</panel>
+
+	<panel @ref=cursor class="cursor" />
 </root>
 
 @code {
 	public static HUD Instance { get; private set; }
 	public bool Dragging { get; set; } = false;
+
+	Panel cursor;
 
 	public HUD()
 	{
@@ -79,6 +101,14 @@
 		Style.PointerEvents = pawn.Overview
 			? PointerEvents.All
 			: PointerEvents.None;
+
+		if ( cursor != null )
+		{
+			var fraction = Mouse.Position / Screen.Size;
+			cursor.Style.Left = Length.Fraction( fraction.x );
+			cursor.Style.Top = Length.Fraction( fraction.y );
+			cursor.SetClass( "hidden", !Mouse.Visible );
+		}
 
 		// Capture mouse. ?
 		SetMouseCapture( Dragging && pawn.Overview );
