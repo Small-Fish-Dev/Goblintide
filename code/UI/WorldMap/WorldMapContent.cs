@@ -50,6 +50,9 @@ public partial class WorldMapContent
 
 		if ( !firstTime ) return;
 
+		// hack(gio): just move camera to where it should probably be
+		PanelCamera.Position -= 400;
+		
 		// Create actors for entries that should be instantly visible
 		foreach ( var pairing in _pairs )
 		{
