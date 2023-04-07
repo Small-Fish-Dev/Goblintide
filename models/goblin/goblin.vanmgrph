@@ -15,7 +15,7 @@
 				{
 					_class = "CBlend2DAnimNode"
 					m_sName = "2D - Walk & Run"
-					m_vecPosition = [ -496.0, -432.0 ]
+					m_vecPosition = [ -512.0, -432.0 ]
 					m_nNodeID = 
 					{
 						m_id = 213225180
@@ -41,6 +41,24 @@
 							m_tagSpans = [  ]
 							m_sequenceName = "run_N"
 							m_blendValue = [ 0.0, 80.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "run_N"
+							m_blendValue = [ 0.0, -80.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "run_N"
+							m_blendValue = [ -20.0, 0.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "run_N"
+							m_blendValue = [ 20.0, 0.0 ]
 						},
 					]
 					m_blendSourceX = "Parameter"

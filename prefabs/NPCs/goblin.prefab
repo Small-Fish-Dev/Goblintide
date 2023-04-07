@@ -34,6 +34,20 @@
             "Value": "[]"
           }
         }
+      },
+      {
+        "Guid": "6cb86015-7aff-4b4d-bb16-7fc4b995f0bb",
+        "Class": "RandomAccessoryComponent",
+        "Keys": {
+          "Type": {
+            "Type": "AccessoryType",
+            "Value": "\u0022GoblinExtras\u0022"
+          },
+          "_name": {
+            "Value": "\u0022RandomAccessoryComponent\u0022"
+          },
+          "_tags": {}
+        }
       }
     ],
     "Keys": {
