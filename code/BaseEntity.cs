@@ -12,7 +12,7 @@ public partial class BaseEntity : AnimatedEntity
 {
 
 	[Prefab, Category( "Stats" )]
-	public virtual float MaxHitPoints { get; set; } = 6f;
+	[Net] public float MaxHitPoints { get; set; } = 6f;
 	[Net] public float HitPoints { get; set; } = 6f;
 	[Prefab, Category( "Stats" )]
 	public virtual FactionType DefaultFaction { get; set; } = FactionType.None;

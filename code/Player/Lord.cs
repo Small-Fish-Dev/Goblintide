@@ -6,8 +6,6 @@ public partial class Lord : BaseCharacter
 {
 	public static Lord Self => (Lord)Game.LocalPawn;
 
-	public override float MaxHitPoints { get; set; } = 10f;
-
 	public override FactionType DefaultFaction { get; set; } = FactionType.Goblins;
 
 	public float BaseWalkSpeed { get; set; } = 140f;
@@ -21,6 +19,7 @@ public partial class Lord : BaseCharacter
 	{
 		base.Spawn();
 		Faction = DefaultFaction;
+		MaxHitPoints = 10f;
 		HitPoints = MaxHitPoints;
 
 		SetModel( "models/goblin/goblin.vmdl" );

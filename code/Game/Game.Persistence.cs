@@ -38,6 +38,7 @@ partial class GameMgr
 			{
 				writer.Write( goblin.Name.ToLower() );
 				writer.Write( goblin.DisplayName );
+				writer.Write( goblin.Level );
 				writer.Write( goblin.GetMaterialGroup() );
 				writer.Write( goblin.Weapon?.Name ?? "null" );
 				writer.Write( goblin.Armor?.Name ?? "null" );
@@ -54,6 +55,7 @@ partial class GameMgr
 			{
 				var prefabName = reader.ReadString();
 				var name = reader.ReadString();
+				var level = reader.ReadInt32();
 				var materialGroup = reader.ReadInt32();
 				var weaponName = reader.ReadString();
 				var armorName = reader.ReadString();
@@ -65,6 +67,7 @@ partial class GameMgr
 
 				npc.Position = Lord.Position + Vector3.Random.WithZ( 0 ) * 100f;
 				npc.DisplayName = name;
+				npc.SetLevel( level );
 				npc.SetMaterialGroup( materialGroup );
 				if ( weaponName != "null" )
 				{

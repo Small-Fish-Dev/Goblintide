@@ -207,6 +207,13 @@ public partial class BaseNPC
 			SetAnimParameter( "Attack", true );
 
 			PlayAttackSound();
+
+			experience += 0.2f;
+			if ( experience >= 1f )
+			{
+				experience = 0f;
+				IncreaseLevel();
+			}
 		}
 	}
 

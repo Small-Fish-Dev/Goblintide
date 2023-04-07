@@ -182,11 +182,14 @@ public static class Debug
 			var pos = v.Position;
 			var line = 0;
 			DebugOverlay.Line( pos, pos + v.Direction * 32 );
-			DebugOverlay.Text( $"<3 {v.HitPoints}", pos, line++, Color.White );
-			DebugOverlay.Text( $"!  {v.CurrentBehaviour}", pos, line++, Color.White );
+			DebugOverlay.Text( $"{v.DisplayName}", pos, line++, Color.White );
+			DebugOverlay.Text( $"HP: {v.HitPoints}/{v.MaxHitPoints}", pos, line++, Color.White );
+			DebugOverlay.Text( $"LV: {v.Level}", pos, line++, Color.White );
+			DebugOverlay.Text( $"DMG: {v.AttackPower}", pos, line++, Color.White );
+			/*DebugOverlay.Text( $"!  {v.CurrentBehaviour}", pos, line++, Color.White );
 
 			if ( v.CurrentTarget != null )
-				DebugOverlay.Text( $"-> {v.CurrentTarget}", pos, line++, Color.White );
+				DebugOverlay.Text( $"-> {v.CurrentTarget}", pos, line++, Color.White );*/
 		}
 	}
 

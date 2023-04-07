@@ -66,6 +66,8 @@ public partial class BaseNPC : BaseCharacter
 	[Prefab, Category( "Character" ), ResourceType( "prefab" )]
 	public string StartingArmor { get; set; } = null;
 	public override string DamageSound { get; set; } = "sounds/impacts/impact-bullet-flesh.sound";
+	[Net] public int Level { get; set; } = 1;
+	float experience { get; set; } = 0f;
 
 	[Net] public BaseItem Weapon { get; set; } = null;
 	[Net] public BaseItem Armor { get; set; } = null;
@@ -85,7 +87,6 @@ public partial class BaseNPC : BaseCharacter
 		base.Spawn();
 
 		Faction = DefaultFaction;
-		HitPoints = MaxHitPoints;
 		Tags.Add( "NPC" );
 		Tags.Add( Faction.ToString() );
 
@@ -117,6 +118,25 @@ public partial class BaseNPC : BaseCharacter
 				Equip( weapon );
 			}
 		}
+
+		HitPoints = MaxHitPoints;
+	}
+
+	// Only call on spawn!!!
+	public void SetLevel( int level )
+	{
+		Level = level;
+		MaxHitPoints += level / 4;
+		HitPoints = MaxHitPoints;
+		AttackPower += level / 4;
+	}
+
+	public void IncreaseLevel()
+	{
+		Level++;
+		MaxHitPoints += 0.25f;
+		HitPoints += 0.25f;
+		AttackPower += 0.25f;
 	}
 
 	public void Equip( BaseItem item )
@@ -140,6 +160,8 @@ public partial class BaseNPC : BaseCharacter
 		}
 
 		item.Equipped = true;
+
+		MaxHitPoints += item.IncreasedHealth;
 		HitPoints += item.IncreasedHealth;
 		AttackPower += item.IncreasedAttack;
 		AttackRange += item.IncreasedRange;
@@ -156,6 +178,7 @@ public partial class BaseNPC : BaseCharacter
 
 		item.Equipped = false;
 
+		MaxHitPoints -= item.IncreasedHealth;
 		HitPoints -= item.IncreasedHealth;
 		AttackPower -= item.IncreasedAttack;
 		AttackRange -= item.IncreasedRange;
