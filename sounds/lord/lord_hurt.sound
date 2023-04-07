@@ -1,0 +1,15 @@
+{
+  "UI": false,
+  "Volume": "0.70,0.70,0",
+  "Pitch": "0.70,0.80,1",
+  "Decibels": 60,
+  "SelectionMode": "Random",
+  "Sounds": [
+    "sounds/lord/command1.vsnd",
+    "sounds/lord/command2.vsnd",
+    "sounds/lord/command3.vsnd",
+    "sounds/lord/command4.vsnd"
+  ],
+  "MaximumDistance": 848.93066,
+  "MinimumDistance": 42.446533
+}

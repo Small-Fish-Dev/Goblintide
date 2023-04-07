@@ -43,6 +43,7 @@ public partial class Lord
 			{
 				if ( PointingAt.IsValid() )
 				{
+					PlaySound( "sounds/lord/lord_command.sound" );
 					if ( PointingAt.Faction == Faction )
 					{
 						if ( PointingAt is BaseNPC npc )
