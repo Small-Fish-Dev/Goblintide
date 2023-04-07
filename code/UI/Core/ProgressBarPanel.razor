@@ -1,0 +1,35 @@
+@using Sandbox.UI
+
+@namespace GameJam
+@inherits Panel
+
+<root class="pbp">
+    @if (IconPath != default) {
+        <img src=@IconPath />
+    }
+    <div class="progress-bar"></div>
+</root>
+
+<style>
+    .pbp {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+
+        img {
+            transform: translateX(50%);
+            z-index: 500;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 75%;
+
+            border-radius: 8px;
+        }
+    }
+</style>
+
+@code {
+    public string IconPath { get; set; }
+}
