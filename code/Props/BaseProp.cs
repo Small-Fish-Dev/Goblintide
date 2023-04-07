@@ -77,7 +77,7 @@ public partial class BaseProp : BaseEntity
 	public override void Damage( float amount, BaseCharacter attacker )
 	{
 		var direction = (attacker.Position - Position).Normal;
-		var position = Position + GetHeight() / 2f + direction * GetWidth();
+		var position = Position + Vector3.Up * GetHeight() / 2f + direction * GetWidth() / 2f;
 		Particles.Create( "particles/impact.wood.vpcf", position );
 
 		base.Damage( amount, attacker );
