@@ -71,6 +71,12 @@ public partial class GameMgr : GameManager
 
 		Event.Run( nameof(GameEvents.Initialize) );
 
+		if ( Game.IsClient )
+		{
+			GameMgr.Music.Stop();
+			GameMgr.Music = Sound.FromScreen( "sounds/music/village_song.sound" );
+		}
+
 		WorldMapHost.Start();
 	}
 
