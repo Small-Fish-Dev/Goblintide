@@ -39,6 +39,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Time.Now);
+        return Time.Now.GetHashCode();
     }
 }
