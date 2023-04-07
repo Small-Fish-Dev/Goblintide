@@ -88,16 +88,12 @@ public partial class RaidingState : GameState
 
 		if ( CurrentState == RaidState.Sneaking )
 		{
-			Log.Error( $"Sneaking time! ({TimeBeforeRaidStart.Relative}s left)" );
-
 			if ( TimeBeforeRaidStart )
 				CurrentState = RaidState.Raiding;
 		}
 
 		if ( CurrentState == RaidState.Raiding )
 		{
-			Log.Error( $"Raiding time! ({TimeBeforeRaidEnds.Relative}s left)" );
-
 			if ( TimeBeforeRaidEnds )
 				CurrentState = RaidState.EndOfTimer;
 		}
@@ -120,8 +116,6 @@ public partial class RaidingState : GameState
 				}
 			}
 
-			Log.Error( $"Escape to the forest! The guards are coming!" );
-
 			
 		}
 
@@ -142,12 +136,33 @@ public partial class RaidingState : GameState
 		if ( newState == RaidState.Sneaking )
 		{
 			TimeBeforeRaidStart = 15f;
+			if ( GameMgr.Tutorial )
+			{
+				GameMgr.Instance.tutorialPhrases.Add( "Sneak around and take note of the loot in this village! Your army is coming soon." );
+				GameMgr.Instance.nextTutorial = 0.5f;
+			}
 		}
 
 		if ( newState == RaidState.Raiding )
 		{
 			TimeBeforeRaidEnds = (int)Math.Sqrt( GameMgr.CurrentTown.TownSize * 100 );
 			GameMgr.GoblinArmyEnabled( true );
+			if ( GameMgr.Tutorial )
+			{
+				GameMgr.Instance.tutorialPhrases.Add( "The goblins are coming! Direct them towards enemies and loot!" );
+				GameMgr.Instance.tutorialPhrases.Add( "Hold Right Click to point and Left Click to command nearby goblins." );
+				GameMgr.Instance.tutorialPhrases.Add( "Make sure not to leave anything behind!" );
+				GameMgr.Instance.nextTutorial = 0.5f;
+			}
+		}
+
+		if ( newState == RaidState.EndOfTimer )
+		{
+			if ( GameMgr.Tutorial )
+			{
+				GameMgr.Instance.tutorialPhrases.Add( "You took too long, the guards are coming! Escape into the forest to return to base." );
+				GameMgr.Instance.nextTutorial = 0.5f;
+			}
 		}
 
 	}

@@ -1,4 +1,7 @@
-﻿namespace GameJam;
+﻿using Sandbox.Internal;
+using System.Diagnostics;
+
+namespace GameJam;
 
 public struct BuildingEntry
 {
@@ -38,6 +41,14 @@ public partial class VillageState : GameState
 		foreach( var goblin in GameMgr.GoblinArmy )
 		{
 			goblin.BaseDiligency = 1;
+		}
+
+		if ( Game.IsServer )
+		{
+			if ( GameMgr.Tutorial )
+			{
+				GameMgr.DoTutorial();
+			}
 		}
 	}
 

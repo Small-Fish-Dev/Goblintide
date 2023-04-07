@@ -117,6 +117,47 @@ public partial class GameMgr : GameManager
 		WorldMapHost.Start();
 	}
 
+	public TimeUntil nextTutorial = 10000f;
+	public List<string> tutorialPhrases = new List<string>()
+	{
+		"Barely escaping with your life, you're now forced to build back your goblin army...",
+		$"You'll need resources to build your settlement and upgrade yourself.",
+		$"Travelling takes energy, and energy takes time to restore. So make sure to upgrade it!",
+		$"Open your map and select a tent with a low number to begin your raid!"
+	};
+
+	public static void DoTutorial()
+	{
+		GameMgr.Instance.nextTutorial = 1f;
+	}
+
+	[Event.Tick.Server]
+	public static void ComputeTutorial()
+	{
+		if ( !GameMgr.Tutorial ) return;
+
+		if ( GameMgr.Instance.nextTutorial )
+		{
+			if ( GameMgr.Instance.tutorialPhrases.Count == 0 )
+			{
+				GameMgr.Instance.nextTutorial = 999999f;
+				return;
+			}
+			var curPhrase = GameMgr.Instance.tutorialPhrases.First();
+			var duration = curPhrase.Length / 16f;
+			GameplayHints.Send( To.Everyone, curPhrase, duration );
+			GameMgr.Instance.tutorialPhrases.RemoveAt( 0 );
+			if ( GameMgr.Instance.tutorialPhrases.Count == 0 )
+			{
+				GameMgr.Instance.nextTutorial = 999999f;
+				return;
+			}
+			else
+				GameMgr.Instance.nextTutorial = duration + 0.3f;
+
+		}
+	}
+
 	public override void ClientJoined( IClient client )
 	{
 		// Hard code player limit to 1.
