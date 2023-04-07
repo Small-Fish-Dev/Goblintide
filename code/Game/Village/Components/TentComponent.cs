@@ -24,4 +24,15 @@ public partial class TentComponent : StructureComponent
 
 		GameMgr.MaxArmySize -= ( 10 + extraSpace );
 	}
+
+	[Event( "UpgradeBought" )]
+	public static void CheckNewMaxArmy( string identifier )
+	{
+		if ( identifier.StartsWith( "Mac Mansion" ) )
+		{
+			if ( Lord.CombinedUpgrades != null )
+				if ( Lord.CombinedUpgrades.MacMansion > 0 )
+					GameMgr.MaxArmySize++;
+		}
+	}
 }

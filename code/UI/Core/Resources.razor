@@ -5,7 +5,7 @@
 
 <root>
     <ResourcePanel @ref=EnergyPanel ResourceName="Energy" ResourceAmount=@((int)GameMgr.TotalEnergy)></ResourcePanel>
-    <ResourcePanel @ref=ArmyPanel ResourceName="Goblin" ResourceAmount=@GameMgr.MaxArmySize></ResourcePanel>
+    <ResourcePanel @ref=ArmyPanel ResourceName="Goblin" ResourceAmount=@ArmySize></ResourcePanel>
     <ResourcePanel @ref=WoodPanel ResourceName="Wood" ResourceAmount=@GameMgr.TotalWood></ResourcePanel>
     <ResourcePanel @ref=GoldPanel ResourceName="Gold" ResourceAmount=@GameMgr.TotalGold></ResourcePanel>
     <ResourcePanel @ref=FoodPanel ResourceName="Food" ResourceAmount=@GameMgr.TotalFood></ResourcePanel>
@@ -43,11 +43,16 @@
     public ResourcePanel FoodPanel { get; set; }
     public ResourcePanel WomenPanel { get; set; }
 
+    public int ArmySize => GameMgr.GoblinArmy.Count;
+
     [Event("resources.energy")]
     void OnEnergy(int newAmount) => EnergyPanel.OnValueChange(newAmount);
 
-    [Event("resources.army")]
-    void OnArmy(int newAmount) => ArmyPanel.OnValueChange(newAmount);
+    public override void Tick()
+    {
+        ArmyPanel.OnValueChange(GameMgr.GoblinArmy.Count);
+        base.Tick();
+    }
 
     [Event("resources.wood")]
     void OnWood(int newAmount) => WoodPanel.OnValueChange(newAmount);
