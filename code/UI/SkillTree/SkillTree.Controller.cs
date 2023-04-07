@@ -52,7 +52,7 @@ public partial class SkillTree
 
 		if ( SelectedActor == null )
 		{
-			SelectedActor = Descendants.OfType<UpgradeActor>().First();
+			SelectedActor = Descendants.OfType<UpgradeActor>().FirstOrDefault();
 			return;
 		}
 
