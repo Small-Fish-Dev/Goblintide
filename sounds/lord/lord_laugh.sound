@@ -1,0 +1,13 @@
+{
+  "UI": false,
+  "Volume": "0.70,0.70,0",
+  "Pitch": "0.95,1.05,1",
+  "Decibels": 60,
+  "SelectionMode": "Random",
+  "Sounds": [
+    "sounds/lord/laugh1.vsnd",
+    "sounds/lord/laugh2.vsnd"
+  ],
+  "MaximumDistance": 848.93066,
+  "MinimumDistance": 42.446533
+}

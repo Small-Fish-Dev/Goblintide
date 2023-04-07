@@ -51,6 +51,8 @@ partial class GameMgr
 
 		// Call initialize.
 		current?.Initialize();
+		
+		Event.Run( "HACK_GameStateChanged" );
 	}
 
 	[ConCmd.Admin( "startraid" )]

@@ -56,18 +56,25 @@
 
 <root>
 	<eventlogger/>
-	<gameplayhints />
-	<crosshair />
+	<gameplayhints/>
+	<crosshair/>
 
-	<resources class="resources" />
+	<resources class="resources"/>
 
 	<panel class="inputContainer">
-		<inputglyph text="Skill Tree" button=@InputButton.Chat />
-		<inputglyph text="Overview" button=@InputButton.Score />
-		<inputglyph text="Map" button=@InputButton.Reload />
+		@if ( GameMgr.State is VillageState )
+		{
+			<inputglyph text="Skill Tree" button=@InputButton.Chat/>
+			<inputglyph text="Overview" button=@InputButton.Score/>
+			<inputglyph text="Map" button=@InputButton.Reload/>
+		}
+		@if ( GameMgr.State is RaidingState )
+		{
+			<inputglyph text="Command!" button=@InputButton.SecondaryAttack/>
+		}
 	</panel>
 
-	<panel @ref=cursor class="cursor" />
+	<panel @ref=cursor class="cursor"/>
 </root>
 
 @code {
@@ -82,11 +89,19 @@
 		WorldMapContent.Create();
 	}
 
+	[Event( "HACK_GameStateChanged" )]
+	private void GameStateChanged()
+	{
+		Log.Info( $"new game state {GameMgr.State}" );
+		StateHasChanged();
+	}
+	
+
 	public override void OnButtonEvent( ButtonEvent e )
 	{
 		base.OnButtonEvent( e );
 
-		// Mouse Right dragging.
+	// Mouse Right dragging.
 		if ( e.Button != "mouseright" )
 			return;
 
@@ -110,10 +125,10 @@
 			cursor.SetClass( "hidden", !Mouse.Visible );
 		}
 
-		// Capture mouse. ?
+	// Capture mouse. ?
 		SetMouseCapture( Dragging && pawn.Overview );
 
-		// Overview movement by mouse position.
+	// Overview movement by mouse position.
 		if ( !pawn.Overview )
 			return;
 
@@ -128,7 +143,7 @@
 			return;
 		}
 
-		/*var screenFraction = 0.05f;
+	/*var screenFraction = 0.05f;
 		var fraction = Screen.Size * screenFraction;
 
 		if ( Mouse.Position.x >= Screen.Size.x - fraction.x )
@@ -164,8 +179,9 @@
 			foreach ( var child in _children )
 			{
 				var focus = child.HasFocus ? "(focused) " : "";
-				Debug.Add($"{child} {focus}");
+				Debug.Add( $"{child} {focus}" );
 			}
 		} );
 	}
+
 }
