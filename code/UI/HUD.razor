@@ -44,14 +44,14 @@
 </root>
 
 @code {
-	public static HUD Instance { get; private set; }
-	public bool Dragging { get; set; } = false;
+    public static HUD Instance { get; private set; }
+    public bool Dragging { get; set; } = false;
 
-	public HUD()
-	{
-		Instance?.Delete( true );
-		Instance = this;
-		WorldMapContent.Create();
+    public HUD()
+    {
+        Instance?.Delete( true );
+        Instance = this;
+        WorldMapContent.Create();
 	}
 
 	public override void OnButtonEvent( ButtonEvent e )
@@ -110,7 +110,7 @@
 			pawn.OverviewOffset += Vector3.Forward * speed * (scaleFactor * (fraction.y - Mouse.Position.y) / fraction.y);
 	}
 
-	[Event.Hotload, GameEvents.Initialize]
+	[GameEvents.Initialize]
 	private static void Refresh()
 	{
 		if ( Game.IsClient )
