@@ -11,8 +11,8 @@ public partial class WorldMapContent
 	private const int MaxDistanceX = 700;
 	private const int MaxDistanceY = 500;
 
-	private const int FadeDistanceX = 550;
-	private const int FadeDistanceY = 400;
+	private const int FadeDistanceX = 400;
+	private const int FadeDistanceY = 300;
 
 	private class Pairing
 	{
@@ -73,34 +73,13 @@ public partial class WorldMapContent
 		return a;
 	}
 
-	public Vector2 GetDistanceToCamera( Vector2 position )
+	public Vector2 GetDistanceToCamera( Actor actor )
 	{
-		var a = GetActorPosition( Content, position );
+		var a = GetActorPosition( actor.Parent, actor.Position + actor.Size / 2 );
 
 		var b = Screen.Size;
 		b *= ScaleFromScreen;
 		b /= 2;
-
-		return new Vector2(
-			float.Abs( a.x - b.x ),
-			float.Abs( a.y - b.y )
-		);
-	}
-
-	public Vector2 GetDistanceToCamera( WorldMapHost.Node node )
-	{
-		var a = node.MapPosition;
-		a -= PanelCamera.Position;
-
-		var b = Screen.Size;
-		b *= ScaleFromScreen;
-		b /= 2;
-
-		var c = Content.Box.Rect.Size;
-		c /= 2;
-		c *= ScaleFromScreen;
-
-		a += c;
 
 		return new Vector2(
 			float.Abs( a.x - b.x ),
@@ -110,6 +89,8 @@ public partial class WorldMapContent
 
 	public override void Tick()
 	{
+		if ( Style.Opacity == 0 ) return;
+
 		base.Tick();
 
 		foreach ( var pairing in _pairs )
@@ -131,27 +112,25 @@ public partial class WorldMapContent
 
 			if ( !pairing.PlaceActor.ReadyToPosition ) continue;
 
-			var distance = GetDistanceToCamera( pairing.PlaceActor.Rect.Center );
+			var distance = GetDistanceToCamera( pairing.PlaceActor );
+
+			DebugOverlay.ScreenText( $"{distance}", pairing.PlaceActor.Box.Rect.Position );
 
 			if ( distance.x > MaxDistanceX || distance.y > MaxDistanceY )
 			{
 				// Should be removed / hidden
-				if ( pairing.PlaceActor != null ) pairing.PlaceActor.Style.Display = DisplayMode.None;
+				pairing.PlaceActor.Style.Display = DisplayMode.None;
 				continue;
 			}
 
 			// Handle fade out
-			if ( distance.x > FadeDistanceX || distance.y > FadeDistanceY )
-			{
-				var fx = (distance.x - FadeDistanceX).Remap( 0, FadeDistanceX );
-				var fy = (distance.y - FadeDistanceY).Remap( 0, FadeDistanceY );
-				var f = float.Min( fx, fy );
-				pairing.PlaceActor.Style.Opacity = float.Max( 0, f );
-			}
-			else
-			{
-				pairing.PlaceActor.Style.Opacity = 1;
-			}
+			var fx = 1.0f;
+			var fy = 1.0f;
+
+			if ( distance.x > FadeDistanceX ) fx = distance.x.Remap( FadeDistanceX, MaxDistanceX, 1, 0 );
+			if ( distance.y > FadeDistanceY ) fy = distance.y.Remap( FadeDistanceY, MaxDistanceY, 1, 0 );
+
+			pairing.PlaceActor.Style.Opacity = float.Max( float.Min( fx, fy ), 0 );
 
 			pairing.PlaceActor.Style.Display = DisplayMode.Flex;
 		}
