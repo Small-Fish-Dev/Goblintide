@@ -10,25 +10,42 @@
 		.camp {
 			width: 50px;
 			height: 50px;
+		}
 		
-			filter: invert(100);
+		.town {
+			width: 75px;
+			height: 75px;
+		}
+		
+		.castle {
+			width: 100px;
+			height: 100px;
 		}
 	}
 </style>
 
 <root>
-	@if ( Node.Size > 2500 )
+	@if ( Node.Size > 50 )
 	{
-		
-	} else if ( Node.Size > 1200 )
+		<AnimatedImage
+			class="castle"
+			delay="1"
+			path="textures/tests/castle">
+		</AnimatedImage>
+	}
+	else if ( Node.Size > 25 )
 	{
-		
+		<AnimatedImage
+			class="town"
+			delay="1"
+			path="textures/tests/town">
+		</AnimatedImage>
 	}
 	else
 	{
 		<AnimatedImage
 			class="camp"
-			delay="1"
+			delay="0.8"
 			path="textures/tests/camp">
 		</AnimatedImage>
 	}
