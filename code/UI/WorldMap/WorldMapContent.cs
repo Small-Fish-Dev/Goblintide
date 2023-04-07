@@ -1,11 +1,11 @@
-﻿using System.Threading;
+﻿using GameJam.UI.Core;
 using Sandbox.UI;
 
 namespace GameJam.UI;
 
-public partial class WorldMap
+public partial class WorldMapContent
 {
-	public Panel Container { get; set; }
+	public PanelCamera PanelCamera { get; } = new();
 	public Panel Content { get; set; }
 
 	private const int MaxDistanceX = 700;
@@ -14,93 +14,49 @@ public partial class WorldMap
 	private const int FadeDistanceX = 550;
 	private const int FadeDistanceY = 400;
 
-	public class PlacePairing
+	private class Pairing
 	{
 		public readonly WorldMapHost.Node Node;
 		public PlaceActor PlaceActor;
-		public bool Appended;
 
-		public PlacePairing( WorldMapHost.Node a, PlaceActor b )
+		public Pairing( WorldMapHost.Node a, PlaceActor b )
 		{
 			Node = a;
 			PlaceActor = b;
 		}
 	}
 
-	public readonly List<PlacePairing> Pairings = new();
+	private readonly List<Pairing> _pairs = new();
 
-	private async void Initialize()
+	public WorldMapContent()
 	{
-		Pairings.Clear();
+		if ( _instance != null )
+			throw new Exception( "Created secondary WorldMapContent" );
+		_instance = this;
 
-		await GameTask.RunInThreadAsync( () =>
-		{
-			RealTimeSince timer = 0;
-			Log.Info( "Generating initial pairings..." );
+		Hide();
 
-			foreach ( var entry in WorldMapHost.Entries )
-			{
-				Pairings.Add( new PlacePairing( entry, null ) );
-			}
+		// Create pairs
+		if ( WorldMapHost.Entries == null || WorldMapHost.Entries.Count == 0 )
+			throw new Exception( "WorldMapHost not ready but WorldMapContent created" );
 
-			Log.Info( $"Generated {Pairings.Count} pairings in {timer.Relative * 1000}ms." );
-
-			timer = 0;
-			Log.Info( "Generating actors..." );
-			foreach ( var pairing in Pairings )
-			{
-				pairing.PlaceActor = new PlaceActor( pairing.Node );
-				pairing.PlaceActor.PanelCamera = Camera;
-			}
-
-			Log.Info( $"Generated in {timer.Relative * 1000}ms." );
-
-			timer = 0;
-			Log.Info( "Appending actors..." );
-
-			lock ( Pairings )
-			{
-				foreach ( var pairing in Pairings )
-				{
-					var distance = GetDistanceToCamera( pairing.Node );
-					if ( distance.x > MaxDistanceX || distance.y > MaxDistanceY )
-						continue;
-					Content.AddChild( pairing.PlaceActor );
-				}
-			}
-
-			Log.Info( $"Appended in {timer.Relative * 1000}ms." );
-
-			_appendingDone = true;
-		} );
-	}
-	
-	private bool _appendingDone;
-
-	public WorldMap()
-	{
-		SkillTree.Delete();
+		foreach ( var entry in WorldMapHost.Entries )
+			_pairs.Add( new Pairing( entry, null ) );
 	}
 
 	protected override void OnAfterTreeRender( bool firstTime )
 	{
 		base.OnAfterTreeRender( firstTime );
 
-		if ( firstTime )
-			Initialize();
-	}
+		if ( !firstTime ) return;
 
-	public override void OnDeleted()
-	{
-		base.OnDeleted();
-
-		foreach ( var pairing in Pairings )
+		// Create actors for entries that should be instantly visible
+		foreach ( var pairing in _pairs )
 		{
-			pairing.PlaceActor?.Delete( immediate: true );
-			pairing.PlaceActor = null;
+			pairing.PlaceActor = new PlaceActor( pairing.Node );
+			pairing.PlaceActor.PanelCamera = PanelCamera;
+			Content.AddChild( pairing.PlaceActor );
 		}
-
-		Pairings.Clear();
 	}
 
 	public Vector2 GetActorPosition( Panel parent, Vector2 position )
@@ -109,7 +65,7 @@ public partial class WorldMap
 		var a = position;
 
 		// Remove camera offset from actor pos
-		a -= Camera.Position;
+		a -= PanelCamera.Position;
 
 		// Remove parent offset from actor pos
 		a += (parent?.Box.Rect.Position ?? Vector2.Zero) * ScaleFromScreen;
@@ -130,11 +86,11 @@ public partial class WorldMap
 			float.Abs( a.y - b.y )
 		);
 	}
-	
+
 	public Vector2 GetDistanceToCamera( WorldMapHost.Node node )
 	{
 		var a = node.MapPosition;
-		a -= Camera.Position;
+		a -= PanelCamera.Position;
 
 		var b = Screen.Size;
 		b *= ScaleFromScreen;
@@ -145,7 +101,7 @@ public partial class WorldMap
 		c *= ScaleFromScreen;
 
 		a += c;
-		
+
 		return new Vector2(
 			float.Abs( a.x - b.x ),
 			float.Abs( a.y - b.y )
@@ -156,29 +112,25 @@ public partial class WorldMap
 	{
 		base.Tick();
 
-		// Handle actors based on distance
-		if ( !_appendingDone )
-			return;
-
-		foreach ( var pairing in Pairings )
+		foreach ( var pairing in _pairs )
 		{
-			if ( pairing.PlaceActor == null )
+			/*8if ( pairing.PlaceActor == null )
 			{
 				// This actor doesn't exist - lets see if we should create it
 				var nodeDistance = GetDistanceToCamera( pairing.Node );
+				Log.Info( (nodeDistance) );
 				if ( nodeDistance.x > MaxDistanceX || nodeDistance.y > MaxDistanceY )
 					continue;
 
 				// Create it!
-				pairing.PlaceActor = new PlaceActor( pairing.Node );
-				pairing.PlaceActor.PanelCamera = Camera;
+				pairing.PlaceActor = new PlaceActor( pairing.Node ) { PanelCamera = PanelCamera };
 				Content.AddChild( pairing.PlaceActor );
-				
-				continue;
-			}
 
-			if ( !pairing.Appended ) continue;
-			
+				continue;
+			}*/
+
+			if ( !pairing.PlaceActor.ReadyToPosition ) continue;
+
 			var distance = GetDistanceToCamera( pairing.PlaceActor.Rect.Center );
 
 			if ( distance.x > MaxDistanceX || distance.y > MaxDistanceY )

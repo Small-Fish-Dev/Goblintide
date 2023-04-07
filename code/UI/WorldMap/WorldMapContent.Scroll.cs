@@ -1,8 +1,9 @@
-﻿using Sandbox.UI;
+﻿using GameJam.UI.Core;
+using Sandbox.UI;
 
 namespace GameJam.UI;
 
-public partial class WorldMap
+public partial class WorldMapContent
 {
 	private bool _dragging;
 	private Vector2 _lastMousePos;
@@ -38,7 +39,7 @@ public partial class WorldMap
 
 		if ( _dragging )
 		{
-			Camera.Position -= (MousePosition - _lastMousePos) * ScaleFromScreen;
+			PanelCamera.Position -= (MousePosition - _lastMousePos) * ScaleFromScreen;
 		}
 
 		_lastMousePos = MousePosition;

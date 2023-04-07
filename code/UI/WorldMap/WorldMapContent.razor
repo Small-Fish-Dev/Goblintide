@@ -1,0 +1,47 @@
+﻿@using GameJam.UI.Core
+@using GameJam.UpgradeSystem
+@using Sandbox.UI;
+
+@namespace GameJam.UI
+@inherits Panel
+@attribute [StyleSheet( "/UI/WorldMap/WorldMapContent.scss" )]
+
+<root>
+	<div class="content" allow-translate @ref=Content></div>
+</root>
+
+@code {
+
+	private static WorldMapContent _instance;
+
+	public static void Create()
+	{
+		if ( _instance != null )
+		{
+			Log.Warning( "Create called while instance exists (WorldMapContent) - this is bad unless you caused a hotload!" );
+			_instance.Delete( true );
+			_instance = null;
+		}
+		if ( WorldMapHost.Entries == null || WorldMapHost.Entries.Count == 0 )
+		{
+			Log.Warning( "Can't create WorldMapContent - WorldMapHost not initialized!" );
+			return;
+		}
+		HUD.Instance?.AddChild( new WorldMapContent() );
+	}
+
+	public static void Hide()
+	{
+		_instance.Style.Opacity = 0;
+		_instance.Style.Display = DisplayMode.None;
+		_instance.Style.PointerEvents = PointerEvents.None;
+	}
+
+	public static void Show()
+	{
+		_instance.Style.Opacity = 1;
+		_instance.Style.Display = DisplayMode.Flex;
+		_instance.Style.PointerEvents = PointerEvents.All;
+	}
+
+}

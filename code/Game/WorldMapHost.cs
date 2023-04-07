@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using GameJam.UI;
 
 namespace GameJam;
 
@@ -79,13 +80,16 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 
 			var node = new Node( position, size, index );
 		}
+
+		// Create WorldMapContent
+		WorldMapContent.Create();
 	}
 
 	[ConCmd.Server]
 	private static void ClientToServerGenerate( int index )
 	{
 		Game.AssertServer();
-		
+
 		Node node;
 		if ( (node = Entries.ElementAtOrDefault( index )) == null )
 			return; // Failed to find node.
