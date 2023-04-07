@@ -288,12 +288,9 @@ partial class GameMgr
 		// Check if we can load a save.
 		if ( !FileSystem.Data.FileExists( SAVE_PATH ) )
 		{
-			if ( !Loaded )
-			{
-				CreateInitialVillage();
-			}
 			// Do we need to do initial stuff if the save doesn't exist?
 			Loaded = true;
+			CreateInitialVillage();
 			return false;
 		}
 
@@ -394,6 +391,7 @@ partial class GameMgr
 
 		}
 
+		TotalEnergy = MaxEnergy;
 		SpawnStructure( "tent", Vector3.Forward * 270f );
 		SpawnStructure( "goblinshack", Vector3.Forward * 300f + Vector3.Left * 550f );
 	}

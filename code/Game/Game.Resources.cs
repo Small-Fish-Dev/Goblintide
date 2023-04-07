@@ -133,7 +133,7 @@ public partial class GameMgr
 	[Net, Change( nameof( EmitIQChange ) )] private int totalIQ { get; set; } = 0;
 	[Net, Change( nameof( EmitFoodChange ) )] private int totalFood { get; set; } = 0;
 	[Net, Change( nameof( EmitWomenChange ) )] private int totalWomen { get; set; } = 0;
-	[Net, Change( nameof( EmitEnergyChange ) )] private double totalEnergy { get; set; } = 30;
+	[Net, Change( nameof( EmitEnergyChange ) )] private double totalEnergy { get; set; } = 50d;
 	[Net] private double maxEnergy { get; set; } = 50; // Default value = 50
 	[Net] private int maxIQ { get; set; } = 0;
 	[Net] private double energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
@@ -185,13 +185,13 @@ public partial class GameMgr
 	{
 		if ( !GameMgr.Loaded ) return;
 
-		var maxIncrease = 0f;
+		var maxIncrease = 1f;
 		if ( Lord.CombinedUpgrades != null && Lord.CombinedUpgrades.EnduranceTraining > 0f )
 			maxIncrease += Lord.CombinedUpgrades.EnduranceTraining;
 
-		MaxEnergy = 30f * Math.Pow( 1.5d, maxIncrease );
+		MaxEnergy = 50f * Math.Pow( 1.5d, maxIncrease );
 
-		var boostSpeed = 0f;
+		var boostSpeed = 1f;
 		if ( Lord.CombinedUpgrades != null && Lord.CombinedUpgrades.RecoveryTraining > 0f )
 			boostSpeed += Lord.CombinedUpgrades.RecoveryTraining;
 
