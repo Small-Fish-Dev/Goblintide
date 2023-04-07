@@ -106,6 +106,6 @@
 			return;
 
 		nextWobble = Game.Random.Float( 0.5f, 1f );
-		Style.Set( "transform", $"rotate({Game.Random.Float( -3, 3 ):N0})" );
+		Style.Set( "transform", $"rotate({Game.Random.Int( -3, 3 )})" );
 	}
 }
