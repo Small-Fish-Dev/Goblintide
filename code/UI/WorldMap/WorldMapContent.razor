@@ -34,12 +34,14 @@
 	{
 		_instance.Style.Opacity = 0;
 		_instance.Style.Display = DisplayMode.None;
+		_instance.Style.PointerEvents = PointerEvents.None;
 	}
 
 	public static void Show()
 	{
 		_instance.Style.Opacity = 1;
 		_instance.Style.Display = DisplayMode.Flex;
+		_instance.Style.PointerEvents = PointerEvents.All;
 	}
 
 }
