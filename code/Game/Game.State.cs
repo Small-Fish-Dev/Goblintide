@@ -64,5 +64,9 @@ partial class GameMgr
 			GameMgr.SetState<RaidingState>();
 			GameMgr.TotalEnergy -= energyRequired;
 		}
+		else
+		{
+			EventLogger.Send( To.Everyone, "<red>Not </red> enough <lightblue>Energy</lightblue> to raid this town!!!", 5 );
+		}
 	}
 }
