@@ -56,6 +56,7 @@ public partial class BaseNPC
 	public float DefendingPositionRange { get; set; } = 500f;
 	public bool IsDiligent { get; set; } = true;
 	public bool IsFollowingOrder { get; set; } = false;
+	public bool IsGoingToForest { get; set; } = false;
 
 	public virtual void ComputeBehaviour()
 	{
@@ -246,6 +247,7 @@ public partial class BaseNPC
 	public virtual void NoneBehaviour()
 	{
 		ComputeIdling();
+		IsGoingToForest = false;
 	}
 
 	public virtual void Steal( BaseCollectable collectable )
@@ -267,6 +269,8 @@ public partial class BaseNPC
 	{
 		var relativeTownPosition = (Position - GameMgr.CurrentTown.Position).Normal;
 		var bestEscapePosition = GameMgr.CurrentTown.Position + relativeTownPosition * GameMgr.CurrentTown.ForestRadius;
+
+		IsGoingToForest = true;
 
 		NavigateTo( bestEscapePosition );
 	}
@@ -344,6 +348,7 @@ public partial class BaseNPC
 			{
 				GameMgr.AddResource( Stealing.Type, Stealing.Value );
 				Stealing.Delete();
+				IsGoingToForest = false;
 			}
 		}
 		
@@ -461,7 +466,10 @@ public partial class BaseNPC
 		if ( !CurrentTarget.IsValid() )
 		{
 			if ( CurrentSubBehaviour is not SubBehaviour.None )
+			{
 				CurrentSubBehaviour = BaseSubBehaviour;
+				IsGoingToForest = false;
+			}
 
 			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
 			{
@@ -513,7 +521,10 @@ public partial class BaseNPC
 		if ( !CurrentTarget.IsValid() )
 		{
 			if ( CurrentSubBehaviour is SubBehaviour.Attacking or SubBehaviour.Following )
+			{
 				CurrentSubBehaviour = BaseSubBehaviour;
+				IsGoingToForest = false;
+			}
 
 			if ( CurrentSubBehaviour is SubBehaviour.Guarding or SubBehaviour.None )
 			{

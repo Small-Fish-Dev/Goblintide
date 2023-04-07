@@ -29,6 +29,10 @@ public partial class ShackComponent : StructureComponent
 				{
 					gob.Position = Entity.Position + Entity.Rotation.Backward * 100f;
 					GameMgr.GoblinArmy.Add( gob );
+
+					if ( Lord.CombinedUpgrades != null )
+						if ( Lord.CombinedUpgrades.Milk > 0 )
+							gob.SetLevel( 1 + (int)(Lord.CombinedUpgrades.Milk * 1.7f ) );
 				}
 			}
 		}

@@ -316,6 +316,7 @@ partial class GameMgr
 		LoadVillageSize();
 		LoadNewGoblins();
 		GiveGoblinsWeapons();
+		SetFortitude();
 
 		// Tell everyone that we're done loading.
 		Loaded = true;
@@ -340,6 +341,16 @@ partial class GameMgr
 		}
 	}
 
+	public static void SetFortitude()
+	{
+		if ( Lord.CombinedUpgrades == null ) return;
+
+		if ( Lord.CombinedUpgrades.Fortitude > 0f )
+		{
+			GameMgr.Lord.MaxHitPoints *= (float)Math.Pow( 1f + Lord.CombinedUpgrades.Fortitude, 2);
+		}
+	}
+
 	public static void LoadNewGoblins()
 	{
 		var newGoblins = Math.Min( (int)(GameMgr.SecondsSinceLastUpdate * GameMgr.GoblinPerSecond), GameMgr.MaxArmySize - GameMgr.GoblinArmy.Count );
@@ -353,6 +364,10 @@ partial class GameMgr
 				var distance = Game.Random.Float( 150f, GameMgr.CurrentTown.TownRadius * 2 );
 				var newPosition = GameMgr.CurrentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
 				newGoblin.Position = newPosition;
+
+				if ( Lord.CombinedUpgrades != null )
+					if ( Lord.CombinedUpgrades.Milk > 0 )
+						newGoblin.SetLevel( 1 + (int)(Lord.CombinedUpgrades.Milk * 1.7f) );
 			}
 		}
 	}

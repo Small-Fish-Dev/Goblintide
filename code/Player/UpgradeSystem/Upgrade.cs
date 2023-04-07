@@ -51,6 +51,8 @@ public class Upgrade
 	[Effect] public float BackseatGaming { get; set; }
 	[Effect] public float NatureCalls { get; set; }
 	[Effect] public float Weapons { get; set; }
+	[Effect] public float Milk { get; set; }
+	[Effect] public float MacMansion { get; set; }
 
 	#endregion
 

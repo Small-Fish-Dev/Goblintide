@@ -43,8 +43,13 @@ public partial class BaseNPC
 			.WithoutTags( "NPC", "Player" )
 			.Run();*/
 
+		var speedBoost = 1f;
+		if ( Lord.CombinedUpgrades != null )
+			if ( IsGoingToForest )
+				speedBoost += Lord.CombinedUpgrades.NatureCalls;
+
 		Velocity += pushOffset;
-		Position += Velocity * Time.Delta;
+		Position += Velocity * speedBoost * Time.Delta;
 		//Position = Position.WithZ( trace.HitPosition.z - GetWidth() / 4 );
 	}
 

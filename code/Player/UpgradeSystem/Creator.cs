@@ -206,22 +206,38 @@ public static class Creator
 			{
 				v.Fortitude = 0.25f; // +25%
 			} )
-			.WithTexture( "aura/aura1.png" )
+			.WithTexture( "fortitude/fortitude1.png" )
 			.PlaceAt( Vector2.Down * 1200 )
 			.Next( "Fortitude II",
 				v =>
-					v.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "fortitude/fortitude2.png" )
 						.PlaceAt( Vector2.Down * 1200 + Vector2.Left * 150 ) )
 			.Next( "Fortitude III",
 				v =>
-					v.WithTexture( "aura/aura3.png" )
+					v.WithTexture( "fortitude/fortitude3.png" )
 						.PlaceAt( Vector2.Down * 1200 + Vector2.Left * 300 ) )
 			.Next( "Fortitude IV",
 				v =>
-					v.WithTexture( "aura/aura3.png" )
+					v.WithTexture( "fortitude/fortitude4.png" )
 						.PlaceAt( Vector2.Down * 1200 + Vector2.Left * 450 ) )
 			.Build();
 
+		new Upgrade.Builder( "Power Milk I", "Your goblins are born stronger." )
+			.ConfigureWith( v =>
+			{
+				v.Milk = 1f; // +1 level
+			} )
+			.WithTexture( "milk/milk1.png" )
+			.PlaceAt( Vector2.Down * 1350 )
+			.Next( "Power Milk II",
+				v =>
+					v.WithTexture( "milk/milk2.png" )
+						.PlaceAt( Vector2.Down * 1350 + Vector2.Left * 150 ) )
+			.Next( "Power Milk III",
+				v =>
+					v.WithTexture( "milk/milk3.png" )
+						.PlaceAt( Vector2.Down * 1350 + Vector2.Left * 300 ) )
+			.Build();
 
 		new Upgrade.Builder( "Backseat Gaming I", "Allies around you attack faster." )
 			.ConfigureWith( v =>
@@ -246,16 +262,41 @@ public static class Creator
 			{
 				v.NatureCalls = 0.15f; // +15%
 			} )
-			.WithTexture( "aura/aura1.png" )
+			.WithTexture( "nature/nature1.png" )
 			.PlaceAt( Vector2.Down * 1650 )
 			.Next( "Nature's Call II",
 				v =>
-					v.WithTexture( "aura/aura2.png" )
+					v.WithTexture( "nature/nature2.png" )
 						.PlaceAt( Vector2.Down * 1650 + Vector2.Left * 150 ) )
 			.Next( "Nature's Call III",
 				v =>
-					v.WithTexture( "aura/aura3.png" )
+					v.WithTexture( "nature/nature3.png" )
 						.PlaceAt( Vector2.Down * 1650 + Vector2.Left * 300 ) )
+			.Build();
+
+		new Upgrade.Builder( "Mac Mansions I", "Tents store 1 extra goblin" )
+			.ConfigureWith( v =>
+			{
+				v.MacMansion = 1f; // +1 unit
+			} )
+			.WithTexture( "mansion/mansion1.png" )
+			.PlaceAt( Vector2.Down * 1800 )
+			.Next( "Mac Mansions II",
+				v =>
+					v.WithTexture( "mansion/mansion2.png" )
+						.PlaceAt( Vector2.Down * 1800 + Vector2.Left * 150 ) )
+			.Next( "Mac Mansions III",
+				v =>
+					v.WithTexture( "mansion/mansion3.png" )
+						.PlaceAt( Vector2.Down * 1800 + Vector2.Left * 300 ) )
+			.Next( "Mac Mansions IV",
+				v =>
+					v.WithTexture( "mansion/mansion4.png" )
+						.PlaceAt( Vector2.Down * 1800 + Vector2.Left * 450 ) )
+			.Next( "Mac Mansions V",
+				v =>
+					v.WithTexture( "mansion/mansion4.png" )
+						.PlaceAt( Vector2.Down * 1800 + Vector2.Left * 600 ) )
 			.Build();
 	}
 }
