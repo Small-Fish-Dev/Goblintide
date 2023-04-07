@@ -21,7 +21,8 @@
 <root>
 	@foreach ( var c in Value )
 	{
-		switch ( c )
+		var character = char.ToLower( c );
+		switch ( character )
 		{
 			case ',':
 				<AnimatedImage class="image" path=@( "textures/tests/generic/comma" )></AnimatedImage>
@@ -36,11 +37,11 @@
 				{
 					if ( char.IsDigit( c ) )
 					{
-						<AnimatedImage class="image" path=@( $"textures/tests/number/{c}" )></AnimatedImage>
+						<AnimatedImage class="image" path=@( $"textures/tests/number/{character}" )></AnimatedImage>
 					}
 					else
 					{
-						<AnimatedImage class="image" path=@( $"textures/tests/upper/{c}" )></AnimatedImage>
+						<AnimatedImage class="image" path=@( $"textures/tests/upper/{character}" )></AnimatedImage>
 					}
 					break;
 				}
