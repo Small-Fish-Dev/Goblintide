@@ -18,7 +18,7 @@ public partial class RaidingState : GameState
 {
 
 	RaidingHUD hud;
-	static RaidingState instance;
+	public static RaidingState instance; // TODO: shouldnt really be public
 	[Net, Change] RaidState currentState { get; set; } = RaidState.Loading;
 	public RaidState CurrentState
 	{

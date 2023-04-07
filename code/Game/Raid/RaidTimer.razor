@@ -1,0 +1,35 @@
+@using Sandbox.UI;
+
+@namespace GameJam
+@inherits Panel
+
+<root>
+    <img src="" />
+    <label @ref=TimerLabel class="timer"></label>
+</root>
+
+<style>
+    RaidTimer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        flex-direction: row;
+        justify-content: center;
+    }
+</style>
+
+@code {
+    Label TimerLabel;
+
+    public override void Tick()
+    {
+        TimerLabel.Text = TimeSpan.FromSeconds(RaidingState.instance?.TimeBeforeRaidEnds ?? 0).ToString(@"mm\:ss\:fff");
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(RaidingState.instance.TimeBeforeNextState, RaidingState.instance.TimeBeforeRaidStart, RaidingState.instance.TimeBeforeRaidEnds);
+    }
+}
