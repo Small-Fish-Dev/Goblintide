@@ -1,8 +1,8 @@
 {
-  "Title": "ThreeThievesJam2023",
+  "Title": "Goblintide",
   "Type": "game",
-  "Org": "local",
-  "Ident": "ttjam2023",
+  "Org": "fish",
+  "Ident": "goblintide",
   "Tags": null,
   "Schema": 1,
   "HasAssets": true,
