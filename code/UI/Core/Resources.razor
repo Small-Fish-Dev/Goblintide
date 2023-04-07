@@ -36,9 +36,8 @@
 </style>
 
 @code {
-
     protected override int BuildHash()
     {
-        return HashCode.Combine(GameMgr.GoblinArmy.Count + GameMgr.TotalWood + GameMgr.TotalGold + GameMgr.TotalFood + GameMgr.TotalWomen + GameMgr.TotalEnergy);
+        return HashCode.Combine( GameMgr.GoblinArmy.Count, GameMgr.TotalWood, GameMgr.TotalGold, GameMgr.TotalFood, GameMgr.TotalWomen, GameMgr.TotalEnergy );
     }
 }

@@ -47,6 +47,7 @@
 	<panel class="text">
         @{
 			var result = formatNumber( ResourceAmount );
+
 			<WiggleText Scale="@(0.32f)" Tint=@Color.Black class="shadow" Value="@(result)" />
 			<WiggleText Scale="@(0.32f)" Value="@(result)" />
 		}
@@ -54,9 +55,19 @@
 </root>
 
 @code {
-    public string ResourceName { get; set; }
-    public int ResourceAmount { get; set; }
+	public string ResourceName { get; set; }
+	public int ResourceAmount
+	{
+		get => resourceAmount;
+		set
+		{
+			resourceAmount = value;
+			DeleteChildren( true );
+			StateHasChanged();
+		}
+	}
 
+	int resourceAmount;
     TimeUntil nextWobble;
 
 	private enum Suffix
@@ -91,14 +102,6 @@
 		}
 
 		return result;
-	}
-
-
-	public void OnValueChange( int newValue )
-	{
-		ResourceAmount = newValue;
-		DeleteChildren( true );
-		StateHasChanged();
 	}
 
 	public override void Tick()
