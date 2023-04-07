@@ -83,7 +83,6 @@ public partial class RaidingState : GameState
 		if ( GameMgr.CurrentTown.Generated && CurrentState == RaidState.Loading )
 		{
 			CurrentState = RaidState.Sneaking;
-			Event.Run( "FinishedLoadingMap" );
 		}
 
 		if ( CurrentState == RaidState.Sneaking )
@@ -140,7 +139,9 @@ public partial class RaidingState : GameState
 	public void OnCurrentStateChanged( RaidState oldState, RaidState newState ) // Run on server
 	{
 		if ( newState == RaidState.Sneaking )
+		{
 			TimeBeforeRaidStart = 15f;
+		}
 
 		if ( newState == RaidState.Raiding )
 		{
@@ -157,6 +158,7 @@ public partial class RaidingState : GameState
 		{
 			GameMgr.Music.Stop();
 			GameMgr.Music = Sound.FromScreen( "sounds/music/exotic_battle.sound" );
+			Event.Run( "FinishedLoadingMap" );
 		}
 
 		if ( newState == RaidState.Raiding )

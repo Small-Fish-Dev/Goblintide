@@ -11,43 +11,24 @@
 		top: 0px;
 		width: 100%;
 		height: 100%;
-
-        .blackScreen {
-            left: 0px;
-            top: 0px;
-            width: 100%;
-            height: 100%;
-            background-image: url(ui/blackboard.png);
-            background-size: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transition: all 2s ease-in; 
-            
-            &:outro {
-                opacity: 0;
-            }
-            
-        }
 	}
 </style>
 
 <root>
-    <div class="blackScreen"></div>
+    <LoadingScreen @ref=Loading></LoadingScreen>
 </root>
 
 @code {
+    public LoadingScreen Loading { get; set; }
 
     [Event("FinishedLoadingMap")]
     public void GetFinished()
     {
-        
+        Loading.Delete();
     }
 
     protected override int BuildHash()
     {
-        return Time.Now.GetHashCode();
+        return HashCode.Combine(Time.Now);
     }
 }

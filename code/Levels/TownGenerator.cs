@@ -296,6 +296,7 @@ public partial class Town : BaseNetworkable
 	public static bool PlacingNpcs => NpcsGenerationProgress < 1d && SmallPropsGenerationProgress >= 1d && IsGenerating;
 
 	public static double GenerationProgress => (HousesGenerationProgress + BigPropsGenerationProgress + SmallPropsGenerationProgress + NpcsGenerationProgress) / 4d;
+	public static string GenerationText => $"Placing {(PlacingHouses ? "Houses" : ( PlacingBigProps ? "Big Props" : ( PlacingSmallProps ? "Small Props" : "NPCs" ) ))}... [{Math.Ceiling( GenerationProgress * 100 )}%]";
 
 	public static bool IsGenerating => GenerationProgress < 1d;
 
@@ -404,7 +405,6 @@ public partial class Town : BaseNetworkable
 					nextGenerate = Time.Delta / 2f;
 			}
 
-			//Log.Error( $"Placing {(PlacingHouses ? "Houses" : ( PlacingBigProps ? "Big Props" : ( PlacingSmallProps ? "Small Props" : "NPCs" ) ))} [{Math.Ceiling( GenerationProgress * 100 )}%]" );
 		}
 
 		if ( !IsGenerating && !GameMgr.CurrentTown.Generated )

@@ -1,0 +1,44 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+
+@namespace GameJam
+@inherits Panel
+
+<style>
+	LoadingScreen {
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-image: url(ui/blackboard.png);
+        background-size: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+        transition: all 1s ease-in; 
+        color: white;
+            
+        &:outro {
+            opacity: 0;
+        }
+
+        .loadingText{
+            font-family: 'Patrick Hand';
+            font-size: 70px;
+        }
+	}
+</style>
+
+<root>
+    <div class="loadingText">@Town.GenerationText</div>
+</root>
+
+@code {
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Time.Now);
+    }
+}
