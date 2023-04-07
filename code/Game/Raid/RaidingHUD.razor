@@ -11,13 +11,43 @@
 		top: 0px;
 		width: 100%;
 		height: 100%;
-		color: white;
+
+        .blackScreen {
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            background-image: url(ui/blackboard.png);
+            background-size: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: all 2s ease-in; 
+            
+            &:outro {
+                opacity: 0;
+            }
+            
+        }
 	}
 </style>
 
 <root>
+    <div class="blackScreen"></div>
 </root>
 
 @code {
 
+    [Event("FinishedLoadingMap")]
+    public void GetFinished()
+    {
+        
+    }
+
+    protected override int BuildHash()
+    {
+        return Time.Now.GetHashCode();
+    }
 }

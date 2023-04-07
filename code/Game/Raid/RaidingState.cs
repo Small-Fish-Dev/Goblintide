@@ -83,6 +83,7 @@ public partial class RaidingState : GameState
 		if ( GameMgr.CurrentTown.Generated && CurrentState == RaidState.Loading )
 		{
 			CurrentState = RaidState.Sneaking;
+			Event.Run( "FinishedLoadingMap" );
 		}
 
 		if ( CurrentState == RaidState.Sneaking )
