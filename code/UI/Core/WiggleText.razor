@@ -53,7 +53,7 @@
 	{
 		get
 		{
-			if ( Invert ) return "filter: invert(100)";
+			if ( !Invert ) return "filter: invert(100)";
 			return "";
 		}
 	}
