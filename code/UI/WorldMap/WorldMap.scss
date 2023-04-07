@@ -1,23 +1,25 @@
 ﻿WorldMap {
 	width: 100%;
-	height: 100%;
-	
+	height: 90%;
+	top: 5%;
 	pointer-events: all;
+	background-color: rgba(black, 0);
 	
 	.background {
 		z-index: 0;
 		
 		position: absolute;
-		
+		background-color: rgba(black, 0);
 		width: 100%;
-		height: 100%;
+		height: 110%;
+		top: -5%;
 
 		.background-image {
 			width: 100%;
 			height: 100%;
 
 			background-position: center;
-			background-size: cover;
+			background-size: 100%;
 			background-repeat: no-repeat;
 
 			image-rendering: pixelated;
