@@ -6,10 +6,14 @@ namespace GameJam.UI;
 public partial class WorldMapContent
 {
 	public PanelCamera PanelCamera { get; } = new();
-	
 	public Panel Content { get; set; }
-	
 
+	private const int MaxDistanceX = 700;
+	private const int MaxDistanceY = 500;
+
+	private const int FadeDistanceX = 550;
+	private const int FadeDistanceY = 400;
+	
 	private class Pairing
 	{
 		public readonly WorldMapHost.Node Node;
@@ -38,11 +42,26 @@ public partial class WorldMapContent
 
 		foreach ( var entry in WorldMapHost.Entries )
 			_pairs.Add( new Pairing( entry, null ) );
+	}
+
+	protected override void OnAfterTreeRender( bool firstTime )
+	{
+		base.OnAfterTreeRender( firstTime );
+
+		if ( !firstTime ) return;
 		
 		// Create actors for entries that should be instantly visible
-		
+		foreach ( var pairing in _pairs )
+		{
+			pairing.PlaceActor = new PlaceActor( pairing.Node );
+			pairing.PlaceActor.PanelCamera = PanelCamera;
+			var distance = GetDistanceToCamera( pairing.Node );
+			if ( distance.x > MaxDistanceX || distance.y > MaxDistanceY )
+				continue;
+			Content.AddChild( pairing.PlaceActor );
+		}
 	}
-	
+
 	public Vector2 GetActorPosition( Panel parent, Vector2 position )
 	{
 		// Actor pos
