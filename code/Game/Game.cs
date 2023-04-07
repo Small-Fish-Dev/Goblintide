@@ -64,6 +64,42 @@ public partial class GameMgr : GameManager
 		{ "models/waggon/waggon.vmdl", Model.Load( "models/waggon/waggon.vmdl" ) }
 	};
 
+	public static Dictionary<string, float>[] WeaponsList = new Dictionary<string, float>[6]
+{
+		new Dictionary<string, float>()
+		{
+			{ "prefabs/items/club.prefab", 1f },
+		},
+		new Dictionary<string, float>()
+		{
+			{ "prefabs/items/club.prefab", 0.75f },
+			{ "prefabs/items/spear.prefab", 0.25f },
+		},
+		new Dictionary<string, float>()
+		{
+			{ "prefabs/items/club.prefab", 0.5f },
+			{ "prefabs/items/spear.prefab", 0.5f },
+		},
+		new Dictionary<string, float>()
+		{
+			{ "prefabs/items/club.prefab", 0.45f },
+			{ "prefabs/items/spear.prefab", 0.45f },
+			{ "prefabs/items/staff.prefab", 0.1f },
+		},
+		new Dictionary<string, float>()
+		{
+			{ "prefabs/items/club.prefab", 0.4f },
+			{ "prefabs/items/spear.prefab", 0.4f },
+			{ "prefabs/items/staff.prefab", 0.2f },
+		},
+		new Dictionary<string, float>()
+		{
+			{ "prefabs/items/club.prefab", 0.34f },
+			{ "prefabs/items/spear.prefab", 0.33f },
+			{ "prefabs/items/staff.prefab", 0.33f },
+		}
+};
+
 	public GameMgr()
 	{
 		Instance = this;

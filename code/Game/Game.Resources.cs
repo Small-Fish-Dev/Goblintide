@@ -35,6 +35,17 @@ public partial class GameMgr
 		}
 	}
 
+	[Net] private double weaponsPerSecond { get; set; } = 0;
+
+	public static double WeaponsPerSecond
+	{
+		get => Instance.weaponsPerSecond;
+		set
+		{
+			Instance.weaponsPerSecond = value;
+		}
+	}
+
 	public static double VillageSize { get; set; } = 5d;
 
 	public static int TotalGold
@@ -131,7 +142,7 @@ public partial class GameMgr
 	void EmitEnergyChange( double oldValue, double newValue )
 	{
 		Game.AssertClient();
-		Event.Run( "resources.energy", newValue );
+		Event.Run( "resources.energy", (int)newValue );
 	}
 
 	void EmitArmyChange( int oldValue, int newValue )

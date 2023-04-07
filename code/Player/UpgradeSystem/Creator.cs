@@ -175,6 +175,31 @@ public static class Creator
 						.PlaceAt( Vector2.Down * 900 + Vector2.Left * 300 ) )
 			.Build();
 
+		new Upgrade.Builder( "Weapons I", "Workbenches create better and stronger weapons" )
+			.ConfigureWith( v =>
+			{
+				v.Weapons = 1f; // Next level
+			} )
+			.WithTexture( "weapons/weapons1.png" )
+			.PlaceAt( Vector2.Down * 1050 )
+			.Next( "Weapons II",
+				v =>
+					v.WithTexture( "weapons/weapons2.png" )
+						.PlaceAt( Vector2.Down * 1050 + Vector2.Left * 150 ) )
+			.Next( "Weapons III",
+				v =>
+					v.WithTexture( "weapons/weapons3.png" )
+						.PlaceAt( Vector2.Down * 1050 + Vector2.Left * 300 ) )
+			.Next( "Weapons IV",
+				v =>
+					v.WithTexture( "weapons/weapons4.png" )
+						.PlaceAt( Vector2.Down * 1050 + Vector2.Left * 450 ) )
+			.Next( "Weapons V",
+				v =>
+					v.WithTexture( "weapons/weapons5.png" )
+						.PlaceAt( Vector2.Down * 1050 + Vector2.Left * 600 ) )
+			.Build();
+
 
 		new Upgrade.Builder( "Fortitude I", "Increase your health." )
 			.ConfigureWith( v =>

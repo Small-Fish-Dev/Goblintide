@@ -6,7 +6,18 @@
     "Guid": "66d4713a-a5ca-4a59-bd9e-14b7c042a55f",
     "Class": "BaseStructure",
     "Entities": [],
-    "Components": [],
+    "Components": [
+      {
+        "Guid": "1d496f2c-7e66-48c3-9727-591f0b9ae060",
+        "Class": "WorkbenchComponent",
+        "Keys": {
+          "_name": {
+            "Value": "\u0022WorkbenchComponent\u0022"
+          },
+          "_tags": {}
+        }
+      }
+    ],
     "Keys": {
       "Title": {
         "Type": "String",

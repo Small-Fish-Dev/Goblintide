@@ -315,6 +315,8 @@ partial class GameMgr
 
 		LoadVillageSize();
 		LoadNewGoblins();
+		GiveGoblinsWeapons();
+
 		// Tell everyone that we're done loading.
 		Loaded = true;
 
@@ -351,6 +353,30 @@ partial class GameMgr
 				var distance = Game.Random.Float( 150f, GameMgr.CurrentTown.TownRadius * 2 );
 				var newPosition = GameMgr.CurrentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
 				newGoblin.Position = newPosition;
+			}
+		}
+	}
+
+	public static void GiveGoblinsWeapons()
+	{
+		var doesntHaveWeapon = GameMgr.GoblinArmy
+				.Where( x => !x.Weapon.IsValid() )
+				.ToArray();
+
+		var newWeapons = Math.Min( (int)(GameMgr.SecondsSinceLastUpdate * GameMgr.WeaponsPerSecond), doesntHaveWeapon.Count() );
+
+		if ( doesntHaveWeapon.Count() > 0 )
+		{
+			for ( int i = 0; i < newWeapons; i++ )
+			{
+				var chosenKey = 0;
+				if ( Lord.CombinedUpgrades != null )
+					chosenKey = (int)Lord.CombinedUpgrades.Weapons;
+
+				var chosenWeapon = BaseItem.FromPrefab( WeightedList.RandomKey( GameMgr.WeaponsList[chosenKey] ) );
+
+				if ( chosenWeapon.IsValid() )
+					doesntHaveWeapon[i].Equip( chosenWeapon );
 			}
 		}
 	}

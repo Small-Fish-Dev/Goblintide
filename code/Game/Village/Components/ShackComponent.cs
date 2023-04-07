@@ -5,12 +5,12 @@ public partial class ShackComponent : StructureComponent
 {
 	public override void Initialize() 
 	{
-		GameMgr.GoblinPerSecond += 1d / 60d;
+		GameMgr.GoblinPerSecond += 1d / 1d;
 	}
 
 	public override void OnDestroy()
 	{
-		GameMgr.GoblinPerSecond -= 1d / 60d;
+		GameMgr.GoblinPerSecond -= 1d / 1d;
 	}
 
 	TimeUntil nextGoblin = 5f;

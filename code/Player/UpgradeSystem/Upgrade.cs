@@ -47,11 +47,10 @@ public class Upgrade
 	[Effect] public float RecoveryTraining { get; set; }
 	[Effect] public float EnduranceTraining { get; set; }
 	[Effect] public float Swiftness { get; set; }
-	[Effect] public float StickyFingers { get; set; }
 	[Effect] public float Fortitude { get; set; }
-	[Effect] public float Gumshoes { get; set; }
 	[Effect] public float BackseatGaming { get; set; }
 	[Effect] public float NatureCalls { get; set; }
+	[Effect] public float Weapons { get; set; }
 
 	#endregion
 
