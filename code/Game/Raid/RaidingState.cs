@@ -60,6 +60,7 @@ public partial class RaidingState : GameState
 
 		if ( Game.IsServer )
 		{
+			GameMgr.Tutorial = false;
 			foreach ( var entity in Entity.All.OfType<BaseStructure>() )
 				entity.Delete();
 
