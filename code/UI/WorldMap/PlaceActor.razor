@@ -6,30 +6,15 @@
 @attribute [StyleSheet( "/UI/WorldMap/PlaceActor.scss" )]
 
 <root>
-	@if ( Node.Size > 50 )
-	{
-		<AnimatedImage
-			class="castle"
-			delay="1"
-			path="textures/tests/castle">
-		</AnimatedImage>
-	}
-	else if ( Node.Size > 25 )
-	{
-		<AnimatedImage
-			class="town"
-			delay="1"
-			path="textures/tests/town">
-		</AnimatedImage>
-	}
-	else
-	{
-		<AnimatedImage
-			class="camp"
-			delay="0.8"
-			path="textures/tests/camp">
-		</AnimatedImage>
-	}
+	<AnimatedImage
+		class="item @GetItemType()"
+		delay="1"
+		path="textures/tests/@GetItemType()">
+	</AnimatedImage>
+	<div class="inner">
+		<WiggleText Scale=@( 0.18f ) Value=@( $"{GetItemType()}," )></WiggleText>
+		<WiggleText Scale=@( 0.28f ) Value=@( $"{Node.Size:0}" )></WiggleText>
+	</div>
 </root>
 
 @code {
@@ -39,6 +24,16 @@
 	public PlaceActor( WorldMapHost.Node node )
 	{
 		Node = node;
+	}
+
+	public string GetItemType()
+	{
+		return Node.Size switch
+		{
+			> 50 => "castle",
+			> 25 => "town",
+			_ => "camp"
+			};
 	}
 
 	protected override Vector2 ModifyInitialPosition( Vector2 position ) => position + Node.MapPosition;

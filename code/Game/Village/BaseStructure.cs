@@ -32,6 +32,8 @@ public partial class BaseStructure : ModelEntity
 
 	public override void ClientSpawn()
 	{
+		RenderColor = Color.White.WithAlpha( 0 );
+
 		foreach ( var component in Components.GetAll<StructureComponent>() )
 			component.Initialize();
 	}
@@ -49,6 +51,23 @@ public partial class BaseStructure : ModelEntity
 			return structure;
 
 		return null;
+	}
+
+	[Event.Tick]
+	private void tick()
+	{
+		if ( Game.IsServer )
+			return;
+
+		if ( RenderColor == Color.White )
+			return;
+
+		RenderColor = RenderColor.WithAlpha( RenderColor.a + Time.Delta );
+		if ( RenderColor.a >= 1 )
+			RenderColor = Color.White;
+
+		if ( SceneObject != null )
+			DebugOverlay.Box( SceneObject.Bounds.Mins, SceneObject.Bounds.Maxs, RenderColor.WithAlpha( 1 - RenderColor.a ) );
 	}
 
 	[ConCmd.Server]
@@ -75,7 +94,7 @@ public partial class BaseStructure : ModelEntity
 
 		if ( boundsTrace.Entity is not null )
 		{
-			EventLogger.Send( To.Everyone, "<red>There is something in the way.</red>" );
+			EventLogger.Send( To.Everyone, "<red>There is something in the way.</red>", 3 );
 			return;
 		}
 
@@ -84,7 +103,7 @@ public partial class BaseStructure : ModelEntity
 		var food = prefab.Root.GetValue<int>( "Food" );
 		if ( GameMgr.TotalWood < wood || GameMgr.TotalWomen < women || GameMgr.TotalFood < food )
 		{
-			EventLogger.Send( To.Everyone, "<red>You have insufficient resources for that.</red>" );
+			EventLogger.Send( To.Everyone, "<red>You have insufficient resources for that.</red>", 3 );
 			return;
 		}
 
@@ -97,6 +116,8 @@ public partial class BaseStructure : ModelEntity
 
 		if ( !VillageState.TrySpawnStructure( entry, out var structure ) )
 			return;
+
+		EventLogger.Send( To.Everyone, $"Building a <lightblue>{prefab.Root.GetValue<string>( "Title" ).ToUpper()}</>.", 8 );
 
 		// Take from resources.
 		GameMgr.TotalWood -= wood;
