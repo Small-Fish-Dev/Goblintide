@@ -208,7 +208,7 @@ public partial class BaseNPC
 
 			PlayAttackSound();
 
-			experience += 0.2f;
+			experience += target is BaseNPC ? 0.2f : 0.05f;
 			if ( experience >= 1f + Level / 5f )
 			{
 				experience = 0f;
