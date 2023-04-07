@@ -22,6 +22,7 @@ public partial class WallObject : SceneObject
 
 		var gibs = Entity.All
 			.OfType<PropGib>()
+			.Where( x => x.IsAuthority )
 			.Where( x => x.Position.DistanceSquared( Position ) <= Length * Length );
 
 		foreach ( var gib in gibs )
