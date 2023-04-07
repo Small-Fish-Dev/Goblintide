@@ -80,12 +80,8 @@
 			? PointerEvents.All
 			: PointerEvents.None;
 
-		Style.Cursor = pawn.Overview
-			? "pointer"
-			: "default";
-
 		// Capture mouse. ?
-		// SetMouseCapture( Dragging && pawn.Overview );
+		SetMouseCapture( Dragging && pawn.Overview );
 
 		// Overview movement by mouse position.
 		if ( !pawn.Overview )
@@ -102,7 +98,7 @@
 			return;
 		}
 
-		var screenFraction = 0.05f;
+		/*var screenFraction = 0.05f;
 		var fraction = Screen.Size * screenFraction;
 
 		if ( Mouse.Position.x >= Screen.Size.x - fraction.x )
@@ -113,7 +109,7 @@
 		if ( Mouse.Position.y >= Screen.Size.y - fraction.y )
 			pawn.OverviewOffset += Vector3.Backward * speed * (scaleFactor * (Mouse.Position.y - Screen.Size.y * (1 - screenFraction)) / fraction.y);
 		else if ( Mouse.Position.y <= fraction.y )
-			pawn.OverviewOffset += Vector3.Forward * speed * (scaleFactor * (fraction.y - Mouse.Position.y) / fraction.y);
+			pawn.OverviewOffset += Vector3.Forward * speed * (scaleFactor * (fraction.y - Mouse.Position.y) / fraction.y);*/
 	}
 
 	[GameEvents.Initialize]
