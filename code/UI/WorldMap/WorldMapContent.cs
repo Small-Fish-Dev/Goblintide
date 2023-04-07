@@ -8,11 +8,11 @@ public partial class WorldMapContent
 	public PanelCamera PanelCamera { get; } = new();
 	public Panel Content { get; set; }
 
-	private const int MaxDistanceX = 700;
-	private const int MaxDistanceY = 500;
+	private float _maxDistanceX = 500;
+	private float _maxDistanceY = 500;
 
-	private const int FadeDistanceX = 400;
-	private const int FadeDistanceY = 300;
+	private float _fadeDistanceX = 400;
+	private float _fadeDistanceY = 300;
 
 	private class Pairing
 	{
@@ -93,13 +93,22 @@ public partial class WorldMapContent
 
 		base.Tick();
 
+		_maxDistanceX = Content.Box.Rect.Width / 2 * ScaleFromScreen;
+		_maxDistanceY = Content.Box.Rect.Height / 2 * ScaleFromScreen;
+
+		_maxDistanceX *= 0.96f;
+		_maxDistanceY *= 0.96f;
+		
+		_fadeDistanceX = _maxDistanceX * 0.8f;
+		_fadeDistanceY = _maxDistanceY * 0.8f;
+		
 		foreach ( var pairing in _pairs )
 		{
 			if ( !pairing.PlaceActor.ReadyToPosition ) continue;
 
 			var distance = GetDistanceToCamera( pairing.PlaceActor );
 			
-			if ( distance.x > MaxDistanceX || distance.y > MaxDistanceY )
+			if ( distance.x > _maxDistanceX || distance.y > _maxDistanceY )
 			{
 				// Should be removed / hidden
 				pairing.PlaceActor.Style.Display = DisplayMode.None;
@@ -110,8 +119,8 @@ public partial class WorldMapContent
 			var fx = 1.0f;
 			var fy = 1.0f;
 
-			if ( distance.x > FadeDistanceX ) fx = distance.x.Remap( FadeDistanceX, MaxDistanceX, 1, 0 );
-			if ( distance.y > FadeDistanceY ) fy = distance.y.Remap( FadeDistanceY, MaxDistanceY, 1, 0 );
+			if ( distance.x > _fadeDistanceX ) fx = distance.x.Remap( _fadeDistanceX, _maxDistanceX, 1, 0 );
+			if ( distance.y > _fadeDistanceY ) fy = distance.y.Remap( _fadeDistanceY, _maxDistanceY, 1, 0 );
 
 			pairing.PlaceActor.Style.Opacity = float.Max( float.Min( fx, fy ), 0 );
 
