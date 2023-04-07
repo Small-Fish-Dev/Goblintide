@@ -14,14 +14,16 @@
           "_name": {
             "Value": "\u0022WorkbenchComponent\u0022"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "[]"
+          }
         }
       }
     ],
     "Keys": {
       "Title": {
         "Type": "String",
-        "Value": "\u0022Workbench\u0022"
+        "Value": "\u0022Weaponsmith\u0022"
       },
       "Wood": {
         "Type": "Int32",

@@ -42,7 +42,7 @@
       },
       "Title": {
         "Type": "String",
-        "Value": "\u0022Tent\u0022"
+        "Value": "\u0022Housing\u0022"
       },
       "Wood": {
         "Type": "Int32",

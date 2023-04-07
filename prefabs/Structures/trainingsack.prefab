@@ -50,7 +50,7 @@
     "Keys": {
       "Title": {
         "Type": "String",
-        "Value": "\u0022Training Sack\u0022"
+        "Value": "\u0022Training Dummy\u0022"
       },
       "Wood": {
         "Type": "Int32",

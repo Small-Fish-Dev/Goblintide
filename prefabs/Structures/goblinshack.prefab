@@ -23,7 +23,7 @@
     "Keys": {
       "Title": {
         "Type": "String",
-        "Value": "\u0022Goblin Shack\u0022"
+        "Value": "\u0022Goblin Spawner\u0022"
       },
       "Wood": {
         "Type": "Int32",
