@@ -66,9 +66,9 @@
 						_class = "RenderMeshFile"
 						name = "2"
 						filename = "models/clothes/guard_helmet/guard_helmet.fbx"
-						import_translation = [ -140.0, 0.0, 140.0 ]
-						import_rotation = [ 90.0, 0.0, 0.0 ]
-						import_scale = 1.0
+						import_translation = [ -128.0, 0.0, 242.0 ]
+						import_rotation = [ 100.0, 0.0, 0.0 ]
+						import_scale = 0.7
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
