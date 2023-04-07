@@ -1,5 +1,5 @@
 {
-  "Title": "Goblintide",
+  "Title": "GoblinTide",
   "Type": "game",
   "Org": "fish",
   "Ident": "goblintide",
@@ -14,9 +14,9 @@
   "CodePath": "/code/",
   "PackageReferences": [],
   "Metadata": {
-    "MaxPlayers": 64,
+    "MaxPlayers": 1,
     "MinPlayers": 1,
-    "GameNetworkType": "Multiplayer",
+    "GameNetworkType": "Singleplayer",
     "MapSelect": "Official",
     "MapList": [
       "overworld"
@@ -95,6 +95,10 @@
       "VelocityIterations": 8,
       "SoftBodyIterations": 1,
       "SoftBodySubsteps": 1
-    }
+    },
+    "Summary": "Command a horde of goblins and pillage nearby villages, expand your army, become the scourge of the kingdom, and make the biggest gold pile!",
+    "Description": "nstructions:\n- Energy regenerates over time and is used to travel through the map [R]\n\n- During raids, you can point [M1] to order directly nearby goblins\n\n- The more gold, the smarter you become, use it to upgrade [Enter] and evolve.\n\n- Place [Tab] buildings and expand your camp, Spawners will passively create goblins, Housing  will increase max goblin count,Training will allow them to level up away from danger, and Crafting will passively create weapons.\n\nIf you want to restart your progress, use the goblintide_reset command",
+    "Public": true,
+    "ReplaceTags": "goblin funny adventure"
   }
 }
