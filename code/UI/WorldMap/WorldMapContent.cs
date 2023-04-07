@@ -52,7 +52,7 @@ public partial class WorldMapContent
 
 		// hack(gio): just move camera to where it should probably be
 		PanelCamera.Position -= 400;
-		
+
 		// Create actors for entries that should be instantly visible
 		foreach ( var pairing in _pairs )
 		{
@@ -99,12 +99,12 @@ public partial class WorldMapContent
 		_maxDistanceX = Content.Box.Rect.Width / 2 * ScaleFromScreen;
 		_maxDistanceY = Content.Box.Rect.Height / 2 * ScaleFromScreen;
 
-		_maxDistanceX *= 0.94f;
-		_maxDistanceY *= 0.92f;
-		
-		_fadeDistanceX = _maxDistanceX * 0.8f;
-		_fadeDistanceY = _maxDistanceY * 0.8f;
-		
+		_maxDistanceX *= 0.95f;
+		_maxDistanceY *= 0.95f;
+
+		_fadeDistanceX = _maxDistanceX * 0.85f;
+		_fadeDistanceY = _maxDistanceY * 0.85f;
+
 		foreach ( var pairing in _pairs )
 		{
 			if ( !pairing.PlaceActor.ReadyToPosition ) continue;
@@ -124,9 +124,17 @@ public partial class WorldMapContent
 			if ( distance.x > _fadeDistanceX ) fx = distance.x.Remap( _fadeDistanceX, _maxDistanceX, 1, 0 );
 			if ( distance.y > _fadeDistanceY ) fy = distance.y.Remap( _fadeDistanceY, _maxDistanceY, 1, 0 );
 
-			pairing.PlaceActor.Style.Opacity = float.Max( float.Min( fx, fy ), 0 );
+			var f = float.Max( float.Min( fx, fy ), 0 );
 
-			pairing.PlaceActor.Style.Display = DisplayMode.Flex;
+			var transform = new PanelTransform();
+			transform.AddScale( f );
+
+			pairing.PlaceActor.Style.Transform = transform;
+			
+			if ( f > 0.1f )
+			{
+				pairing.PlaceActor.Style.Display = DisplayMode.Flex;
+			}
 		}
 	}
 }
