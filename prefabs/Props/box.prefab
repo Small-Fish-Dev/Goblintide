@@ -14,7 +14,9 @@
           "_name": {
             "Value": "\u0022RandomMaterialGroupComponent\u0022"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "[]"
+          }
         }
       }
     ],
@@ -25,7 +27,7 @@
       },
       "WoodDropped": {
         "Type": "RangedFloat",
-        "Value": "\u00221.00,2.00,1\u0022"
+        "Value": "\u00221.00,2.00,0\u0022"
       },
       "GoldDropped": {
         "Type": "RangedFloat",
@@ -37,7 +39,7 @@
       },
       "FoodDropped": {
         "Type": "RangedFloat",
-        "Value": "\u00221.00,3.00,1\u0022"
+        "Value": "\u00220.00,0.00,0\u0022"
       },
       "_name": {
         "Value": "\u0022\u0022"
@@ -51,7 +53,9 @@
       "_scale": {
         "Value": "1"
       },
-      "_tags": {}
+      "_tags": {
+        "Value": "\u0022\u0022"
+      }
     }
   }
 }

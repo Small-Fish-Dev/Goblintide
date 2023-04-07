@@ -81,7 +81,7 @@
       },
       "LootAmount": {
         "Type": "RangedFloat",
-        "Value": "\u002220.00,50.00,1\u0022"
+        "Value": "\u00223.00,5.00,1\u0022"
       }
     }
   }

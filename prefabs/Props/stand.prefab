@@ -14,7 +14,9 @@
           "_name": {
             "Value": "\u0022RandomMaterialGroupComponent\u0022"
           },
-          "_tags": {}
+          "_tags": {
+            "Value": "[]"
+          }
         }
       }
     ],
@@ -44,11 +46,11 @@
       },
       "WoodDropped": {
         "Type": "RangedFloat",
-        "Value": "\u00225.00,7.00,1\u0022"
+        "Value": "\u00223.00,5.00,1\u0022"
       },
       "GoldDropped": {
         "Type": "RangedFloat",
-        "Value": "\u00223.00,5.00,1\u0022"
+        "Value": "\u00220.00,1.00,1\u0022"
       },
       "HitPoints": {
         "Type": "Single",

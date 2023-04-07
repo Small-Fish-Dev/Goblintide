@@ -33,7 +33,7 @@
       },
       "WoodDropped": {
         "Type": "RangedFloat",
-        "Value": "\u00224.00,6.00,1\u0022"
+        "Value": "\u00221.00,2.00,1\u0022"
       },
       "GoldDropped": {
         "Type": "RangedFloat",

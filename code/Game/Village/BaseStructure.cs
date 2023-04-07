@@ -14,6 +14,9 @@ public partial class BaseStructure : ModelEntity
 	[Prefab, Net]
 	public int Women { get; set; }
 
+	[Prefab, Net]
+	public int Food { get; set; }
+
 	public BuildingEntry Entry { get; set; }
 
 	public override void Spawn()
@@ -78,7 +81,8 @@ public partial class BaseStructure : ModelEntity
 
 		var wood = prefab.Root.GetValue<int>( "Wood" );
 		var women = prefab.Root.GetValue<int>( "Women" );
-		if ( GameMgr.TotalWood < wood || GameMgr.TotalWomen < women )
+		var food = prefab.Root.GetValue<int>( "Food" );
+		if ( GameMgr.TotalWood < wood || GameMgr.TotalWomen < women || GameMgr.TotalFood < food )
 		{
 			EventLogger.Send( To.Everyone, "<red>You have insufficient resources for that.</red>" );
 			return;
@@ -97,6 +101,7 @@ public partial class BaseStructure : ModelEntity
 		// Take from resources.
 		GameMgr.TotalWood -= wood;
 		GameMgr.TotalWomen -= women;
+		GameMgr.TotalFood -= food;
 	}
 
 	public override void OnNewModel( Model model )

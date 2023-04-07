@@ -54,7 +54,7 @@
       },
       "Wood": {
         "Type": "Int32",
-        "Value": "10"
+        "Value": "5"
       },
       "Women": {
         "Type": "Int32",
@@ -78,6 +78,10 @@
       },
       "_tags": {
         "Value": "\u0022\u0022"
+      },
+      "Food": {
+        "Type": "Int32",
+        "Value": "5"
       }
     }
   }

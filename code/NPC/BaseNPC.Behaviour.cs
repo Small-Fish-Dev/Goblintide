@@ -209,7 +209,7 @@ public partial class BaseNPC
 			PlayAttackSound();
 
 			experience += 0.2f;
-			if ( experience >= 1f )
+			if ( experience >= 1f + Level / 5f )
 			{
 				experience = 0f;
 				IncreaseLevel();

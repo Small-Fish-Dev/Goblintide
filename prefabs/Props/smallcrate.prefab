@@ -29,7 +29,7 @@
       },
       "FoodDropped": {
         "Type": "RangedFloat",
-        "Value": "\u00222.00,5.00,1\u0022"
+        "Value": "\u00220.00,1.00,1\u0022"
       },
       "WoodDropped": {
         "Type": "RangedFloat",
@@ -37,7 +37,7 @@
       },
       "GoldDropped": {
         "Type": "RangedFloat",
-        "Value": "\u00220.00,0.00,0\u0022"
+        "Value": "\u00221.00,1.00,0\u0022"
       },
       "HitPoints": {
         "Type": "Single",
