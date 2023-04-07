@@ -90,8 +90,8 @@
 						_class = "RenderMeshFile"
 						name = "2"
 						filename = "models/weapons/staff/staff.fbx"
-						import_translation = [ 0.0, 0.0, 69.0 ]
-						import_rotation = [ -90.0, 0.0, 0.0 ]
+						import_translation = [ 0.0, 0.0, -69.0 ]
+						import_rotation = [ 90.0, 0.0, 0.0 ]
 						import_scale = 1.0
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
