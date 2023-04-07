@@ -159,7 +159,7 @@ public partial class BaseNPC : BaseCharacter
 			Weapon = item;
 		}
 
-		Glow( false );
+		item.Glow( false );
 
 		item.Equipped = true;
 

@@ -335,6 +335,17 @@ partial class GameMgr
 		return true;
 	}
 
+	[ConCmd.Admin( "goblintide_reset" )]
+	public static void DeleteSave()
+	{
+		if ( FileSystem.Data.FileExists( SAVE_PATH ) )
+		{
+			FileSystem.Data.DeleteFile( SAVE_PATH );
+			Log.Error( "SAVE FILE DELETED" );
+			GameMgr.Lord?.Client.Kick();
+		}
+	}
+
 	public static void LoadVillageSize()
 	{
 		if ( Lord.CombinedUpgrades == null ) return;
