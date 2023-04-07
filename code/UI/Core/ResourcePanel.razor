@@ -45,8 +45,8 @@
 <root>
     <img src=@($"ui/resources/{ResourceName.ToLower()}.png") />
 	<panel class="text">
-		@{
-			var amount = formatNumber( ResourceAmount );
+        @{
+            var amount = formatNumber( ResourceAmount );
 			<WiggleText Scale="@(0.32f)" Tint=@Color.Black class="shadow" Value="@(amount)" />
 			<WiggleText Scale="@(0.32f)" Value="@(amount)" />
 		}
@@ -54,22 +54,22 @@
 </root>
 
 @code {
-	public string ResourceName { get; set; }
-	public int ResourceAmount { get; set; }
+    public string ResourceName { get; set; }
+    public int ResourceAmount { get; set; }
 
-	TimeUntil nextWobble;
+    TimeUntil nextWobble;
 
-	private enum Suffix
-	{
-		None, 
-		K, // Thousands
-		M, // Millions
-		B  // Billions
-	}
+    private enum Suffix
+    {
+        None, 
+        K, // Thousands
+        M, // Millions
+        B  // Billions
+    }
 
-	private static string formatNumber( long value )
-	{
-		var result = value.ToString();
+    private static string formatNumber( long value )
+    {
+        var result = value.ToString();
 
 		foreach ( var suffix in Enum.GetValues( typeof( Suffix ) ) )
 		{

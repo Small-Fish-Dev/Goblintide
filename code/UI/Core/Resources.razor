@@ -4,6 +4,8 @@
 @inherits Panel
 
 <root>
+    <ResourcePanel @ref=EnergyPanel ResourceName="Energy" ResourceAmount=@((int)GameMgr.TotalEnergy)></ResourcePanel>
+    <ResourcePanel @ref=ArmyPanel ResourceName="Goblin" ResourceAmount=@GameMgr.MaxArmySize></ResourcePanel>
     <ResourcePanel @ref=WoodPanel ResourceName="Wood" ResourceAmount=@GameMgr.TotalWood></ResourcePanel>
     <ResourcePanel @ref=GoldPanel ResourceName="Gold" ResourceAmount=@GameMgr.TotalGold></ResourcePanel>
     <ResourcePanel @ref=FoodPanel ResourceName="Food" ResourceAmount=@GameMgr.TotalFood></ResourcePanel>
@@ -34,10 +36,18 @@
 </style>
 
 @code {
+    public ResourcePanel EnergyPanel { get; set; }
+    public ResourcePanel ArmyPanel { get; set; }
     public ResourcePanel WoodPanel { get; set; }
     public ResourcePanel GoldPanel { get; set; }
     public ResourcePanel FoodPanel { get; set; }
     public ResourcePanel WomenPanel { get; set; }
+
+    [Event("resources.energy")]
+    void OnEnergy(int newAmount) => EnergyPanel.OnValueChange(newAmount);
+
+    [Event("resources.army")]
+    void OnArmy(int newAmount) => ArmyPanel.OnValueChange(newAmount);
 
     [Event("resources.wood")]
     void OnWood(int newAmount) => WoodPanel.OnValueChange(newAmount);

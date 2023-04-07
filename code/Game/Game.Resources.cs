@@ -14,7 +14,7 @@ public partial class GameMgr
 	}
 	[Net] private IList<BaseNPC> goblinArmy { get; set; } = new();
 
-	[Net] private int maxArmySize { get; set; } = 10; 
+	[Net, Change( nameof( EmitArmyChange ) )] private int maxArmySize { get; set; } = 10; // TODO CHANGE TO CURRENT GOBLINS NOT MAX SIZE
 	
 	public static int MaxArmySize
 	{
@@ -122,11 +122,23 @@ public partial class GameMgr
 	[Net, Change( nameof( EmitIQChange ) )] private int totalIQ { get; set; } = 0;
 	[Net, Change( nameof( EmitFoodChange ) )] private int totalFood { get; set; } = 0;
 	[Net, Change( nameof( EmitWomenChange ) )] private int totalWomen { get; set; } = 0;
-	[Net] private double totalEnergy { get; set; } = 10;
+	[Net, Change( nameof( EmitEnergyChange ) )] private double totalEnergy { get; set; } = 30;
 	[Net] private double maxEnergy { get; set; } = 30; // Default value = 30
 	[Net] private int maxIQ { get; set; } = 0;
 	[Net] private double energyRechargeRate { get; set; } = 1f / 60f; // Energy per second ( 1 / 60 means 1 unit every 60 seconds )
 	[Net] private long lastEnergyUpdate { get; set; } = DateTime.UtcNow.Ticks;
+
+	void EmitEnergyChange( double oldValue, double newValue )
+	{
+		Game.AssertClient();
+		Event.Run( "resources.energy", newValue );
+	}
+
+	void EmitArmyChange( int oldValue, int newValue )
+	{
+		Game.AssertClient();
+		Event.Run( "resources.army", newValue );
+	}
 
 	void EmitWoodChange( int oldValue, int newValue )
 	{
