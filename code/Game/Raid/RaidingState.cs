@@ -65,11 +65,7 @@ public partial class RaidingState : GameState
 				entity.Delete();
 
 			Log.Info( "Autosaving..." );
-			GameTask.RunInThreadAsync( async () =>
-			{
-				await GameMgr.GenerateSave( true );
-				Log.Info( "Finished autosaving" );
-			} );
+			GameMgr.GenerateSave( true );
 		}
 	}
 
