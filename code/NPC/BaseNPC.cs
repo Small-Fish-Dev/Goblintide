@@ -126,9 +126,9 @@ public partial class BaseNPC : BaseCharacter
 	public void SetLevel( int level )
 	{
 		Level = level;
-		MaxHitPoints += (float)level / 2;
+		MaxHitPoints += (float)(level - 1) / 2;
 		HitPoints = MaxHitPoints;
-		AttackPower += (float)level / 6;
+		AttackPower += (float)(level-1) / 5;
 	}
 
 	public void IncreaseLevel()
@@ -136,7 +136,7 @@ public partial class BaseNPC : BaseCharacter
 		Level++;
 		MaxHitPoints += 0.5f;
 		HitPoints += 0.25f;
-		AttackPower += 0.1667f;
+		AttackPower += 0.2f;
 	}
 
 	public void Equip( BaseItem item )
