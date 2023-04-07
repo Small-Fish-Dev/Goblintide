@@ -135,7 +135,7 @@ public partial class BaseNPC : BaseCharacter
 	{
 		Level++;
 		MaxHitPoints += 0.5f;
-		HitPoints += 0.25f;
+		HitPoints += 0.5f;
 		AttackPower += 0.2f;
 	}
 
