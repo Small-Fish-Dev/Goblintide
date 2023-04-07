@@ -78,6 +78,7 @@ public partial class Lord
 					oldGlow.Enabled = false;
 				PointingAt = null;
 			}
+			PointingAt = null;
 		}
 	}
 

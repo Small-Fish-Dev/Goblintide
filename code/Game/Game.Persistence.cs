@@ -224,7 +224,7 @@ partial class GameMgr
 			foreach ( var building in VillageState.Structures )
 			{
 				writer.Write( building.PrefabName );
-				writer.Write( building.Position );
+				writer.Write( building.Position - GameMgr.CurrentTown.Position );
 			}
 
 			return;
@@ -241,7 +241,7 @@ partial class GameMgr
 				var entry = new BuildingEntry()
 				{
 					PrefabName = reader.ReadString(),
-					Position = reader.ReadVector3()
+					Position = GameMgr.CurrentTown.Position + reader.ReadVector3()
 				};
 
 				VillageState.TrySpawnStructure( entry, out var structure );
@@ -250,7 +250,7 @@ partial class GameMgr
 	}
 	#endregion
 
-	public static async Task<bool> GenerateSave( bool force = false )
+	public static bool GenerateSave( bool force = false )
 	{
 		if ( !ENABLE_SAVESYSTEM && !force )
 			return true;
@@ -277,7 +277,7 @@ partial class GameMgr
 		return true;
 	}
 
-	public static async Task<bool> LoadSave( bool force = false, bool villageOnly = false )
+	public static bool LoadSave( bool force = false, bool villageOnly = false )
 	{
 		if ( !ENABLE_SAVESYSTEM && !force )
 			return true;
@@ -450,11 +450,7 @@ partial class GameMgr
 			if ( GameMgr.State is VillageState )
 			{
 				Log.Info( "Autosaving..." );
-				GameTask.RunInThreadAsync( async () =>
-				{
-					await GenerateSave( true );
-					Log.Info( "Finished autosaving" );
-				} );
+				GenerateSave( true );
 			}
 		}
 	}
