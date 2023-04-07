@@ -146,6 +146,25 @@ public partial class GameMgr : GameManager
 			var curPhrase = GameMgr.Instance.tutorialPhrases.First();
 			var duration = curPhrase.Length / 16f;
 			GameplayHints.Send( To.Everyone, curPhrase, duration );
+			if ( curPhrase.StartsWith( "Barely" ) )
+				Sound.FromScreen( "sounds/tutorial/tutorial1.sound" );
+			if ( curPhrase.StartsWith( "You'll" ) )
+				Sound.FromScreen( "sounds/tutorial/tutorial2.sound" );
+			if ( curPhrase.StartsWith( "Travelling" ) )
+				Sound.FromScreen( "sounds/tutorial/tutorial3.sound" );
+			if ( curPhrase.StartsWith( "Open your" ) )
+				Sound.FromScreen( "sounds/tutorial/tutorial4.sound" );
+			if ( curPhrase.StartsWith( "Sneak" ) )
+				Sound.FromScreen( "sounds/tutorial/tutorial5.sound" );
+			if ( curPhrase.StartsWith( "The goblins" ) )
+				Sound.FromScreen( "sounds/tutorial/tutorial6.sound" );
+			if ( curPhrase.StartsWith( "Hold Right" ) )
+				Sound.FromScreen( "sounds/tutorial/tutorial8.sound" );
+			if ( curPhrase.StartsWith( "You took" ) )
+				Sound.FromScreen( "sounds/tutorial/tutorial9.sound" );
+			if ( curPhrase.StartsWith( "Make sure" ) )
+				Sound.FromScreen( "sounds/tutorial/tutorial10.sound" );
+
 			GameMgr.Instance.tutorialPhrases.RemoveAt( 0 );
 			if ( GameMgr.Instance.tutorialPhrases.Count == 0 )
 			{
