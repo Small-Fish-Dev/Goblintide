@@ -28,10 +28,11 @@
 
 	public string GetItemType()
 	{
-		return Node.Size switch
+        var radius = 300f * (float)Math.Sqrt( Node.Size / 5 );
+		return radius switch
 		{
-			> 50 => "castle",
-			> 25 => "town",
+			> 2500 => "castle",
+			> 1200 => "town",
 			_ => "camp"
 			};
 	}
