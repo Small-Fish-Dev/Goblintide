@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Peasant Dress",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_peasant_dress",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/clothes/peasant_dress/peasant_dress.vmdl",
+        "Summary": "A dress that can be worn by terry!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "clothing medieval"
+      }
+    }
+  }
+}

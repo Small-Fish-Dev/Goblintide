@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Medieval Wood Door",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_door",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/door/door.vmdl",
+        "Summary": "A breakable wooden old Medieval door!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "wood door breakable"
+      }
+    }
+  }
+}

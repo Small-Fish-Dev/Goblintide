@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Makeshift Magic Staff",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_staff",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/weapons/staff/staff.vmdl",
+        "Summary": "A makeshift magic staff that can be used as a weapon or decoration",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "wood magic weapon"
+      }
+    }
+  }
+}

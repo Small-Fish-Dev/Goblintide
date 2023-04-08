@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Quilt Armour",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_quilt_armor",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/clothes/guard_quilt_armor/quilt_armor.vmdl",
+        "Summary": "Old Style Quilt Armor used in medieval times, that the citizen can wear!!!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "clothing medival armor"
+      }
+    }
+  }
+}

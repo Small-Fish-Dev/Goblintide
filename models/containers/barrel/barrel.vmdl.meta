@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Wooden Barrel",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_barrel",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/containers/barrel/barrel.vmdl",
+        "Summary": "A wooden barrel! WITH GIBS!",
+        "Description": "This is a wooden barrel with gibs that can be destroyed!",
+        "Public": true,
+        "ReplaceTags": "wood barrel breakable"
+      }
+    }
+  }
+}

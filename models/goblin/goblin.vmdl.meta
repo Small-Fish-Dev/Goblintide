@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Goblin",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_goblin",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/goblin/goblin.vmdl",
+        "Summary": "This is a special little goblin, from a special little land in the smallfish universe, he is so handsome and cute!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "animated cryptid"
+      }
+    }
+  }
+}

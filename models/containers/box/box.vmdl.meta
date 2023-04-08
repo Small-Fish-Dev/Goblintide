@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Wood Box",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_box",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/containers/box/box.vmdl",
+        "Summary": "A small wooden box with gibs you can break",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "wood box crate breakable"
+      }
+    }
+  }
+}

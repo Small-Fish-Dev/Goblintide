@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Peasant Shirt",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_peasant_shirt",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/clothes/peasant_shirt/peasant_shirt.vmdl",
+        "Summary": "A medieval peasant shirt that can be worn by the citizen!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "clothing medieval"
+      }
+    }
+  }
+}

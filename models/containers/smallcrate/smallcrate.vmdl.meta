@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Small Wood Crate",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_smallcrate",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/containers/smallcrate/smallcrate.vmdl",
+        "Summary": "A small wooden crate that can be broken!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "wood crate breakable"
+      }
+    }
+  }
+}

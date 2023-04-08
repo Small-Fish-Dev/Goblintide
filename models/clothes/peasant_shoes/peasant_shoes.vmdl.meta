@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Peasant Shoes",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_peasant_shoes",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/clothes/peasant_shoes/peasant_shoes.vmdl",
+        "Summary": "Medieval peasant shoes that can be worn by the citizen!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "clothing medieval"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Wood Club",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_wood_club",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/weapons/club/club.vmdl",
+        "Summary": "Wooden club used to whack people on the head with",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "wood weapon club"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Twig Fence",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_twig_fence",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/fence/fence.vmdl",
+        "Summary": "A fence made of sticks and twigs that you can break!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "wood fence breakable"
+      }
+    }
+  }
+}

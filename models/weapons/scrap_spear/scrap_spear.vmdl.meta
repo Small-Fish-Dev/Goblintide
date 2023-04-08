@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Wood Makeshift Spear",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_spear",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/weapons/scrap_spear/scrap_spear.vmdl",
+        "Summary": "A makeshift wooden spear that can be used to stab people or just as decoration,",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "weapon wooden"
+      }
+    }
+  }
+}

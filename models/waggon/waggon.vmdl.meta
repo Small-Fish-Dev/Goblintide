@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Wooden Waggon",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_waggon",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/waggon/waggon.vmdl",
+        "Summary": "Wooden waggon you can also break!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "wood breakable"
+      }
+    }
+  }
+}

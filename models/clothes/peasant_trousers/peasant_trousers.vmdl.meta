@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Peasant Trousers",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_peasant_pants",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/clothes/peasant_trousers/peasant_trousers.vmdl",
+        "Summary": "Medieval peasant trousers that can be worn by the citizen!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "clothing medieval"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Makeshift Training Post",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_training_post",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/training_post/training_post.vmdl",
+        "Summary": "using a bag of wheat and a log its a makeshift training post you can attack to increase your strength!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "wood prop"
+      }
+    }
+  }
+}

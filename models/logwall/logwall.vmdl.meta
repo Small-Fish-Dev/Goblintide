@@ -1,0 +1,26 @@
+{
+  "publish": {
+    "Enabled": true,
+    "ProjectConfig": {
+      "Title": "Log Wall",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "gt_logwall",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "ResourcePaths": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/logwall/logwall.vmdl",
+        "Summary": "A wall made of sharpened logs that is breakable!",
+        "Description": "",
+        "Public": true,
+        "ReplaceTags": "wood fence breakable"
+      }
+    }
+  }
+}
