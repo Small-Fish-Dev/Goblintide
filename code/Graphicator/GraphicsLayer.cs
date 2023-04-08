@@ -16,6 +16,8 @@ public class GraphicsLayer
 
 	public RenderHook.Stage RenderStage = RenderHook.Stage.AfterUI;
 
+	public bool Enabled = true;
+	
 	public GraphicsLayer()
 	{
 		Log.Info( $"New GraphicsLayer {this}" );
@@ -38,6 +40,8 @@ public class GraphicsLayer
 
 	internal void Render()
 	{
+		if ( !Enabled ) return;
+		
 		foreach ( var item in _items )
 		{
 			item.Render();
@@ -46,6 +50,8 @@ public class GraphicsLayer
 
 	internal void Update()
 	{
+		if ( !Enabled ) return;
+		
 		foreach ( var item in _items )
 		{
 			item.Update();
