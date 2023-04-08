@@ -44,7 +44,13 @@ public class AnimatedImage : Image
 		internal List<Part> Parts;
 
 		public Animation() : this( "main" ) { }
-		public Animation( string name ) => Name = name;
+
+		public Animation( string name )
+		{
+			Name = name;
+
+			if ( Name == "main" ) Repeating = true;
+		}
 
 		public Animation Texture( Texture texture )
 		{
