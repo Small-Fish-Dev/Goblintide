@@ -29,6 +29,15 @@ public struct Point
 		_typeY = PositionType.AtPixel;
 	}
 
+	/// <summary> Create a new Point with coordinates based on 1920 x 1080 </summary>
+	public Point( float v )
+	{
+		X = v;
+		Y = v;
+		_typeX = PositionType.AtPixel;
+		_typeY = PositionType.AtPixel;
+	}
+	
 	public Point WithHorizontalType( PositionType type )
 	{
 		_typeX = type;
