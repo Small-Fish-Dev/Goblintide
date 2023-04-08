@@ -1,4 +1,6 @@
-﻿namespace Graphicator;
+﻿using Vector2 = System.Numerics.Vector2;
+
+namespace Graphicator;
 
 public enum PositionType
 {
@@ -14,30 +16,35 @@ public enum PositionType
 
 public struct Point
 {
-	public float X;
-	public float Y;
+	private System.Numerics.Vector2 Vector;
+
+	public float X
+	{
+		readonly get => Vector.X;
+		set => Vector.X = value;
+	}
+
+	public float Y
+	{
+		readonly get => Vector.Y;
+		set => Vector.Y = value;
+	}
 
 	private PositionType _typeX;
 	private PositionType _typeY;
 
+	private Point( System.Numerics.Vector2 vector ) => Vector = vector;
+
 	/// <summary> Create a new Point with coordinates based on 1920 x 1080 </summary>
-	public Point( float x, float y )
+	public Point( float x, float y ) : this( new System.Numerics.Vector2( x, y ) )
 	{
-		X = x;
-		Y = y;
-		_typeX = PositionType.AtPixel;
-		_typeY = PositionType.AtPixel;
 	}
 
 	/// <summary> Create a new Point with coordinates based on 1920 x 1080 </summary>
-	public Point( float v )
+	public Point( float v ) : this( v, v )
 	{
-		X = v;
-		Y = v;
-		_typeX = PositionType.AtPixel;
-		_typeY = PositionType.AtPixel;
 	}
-	
+
 	public Point WithHorizontalType( PositionType type )
 	{
 		_typeX = type;
@@ -61,21 +68,21 @@ public struct Point
 	/// Get screen coordinates from the Point
 	/// </summary>
 	/// <exception cref="ArgumentOutOfRangeException">Invalid position type</exception>
-	private Vector2 Calculate()
+	private System.Numerics.Vector2 Calculate()
 	{
-		var vec2 = new Vector2();
+		var vec2 = new System.Numerics.Vector2();
 		switch ( _typeX )
 		{
 			case PositionType.AtPixelNative:
-				vec2.x = X;
+				vec2.X = X;
 				break;
 			case PositionType.Percentage:
-				vec2.x = Screen.Width * X;
+				vec2.X = Screen.Width * X;
 				break;
 			case PositionType.AtPixel:
 				{
 					var v = X / 1920;
-					vec2.x = v * Screen.Width;
+					vec2.X = v * Screen.Width;
 					break;
 				}
 			default:
@@ -85,15 +92,15 @@ public struct Point
 		switch ( _typeY )
 		{
 			case PositionType.AtPixelNative:
-				vec2.y = Y;
+				vec2.Y = Y;
 				break;
 			case PositionType.Percentage:
-				vec2.y = Screen.Height * Y;
+				vec2.Y = Screen.Height * Y;
 				break;
 			case PositionType.AtPixel:
 				{
 					var v = Y / 1080;
-					vec2.y = v * Screen.Height;
+					vec2.Y = v * Screen.Height;
 					break;
 				}
 			default:
@@ -103,5 +110,22 @@ public struct Point
 		return vec2;
 	}
 
-	public static implicit operator Vector2( Point v ) => v.Calculate();
+	public static implicit operator Point( System.Numerics.Vector2 value ) => new(value);
+	public static implicit operator Point( global::Vector2 value ) => new(value);
+
+	public static implicit operator System.Numerics.Vector2( Point v ) => v.Calculate();
+	public static implicit operator global::Vector2( Point v ) => v.Calculate();
+
+	public static implicit operator Point( double value ) => new((float)value, (float)value);
+	public static implicit operator Point( float value ) => new(value, value);
+
+	public static Point operator +( Point a, System.Numerics.Vector2 b ) => a.Vector + b;
+	public static Point operator -( Point a, System.Numerics.Vector2 b ) => a.Vector - b;
+	public static Point operator /( Point a, System.Numerics.Vector2 b ) => a.Vector / b;
+	public static Point operator *( Point a, System.Numerics.Vector2 b ) => a.Vector * b;
+
+	public static Point operator +( Point a, Point b ) => a.Vector + b.Vector;
+	public static Point operator -( Point a, Point b ) => a.Vector - b.Vector;
+	public static Point operator /( Point a, Point b ) => a.Vector / b.Vector;
+	public static Point operator *( Point a, Point b ) => a.Vector * b.Vector;
 }
