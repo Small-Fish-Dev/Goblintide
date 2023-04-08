@@ -203,6 +203,9 @@ public partial class BaseNPC : BaseCharacter
 			{
 				collectable.Position = Position;
 				collectable.Rotation = Rotation;
+
+				var clothing = Children.ToArray(); // the game freaks the fuck out if we take them dirrectly, so create a copy that will be assigned to the collectable
+				foreach(var ent in clothing) ent.SetParent( collectable, true ); // the originals get deleted with the original npc
 			}
 			Delete();
 		}
