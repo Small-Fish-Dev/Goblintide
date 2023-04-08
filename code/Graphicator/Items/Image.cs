@@ -9,6 +9,8 @@ public class Image : GraphicsItem
 	public ImageRendering Filtering = ImageRendering.Anisotropic;
 	public BackgroundRepeat Repeating = BackgroundRepeat.NoRepeat;
 
+	public override float Opacity { get; set; } = 1.0f;
+	
 	protected void RenderImage( Texture texture )
 	{
 		var attributes = Graphics.Attributes;
@@ -27,8 +29,11 @@ public class Image : GraphicsItem
 		attributes.Set( "BoxPosition", rect.TopLeft );
 		attributes.Set( "BoxSize", rect.Size );
 
-		Graphics.DrawQuad( ScreenspaceRect, Material.UI.Box, Color.Blue, attributes );
+		var color = Color.Transparent;
+		color.a *= Opacity;
+		
+		Graphics.DrawQuad( ScreenspaceRect, Material.UI.Box, color, attributes );
 	}
-
+	
 	public override void Render() => RenderImage( Texture );
 }
