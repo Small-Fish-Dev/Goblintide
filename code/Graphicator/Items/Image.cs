@@ -9,13 +9,13 @@ public class Image : GraphicsItem
 	public ImageRendering Filtering = ImageRendering.Anisotropic;
 	public BackgroundRepeat Repeating = BackgroundRepeat.NoRepeat;
 
-	public override void Render()
+	protected void RenderImage( Texture texture )
 	{
 		var attributes = Graphics.Attributes;
 
 		var rect = ScreenspaceRect;
 
-		attributes.Set( "Texture", Texture ?? Texture.Invalid );
+		attributes.Set( "Texture", texture ?? Texture.Invalid );
 		attributes.Set( "HasBorder", 0 );
 
 		attributes.Set( "BgRepeat", (int)Repeating );
@@ -29,4 +29,6 @@ public class Image : GraphicsItem
 
 		Graphics.DrawQuad( ScreenspaceRect, Material.UI.Box, Color.Blue, attributes );
 	}
+
+	public override void Render() => RenderImage( Texture );
 }
