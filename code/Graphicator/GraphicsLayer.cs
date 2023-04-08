@@ -46,6 +46,9 @@ public class GraphicsLayer
 
 	internal void Update()
 	{
-		
+		foreach ( var item in _items )
+		{
+			item.Update();
+		}
 	}
 }
