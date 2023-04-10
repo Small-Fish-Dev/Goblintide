@@ -194,7 +194,8 @@ partial class GameMgr
 		// Handle loading save.
 		if ( method is BinaryReader reader )
 		{
-			Lord.Upgrades.Clear();
+			if ( !villageOnly )
+				Lord.Upgrades.Clear();
 
 			var count = reader.ReadInt32();
 			for ( int i = 0; i < count; i++ )
