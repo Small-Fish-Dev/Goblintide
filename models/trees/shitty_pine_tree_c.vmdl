@@ -94,7 +94,7 @@
 					},
 					{
 						_class = "LODGroup"
-						switch_threshold = 70.0
+						switch_threshold = 120.0
 						meshes = 
 						[
 							"mediuwum",
@@ -102,7 +102,7 @@
 					},
 					{
 						_class = "LODGroup"
-						switch_threshold = 100.0
+						switch_threshold = 200.0
 						meshes = 
 						[
 							"louwu",
