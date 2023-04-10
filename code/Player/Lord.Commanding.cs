@@ -16,11 +16,11 @@ public partial class Lord
 				if ( value != pointingAt )
 				{
 					if ( pointingAt.IsValid() )
-						pointingAt.Glow( true );
+						pointingAt.Glow( false );
 
 					if ( value.IsValid() )
 					{
-						value.Glow( false );
+						value.Glow( true );
 					}
 				}
 			}

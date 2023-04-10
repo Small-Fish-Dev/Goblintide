@@ -77,7 +77,7 @@ public partial class BaseEntity : AnimatedEntity
 	{
 		var currentLord = Game.LocalPawn as Lord;
 
-		if ( on )
+		if ( !on )
 		{
 			if ( Components.TryGet<Glow>( out Glow oldGlow ) )
 				oldGlow.Enabled = false;
