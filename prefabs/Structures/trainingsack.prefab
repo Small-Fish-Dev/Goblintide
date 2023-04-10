@@ -81,7 +81,7 @@
       },
       "Food": {
         "Type": "Int32",
-        "Value": "50"
+        "Value": "30"
       }
     }
   }
