@@ -482,6 +482,8 @@ public partial class Town : BaseNetworkable
 			GameMgr.LoadVillageSize();
 			GenerateEmptyTown( (float)GameMgr.VillageSize, true, true );
 		}
+
+		GameMgr.GenerateSave( true );
 	}
 
 	TimeUntil checkFences { get; set; } = 0.2f;
