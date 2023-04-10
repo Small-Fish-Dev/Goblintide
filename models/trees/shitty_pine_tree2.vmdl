@@ -14,14 +14,6 @@
 						remaps = 
 						[
 							{
-								from = "cube.vmat"
-								to = "materials/shitty_pine_b/shitty_pine_b.vmat"
-							},
-							{
-								from = "plane.vmat"
-								to = "materials/shitty_pine_b/shitty_pine_b.vmat"
-							},
-							{
 								from = "green.vmat"
 								to = "materials/shitty_pine_b/shitty_pine_b.vmat"
 							},
