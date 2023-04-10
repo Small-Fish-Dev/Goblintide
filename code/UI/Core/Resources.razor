@@ -1,15 +1,15 @@
 ﻿@using Sandbox.UI;
 
-@namespace GameJam
+@namespace GoblinGame
 @inherits Panel
 
 <root>
-    <ResourcePanel ResourceName="Energy" ResourceAmount=@((int)Math.Round(GameMgr.TotalEnergy)) />
-    <ResourcePanel ResourceName="Goblin" ResourceAmount=@(GameMgr.GoblinArmy.Count) />
-    <ResourcePanel ResourceName="Wood" ResourceAmount=@(GameMgr.TotalWood) />
-    <ResourcePanel ResourceName="Gold" ResourceAmount=@(GameMgr.TotalGold) />
-    <ResourcePanel ResourceName="Food" ResourceAmount=@(GameMgr.TotalFood) />
-    <ResourcePanel ResourceName="Women" ResourceAmount=@(GameMgr.TotalWomen) />
+    <ResourcePanel ResourceName="Energy" ResourceAmount=@((int)Math.Round(Goblintide.TotalEnergy)) />
+    <ResourcePanel ResourceName="Goblin" ResourceAmount=@(Goblintide.GoblinArmy.Count) />
+    <ResourcePanel ResourceName="Wood" ResourceAmount=@(Goblintide.TotalWood) />
+    <ResourcePanel ResourceName="Gold" ResourceAmount=@(Goblintide.TotalGold) />
+    <ResourcePanel ResourceName="Food" ResourceAmount=@(Goblintide.TotalFood) />
+    <ResourcePanel ResourceName="Women" ResourceAmount=@(Goblintide.TotalWomen) />
 </root>
 
 <style>
@@ -38,6 +38,6 @@
 @code {
     protected override int BuildHash()
     {
-        return HashCode.Combine( GameMgr.GoblinArmy.Count, GameMgr.TotalWood, GameMgr.TotalGold, GameMgr.TotalFood, GameMgr.TotalWomen, GameMgr.TotalEnergy );
+        return HashCode.Combine( Goblintide.GoblinArmy.Count, Goblintide.TotalWood, Goblintide.TotalGold, Goblintide.TotalFood, Goblintide.TotalWomen, Goblintide.TotalEnergy );
     }
 }

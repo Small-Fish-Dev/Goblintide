@@ -1,13 +1,13 @@
-﻿using GameJam.UI;
+﻿using GoblinGame.UI;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public static class MenuControls
 {
 	[Event.Client.BuildInput]
 	private static void BuildInput()
 	{
-		if ( GameMgr.State is not VillageState )
+		if ( Goblintide.State is not VillageState )
 			return;
 
 		if ( Input.Pressed( InputButton.Reload ) )

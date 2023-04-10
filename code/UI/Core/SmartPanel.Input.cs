@@ -1,6 +1,6 @@
 ﻿using Sandbox.UI;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public partial class SmartPanel<T> : Panel where T : Panel, new()
 {

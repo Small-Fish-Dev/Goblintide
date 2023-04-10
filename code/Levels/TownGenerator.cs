@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using static Sandbox.CitizenAnimationHelper;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public enum TownType
 {
@@ -99,7 +99,7 @@ public partial class Town : BaseNetworkable
 
 	public static float NoiseValue( float x = 0f, float y = 0f, float scale = 10f )
 	{
-		return Noise.Fbm( 2, GameMgr.CurrentTown.Seed / 100f + x / scale, GameMgr.CurrentTown.Seed / 100f + y / scale );
+		return Noise.Fbm( 2, Goblintide.CurrentTown.Seed / 100f + x / scale, Goblintide.CurrentTown.Seed / 100f + y / scale );
 	}
 	public static float NoiseFBM( float x = 0f, float y = 0f, float scale = 10f )
 	{
@@ -109,7 +109,7 @@ public partial class Town : BaseNetworkable
 	internal static bool TryPlaceProp( Dictionary<string, float> list, Vector3 position, Vector2 threshold, bool lookAtCenter = false  )
 	{
 		var noise = NoiseValue( currentX * 50f, currentY * 50f );
-		var rand = GameMgr.CurrentTown.RNG;
+		var rand = Goblintide.CurrentTown.RNG;
 
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
@@ -121,9 +121,9 @@ public partial class Town : BaseNetworkable
 			var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * 25f;
 			var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * 25f;
 			var chosenPosition = position + new Vector3( randomOffsetX, randomOffsetY, 0 );
-			var chosenRotation = lookAtCenter ? Rotation.LookAt( chosenPosition - GameMgr.CurrentTown.Position ) : Rotation.FromYaw( rand.Next( 360 ) );
+			var chosenRotation = lookAtCenter ? Rotation.LookAt( chosenPosition - Goblintide.CurrentTown.Position ) : Rotation.FromYaw( rand.Next( 360 ) );
 
-			var model = GameMgr.PrecachedModels[prefab.Root.GetValue<string>( "Model" )];
+			var model = Goblintide.PrecachedModels[prefab.Root.GetValue<string>( "Model" )];
 
 			var traceCheck = Trace.Box( model.PhysicsBounds * 1.5f, chosenPosition, chosenPosition )
 				.EntitiesOnly()
@@ -148,7 +148,7 @@ public partial class Town : BaseNetworkable
 	internal static bool TryPlaceHouse( Dictionary<string, float> list, Vector3 position, Vector2 threshold, bool lookAtCenter = false )
 	{
 		var noise = NoiseValue( currentX * 50f, currentY * 50f );
-		var rand = GameMgr.CurrentTown.RNG;
+		var rand = Goblintide.CurrentTown.RNG;
 
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
@@ -160,9 +160,9 @@ public partial class Town : BaseNetworkable
 			var randomOffsetX = (float)(rand.NextDouble() * 2f - 0.5f) * 25f;
 			var randomOffsetY = (float)(rand.NextDouble() * 2f - 0.5f) * 25f;
 			var chosenPosition = position + new Vector3( randomOffsetX, randomOffsetY, 0 );
-			var chosenRotation = lookAtCenter ? Rotation.LookAt( chosenPosition - GameMgr.CurrentTown.Position ) : Rotation.FromYaw( rand.Next( 360 ) );
+			var chosenRotation = lookAtCenter ? Rotation.LookAt( chosenPosition - Goblintide.CurrentTown.Position ) : Rotation.FromYaw( rand.Next( 360 ) );
 
-			var model = GameMgr.PrecachedModels[prefab.Root.GetValue<string>( "Model" )];
+			var model = Goblintide.PrecachedModels[prefab.Root.GetValue<string>( "Model" )];
 
 			var traceCheck = Trace.Box( model.PhysicsBounds * 1.5f, chosenPosition, chosenPosition )
 				.EntitiesOnly()
@@ -187,7 +187,7 @@ public partial class Town : BaseNetworkable
 	internal static bool TryPlaceNPC( Dictionary<string, float> list, Vector3 position, Vector2 threshold )
 	{
 		var noise = NoiseValue( currentX * 50f, currentY * 50f );
-		var rand = GameMgr.CurrentTown.RNG;
+		var rand = Goblintide.CurrentTown.RNG;
 
 		if ( noise >= threshold.x && noise <= threshold.y )
 		{
@@ -236,7 +236,7 @@ public partial class Town : BaseNetworkable
 			tree.Delete();
 		}
 
-		var clearingDistance = GameMgr.CurrentTown.TownRadius + 400f;
+		var clearingDistance = Goblintide.CurrentTown.TownRadius + 400f;
 		var forestSize = clearingDistance + 1200f;
 		var clearingSquared = clearingDistance * clearingDistance;
 		var forestSizeSquared = forestSize * forestSize;
@@ -250,7 +250,7 @@ public partial class Town : BaseNetworkable
 				if ( squaredDistance < clearingSquared ) continue;
 				if ( squaredDistance > forestSizeSquared ) continue;
 
-				TryPlaceTree( PlaceableTrees, GameMgr.CurrentTown.Position, x, y, new Vector2( 0f, 0.46f ) );
+				TryPlaceTree( PlaceableTrees, Goblintide.CurrentTown.Position, x, y, new Vector2( 0f, 0.46f ) );
 			}
 		}
 	}
@@ -265,12 +265,12 @@ public partial class Town : BaseNetworkable
 
 		TownFences.Clear();
 
-		var townDiameter = GameMgr.CurrentTown.TownRadius * 2 + 400f;
+		var townDiameter = Goblintide.CurrentTown.TownRadius * 2 + 400f;
 		var perimeter = 2 * townDiameter * Math.PI;
-		var bestFence = GameMgr.CurrentTown.TownType == TownType.Camp ? PlaceableFences.Last() : PlaceableFences.First();
+		var bestFence = Goblintide.CurrentTown.TownType == TownType.Camp ? PlaceableFences.Last() : PlaceableFences.First();
 		var fenceSize = bestFence.Value;
 		int fenceCount = (int)Math.Ceiling( perimeter / fenceSize / 2 );
-		var mainRoadSize = 60f + GameMgr.CurrentTown.TownRadius / 15f;
+		var mainRoadSize = 60f + Goblintide.CurrentTown.TownRadius / 15f;
 
 		for ( int i = 0; i < fenceCount; i++ )
 		{
@@ -279,8 +279,8 @@ public partial class Town : BaseNetworkable
 			var y = townDiameter / 2 * (float)Math.Sin( angle );
 			if ( y < mainRoadSize && y > -mainRoadSize ) continue;
 
-			var fencePosition = GameMgr.CurrentTown.Position + Vector3.Forward * x + Vector3.Right * y;
-			var transform = new Transform( fencePosition, Rotation.LookAt( fencePosition - GameMgr.CurrentTown.Position ) );
+			var fencePosition = Goblintide.CurrentTown.Position + Vector3.Forward * x + Vector3.Right * y;
+			var transform = new Transform( fencePosition, Rotation.LookAt( fencePosition - Goblintide.CurrentTown.Position ) );
 			var spawnedFence = new WallObject( Game.SceneWorld, bestFence.Key, transform, bestFence.Value );
 			TownFences.Add( spawnedFence );
 		}
@@ -291,38 +291,38 @@ public partial class Town : BaseNetworkable
 	[Net] public double SmallPropsGenerationProgress { get; set; } = 0d;
 	[Net] public double NpcsGenerationProgress { get; set; } = 0d;
 
-	public static bool PlacingHouses => GameMgr.CurrentTown.HousesGenerationProgress < 1d && GameMgr.CurrentTown.BigPropsGenerationProgress == 0d && IsGenerating;
-	public static bool PlacingBigProps => GameMgr.CurrentTown.BigPropsGenerationProgress < 1d && GameMgr.CurrentTown.HousesGenerationProgress >= 1d && IsGenerating;
-	public static bool PlacingSmallProps => GameMgr.CurrentTown.SmallPropsGenerationProgress < 1d && GameMgr.CurrentTown.BigPropsGenerationProgress >= 1d && IsGenerating;
-	public static bool PlacingNpcs => GameMgr.CurrentTown.NpcsGenerationProgress < 1d && GameMgr.CurrentTown.SmallPropsGenerationProgress >= 1d && IsGenerating;
+	public static bool PlacingHouses => Goblintide.CurrentTown.HousesGenerationProgress < 1d && Goblintide.CurrentTown.BigPropsGenerationProgress == 0d && IsGenerating;
+	public static bool PlacingBigProps => Goblintide.CurrentTown.BigPropsGenerationProgress < 1d && Goblintide.CurrentTown.HousesGenerationProgress >= 1d && IsGenerating;
+	public static bool PlacingSmallProps => Goblintide.CurrentTown.SmallPropsGenerationProgress < 1d && Goblintide.CurrentTown.BigPropsGenerationProgress >= 1d && IsGenerating;
+	public static bool PlacingNpcs => Goblintide.CurrentTown.NpcsGenerationProgress < 1d && Goblintide.CurrentTown.SmallPropsGenerationProgress >= 1d && IsGenerating;
 
-	public static double GenerationProgress => (GameMgr.CurrentTown.HousesGenerationProgress + GameMgr.CurrentTown.BigPropsGenerationProgress + GameMgr.CurrentTown.SmallPropsGenerationProgress + GameMgr.CurrentTown.NpcsGenerationProgress) / 4d;
+	public static double GenerationProgress => (Goblintide.CurrentTown.HousesGenerationProgress + Goblintide.CurrentTown.BigPropsGenerationProgress + Goblintide.CurrentTown.SmallPropsGenerationProgress + Goblintide.CurrentTown.NpcsGenerationProgress) / 4d;
 	public static string GenerationText => $"Placing {(PlacingHouses ? "Houses" : ( PlacingBigProps ? "Big Props" : ( PlacingSmallProps ? "Small Props" : "NPCs" ) ))}... [{Math.Ceiling( GenerationProgress * 100 )}%]";
 
 	public static bool IsGenerating => GenerationProgress < 1d;
 
 	static int currentCheck = -1;
-	static int totalRows => (int)(GameMgr.CurrentTown.TownRadius * 2f / 50f);
+	static int totalRows => (int)(Goblintide.CurrentTown.TownRadius * 2f / 50f);
 	static int currentX => currentCheck % totalRows - totalRows / 2;
 	static int currentY => (int)(currentCheck / totalRows) - totalRows / 2;
 	static TimeUntil nextGenerate = 0f;
 
 	public static void GenerateTown( float townSize )
 	{
-		GameMgr.CurrentTown?.DeleteTown();
+		Goblintide.CurrentTown?.DeleteTown();
 
-		GameMgr.CurrentTown = new Town();
-		GameMgr.CurrentTown.TownSize = townSize;
+		Goblintide.CurrentTown = new Town();
+		Goblintide.CurrentTown.TownSize = townSize;
 
 		currentCheck = -1;
-		GameMgr.CurrentTown.HousesGenerationProgress = 0d;
-		GameMgr.CurrentTown.BigPropsGenerationProgress = 0d;
-		GameMgr.CurrentTown.SmallPropsGenerationProgress = 0d;
-		GameMgr.CurrentTown.NpcsGenerationProgress = 0d;
+		Goblintide.CurrentTown.HousesGenerationProgress = 0d;
+		Goblintide.CurrentTown.BigPropsGenerationProgress = 0d;
+		Goblintide.CurrentTown.SmallPropsGenerationProgress = 0d;
+		Goblintide.CurrentTown.NpcsGenerationProgress = 0d;
 
-		GameMgr.CurrentTown.RNG = new Random( GameMgr.CurrentTown.Seed );
+		Goblintide.CurrentTown.RNG = new Random( Goblintide.CurrentTown.Seed );
 
-		GameMgr.CurrentTown.Position = GameMgr.CurrentTown.TownType switch
+		Goblintide.CurrentTown.Position = Goblintide.CurrentTown.TownType switch
 		{
 			TownType.Village => new Vector3( 4586f, 452f, 512f ),
 			TownType.Town => new Vector3( -4100f, 5414f, 512f ),
@@ -330,53 +330,53 @@ public partial class Town : BaseNetworkable
 		};
 
 		var wellEntity = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/well.prefab" );
-		wellEntity.Position = GameMgr.CurrentTown.Position + Vector3.Down * 0.05f;
+		wellEntity.Position = Goblintide.CurrentTown.Position + Vector3.Down * 0.05f;
 		wellEntity.Rotation = Rotation.FromYaw( Game.Random.Int( 360 ) );
 		Town.TownEntities.Add( wellEntity );
 
-		GameMgr.BroadcastFences();
-		GameMgr.BroadcastTrees();
+		Goblintide.BroadcastFences();
+		Goblintide.BroadcastTrees();
 	}
 
 	[Event.Tick.Server]
 	public static void GeneratingTown()
 	{
-		if ( GameMgr.CurrentTown == null ) return;
-		if ( GameMgr.CurrentTown.EmptyTown ) return;
+		if ( Goblintide.CurrentTown == null ) return;
+		if ( Goblintide.CurrentTown.EmptyTown ) return;
 
-		var townRadius = GameMgr.CurrentTown.TownRadius;
-		var townPosition = GameMgr.CurrentTown.Position;
+		var townRadius = Goblintide.CurrentTown.TownRadius;
+		var townPosition = Goblintide.CurrentTown.Position;
 		var townRadiusSquared = townRadius * townRadius;
 		var mainRoadSize = 60f + townRadius / 15f;
 
-		while ( nextGenerate && IsGenerating && !GameMgr.CurrentTown.Generated )
+		while ( nextGenerate && IsGenerating && !Goblintide.CurrentTown.Generated )
 		{
 			currentCheck = ( currentCheck + 1 ) % ( totalRows * totalRows );
 			var squaredDistance = currentX * 50f * currentX * 50f + currentY * 50f * currentY * 50f;
 
-			if ( GameMgr.CurrentTown.HousesGenerationProgress < 1d )
+			if ( Goblintide.CurrentTown.HousesGenerationProgress < 1d )
 			{
-				GameMgr.CurrentTown.HousesGenerationProgress = Math.Clamp( GameMgr.CurrentTown.HousesGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+				Goblintide.CurrentTown.HousesGenerationProgress = Math.Clamp( Goblintide.CurrentTown.HousesGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
 
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
 
-				if ( GameMgr.CurrentTown.TownType == TownType.Town )
+				if ( Goblintide.CurrentTown.TownType == TownType.Town )
 					if ( TryPlaceHouse( PlaceableHousesBig, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0f, 0.33f ), true ) )
 						nextGenerate = Time.Delta / 2f;
 
-				if ( GameMgr.CurrentTown.TownType == TownType.Village )
+				if ( Goblintide.CurrentTown.TownType == TownType.Village )
 					if ( TryPlaceHouse( PlaceableHousesMedium, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0f, 0.35f ), true ) )
 						nextGenerate = Time.Delta / 2f;
 
-				if ( GameMgr.CurrentTown.TownType == TownType.Camp )
+				if ( Goblintide.CurrentTown.TownType == TownType.Camp )
 					if ( TryPlaceHouse( PlaceableHousesSmall, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0f, 0.4f ), true ) )
 						nextGenerate = Time.Delta / 2f;
 			}
 
-			if ( GameMgr.CurrentTown.BigPropsGenerationProgress < 1d && GameMgr.CurrentTown.HousesGenerationProgress >= 1d )
+			if ( Goblintide.CurrentTown.BigPropsGenerationProgress < 1d && Goblintide.CurrentTown.HousesGenerationProgress >= 1d )
 			{
-				GameMgr.CurrentTown.BigPropsGenerationProgress = Math.Clamp( GameMgr.CurrentTown.BigPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+				Goblintide.CurrentTown.BigPropsGenerationProgress = Math.Clamp( Goblintide.CurrentTown.BigPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
 
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
@@ -385,9 +385,9 @@ public partial class Town : BaseNetworkable
 						nextGenerate = Time.Delta / 2f;
 			}
 
-			if ( GameMgr.CurrentTown.SmallPropsGenerationProgress < 1d && GameMgr.CurrentTown.BigPropsGenerationProgress >= 1d )
+			if ( Goblintide.CurrentTown.SmallPropsGenerationProgress < 1d && Goblintide.CurrentTown.BigPropsGenerationProgress >= 1d )
 			{
-				GameMgr.CurrentTown.SmallPropsGenerationProgress = Math.Clamp( GameMgr.CurrentTown.SmallPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+				Goblintide.CurrentTown.SmallPropsGenerationProgress = Math.Clamp( Goblintide.CurrentTown.SmallPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
 
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
@@ -396,9 +396,9 @@ public partial class Town : BaseNetworkable
 					nextGenerate = Time.Delta / 2f;
 			}
 
-			if ( GameMgr.CurrentTown.NpcsGenerationProgress < 1d && GameMgr.CurrentTown.SmallPropsGenerationProgress >= 1d )
+			if ( Goblintide.CurrentTown.NpcsGenerationProgress < 1d && Goblintide.CurrentTown.SmallPropsGenerationProgress >= 1d )
 			{
-				GameMgr.CurrentTown.NpcsGenerationProgress = Math.Clamp( GameMgr.CurrentTown.NpcsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
+				Goblintide.CurrentTown.NpcsGenerationProgress = Math.Clamp( Goblintide.CurrentTown.NpcsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
 
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
@@ -409,9 +409,9 @@ public partial class Town : BaseNetworkable
 
 		}
 
-		if ( !IsGenerating && !GameMgr.CurrentTown.Generated )
+		if ( !IsGenerating && !Goblintide.CurrentTown.Generated )
 		{
-			GameMgr.CurrentTown.Generated = true;
+			Goblintide.CurrentTown.Generated = true;
 		}
 	}
 
@@ -420,58 +420,58 @@ public partial class Town : BaseNetworkable
 	public static void GenerateEmptyTown( float townSize, bool goldPile = true, bool deleteOld = true )
 	{
 		if ( deleteOld )
-			GameMgr.CurrentTown?.DeleteTown();
+			Goblintide.CurrentTown?.DeleteTown();
 
-		var oldPosition = GameMgr.CurrentTown?.Position ?? new Vector3( 55f, 292.05f, 512f );
+		var oldPosition = Goblintide.CurrentTown?.Position ?? new Vector3( 55f, 292.05f, 512f );
 
-		GameMgr.CurrentTown = new Town();
-		GameMgr.CurrentTown.EmptyTown = true;
-		GameMgr.CurrentTown.TownSize = townSize;
+		Goblintide.CurrentTown = new Town();
+		Goblintide.CurrentTown.EmptyTown = true;
+		Goblintide.CurrentTown.TownSize = townSize;
 
-		GameMgr.CurrentTown.Position = GameMgr.CurrentTown.TownType switch
+		Goblintide.CurrentTown.Position = Goblintide.CurrentTown.TownType switch
 		{
 			TownType.Village => new Vector3( 4586f, 452f, 512f ),
 			TownType.Town => new Vector3( -4100f, 5414f, 512f ),
 			_ => new Vector3( 55f, 292.05f, 512f ),
 		};
 
-		GameMgr.CurrentTown.RNG = new Random( GameMgr.CurrentTown.Seed );
+		Goblintide.CurrentTown.RNG = new Random( Goblintide.CurrentTown.Seed );
 
 		if ( goldPile && deleteOld )
 		{
-			GameMgr.CurrentTown.Throne = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/goldpile.prefab" );
-			GameMgr.CurrentTown.Throne.Position = GameMgr.CurrentTown.Position + Vector3.Down * 2f;
-			Town.TownEntities.Add( GameMgr.CurrentTown.Throne );
+			Goblintide.CurrentTown.Throne = RaidableBuilding.FromPrefab( "prefabs/raidablebuildings/goldpile.prefab" );
+			Goblintide.CurrentTown.Throne.Position = Goblintide.CurrentTown.Position + Vector3.Down * 2f;
+			Town.TownEntities.Add( Goblintide.CurrentTown.Throne );
 		}
 
 		if ( deleteOld )
 		{
-			foreach ( var goblin in GameMgr.GoblinArmy )
+			foreach ( var goblin in Goblintide.GoblinArmy )
 			{
 				var relativePosition = goblin.Position - oldPosition;
-				goblin.Position = GameMgr.CurrentTown.Position + relativePosition;
+				goblin.Position = Goblintide.CurrentTown.Position + relativePosition;
 			}
 			foreach ( var player in Entity.All.OfType<Lord>() )
 			{
 				var relativePosition = player.Position - oldPosition;
-				player.Position = GameMgr.CurrentTown.Position + relativePosition;
+				player.Position = Goblintide.CurrentTown.Position + relativePosition;
 			}
 			foreach ( var structure in Entity.All.OfType<BaseStructure>() )
 			{
 				var relativePosition = structure.Position - oldPosition;
-				structure.Position = GameMgr.CurrentTown.Position + relativePosition;
+				structure.Position = Goblintide.CurrentTown.Position + relativePosition;
 			}
 			foreach ( var ent in TownEntities )
 			{
 				if ( !ent.IsValid() ) continue;
 				var relativePosition = ent.Position - oldPosition;
-				ent.Position = GameMgr.CurrentTown.Position + relativePosition;
+				ent.Position = Goblintide.CurrentTown.Position + relativePosition;
 			}
 		}
 
-		GameMgr.BroadcastFences();
-		GameMgr.BroadcastTrees();
-		GameMgr.CurrentTown.Generated = true;
+		Goblintide.BroadcastFences();
+		Goblintide.BroadcastTrees();
+		Goblintide.CurrentTown.Generated = true;
 	}
 
 	[Event("UpgradeBought")]
@@ -479,11 +479,11 @@ public partial class Town : BaseNetworkable
 	{
 		if ( identifier.StartsWith( "Village Size" ) )
 		{
-			GameMgr.LoadVillageSize();
-			GenerateEmptyTown( (float)GameMgr.VillageSize, true, true );
+			Goblintide.LoadVillageSize();
+			GenerateEmptyTown( (float)Goblintide.VillageSize, true, true );
 		}
 
-		GameMgr.GenerateSave( true );
+		Goblintide.GenerateSave( true );
 	}
 
 	TimeUntil checkFences { get; set; } = 0.2f;

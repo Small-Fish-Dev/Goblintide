@@ -1,6 +1,6 @@
 ﻿using Sandbox.Internal;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public partial class BaseNPC
 {

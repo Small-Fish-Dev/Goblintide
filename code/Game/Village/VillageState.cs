@@ -1,7 +1,7 @@
 ﻿using Sandbox.Internal;
 using System.Diagnostics;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public struct BuildingEntry
 {
@@ -27,27 +27,27 @@ public partial class VillageState : GameState
 		if ( Game.IsClient )
 		{
 			hud = HUD.Instance.AddChild<VillageHUD>();
-			GameMgr.Music.Stop();
-			GameMgr.Music = Sound.FromScreen( "sounds/music/village_song.sound" );
+			Goblintide.Music.Stop();
+			Goblintide.Music = Sound.FromScreen( "sounds/music/village_song.sound" );
 			return;
 		}
 
-		Town.GenerateEmptyTown( (float)GameMgr.VillageSize );
-		GameMgr.LoadSave( true, true );
-		GameMgr.Lord.Position = GameMgr.CurrentTown.Throne.Position + 50f;
-		GameMgr.GoblinArmyEnabled( true );
-		GameMgr.PlaceGoblinArmy( true );
+		Town.GenerateEmptyTown( (float)Goblintide.VillageSize );
+		Goblintide.LoadSave( true, true );
+		Goblintide.Lord.Position = Goblintide.CurrentTown.Throne.Position + 50f;
+		Goblintide.GoblinArmyEnabled( true );
+		Goblintide.PlaceGoblinArmy( true );
 
-		foreach( var goblin in GameMgr.GoblinArmy )
+		foreach( var goblin in Goblintide.GoblinArmy )
 		{
 			goblin.BaseDiligency = 1;
 		}
 
 		if ( Game.IsServer )
 		{
-			if ( GameMgr.Tutorial )
+			if ( Goblintide.Tutorial )
 			{
-				GameMgr.DoTutorial();
+				Goblintide.DoTutorial();
 			}
 		}
 	}
@@ -59,12 +59,12 @@ public partial class VillageState : GameState
 		if ( Game.IsServer )
 		{
 
-			GameMgr.GenerateSave( true );
+			Goblintide.GenerateSave( true );
 
 			foreach ( var structure in Entity.All.OfType<BaseStructure>() )
 				structure.Delete();
 
-			foreach ( var goblin in GameMgr.GoblinArmy )
+			foreach ( var goblin in Goblintide.GoblinArmy )
 			{
 				goblin.BaseDiligency = goblin.RootPrefab.GetValue<float>("BaseDiligency");
 			}
@@ -86,10 +86,10 @@ public partial class VillageState : GameState
 		if ( structure == null )
 			return false;
 
-		var pos = new Vector3( entry.Position.x, entry.Position.y, GameMgr.CurrentTown.Position.z );
+		var pos = new Vector3( entry.Position.x, entry.Position.y, Goblintide.CurrentTown.Position.z );
 		structure.Position = pos;
 
-		var rotation = Rotation.LookAt( pos - GameMgr.CurrentTown.Position );
+		var rotation = Rotation.LookAt( pos - Goblintide.CurrentTown.Position );
 		structure.Rotation = Rotation.FromYaw( rotation.Yaw() );
 		structure.Entry = entry;
 
@@ -99,19 +99,19 @@ public partial class VillageState : GameState
 	[Event.Tick.Server]
 	private void onTick()
 	{
-		if ( GameMgr.Lord == null )
+		if ( Goblintide.Lord == null )
 			return;
 
 		// Block movement if in overview mode.
-		GameMgr.Lord.BlockMovement = GameMgr.Lord.Overview;
+		Goblintide.Lord.BlockMovement = Goblintide.Lord.Overview;
 
-		if ( GameMgr.Lord.Position.Distance( GameMgr.CurrentTown.Position ) >= GameMgr.CurrentTown.ForestRadius - 200f )
+		if ( Goblintide.Lord.Position.Distance( Goblintide.CurrentTown.Position ) >= Goblintide.CurrentTown.ForestRadius - 200f )
 		{
-			GameMgr.Lord.Position = GameMgr.CurrentTown.Throne.Position + 20f;
+			Goblintide.Lord.Position = Goblintide.CurrentTown.Throne.Position + 20f;
 		}
 
-		if ( GameMgr.CurrentTown?.Throne?.IsValid() ?? false )
-			GameMgr.CurrentTown.Throne.Position = GameMgr.CurrentTown.Position + Vector3.Down * 2f + Vector3.Up * Math.Min( (float)Math.Sqrt( GameMgr.TotalGold ), 100f );
+		if ( Goblintide.CurrentTown?.Throne?.IsValid() ?? false )
+			Goblintide.CurrentTown.Throne.Position = Goblintide.CurrentTown.Position + Vector3.Down * 2f + Vector3.Up * Math.Min( (float)Math.Sqrt( Goblintide.TotalGold ), 100f );
 	}
 
 	[ConCmd.Admin( "SpawnStructure" )]

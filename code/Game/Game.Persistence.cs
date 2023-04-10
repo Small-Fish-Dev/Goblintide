@@ -1,9 +1,9 @@
 ﻿using Sandbox;
 using System.IO;
 
-namespace GameJam;
+namespace GoblinGame;
 
-partial class GameMgr
+partial class Goblintide
 {
 	public const bool ENABLE_SAVESYSTEM = true;
 	public const string SAVE_PATH = "./save.dat";
@@ -225,7 +225,7 @@ partial class GameMgr
 			foreach ( var building in VillageState.Structures )
 			{
 				writer.Write( building.PrefabName );
-				writer.Write( building.Position - GameMgr.CurrentTown.Position );
+				writer.Write( building.Position - Goblintide.CurrentTown.Position );
 			}
 
 			return;
@@ -242,7 +242,7 @@ partial class GameMgr
 				var entry = new BuildingEntry()
 				{
 					PrefabName = reader.ReadString(),
-					Position = GameMgr.CurrentTown.Position + reader.ReadVector3()
+					Position = Goblintide.CurrentTown.Position + reader.ReadVector3()
 				};
 
 				VillageState.TrySpawnStructure( entry, out var structure );
@@ -264,7 +264,7 @@ partial class GameMgr
 		using var writer = new BinaryWriter( stream );
 
 		// Save all data.
-		writer.Write( GameMgr.Tutorial );
+		writer.Write( Goblintide.Tutorial );
 		writer.Write( DateTime.UtcNow.Ticks / 10000000 ); // last update
 		lordPersist( writer );
 		resourcesPersist( writer );
@@ -304,7 +304,7 @@ partial class GameMgr
 		try
 		{
 			// Read all data and act according to it.
-			GameMgr.Tutorial = reader.ReadBoolean();
+			Goblintide.Tutorial = reader.ReadBoolean();
 			LastUpdate = reader.ReadInt64();
 			lordPersist( reader, villageOnly );
 			resourcesPersist( reader, villageOnly );
@@ -343,7 +343,7 @@ partial class GameMgr
 		{
 			FileSystem.Data.DeleteFile( SAVE_PATH );
 			Log.Error( "SAVE FILE DELETED" );
-			GameMgr.Lord?.Client.Kick();
+			Goblintide.Lord?.Client.Kick();
 		}
 	}
 
@@ -353,7 +353,7 @@ partial class GameMgr
 
 		if ( Lord.CombinedUpgrades.VillageSize > 0f )
 		{
-			GameMgr.VillageSize = 5d + Lord.CombinedUpgrades.VillageSize;
+			Goblintide.VillageSize = 5d + Lord.CombinedUpgrades.VillageSize;
 		}
 	}
 
@@ -363,22 +363,22 @@ partial class GameMgr
 
 		if ( Lord.CombinedUpgrades.Fortitude > 0f )
 		{
-			GameMgr.Lord.MaxHitPoints *= (float)Math.Pow( 1f + Lord.CombinedUpgrades.Fortitude, 2);
+			Goblintide.Lord.MaxHitPoints *= (float)Math.Pow( 1f + Lord.CombinedUpgrades.Fortitude, 2);
 		}
 	}
 
 	public static void LoadNewGoblins()
 	{
-		var newGoblins = Math.Min( (int)(GameMgr.SecondsSinceLastUpdate * GameMgr.GoblinPerSecond), GameMgr.MaxArmySize - GameMgr.GoblinArmy.Count );
+		var newGoblins = Math.Min( (int)(Goblintide.SecondsSinceLastUpdate * Goblintide.GoblinPerSecond), Goblintide.MaxArmySize - Goblintide.GoblinArmy.Count );
 		
 		for ( int i = 0; i < newGoblins; i++ )
 		{
 			var newGoblin = BaseNPC.FromPrefab( "prefabs/npcs/goblin.prefab" );
 			if ( newGoblin.IsValid() )
 			{
-				GameMgr.GoblinArmy.Add( newGoblin );
-				var distance = Game.Random.Float( 150f, GameMgr.CurrentTown.TownRadius * 2 );
-				var newPosition = GameMgr.CurrentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
+				Goblintide.GoblinArmy.Add( newGoblin );
+				var distance = Game.Random.Float( 150f, Goblintide.CurrentTown.TownRadius * 2 );
+				var newPosition = Goblintide.CurrentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
 				newGoblin.Position = newPosition;
 
 				if ( Lord.CombinedUpgrades != null )
@@ -396,9 +396,9 @@ partial class GameMgr
 			var newGoblin = BaseNPC.FromPrefab( "prefabs/npcs/goblin.prefab" ); // Spawn 10 goblinis
 			if ( newGoblin.IsValid() )
 			{
-				GameMgr.GoblinArmy.Add( newGoblin );
-				var distance = Game.Random.Float( 150f, GameMgr.CurrentTown.TownRadius * 2 );
-				var newPosition = GameMgr.CurrentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
+				Goblintide.GoblinArmy.Add( newGoblin );
+				var distance = Game.Random.Float( 150f, Goblintide.CurrentTown.TownRadius * 2 );
+				var newPosition = Goblintide.CurrentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
 				newGoblin.Position = newPosition;
 			}
 
@@ -411,11 +411,11 @@ partial class GameMgr
 
 	public static void GiveGoblinsWeapons()
 	{
-		var doesntHaveWeapon = GameMgr.GoblinArmy
+		var doesntHaveWeapon = Goblintide.GoblinArmy
 				.Where( x => !x.Weapon.IsValid() )
 				.ToArray();
 
-		var newWeapons = Math.Min( (int)(GameMgr.SecondsSinceLastUpdate * GameMgr.WeaponsPerSecond), doesntHaveWeapon.Count() );
+		var newWeapons = Math.Min( (int)(Goblintide.SecondsSinceLastUpdate * Goblintide.WeaponsPerSecond), doesntHaveWeapon.Count() );
 
 		if ( doesntHaveWeapon.Count() > 0 )
 		{
@@ -425,7 +425,7 @@ partial class GameMgr
 				if ( Lord.CombinedUpgrades != null )
 					chosenKey = (int)Lord.CombinedUpgrades.Weapons;
 
-				var chosenWeapon = BaseItem.FromPrefab( WeightedList.RandomKey( GameMgr.WeaponsList[chosenKey] ) );
+				var chosenWeapon = BaseItem.FromPrefab( WeightedList.RandomKey( Goblintide.WeaponsList[chosenKey] ) );
 
 				if ( chosenWeapon.IsValid() )
 					doesntHaveWeapon[i].Equip( chosenWeapon );
@@ -459,7 +459,7 @@ partial class GameMgr
 		{
 			nextSave = 15f;
 
-			if ( GameMgr.State is VillageState )
+			if ( Goblintide.State is VillageState )
 			{
 				Log.Info( "Autosaving..." );
 				GenerateSave( true );

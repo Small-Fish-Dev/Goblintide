@@ -1,4 +1,4 @@
-﻿namespace GameJam.UpgradeSystem;
+﻿namespace GoblinGame.UpgradeSystem;
 
 public static class Creator
 {

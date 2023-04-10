@@ -1,8 +1,8 @@
-﻿@using GameJam.UI.Core
-@using GameJam.UpgradeSystem
+﻿@using GoblinGame.UI.Core
+@using GoblinGame.UpgradeSystem
 @using Sandbox.UI;
 
-@namespace GameJam.UI
+@namespace GoblinGame.UI
 @inherits Panel
 @attribute [StyleSheet( "/UI/SkillTree/SkillTree.scss" )]
 
@@ -15,7 +15,7 @@
 			allow-translate>
 		</AnimatedImage>
 		<div class="inner">
-			<WiggleText Value=@( $"{GameMgr.TotalIQ}" ) Scale=@( 0.6f )></WiggleText>
+			<WiggleText Value=@( $"{Goblintide.TotalIQ}" ) Scale=@( 0.6f )></WiggleText>
 			<WiggleText Value=@( $"iq" ) Scale=@( 0.4f )></WiggleText>
 		</div>
 	</div>

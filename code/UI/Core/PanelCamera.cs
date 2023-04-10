@@ -1,4 +1,4 @@
-﻿namespace GameJam.UI.Core;
+﻿namespace GoblinGame.UI.Core;
 
 public class PanelCamera
 {

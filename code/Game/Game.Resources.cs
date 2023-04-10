@@ -1,8 +1,8 @@
-﻿using GameJam.Props.Collectable;
+﻿using GoblinGame.Props.Collectable;
 
-namespace GameJam;
+namespace GoblinGame;
 
-public partial class GameMgr
+public partial class Goblintide
 {
 	public static IList<BaseNPC> GoblinArmy
 	{
@@ -184,7 +184,7 @@ public partial class GameMgr
 	[Event.Tick.Server]
 	public void CalculateEnergy()
 	{
-		if ( !GameMgr.Loaded ) return;
+		if ( !Goblintide.Loaded ) return;
 
 		var maxIncrease = 1f;
 		if ( Lord.CombinedUpgrades != null && Lord.CombinedUpgrades.EnduranceTraining > 0f )
@@ -237,7 +237,7 @@ public partial class GameMgr
 	/// <param name="insideTown"></param>
 	public static void PlaceGoblinArmy( bool insideTown )
 	{
-		var currentTown = GameMgr.CurrentTown;
+		var currentTown = Goblintide.CurrentTown;
 		if ( currentTown == null ) return;
 		var clearingDistance = currentTown.TownRadius + 600f;
 		var forestSize = clearingDistance + 1000f;

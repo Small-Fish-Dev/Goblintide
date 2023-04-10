@@ -1,4 +1,4 @@
-﻿namespace GameJam;
+﻿namespace GoblinGame;
 
 [Prefab]
 public partial class TentComponent : StructureComponent
@@ -11,7 +11,7 @@ public partial class TentComponent : StructureComponent
 			if ( Lord.CombinedUpgrades.MacMansion > 0 )
 				extraSpace =  (int)Lord.CombinedUpgrades.MacMansion;
 
-		GameMgr.MaxArmySize += ( 10 + extraSpace );
+		Goblintide.MaxArmySize += ( 10 + extraSpace );
 	}
 
 	public override void OnDestroy()
@@ -22,7 +22,7 @@ public partial class TentComponent : StructureComponent
 			if ( Lord.CombinedUpgrades.MacMansion > 0 )
 				extraSpace = (int)Lord.CombinedUpgrades.MacMansion;
 
-		GameMgr.MaxArmySize -= ( 10 + extraSpace );
+		Goblintide.MaxArmySize -= ( 10 + extraSpace );
 	}
 
 	[Event( "UpgradeBought" )]
@@ -32,7 +32,7 @@ public partial class TentComponent : StructureComponent
 		{
 			if ( Lord.CombinedUpgrades != null )
 				if ( Lord.CombinedUpgrades.MacMansion > 0 )
-					GameMgr.MaxArmySize++;
+					Goblintide.MaxArmySize++;
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using Sandbox.UI;
 
-namespace GameJam;
+namespace GoblinGame;
 
 [Prefab, Category( "Structures" )]
 public partial class BaseStructure : ModelEntity
@@ -76,7 +76,7 @@ public partial class BaseStructure : ModelEntity
 		if ( ConsoleSystem.Caller.Pawn is not Lord pawn )
 			return;
 
-		var town = GameMgr.CurrentTown;
+		var town = Goblintide.CurrentTown;
 		if ( town == null )
 			return;
 
@@ -101,7 +101,7 @@ public partial class BaseStructure : ModelEntity
 		var wood = prefab.Root.GetValue<int>( "Wood" );
 		var women = prefab.Root.GetValue<int>( "Women" );
 		var food = prefab.Root.GetValue<int>( "Food" );
-		if ( GameMgr.TotalWood < wood || GameMgr.TotalWomen < women || GameMgr.TotalFood < food )
+		if ( Goblintide.TotalWood < wood || Goblintide.TotalWomen < women || Goblintide.TotalFood < food )
 		{
 			EventLogger.Send( To.Everyone, "<red>You have insufficient resources for that.</red>", 3 );
 			return;
@@ -120,9 +120,9 @@ public partial class BaseStructure : ModelEntity
 		EventLogger.Send( To.Everyone, $"Building a <lightblue>{prefab.Root.GetValue<string>( "Title" ).ToUpper()}</>.", 8 );
 
 		// Take from resources.
-		GameMgr.TotalWood -= wood;
-		GameMgr.TotalWomen -= women;
-		GameMgr.TotalFood -= food;
+		Goblintide.TotalWood -= wood;
+		Goblintide.TotalWomen -= women;
+		Goblintide.TotalFood -= food;
 	}
 
 	public override void OnNewModel( Model model )

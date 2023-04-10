@@ -6,19 +6,19 @@ global using System.Linq;
 global using Sandbox.Utility;
 global using System.Threading.Tasks;
 global using Sandbox.Component;
-using GameJam.UpgradeSystem;
-using GameJam.Props.Collectable;
+using GoblinGame.UpgradeSystem;
+using GoblinGame.Props.Collectable;
 using System.Net.Http.Headers;
 
-namespace GameJam;
+namespace GoblinGame;
 
-// TODO(gio): rename GameMgr when we have an actual idea! 
-public partial class GameMgr : GameManager
+// TODO(gio): rename Goblintide when we have an actual idea! 
+public partial class Goblintide : GameManager
 {
 	/// <summary>
 	/// The singleton for GameManager.
 	/// </summary>
-	public static GameMgr Instance { get; private set; }
+	public static Goblintide Instance { get; private set; }
 	public static bool Tutorial { get; set; } = true;
 
 	/// <summary>
@@ -101,7 +101,7 @@ public partial class GameMgr : GameManager
 		}
 };
 
-	public GameMgr()
+	public Goblintide()
 	{
 		Instance = this;
 		Game.TickRate = 15;
@@ -110,8 +110,8 @@ public partial class GameMgr : GameManager
 
 		if ( Game.IsClient )
 		{
-			GameMgr.Music.Stop();
-			GameMgr.Music = Sound.FromScreen( "sounds/music/village_song.sound" );
+			Goblintide.Music.Stop();
+			Goblintide.Music = Sound.FromScreen( "sounds/music/village_song.sound" );
 		}
 
 		WorldMapHost.Start();
@@ -128,22 +128,22 @@ public partial class GameMgr : GameManager
 
 	public static void DoTutorial()
 	{
-		GameMgr.Instance.nextTutorial = 1f;
+		Goblintide.Instance.nextTutorial = 1f;
 	}
 
 	[Event.Tick.Server]
 	public static void ComputeTutorial()
 	{
-		if ( !GameMgr.Tutorial ) return;
+		if ( !Goblintide.Tutorial ) return;
 
-		if ( GameMgr.Instance.nextTutorial )
+		if ( Goblintide.Instance.nextTutorial )
 		{
-			if ( GameMgr.Instance.tutorialPhrases.Count == 0 )
+			if ( Goblintide.Instance.tutorialPhrases.Count == 0 )
 			{
-				GameMgr.Instance.nextTutorial = 999999f;
+				Goblintide.Instance.nextTutorial = 999999f;
 				return;
 			}
-			var curPhrase = GameMgr.Instance.tutorialPhrases.First();
+			var curPhrase = Goblintide.Instance.tutorialPhrases.First();
 			var duration = curPhrase.Length / 16f;
 			GameplayHints.Send( To.Everyone, curPhrase, duration );
 			if ( curPhrase.StartsWith( "Barely" ) )
@@ -165,14 +165,14 @@ public partial class GameMgr : GameManager
 			if ( curPhrase.StartsWith( "Make sure" ) )
 				Sound.FromScreen( "sounds/tutorial/tutorial10.sound" );
 
-			GameMgr.Instance.tutorialPhrases.RemoveAt( 0 );
-			if ( GameMgr.Instance.tutorialPhrases.Count == 0 )
+			Goblintide.Instance.tutorialPhrases.RemoveAt( 0 );
+			if ( Goblintide.Instance.tutorialPhrases.Count == 0 )
 			{
-				GameMgr.Instance.nextTutorial = 999999f;
+				Goblintide.Instance.nextTutorial = 999999f;
 				return;
 			}
 			else
-				GameMgr.Instance.nextTutorial = duration + 0.3f;
+				Goblintide.Instance.nextTutorial = duration + 0.3f;
 
 		}
 	}

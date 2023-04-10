@@ -1,8 +1,8 @@
-﻿using GameJam.Props.Collectable;
+﻿using GoblinGame.Props.Collectable;
 using Sandbox.UI;
 using System.Linq;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public enum Behaviour
 {
@@ -60,7 +60,7 @@ public partial class BaseNPC
 
 	public virtual void ComputeBehaviour()
 	{
-		if ( GameMgr.CurrentTown == null ) return;
+		if ( Goblintide.CurrentTown == null ) return;
 		//BehaviourTree[CurrentBehaviour].Invoke( this );
 		DiligencyCheck();
 
@@ -261,14 +261,14 @@ public partial class BaseNPC
 
 	public float DistanceToForest()
 	{
-		var relativeTownPosition = (Position - GameMgr.CurrentTown.Position);
-		return GameMgr.CurrentTown.ForestRadius - relativeTownPosition.Length;
+		var relativeTownPosition = (Position - Goblintide.CurrentTown.Position);
+		return Goblintide.CurrentTown.ForestRadius - relativeTownPosition.Length;
 	}
 
 	public virtual void NavigateToForest()
 	{
-		var relativeTownPosition = (Position - GameMgr.CurrentTown.Position).Normal;
-		var bestEscapePosition = GameMgr.CurrentTown.Position + relativeTownPosition * GameMgr.CurrentTown.ForestRadius;
+		var relativeTownPosition = (Position - Goblintide.CurrentTown.Position).Normal;
+		var bestEscapePosition = Goblintide.CurrentTown.Position + relativeTownPosition * Goblintide.CurrentTown.ForestRadius;
 
 		IsGoingToForest = true;
 
@@ -346,7 +346,7 @@ public partial class BaseNPC
 
 			if ( DistanceToForest() <= 100f )
 			{
-				GameMgr.AddResource( Stealing.Type, Stealing.Value );
+				Goblintide.AddResource( Stealing.Type, Stealing.Value );
 				Stealing.Delete();
 				IsGoingToForest = false;
 			}
@@ -454,7 +454,7 @@ public partial class BaseNPC
 	{
 		if ( newDefendingPosition )
 		{
-			var currentTown = GameMgr.CurrentTown;
+			var currentTown = Goblintide.CurrentTown;
 			DefendingPosition = currentTown.Position + Vector3.Random.WithZ(0).Normal * Game.Random.Float( -currentTown.TownRadius, currentTown.TownRadius );
 			IsFollowingOrder = true;
 			newDefendingPosition = Game.Random.Float( 8f, 16f );

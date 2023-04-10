@@ -1,4 +1,4 @@
-﻿namespace GameJam;
+﻿namespace GoblinGame;
 
 public partial class StructureComponent : EntityComponent<BaseStructure>
 {

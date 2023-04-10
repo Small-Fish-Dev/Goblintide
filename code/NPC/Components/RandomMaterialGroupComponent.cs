@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameJam;
+namespace GoblinGame;
 
 [Prefab]
 public partial class RandomMaterialGroupComponent : EntityComponent<ModelEntity>

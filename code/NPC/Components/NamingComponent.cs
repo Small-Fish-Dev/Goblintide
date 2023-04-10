@@ -1,4 +1,4 @@
-﻿namespace GameJam;
+﻿namespace GoblinGame;
 
 [Prefab]
 public partial class NamingComponent : CharacterComponent

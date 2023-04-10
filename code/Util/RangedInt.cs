@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace GameJam.Util;
+namespace GoblinGame.Util;
 
 /// <summary>
 /// An integer between two values, which can be randomized or fixed.

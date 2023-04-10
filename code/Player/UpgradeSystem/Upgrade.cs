@@ -1,4 +1,4 @@
-﻿namespace GameJam.UpgradeSystem;
+﻿namespace GoblinGame.UpgradeSystem;
 
 [AttributeUsage( AttributeTargets.Property )]
 public class EffectAttribute : Attribute

@@ -1,8 +1,8 @@
-﻿@using GameJam.UI
+﻿@using GoblinGame.UI
 @using Sandbox;
 @using Sandbox.UI;
 
-@namespace GameJam
+@namespace GoblinGame
 @inherits RootPanel
 
 <style>
@@ -64,12 +64,12 @@
 	<panel class="inputContainer">
 		<inputglyph text="Overview" button=@InputButton.Score/>
 
-		@if ( GameMgr.State is VillageState )
+		@if ( Goblintide.State is VillageState )
 		{
 			<inputglyph text="Skill Tree" button=@InputButton.Chat/>
 			<inputglyph text="Map" button=@InputButton.Reload/>
 		}
-		@if ( GameMgr.State is RaidingState )
+		@if ( Goblintide.State is RaidingState )
 		{
 			<inputglyph text="Command!" button=@InputButton.SecondaryAttack/>
 		}
@@ -93,7 +93,7 @@
 	[Event( "HACK_GameStateChanged" )]
 	private void GameStateChanged()
 	{
-		Log.Info( $"new game state {GameMgr.State}" );
+		Log.Info( $"new game state {Goblintide.State}" );
 		StateHasChanged();
 	}
 
@@ -168,7 +168,7 @@
 			Instance = null;
 
 			new HUD();
-			GameMgr.State?.Initialize(); // Reinitialize state on client.
+			Goblintide.State?.Initialize(); // Reinitialize state on client.
 		}
 	}
 

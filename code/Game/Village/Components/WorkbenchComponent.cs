@@ -1,16 +1,16 @@
-﻿namespace GameJam;
+﻿namespace GoblinGame;
 
 [Prefab]
 public partial class WorkbenchComponent : StructureComponent
 {
 	public override void Initialize()
 	{
-		GameMgr.WeaponsPerSecond += 1d / 60d;
+		Goblintide.WeaponsPerSecond += 1d / 60d;
 	}
 
 	public override void OnDestroy()
 	{
-		GameMgr.WeaponsPerSecond -= 1d / 60d;
+		Goblintide.WeaponsPerSecond -= 1d / 60d;
 	}
 
 	TimeUntil nextWeapon = 5f;
@@ -22,7 +22,7 @@ public partial class WorkbenchComponent : StructureComponent
 		{
 			nextWeapon = 60f;
 
-			var doesntHaveWeapon = GameMgr.GoblinArmy
+			var doesntHaveWeapon = Goblintide.GoblinArmy
 				.Where( x => !x.Weapon.IsValid() )
 				.OrderBy( x => x.Position.DistanceSquared( Entity.Position ) );
 
@@ -32,7 +32,7 @@ public partial class WorkbenchComponent : StructureComponent
 				if ( Lord.CombinedUpgrades != null )
 					chosenKey = (int)Lord.CombinedUpgrades.Weapons;
 
-				var chosenWeapon = BaseItem.FromPrefab( WeightedList.RandomKey( GameMgr.WeaponsList[chosenKey] ));
+				var chosenWeapon = BaseItem.FromPrefab( WeightedList.RandomKey( Goblintide.WeaponsList[chosenKey] ));
 
 				if ( chosenWeapon.IsValid() )
 					doesntHaveWeapon.First().Equip( chosenWeapon );

@@ -1,6 +1,6 @@
-﻿using static GameJam.WorldMapHost;
+﻿using static GoblinGame.WorldMapHost;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public partial class Lord : BaseCharacter
 {
@@ -45,13 +45,13 @@ public partial class Lord : BaseCharacter
 	}
 	public override void Kill()
 	{
-		if ( GameMgr.State is not VillageState )
+		if ( Goblintide.State is not VillageState )
 		{
-			var count = GameMgr.GoblinArmy.Count;
+			var count = Goblintide.GoblinArmy.Count;
 			for ( int i = 0; i < count; i++ )
-				GameMgr.GoblinArmy.First()?.Delete();
+				Goblintide.GoblinArmy.First()?.Delete();
 
-			GameMgr.SetState<VillageState>();
+			Goblintide.SetState<VillageState>();
 			Sound.FromScreen( "sounds/ui/trumpets_failfare.sound" );
 		}
 

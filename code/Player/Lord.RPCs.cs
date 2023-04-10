@@ -1,4 +1,4 @@
-﻿namespace GameJam;
+﻿namespace GoblinGame;
 
 partial class Lord
 {

@@ -1,6 +1,6 @@
 ﻿using Sandbox.Component;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public partial class Lord
 {

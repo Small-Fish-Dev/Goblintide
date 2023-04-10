@@ -1,6 +1,6 @@
-﻿using GameJam.UI;
+﻿using GoblinGame.UI;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public partial class Lord
 {
@@ -11,7 +11,7 @@ public partial class Lord
 		get => overviewOffset;
 		set
 		{
-			var town = GameMgr.CurrentTown;
+			var town = Goblintide.CurrentTown;
 			if ( town == null )
 				return;
 
@@ -21,8 +21,8 @@ public partial class Lord
 
 	Vector3 overviewOffset;
 
-	Vector3 pointOfInterest => GameMgr.CurrentTown != null
-		? GameMgr.CurrentTown.Position
+	Vector3 pointOfInterest => Goblintide.CurrentTown != null
+		? Goblintide.CurrentTown.Position
 		: Vector3.Up * 512;
 
 	#region Player Configuration

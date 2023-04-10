@@ -1,4 +1,4 @@
-﻿namespace GameJam;
+﻿namespace GoblinGame;
 
 public class HostEntity<T> : Entity where T : Entity, new()
 {

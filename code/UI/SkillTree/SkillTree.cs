@@ -1,7 +1,7 @@
-﻿using GameJam.UpgradeSystem;
+﻿using GoblinGame.UpgradeSystem;
 using Sandbox.UI;
 
-namespace GameJam.UI;
+namespace GoblinGame.UI;
 
 public partial class SkillTree
 {

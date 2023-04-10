@@ -1,8 +1,8 @@
-﻿@using GameJam.UI.Core
-@using GameJam.UpgradeSystem
+﻿@using GoblinGame.UI.Core
+@using GoblinGame.UpgradeSystem
 @using Sandbox.UI;
 
-@namespace GameJam.UI
+@namespace GoblinGame.UI
 @inherits SmartPanel<SkillTree>
 @attribute [StyleSheet( "/UI/SkillTree/SkillTree.scss" )]
 
@@ -73,7 +73,7 @@
 
 	public static void BuyUpgrade( Upgrade upgrade )
 	{
-		if ( GameMgr.TotalIQ < 1 )
+		if ( Goblintide.TotalIQ < 1 )
 		{
 			Log.Warning( $"Tried to buy {upgrade} without the funds!" );
 			return;

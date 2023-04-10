@@ -1,9 +1,9 @@
-﻿using GameJam.UI;
+﻿using GoblinGame.UI;
 using Sandbox.Internal;
 using static Sandbox.CitizenAnimationHelper;
 using System.Collections.Generic;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public enum RaidState
 {
@@ -43,15 +43,15 @@ public partial class RaidingState : GameState
 			hud = HUD.Instance.AddChild<RaidingHUD>();
 			WorldMap.Delete();
 			SkillTree.Delete();
-			GameMgr.Music.Stop();
-			GameMgr.Music = Sound.FromScreen( "sounds/music/evil_march.sound" );
+			Goblintide.Music.Stop();
+			Goblintide.Music = Sound.FromScreen( "sounds/music/evil_march.sound" );
 			return;
 		}
 
-		GameMgr.GoblinArmyEnabled( false );
-		GameMgr.PlaceGoblinArmy( false );
-		GameMgr.Lord.Position = GameMgr.CurrentTown.Position + Vector3.Backward * ( GameMgr.CurrentTown.TownRadius + 400f );
-		GameMgr.Lord.Rotation = Rotation.LookAt( GameMgr.CurrentTown.Position - GameMgr.Lord.Position );
+		Goblintide.GoblinArmyEnabled( false );
+		Goblintide.PlaceGoblinArmy( false );
+		Goblintide.Lord.Position = Goblintide.CurrentTown.Position + Vector3.Backward * ( Goblintide.CurrentTown.TownRadius + 400f );
+		Goblintide.Lord.Rotation = Rotation.LookAt( Goblintide.CurrentTown.Position - Goblintide.Lord.Position );
 	}
 
 	public override void Changed( GameState state )
@@ -60,23 +60,23 @@ public partial class RaidingState : GameState
 
 		if ( Game.IsServer )
 		{
-			GameMgr.Tutorial = false;
+			Goblintide.Tutorial = false;
 
 			Log.Info( "Autosaving..." );
-			GameMgr.GenerateSave( true );
+			Goblintide.GenerateSave( true );
 		}
 	}
 
 	[Event.Tick.Server]
 	private void onTick()
 	{
-		if ( GameMgr.Lord == null )
+		if ( Goblintide.Lord == null )
 			return;
 
 		// Block movement if in overview mode.
-		GameMgr.Lord.BlockMovement = GameMgr.Lord.Overview || !GameMgr.CurrentTown.Generated;
+		Goblintide.Lord.BlockMovement = Goblintide.Lord.Overview || !Goblintide.CurrentTown.Generated;
 
-		if ( GameMgr.CurrentTown.Generated && CurrentState == RaidState.Loading )
+		if ( Goblintide.CurrentTown.Generated && CurrentState == RaidState.Loading )
 		{
 			CurrentState = RaidState.Sneaking;
 		}
@@ -95,12 +95,12 @@ public partial class RaidingState : GameState
 
 		if ( CurrentState == RaidState.EndOfTimer )
 		{
-			var clearingDistance = GameMgr.CurrentTown.ForestRadius;
+			var clearingDistance = Goblintide.CurrentTown.ForestRadius;
 
 			if ( Time.Tick % 15 == 0 )
 			{
 				var distance = Game.Random.Float( clearingDistance - 100f, clearingDistance + 100f );
-				var newPosition = GameMgr.CurrentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
+				var newPosition = Goblintide.CurrentTown.Position + Vector3.Random.WithZ( 0 ).Normal * distance;
 
 				var spawnedEntity = BaseNPC.FromPrefab( "prefabs/npcs/soldier.prefab" );
 				if ( spawnedEntity != null )
@@ -114,7 +114,7 @@ public partial class RaidingState : GameState
 			
 		}
 
-		if ( GameMgr.Lord.Position.Distance( GameMgr.CurrentTown.Position ) >= GameMgr.CurrentTown.ForestRadius - 200f && CurrentState != RaidState.PostRaid )
+		if ( Goblintide.Lord.Position.Distance( Goblintide.CurrentTown.Position ) >= Goblintide.CurrentTown.ForestRadius - 200f && CurrentState != RaidState.PostRaid )
 		{
 			CurrentState = RaidState.PostRaid;
 			TimeBeforeNextState = 0.2f;
@@ -122,7 +122,7 @@ public partial class RaidingState : GameState
 
 		if ( CurrentState == RaidState.PostRaid )
 			if ( TimeBeforeNextState )
-				GameMgr.SetState<VillageState>();
+				Goblintide.SetState<VillageState>();
 
 	}
 
@@ -131,32 +131,32 @@ public partial class RaidingState : GameState
 		if ( newState == RaidState.Sneaking )
 		{
 			TimeBeforeRaidStart = 15f;
-			if ( GameMgr.Tutorial )
+			if ( Goblintide.Tutorial )
 			{
-				GameMgr.Instance.tutorialPhrases.Add( "Sneak around and take note of the loot in this village! Your army is coming soon." );
-				GameMgr.Instance.nextTutorial = 0.5f;
+				Goblintide.Instance.tutorialPhrases.Add( "Sneak around and take note of the loot in this village! Your army is coming soon." );
+				Goblintide.Instance.nextTutorial = 0.5f;
 			}
 		}
 
 		if ( newState == RaidState.Raiding )
 		{
-			TimeBeforeRaidEnds = (int)Math.Sqrt( GameMgr.CurrentTown.TownSize * 100 ) * 2f;
-			GameMgr.GoblinArmyEnabled( true );
-			if ( GameMgr.Tutorial )
+			TimeBeforeRaidEnds = (int)Math.Sqrt( Goblintide.CurrentTown.TownSize * 100 ) * 2f;
+			Goblintide.GoblinArmyEnabled( true );
+			if ( Goblintide.Tutorial )
 			{
-				GameMgr.Instance.tutorialPhrases.Add( "The goblins are coming! Direct them towards enemies and loot!" );
-				GameMgr.Instance.tutorialPhrases.Add( "Hold Right Click to point and Left Click to command nearby goblins." );
-				GameMgr.Instance.tutorialPhrases.Add( "Make sure not to leave anything behind!" );
-				GameMgr.Instance.nextTutorial = 0.5f;
+				Goblintide.Instance.tutorialPhrases.Add( "The goblins are coming! Direct them towards enemies and loot!" );
+				Goblintide.Instance.tutorialPhrases.Add( "Hold Right Click to point and Left Click to command nearby goblins." );
+				Goblintide.Instance.tutorialPhrases.Add( "Make sure not to leave anything behind!" );
+				Goblintide.Instance.nextTutorial = 0.5f;
 			}
 		}
 
 		if ( newState == RaidState.EndOfTimer )
 		{
-			if ( GameMgr.Tutorial )
+			if ( Goblintide.Tutorial )
 			{
-				GameMgr.Instance.tutorialPhrases.Add( "You took too long, the guards are coming! Escape into the forest to return to base." );
-				GameMgr.Instance.nextTutorial = 0.5f;
+				Goblintide.Instance.tutorialPhrases.Add( "You took too long, the guards are coming! Escape into the forest to return to base." );
+				Goblintide.Instance.nextTutorial = 0.5f;
 			}
 		}
 
@@ -167,21 +167,21 @@ public partial class RaidingState : GameState
 
 		if ( newState == RaidState.Sneaking )
 		{
-			GameMgr.Music.Stop();
-			GameMgr.Music = Sound.FromScreen( "sounds/music/exotic_battle.sound" );
+			Goblintide.Music.Stop();
+			Goblintide.Music = Sound.FromScreen( "sounds/music/exotic_battle.sound" );
 			RaidingHUD.ShowLoading( false );
 		}
 
 		if ( newState == RaidState.Raiding )
 		{
-			GameMgr.Music.Stop();
-			GameMgr.Music = Sound.FromScreen( "sounds/music/failing_defense.sound" );
+			Goblintide.Music.Stop();
+			Goblintide.Music = Sound.FromScreen( "sounds/music/failing_defense.sound" );
 			Sound.FromScreen( "sounds/ui/trumpets_start.sound" );
 		}
 
 		if ( newState == RaidState.PostRaid )
 		{
-			GameMgr.Music.Stop();
+			Goblintide.Music.Stop();
 			Sound.FromScreen( "sounds/ui/trumpets_fanfare.sound" );
 		}
 	}

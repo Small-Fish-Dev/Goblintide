@@ -1,7 +1,7 @@
-﻿using GameJam.Props.Collectable;
-using GameJam.Util;
+﻿using GoblinGame.Props.Collectable;
+using GoblinGame.Util;
 
-namespace GameJam;
+namespace GoblinGame;
 
 [Prefab, Category( "Prop" )]
 public partial class BaseProp : BaseEntity

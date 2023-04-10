@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using GameJam.UI;
+using GoblinGame.UI;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public partial class WorldMapHost : HostEntity<WorldMapHost>
 {
@@ -94,7 +94,7 @@ public partial class WorldMapHost : HostEntity<WorldMapHost>
 		if ( (node = Entries.ElementAtOrDefault( index )) == null )
 			return; // Failed to find node.
 
-		GameMgr.StartRaid( node.Size );
+		Goblintide.StartRaid( node.Size );
 	}
 
 	public static void RequestServerGenerate( Node generator )

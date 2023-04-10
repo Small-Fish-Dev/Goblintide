@@ -1,6 +1,6 @@
-﻿namespace GameJam;
+﻿namespace GoblinGame;
 
-partial class GameMgr
+partial class Goblintide
 {
 	public static Sound Music;
 
@@ -60,11 +60,11 @@ partial class GameMgr
 	{
 		var energyRequired = (int)(size / 2f);
 
-		if ( GameMgr.TotalEnergy >= energyRequired )
+		if ( Goblintide.TotalEnergy >= energyRequired )
 		{
 			Town.GenerateTown( (float)size );
-			GameMgr.SetState<RaidingState>();
-			GameMgr.TotalEnergy -= energyRequired;
+			Goblintide.SetState<RaidingState>();
+			Goblintide.TotalEnergy -= energyRequired;
 		}
 		else
 		{

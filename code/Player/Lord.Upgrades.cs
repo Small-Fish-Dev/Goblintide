@@ -1,6 +1,6 @@
-﻿using GameJam.UpgradeSystem;
+﻿using GoblinGame.UpgradeSystem;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public partial class Lord
 {
@@ -58,7 +58,7 @@ public partial class Lord
 			return;
 		}
 
-		if ( GameMgr.TotalIQ < 1 )
+		if ( Goblintide.TotalIQ < 1 )
 		{
 			Log.Warning( $"{ConsoleSystem.Caller.Name} doesn't have the funds for upgrade {identifier}" );
 			return;
@@ -70,14 +70,14 @@ public partial class Lord
 			return;
 		}
 
-		GameMgr.TotalIQ--;
+		Goblintide.TotalIQ--;
 		caller.AddUpgrade( identifier );
 	}
 
 	public void SimulateUpgrades()
 	{
 		if ( !Game.IsServer ) return;
-		if ( GameMgr.State is not RaidingState ) return;
+		if ( Goblintide.State is not RaidingState ) return;
 		if ( CombinedUpgrades == null ) return;
 
 		var allNPCs = Entity.All

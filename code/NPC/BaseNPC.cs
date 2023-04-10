@@ -1,7 +1,7 @@
-﻿using GameJam.Props.Collectable;
+﻿using GoblinGame.Props.Collectable;
 using System.Runtime.InteropServices;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public enum VoiceType
 {
@@ -231,7 +231,7 @@ public partial class BaseNPC : BaseCharacter
 
 			EventLogger.Send( To.Everyone, $"{input}", 3 );
 
-			GameMgr.GoblinArmy.Remove( this );
+			Goblintide.GoblinArmy.Remove( this );
 			Town.TownEntities.Add( this );
 		}
 
@@ -241,7 +241,7 @@ public partial class BaseNPC : BaseCharacter
 	protected override void OnDestroy()
 	{
 		if ( Faction == FactionType.Goblins )
-			GameMgr.GoblinArmy.Remove( this );
+			Goblintide.GoblinArmy.Remove( this );
 		base.OnDestroy();
 	}
 
@@ -386,7 +386,7 @@ public partial class BaseNPC : BaseCharacter
 			guy.Position = player.Position + Vector3.Random.WithZ( 0 ) * 100f;
 
 			if ( guy.Faction == player.Faction )
-				GameMgr.GoblinArmy.Add( guy );
+				Goblintide.GoblinArmy.Add( guy );
 		}
 	}
 }

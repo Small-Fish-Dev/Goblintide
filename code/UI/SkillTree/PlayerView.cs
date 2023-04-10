@@ -1,6 +1,6 @@
 ﻿using Sandbox.UI;
 
-namespace GameJam.UI;
+namespace GoblinGame.UI;
 
 public class PlayerView : ScenePanel
 {

@@ -1,6 +1,6 @@
-﻿using GameJam.Util;
+﻿using GoblinGame.Util;
 
-namespace GameJam.Props.Collectable;
+namespace GoblinGame.Props.Collectable;
 
 public enum Collectable
 {

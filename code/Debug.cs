@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Text;
 
-namespace GameJam;
+namespace GoblinGame;
 
 public static class Debug
 {
