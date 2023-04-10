@@ -17,6 +17,7 @@ public partial class Town : BaseNetworkable
 {
 	[Net] public bool Generated { get; private set; } = false;
 	[Net] public float TownSize { get; set; } = 0f;
+	public bool EmptyTown { get; set; } = false;
 	public float TownRadius => 300f * (float)Math.Sqrt( TownSize / 5 );
 	public TownType TownType => TownRadius >= 1200f ? ( TownRadius >= 2500f ? TownType.Town : TownType.Village ) : TownType.Camp;
 	public float ForestRadius => TownRadius + 1000f;
@@ -341,6 +342,7 @@ public partial class Town : BaseNetworkable
 	public static void GeneratingTown()
 	{
 		if ( GameMgr.CurrentTown == null ) return;
+		if ( GameMgr.CurrentTown.EmptyTown ) return;
 
 		var townRadius = GameMgr.CurrentTown.TownRadius;
 		var townPosition = GameMgr.CurrentTown.Position;
@@ -423,6 +425,7 @@ public partial class Town : BaseNetworkable
 		var oldPosition = GameMgr.CurrentTown?.Position ?? new Vector3( 55f, 292.05f, 512f );
 
 		GameMgr.CurrentTown = new Town();
+		GameMgr.CurrentTown.EmptyTown = true;
 		GameMgr.CurrentTown.TownSize = townSize;
 
 		GameMgr.CurrentTown.Position = GameMgr.CurrentTown.TownType switch

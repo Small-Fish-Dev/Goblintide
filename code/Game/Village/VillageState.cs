@@ -61,6 +61,9 @@ public partial class VillageState : GameState
 
 			GameMgr.GenerateSave( true );
 
+			foreach ( var structure in Entity.All.OfType<BaseStructure>() )
+				structure.Delete();
+
 			foreach ( var goblin in GameMgr.GoblinArmy )
 			{
 				goblin.BaseDiligency = goblin.RootPrefab.GetValue<float>("BaseDiligency");
