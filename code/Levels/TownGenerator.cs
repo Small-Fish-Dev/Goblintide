@@ -441,7 +441,7 @@ public partial class Town : BaseNetworkable
 			Town.TownEntities.Add( GameMgr.CurrentTown.Throne );
 		}
 
-		if ( !deleteOld )
+		if ( deleteOld )
 		{
 			foreach ( var goblin in GameMgr.GoblinArmy )
 			{
@@ -460,6 +460,7 @@ public partial class Town : BaseNetworkable
 			}
 			foreach ( var ent in TownEntities )
 			{
+				if ( !ent.IsValid() ) continue;
 				var relativePosition = ent.Position - oldPosition;
 				ent.Position = GameMgr.CurrentTown.Position + relativePosition;
 			}
@@ -476,7 +477,7 @@ public partial class Town : BaseNetworkable
 		if ( identifier.StartsWith( "Village Size" ) )
 		{
 			GameMgr.LoadVillageSize();
-			GenerateEmptyTown( (float)GameMgr.VillageSize, true, false );
+			GenerateEmptyTown( (float)GameMgr.VillageSize, true, true );
 		}
 	}
 
