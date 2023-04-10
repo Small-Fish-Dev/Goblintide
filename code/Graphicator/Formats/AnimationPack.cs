@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Graphicator.Internal;
+namespace Graphicator.Formats;
 
 /**
  * 1: Format Header[4] {
@@ -31,13 +31,6 @@ namespace Graphicator.Internal;
  *  Content [4] = ?
  * }
  */
-public enum PartType
-{
-	Unknown = 0,
-	Image = 1,
-	SetDelayFloat = 2,
-}
-
 public struct Reader
 {
 	private readonly byte[] _content;
@@ -81,6 +74,13 @@ public struct Reader
 
 public class AnimationPack
 {
+	public enum PartType
+	{
+		Unknown = 0,
+		Image = 1,
+		SetDelayFloat = 2,
+	}
+
 	public int FramesPerSecond { get; private set; }
 	public int PartCount { get; private set; }
 	public byte FileVersion { get; private set; }
@@ -132,6 +132,7 @@ public class AnimationPack
 		public Texture CreateTexture() =>
 			Texture.Create( (int)Width, (int)Height )
 				.WithData( Content )
+				.WithFormat( ImageFormat.BGRA8888_LINEAR )
 				.Finish();
 
 		public static ImagePart Read( ref Reader reader, AnimationPack animationPack )
@@ -191,7 +192,7 @@ public class AnimationPack
 							switch ( b1 & QoiMask2 )
 							{
 								case (byte)QoiOp.Index:
-									var idx4 = b1 * 4;
+									var idx4 = (b1 & ~QoiMask2) * 4;
 									px[0] = index[idx4];
 									px[1] = index[idx4 + 1];
 									px[2] = index[idx4 + 2];
