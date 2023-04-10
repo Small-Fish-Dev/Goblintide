@@ -19,14 +19,14 @@ Layer0
 	F_ALPHA_TEST 1
 
 	//---- Ambient Occlusion ----
-	g_flAmbientOcclusionDirectDiffuse "0.000"
+	g_flAmbientOcclusionDirectDiffuse "1.000"
 	g_flAmbientOcclusionDirectSpecular "0.000"
-	TextureAmbientOcclusion "materials/shitty_pine_b/tree3_ao.tga"
+	TextureAmbientOcclusion "materials/shitty_pine_c/shitty_pine_c_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "materials/shitty_pine_b/tree3_albedo.tga"
+	TextureColor "materials/shitty_pine_c/shitty_pine_c_albedo.tga"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -38,11 +38,11 @@ Layer0
 	g_flMetalness "0.000"
 
 	//---- Normal ----
-	TextureBentNormal "materials/shitty_pine_b/treeeee__bentnormal.png"
-	TextureNormal "materials/shitty_pine_b/tree3_normal.tga"
+	TextureBentNormal "materials/shitty_pine_c/pine_a_bentnormal.png"
+	TextureNormal "materials/shitty_pine_c/shitty_pine_c_normal.tga"
 
 	//---- Roughness ----
-	TextureRoughness "materials/shitty_pine_b/tree3_rough.tga"
+	TextureRoughness "materials/shitty_pine_c/shitty_pine_c_rough.tga"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
@@ -52,10 +52,15 @@ Layer0
 	g_vTexCoordScrollSpeed "[0.000 0.000]"
 
 	//---- Translucent ----
-	g_flAlphaTestReference "0.722"
-	g_flAntiAliasedEdgeStrength "0.496"
-	TextureTranslucency "materials/shitty_pine_b/treeeee__alpha.png"
+	g_flAlphaTestReference "0.420"
+	g_flAntiAliasedEdgeStrength "1.000"
+	TextureTranslucency "materials/shitty_pine_c/pine_a_alphamask.png"
 
 	//---- Transmission ----
-	TextureTransmissiveColor "materials/shitty_pine_b/tree3_albedo.tga"
+	TextureTransmissiveColor "materials/shitty_pine_c/shitty_pine_c_albedo.tga"
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "wood"
+	}
 }
