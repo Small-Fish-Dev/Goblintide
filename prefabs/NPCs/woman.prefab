@@ -156,37 +156,6 @@
             "Value": "\u0022\u0022"
           }
         }
-      },
-      {
-        "Guid": "4e59e98d-cd10-4d33-baae-90b462b13657",
-        "Class": "animated_entity",
-        "Entities": [],
-        "Components": [],
-        "Keys": {
-          "_attachment": {
-            "Type": "String",
-            "Value": "\u0022_bonemerge\u0022"
-          },
-          "Model": {
-            "Type": "Model",
-            "Value": "\u0022models/citizen_clothes/makeup/lipstick/models/lipsticks.vmdl\u0022"
-          },
-          "_name": {
-            "Value": "\u0022Untitled Entity\u0022"
-          },
-          "_localposition": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_localrotation": {
-            "Value": "\u00220,0,0\u0022"
-          },
-          "_scale": {
-            "Value": "1"
-          },
-          "_tags": {
-            "Value": "\u0022\u0022"
-          }
-        }
       }
     ],
     "Components": [
@@ -236,6 +205,32 @@
           "_tags": {
             "Value": "[]"
           }
+        }
+      },
+      {
+        "Guid": "18c8330c-7ddf-48fc-8a69-1031896aa60b",
+        "Class": "RandomMaterialGroupComponent",
+        "Keys": {
+          "_name": {
+            "Value": "\u0022RandomMaterialGroupComponent\u0022"
+          },
+          "_tags": {
+            "Value": "[]"
+          }
+        }
+      },
+      {
+        "Guid": "0462c2ba-c862-42b1-a979-9def8eba52af",
+        "Class": "RandomAccessoryComponent",
+        "Keys": {
+          "Type": {
+            "Type": "AccessoryType",
+            "Value": "\u0022Lipstick\u0022"
+          },
+          "_name": {
+            "Value": "\u0022RandomAccessoryComponent\u0022"
+          },
+          "_tags": {}
         }
       }
     ],

@@ -10,6 +10,7 @@ public enum AccessoryType
 {
 	MaleHair,
 	FemaleHair,
+	Lipstick,
 	Eyebrows,
 	FacialHair,
 	ClothingExtras,
@@ -103,6 +104,13 @@ public partial class RandomAccessoryComponent : CharacterComponent
 		"models/citizen_clothes/hair/hair_tight_ponytail/models/hair_tight_ponytail_red.vmdl_c",
 	};
 
+	public static List<string> Lipstick = new()
+	{
+		"",
+		"models/citizen_clothes/makeup/lipstick/models/lipsticks.vmdl_c",
+		"models/citizen_clothes/makeup/lipstick/models/lipsticks_black.vmdl_c"
+	};
+
 	public static List<string> ClothingExtras = new()
 	{
 		"",
@@ -144,6 +152,8 @@ public partial class RandomAccessoryComponent : CharacterComponent
 				return new Random().FromList( MaleHairs );
 			case AccessoryType.FemaleHair:
 				return new Random().FromList( FemaleHair );
+			case AccessoryType.Lipstick:
+				return new Random().FromList( Lipstick );
 			case AccessoryType.FacialHair:
 				return new Random().FromList( Beards );
 			case AccessoryType.Eyebrows:

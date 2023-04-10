@@ -203,6 +203,11 @@ public partial class BaseNPC : BaseCharacter
 			{
 				collectable.Position = Position;
 				collectable.Rotation = Rotation;
+
+				// we need to copy over the accessories and skin colour to our newly acquired female
+				var accessories = Children.ToArray();
+				foreach ( var accessory in accessories ) { accessory.SetParent(collectable, true); }
+				collectable.SetMaterialGroup(GetMaterialGroup());
 			}
 			Delete();
 		}
