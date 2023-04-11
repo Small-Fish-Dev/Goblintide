@@ -349,9 +349,13 @@ public partial class BaseNPC : BaseCharacter
 			SetAnimParameter( "dead", true );
 			return;
 		}
+
 		if ( Disabled ) return;
+
 		ComputeMotion();
 		ComputeNavigation();
+
+		HitPoints = Math.Min( HitPoints + (float)Math.Sqrt( Level ) / 10f * Time.Delta, MaxHitPoints );
 
 		if ( Stealing.IsValid() )
 		{
