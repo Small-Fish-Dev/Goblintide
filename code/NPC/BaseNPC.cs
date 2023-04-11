@@ -333,6 +333,7 @@ public partial class BaseNPC : BaseCharacter
 		var direction = (attacker.Position - Position).Normal;
 		var position = Position + GetHeight() / 2f + direction * GetWidth();
 		Particles.Create( "particles/impact.flesh.vpcf", position );
+		SetAnimParameter( "hit", true );
 
 		PlayHurtSound();
 		base.Damage( amount, attacker );

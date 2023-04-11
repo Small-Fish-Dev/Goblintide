@@ -110,6 +110,7 @@ public partial class BaseEntity : AnimatedEntity
 		LastAttackedBy = attacker;
 
 		Sound.FromWorld( DamageSound, Position ).SetVolume( 3f );
+		SetAnimParameter( "hit", true );
 
 		if ( HitPoints <= 0 )
 		{
