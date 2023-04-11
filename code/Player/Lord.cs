@@ -70,6 +70,8 @@ public partial class Lord : BaseCharacter
 			OverviewOffset = 0;
 		}
 
+		HitPoints = Math.Min( HitPoints + 0.5f * Time.Delta, MaxHitPoints );
+
 		SimulateController();
 		SimulateAnimations();
 		SimulateCommanding();

@@ -275,7 +275,7 @@ public partial class Lord
 	{
 		var postProcess = Camera.Main.FindOrCreateHook<Sandbox.Effects.ScreenEffects>();
 
-		postProcess.Vignette.Intensity = 1f - LastAttacked;
+		postProcess.Vignette.Intensity = ( MaxHitPoints - HitPoints ) / MaxHitPoints + ( 0.5f - Math.Min( LastAttacked, 0.5f ) );
 		postProcess.Vignette.Roundness = 1f;
 		postProcess.Vignette.Smoothness = 1f;
 		postProcess.Vignette.Color = Color.Red;
