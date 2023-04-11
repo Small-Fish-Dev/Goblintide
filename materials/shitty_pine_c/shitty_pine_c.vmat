@@ -18,9 +18,9 @@ Layer0
 	g_flBranchAmplitude "1.000"
 	g_flBranchFrequency "1.000"
 	g_flEdgeAmplitude "0.744"
-	g_flEdgeFrequency "0.342"
-	g_flTrunkDeflection "0.051"
-	g_flTrunkDeflectionStart "256.410"
+	g_flEdgeFrequency "0.333"
+	g_flTrunkDeflection "1.000"
+	g_flTrunkDeflectionStart "0.000"
 
 	//---- Material ----
 	g_flTintColor "[1.000000 1.000000 1.000000 0.000000]"
