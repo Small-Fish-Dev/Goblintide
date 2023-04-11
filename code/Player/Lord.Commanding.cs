@@ -145,6 +145,7 @@ public partial class Lord
 		var innerTrace = Trace.Ray( Camera.Position, Camera.Position + Camera.Rotation.Forward * PointingDistance )
 			.Size( 10f )
 			.Ignore( this )
+			.WithoutTags( "Dead" )
 			.Run();
 
 		if ( innerTrace.Entity is BaseEntity innerEntity )
@@ -156,6 +157,7 @@ public partial class Lord
 		var outerTrace = Trace.Ray( Camera.Position, Camera.Position + Camera.Rotation.Forward * PointingDistance )
 			.Size( 30f )
 			.Ignore( this )
+			.WithoutTags( "Dead" )
 			.Run();
 
 		if ( outerTrace.Entity is BaseEntity outerEntity )
