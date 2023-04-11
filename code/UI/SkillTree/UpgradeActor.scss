@@ -1,30 +1,31 @@
 ﻿UpgradeActor {
 	top: 50%;
-	
 	width: 120px;
 	height: 120px;
-
 	font-size: 30px;
-
 	justify-content: center;
 	align-items: center;
-	
+
 	&.selected {
-		border: 2px solid black;
+		border: 4px solid black;
 	}
 
 	&.expensive {
 		filter: invert(0.3);
 	}
 
-	&:not(.available) {
-		filter: invert(0.3);
+	&.purchased {
+		border: 4px solid green;
+		background-color: rgb(150, 255, 150);
 	}
-		
+
+	&:not(.available) {
+		filter: invert(0.35);
+	}
+
 	img {
 		width: 100%;
 		height: 100%;
-
 		image-rendering: pixelated;
 	}
 }
