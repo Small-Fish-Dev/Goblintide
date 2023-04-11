@@ -1,0 +1,70 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+@using GoblinGame.UI.Core;
+
+@namespace GoblinGame
+@inherits Panel
+
+<style>
+	HealthBar {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+		backdrop-filter: blur(5px);
+		background-color: #2c2825cc;
+		box-shadow: 0px 0px 25px #00000096;
+		flex-direction: row;
+		padding: 10px;
+		border: 5px #2c2825cc;
+        border-radius: 30px;
+        z-index: 6;
+        transform: translateX( -50% );
+		
+		.text {
+            font-family: Patrick-Hand;
+            font-size: 40px;
+		}
+
+        &.visible {
+		    opacity: 1;
+	    }
+
+        &:not(.visible) {
+		    opacity: 0;
+	    }
+	}
+</style>
+
+<root>
+    <panel class="text">
+        @Text
+	</panel>
+</root>
+
+@code {
+    public string Text { get; set; }
+    public bool IsFriend { get; set; }
+
+    public override void Tick()
+    {
+        var lord = Game.LocalPawn as Lord;
+        var target = lord.PointingAt as BaseNPC;
+        var visible = target.IsValid() && target is BaseNPC;
+
+        SetClass("visible", visible);
+
+        if (!visible) return;
+
+        IsFriend = target.Faction == lord.Faction;
+        Text = $"{(IsFriend ? "(Ally)" : "(Enemy)")} {target.DisplayName} - HP: {Math.Round(target.HitPoints,1)}/{target.MaxHitPoints} - Lvl: {target.Level}";
+        Style.Left = Length.Fraction( target.Position.ToScreen().x );
+        Style.Top = Length.Fraction((target.Position + Vector3.Up * (target.Height + 15f)).ToScreen().y);
+    }
+
+	protected override int BuildHash()
+	{
+		return HashCode.Combine( Time.Tick );
+	}
+}

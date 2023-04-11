@@ -2,12 +2,14 @@
 
 public partial class BaseCharacter : BaseEntity
 {
-	[Net, Prefab] 
+	[Net, Prefab]
 	public string DisplayName { get; set; }
 
 	public virtual float CollisionWidth { get; set; } = 20f;
 	public virtual float CollisionHeight { get; set; } = 40f;
 	public virtual BBox CollisionBox => new( new Vector3( -CollisionWidth / 2f, -CollisionWidth / 2f, 0f ), new Vector3( CollisionWidth / 2f, CollisionWidth / 2f, CollisionHeight ) );
+
+	[Net] public float Height {get; set;} = 0f;
 
 	public override float GetWidth() => CollisionWidth;
 	public override float GetHeight() => CollisionHeight;
@@ -49,6 +51,8 @@ public partial class BaseCharacter : BaseEntity
 
 		Tags.Add( "Pushable" );
 		Tags.Add( Faction.ToString() );
+
+		Height = GetHeight();
 
 		if ( Game.IsServer )
 			foreach ( var component in Components.GetAll<CharacterComponent>() )

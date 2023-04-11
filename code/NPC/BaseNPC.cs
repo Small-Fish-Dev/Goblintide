@@ -54,9 +54,9 @@ public partial class BaseNPC : BaseCharacter
 	public SubBehaviour BaseSubBehaviour { get; set; } = SubBehaviour.None;
 
 	[Prefab, Category( "Character" )]
-	public float CollisionWidth { get; set; } = 20f;
+	public override float CollisionWidth { get; set; } = 20f;
 	[Prefab, Category( "Character" )]
-	public float CollisionHeight { get; set; } = 40f;
+	public override float CollisionHeight { get; set; } = 40f;
 	[Prefab, Category( "Character" )]
 	public Bodygroups BodygroupsDisabled { get; set; } = Bodygroups.None;
 	public BaseCollectable Stealing { get; set; } = null;
