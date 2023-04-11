@@ -202,6 +202,16 @@ public partial class BaseNPC
 	{
 		if ( nextAttack )
 		{
+			if ( Weapon.IsValid() )
+			{
+				if ( Weapon.IncreasedRange > 50f )
+				{
+					var particle = Particles.Create( "particles/magic_shock.vpcf" );
+					particle.SetPosition( 0, Weapon.Position );
+					particle.SetPosition( 1, target.Position + target.GetHeight() / 2f );
+				}
+			}
+
 			nextAttack = 1 / AttackSpeed + Game.Random.Float( -(1 / AttackSpeed / 10f ), 1 / AttackSpeed / 10f );
 			target.Damage( AttackPower, this );
 

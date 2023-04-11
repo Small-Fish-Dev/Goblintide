@@ -277,7 +277,7 @@ public partial class Lord
 
 		postProcess.Vignette.Intensity = 1f - LastAttacked;
 		postProcess.Vignette.Roundness = 1f;
-		postProcess.Vignette.Smoothness = 1;
+		postProcess.Vignette.Smoothness = 1f;
 		postProcess.Vignette.Color = Color.Red;
 	}
 
