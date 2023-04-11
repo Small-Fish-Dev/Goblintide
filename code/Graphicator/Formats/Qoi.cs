@@ -1,4 +1,5 @@
 ﻿using System.Buffers.Binary;
+using System.IO;
 
 namespace Graphicator.Formats;
 
@@ -124,6 +125,108 @@ public static class Qoi
 								break;
 							case (byte)QoiOp.Luma:
 								var b2 = content[p++];
+								var vg = (b1 & 0x3f) - 32;
+								px[0] += (byte)(vg - 8 + ((b2 >> 4) & 0x0F));
+								px[1] += (byte)vg;
+								px[2] += (byte)(vg - 8 + (b2 & 0x0F));
+								break;
+							case (byte)QoiOp.Run:
+								run = b1 & 0x3f;
+								break;
+						}
+
+						break;
+				}
+
+				{
+					var idx4 = QoiColorHash( px ) % 64 * 4;
+					index[idx4] = px[0];
+					index[idx4 + 1] = px[1];
+					index[idx4 + 2] = px[2];
+					index[idx4 + 3] = px[3];
+				}
+			}
+
+			result.Data[pos + 0] = px[0];
+			result.Data[pos + 1] = px[1];
+			result.Data[pos + 2] = px[2];
+			if ( result.Channels == QoiChannels.Rgba )
+				result.Data[pos + 3] = px[3];
+		}
+
+		return result;
+	}
+
+	public static Image Read( Stream content, long size )
+	{
+		var result = new Image();
+
+		// Get some stuff ready
+		var chunkContentLength = size - 8;
+
+		// Read QOI magic
+		if ( !(content.ReadByte() == 'q' && content.ReadByte() == 'o' && content.ReadByte() == 'i' &&
+		       content.ReadByte() == 'f') )
+			throw new ReadException( "QOI magic invalid - file isn't a QOI image or is corrupted" );
+
+		// Read QOI header, initialize Image
+		var buffer = new byte[4];
+		content.ReadExactly( buffer, 0, 4 );
+		result.Width = WhitelistedMemory.ReadUInt32BigEndian( buffer );
+		content.ReadExactly( buffer, 0, 4 );
+		result.Height = WhitelistedMemory.ReadUInt32BigEndian( buffer );
+		result.Channels = (QoiChannels)content.ReadByte();
+		result.Colorspace = (QoiColorspace)content.ReadByte();
+
+		// Initialize Image data
+		result.Data = new byte[result.Width * result.Height * (byte)result.Channels];
+
+		// Iteration variables
+		var index = new byte[64 * 4]; // Previously seen pixel value array
+		var px = new byte[] { 0, 0, 0, 255 };
+		var run = 0;
+		var p = 14;
+
+		for ( var pos = 0; pos < result.Data.Length; pos += (byte)result.Channels )
+		{
+			if ( run > 0 )
+				run--;
+			else if ( p < chunkContentLength )
+			{
+				var b1 = content.ReadByte();
+
+				switch ( b1 )
+				{
+					case (byte)QoiOp.Rgb:
+						px[0] = (byte)content.ReadByte();
+						px[1] = (byte)content.ReadByte();
+						px[2] = (byte)content.ReadByte();
+						p += 3;
+						break;
+					case (byte)QoiOp.Rgba:
+						px[0] = (byte)content.ReadByte();
+						px[1] = (byte)content.ReadByte();
+						px[2] = (byte)content.ReadByte();
+						px[3] = (byte)content.ReadByte();
+						p += 4;
+						break;
+					default:
+						switch ( b1 & QoiMask2 )
+						{
+							case (byte)QoiOp.Index:
+								var idx4 = (b1 & ~QoiMask2) * 4;
+								px[0] = index[idx4];
+								px[1] = index[idx4 + 1];
+								px[2] = index[idx4 + 2];
+								px[3] = index[idx4 + 3];
+								break;
+							case (byte)QoiOp.Diff:
+								px[0] += (byte)(((b1 >> 4) & 0x03) - 2);
+								px[1] += (byte)(((b1 >> 2) & 0x03) - 2);
+								px[2] += (byte)((b1 & 0x03) - 2);
+								break;
+							case (byte)QoiOp.Luma:
+								var b2 = content.ReadByte();
 								var vg = (b1 & 0x3f) - 32;
 								px[0] += (byte)(vg - 8 + ((b2 >> 4) & 0x0F));
 								px[1] += (byte)vg;
