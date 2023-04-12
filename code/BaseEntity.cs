@@ -19,7 +19,7 @@ public partial class BaseEntity : AnimatedEntity
 	[Net] public FactionType Faction { get; set; } = FactionType.None;
 	public int TotalAttackers { get; set; } = 0;
 	public BaseCharacter LastAttackedBy { get; set; } = null;
-	public TimeSince LastAttacked { get; set; } = 0f;
+	[Net] public TimeSince LastAttacked { get; set; } = 0f;
 	public virtual bool BlockNav { get; set; } = true;
 	public NavBlockerEntity NavBlocker { get; set; } = null;
 	public virtual string DamageSound { get; set; } = "sounds/physics/physics.wood.impact.soft.sound";
@@ -110,6 +110,7 @@ public partial class BaseEntity : AnimatedEntity
 		LastAttackedBy = attacker;
 
 		Sound.FromWorld( DamageSound, Position ).SetVolume( 3f );
+		SetAnimParameter( "hit", true );
 
 		if ( HitPoints <= 0 )
 		{

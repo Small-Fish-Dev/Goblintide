@@ -253,6 +253,7 @@ public partial class Lord
 
 	public void SimulateCamera()
 	{
+		CameraEffects();
 		CameraFinalize();
 
 		if ( !Overview )
@@ -268,6 +269,16 @@ public partial class Lord
 		var targetPosition = pointOfInterest + OverviewOffset + offset;
 		Camera.Position = Vector3.Lerp( Camera.Position, targetPosition, 5f * Time.Delta );
 		Camera.Rotation = Rotation.LookAt( -offset );
+	}
+
+	public void CameraEffects()
+	{
+		var postProcess = Camera.Main.FindOrCreateHook<Sandbox.Effects.ScreenEffects>();
+
+		postProcess.Vignette.Intensity = ( MaxHitPoints - HitPoints ) / MaxHitPoints + ( 0.5f - Math.Min( LastAttacked, 0.5f ) );
+		postProcess.Vignette.Roundness = 1f;
+		postProcess.Vignette.Smoothness = 1f;
+		postProcess.Vignette.Color = Color.Red;
 	}
 
 	public override void BuildInput()

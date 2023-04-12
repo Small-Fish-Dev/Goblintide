@@ -222,6 +222,8 @@ public partial class BaseNPC : BaseCharacter
 			Stealing.Locked = false;
 		}
 
+		Tags.Add( "Dead" );
+
 		// Log Gobblin DN deaths...
 		if ( Game.IsServer && Faction == FactionType.Goblins )
 		{
@@ -333,6 +335,7 @@ public partial class BaseNPC : BaseCharacter
 		var direction = (attacker.Position - Position).Normal;
 		var position = Position + GetHeight() / 2f + direction * GetWidth();
 		Particles.Create( "particles/impact.flesh.vpcf", position );
+		SetAnimParameter( "hit", true );
 
 		PlayHurtSound();
 		base.Damage( amount, attacker );
@@ -348,9 +351,13 @@ public partial class BaseNPC : BaseCharacter
 			SetAnimParameter( "dead", true );
 			return;
 		}
+
 		if ( Disabled ) return;
+
 		ComputeMotion();
 		ComputeNavigation();
+
+		HitPoints = Math.Min( HitPoints + (float)Math.Sqrt( Level ) / 10f * Time.Delta, MaxHitPoints );
 
 		if ( Stealing.IsValid() )
 		{

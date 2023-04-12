@@ -11,8 +11,6 @@ public partial class Lord : BaseCharacter
 	public float BaseWalkSpeed { get; set; } = 140f;
 	public float WalkSpeed { get; set; } = 140f;
 
-	public override float CollisionWidth { get; set; } = 20f;
-	public override float CollisionHeight { get; set; } = 40f;
 	public override bool BlockNav { get; set; } = true;
 	public override string DamageSound => "sounds/lord/lord_hurt.sound";
 
@@ -22,6 +20,9 @@ public partial class Lord : BaseCharacter
 		Faction = DefaultFaction;
 		MaxHitPoints = 10f;
 		HitPoints = MaxHitPoints;
+
+		CollisionWidth = 20f;
+		CollisionHeight = 40f;
 
 		SetModel( "models/goblin/goblin.vmdl" );
 		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, CollisionBox.Mins, CollisionBox.Maxs );
@@ -69,6 +70,8 @@ public partial class Lord : BaseCharacter
 			Overview = !Overview;
 			OverviewOffset = 0;
 		}
+
+		HitPoints = Math.Min( HitPoints + 0.5f * Time.Delta, MaxHitPoints );
 
 		SimulateController();
 		SimulateAnimations();

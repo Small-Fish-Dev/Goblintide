@@ -35,6 +35,7 @@ public partial class VillageState : GameState
 		Town.GenerateEmptyTown( (float)Goblintide.VillageSize );
 		Goblintide.LoadSave( true, true );
 		Goblintide.Lord.Position = Goblintide.CurrentTown.Throne.Position + 50f;
+		Goblintide.Lord.HitPoints = Goblintide.Lord.MaxHitPoints;
 		Goblintide.GoblinArmyEnabled( true );
 		Goblintide.PlaceGoblinArmy( true );
 
