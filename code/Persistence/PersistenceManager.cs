@@ -61,56 +61,65 @@ public static class PersistenceManager
 		var converters = Converters;
 
 		// Go through all instances our stream has.
-		var instances = reader.ReadInt32();
-
-		for ( int i = 0; i < instances; i++ )
+		try
 		{
-			// Read initial information of an object.
-			var objName = reader.ReadString();
-			var propertyCount = reader.ReadInt32();
-			var type = TypeLibrary.GetType( objName );
-			if ( type == null || !type.HasAttribute<PersistType>() )
-				continue;
+			var instances = reader.ReadInt32();
 
-			// Create a new instance and go through all the persisted properties.
-			try
+			for ( int i = 0; i < instances; i++ )
 			{
-				for ( int j = 0; j < propertyCount; j++ )
+				// Read initial information of an object.
+				var objName = reader.ReadString();
+				var propertyCount = reader.ReadInt32();
+				var type = TypeLibrary.GetType( objName );
+				if ( type == null || !type.HasAttribute<PersistType>() )
+					continue;
+
+				// Create a new instance and go through all the persisted properties.
+				try
 				{
-					// Read property information.
-					var name = reader.ReadString();
-					var property = type.GetProperty( name );
-					if ( property == null || !property.CanRead || !property.CanWrite )
-						continue;
-					
-					// Get the type converter.
-					var valueType = property.PropertyType;
-					if ( !converters.TryGetValue( valueType, out var converter ) )
+					for ( int j = 0; j < propertyCount; j++ )
 					{
-						EventLogger.Send( To.Everyone, $"[SAVE] <red>Converter for type \"{type}\" not found." );
-						continue;
+						// Read property information.
+						var name = reader.ReadString();
+						var property = type.GetProperty( name );
+						if ( property == null || !property.CanRead || !property.CanWrite )
+							continue;
+
+						// Get the type converter.
+						var valueType = property.PropertyType;
+						if ( !converters.TryGetValue( valueType, out var converter ) )
+						{
+							EventLogger.Send( To.Everyone, $"[SAVE] <red>Converter for type \"{type}\" not found." );
+							continue;
+						}
+
+						// Get the converter's method for reading the current property type.
+						var typeDescription = TypeLibrary.GetType( converter.GetType() );
+						var method = typeDescription.GetMethod( "Read" );
+						if ( method == null )
+							continue;
+
+						// Read value and assign it to the property.
+						var value = method?.InvokeWithReturn<object>( converter, new[] { reader } );
+						var target = property.IsStatic
+							? null
+							: TypeLibrary.Create( type.FullName, type.TargetType );
+						property.SetValue( target, value );
 					}
-
-					// Get the converter's method for reading the current property type.
-					var typeDescription = TypeLibrary.GetType( converter.GetType() );
-					var method = typeDescription.GetMethod( "Read" );
-					if ( method == null )
-						continue;
-
-					// Read value and assign it to the property.
-					var value = method?.InvokeWithReturn<object>( converter, new[] { reader } );
-					var target = property.IsStatic 
-						? null 
-						: TypeLibrary.Create( type.FullName, type.TargetType );
-					property.SetValue( target, value );
+				}
+				catch ( Exception ex )
+				{
+					EventLogger.Send( To.Everyone,
+						$"[SAVE] <red>Please send the following error to @ceitine#2355.\n"
+						+ $"{ex.Message} {ex.StackTrace}", 20 );
 				}
 			}
-			catch ( Exception ex )
-			{
-				EventLogger.Send( To.Everyone, 
-					$"[SAVE] <red>Please send the following error to @ceitine#2355.\n"
-					+ $"{ex.Message} {ex.StackTrace}" );
-			}
+		}
+		catch ( Exception ex )
+		{
+			EventLogger.Send( To.Everyone,
+				$"[SAVE] <red>Please send the following error to @ceitine#2355.\n"
+				+ $"{ex.Message} {ex.StackTrace}", 20 );
 		}
 	}
 
@@ -189,7 +198,7 @@ public static class PersistenceManager
 				{
 					EventLogger.Send( To.Everyone, 
 						$"[SAVE] <red>Please send the following error to @ceitine#2355.\n"
-						+ $"{ex.Message} {ex.StackTrace}" );
+						+ $"{ex.Message}", 20 );
 				}
 			}
 		}
