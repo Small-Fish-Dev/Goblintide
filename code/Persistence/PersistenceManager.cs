@@ -68,7 +68,6 @@ public static class PersistenceManager
 			// Read initial information of an object.
 			var objName = reader.ReadString();
 			var propertyCount = reader.ReadInt32();
-
 			var type = TypeLibrary.GetType( objName );
 			if ( type == null || !type.HasAttribute<PersistType>() )
 				continue;
@@ -76,11 +75,6 @@ public static class PersistenceManager
 			// Create a new instance and go through all the persisted properties.
 			try
 			{
-				// We don't want to create an instance if the class is only static.
-				var instance = type.IsStatic 
-					? null
-					: TypeLibrary.Create( type.FullName, type.TargetType );
-
 				for ( int j = 0; j < propertyCount; j++ )
 				{
 					// Read property information.
@@ -88,12 +82,12 @@ public static class PersistenceManager
 					var property = type.GetProperty( name );
 					if ( property == null || !property.CanRead || !property.CanWrite )
 						continue;
-
+					
 					// Get the type converter.
 					var valueType = property.PropertyType;
 					if ( !converters.TryGetValue( valueType, out var converter ) )
 					{
-						Log.Error( $"[PERSISTENCE] Converter for type \"{type}\" not found." );
+						EventLogger.Send( To.Everyone, $"[SAVE] <red>Converter for type \"{type}\" not found." );
 						continue;
 					}
 
@@ -105,13 +99,16 @@ public static class PersistenceManager
 
 					// Read value and assign it to the property.
 					var value = method?.InvokeWithReturn<object>( converter, new[] { reader } );
-					property.SetValue( instance, value );
+					var target = property.IsStatic 
+						? null 
+						: TypeLibrary.Create( type.FullName, type.TargetType );
+					property.SetValue( target, value );
 				}
 			}
 			catch ( Exception ex )
 			{
-				Log.Error(
-					$"[PERSISTENCE] Please send the following error to @ceitine#2355.\n"
+				EventLogger.Send( To.Everyone, 
+					$"[SAVE] <red>Please send the following error to @ceitine#2355.\n"
 					+ $"{ex.Message} {ex.StackTrace}" );
 			}
 		}
@@ -123,31 +120,37 @@ public static class PersistenceManager
 		using var stream = FileSystem.Data.OpenWrite( SAVE_PATH, FileMode.OpenOrCreate );
 		using var writer = new BinaryWriter( stream );
 
-		// Get all instances that should persist.
-		var instances = Entity.All
+		// Get all instances and static classes that should persist.
+		var staticTypes = TypeLibrary.GetTypesWithAttribute<PersistType>()
+			.Where( tuple => tuple.Type.IsStatic )
+			.Select( tuple => tuple.Type.TargetType );
+
+		var targets = Entity.All
 			.Where( e => TypeLibrary.HasAttribute<PersistType>( e.GetType() ) )
-			.Concat( persistTargets );
+			.Concat( persistTargets )
+			.Concat( staticTypes );
 
 		// Cache converters locally.
 		var converters = Converters;
 
 		// Loop through all those instances and write them to the memory stream.
-		writer.Write( instances.Count() );
+		writer.Write( targets.Count() );
 
-		foreach ( var obj in instances )
+		foreach ( var target in targets )
 		{
-			if ( obj == null )
+			if ( target == null )
 				continue;
 
 			// Make sure the object has properties to be persisted.
-			var properties = TypeLibrary.GetPropertyDescriptions( obj )
+			var typeDescription = TypeLibrary.GetType( target is Type ? (Type)target : target.GetType() );
+			var properties = typeDescription.Properties
 				.Where( p => p.HasAttribute<PersistProperty>() );
 			var count = properties.Count();
 			if ( count < 0 ) 
 				continue;
 
 			// Write initial information of a object.
-			writer.Write( obj.GetType().FullName );
+			writer.Write( typeDescription.TargetType.FullName );
 			writer.Write( count );
 
 			// Go through all persisted properties.
@@ -160,7 +163,7 @@ public static class PersistenceManager
 				try
 				{
 					// Try and get basic information of the property.
-					var value = property?.GetValue( obj );
+					var value = property?.GetValue( property.IsStatic ? null : target );
 					var type = value?.GetType();
 					if ( type == null )
 						continue;
@@ -168,13 +171,13 @@ public static class PersistenceManager
 					// Get the type converter.
 					if ( !converters.TryGetValue( type, out var converter ) )
 					{
-						Log.Error( $"[PERSISTENCE] Converter for type \"{type}\" not found." );
+						EventLogger.Send( To.Everyone, $"[SAVE] <red>Converter for type \"{type}\" not found." );
 						continue;
 					}
 
 					// Write property information and use the converter's method to write the value.
-					var typeDescription = TypeLibrary.GetType( converter.GetType() );
-					var method = typeDescription.GetMethod( "Write" );
+					var converterDescription = TypeLibrary.GetType( converter.GetType() );
+					var method = converterDescription.GetMethod( "Write" );
 					if ( method == null )
 						continue;
 
@@ -184,8 +187,8 @@ public static class PersistenceManager
 				}
 				catch ( Exception ex )
 				{
-					Log.Error( 
-						$"[PERSISTENCE] Please send the following error to @ceitine#2355.\n"
+					EventLogger.Send( To.Everyone, 
+						$"[SAVE] <red>Please send the following error to @ceitine#2355.\n"
 						+ $"{ex.Message} {ex.StackTrace}" );
 				}
 			}
