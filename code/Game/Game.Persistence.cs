@@ -271,9 +271,10 @@ partial class Goblintide
 		worldMapPersist( writer );
 		villagePersist( writer );
 		goblinPersist( writer );
-		
+
 		// Close the stream and finish.
 		stream.Close();
+		stream.Dispose();
 
 		return true;
 	}
@@ -451,7 +452,7 @@ partial class Goblintide
 		GameTask.RunInThreadAsync( () => GenerateSave( true ) );
 	}
 
-	TimeUntil nextSave { get; set; } = 15f;
+	static TimeUntil nextSave { get; set; } = 15f;
 	[Event.Tick.Server]
 	public void AutoSave()
 	{
