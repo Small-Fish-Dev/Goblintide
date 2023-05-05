@@ -17,13 +17,14 @@ public partial class Town : BaseNetworkable
 {
 	[Net] public bool Generated { get; private set; } = false;
 	[Net] public float TownSize { get; set; } = 0f;
+	public GridAStar.Grid Grid { get; set; }
 	public bool EmptyTown { get; set; } = false;
 	public float TownRadius => 300f * (float)Math.Sqrt( TownSize / 5 );
 	public TownType TownType => TownRadius >= 1200f ? ( TownRadius >= 2500f ? TownType.Town : TownType.Village ) : TownType.Camp;
 	public float ForestRadius => TownRadius + 1000f;
 	[Net] public Vector3 Position { get; set; } = Vector3.Zero;
-	public Vector3 MinBounds => Position - new Vector3( TownRadius ).WithZ(0);
-	public Vector3 MaxBounds => Position + new Vector3( TownRadius ).WithZ(0);
+	public Vector3 MinBounds => Position - new Vector3( ForestRadius + 600f ).WithZ(0);
+	public Vector3 MaxBounds => Position + new Vector3( ForestRadius + 600f ).WithZ(0);
 	public int Seed => TownSize.GetHashCode();
 	public Random RNG { get; set; }
 	public static List<Entity> TownEntities = new();
@@ -137,6 +138,8 @@ public partial class Town : BaseNetworkable
 			spawnedEntity.Position = chosenPosition;
 			spawnedEntity.Rotation = chosenRotation;
 
+			spawnedEntity.Tags.Add( "GridBlocker" );
+
 			Town.TownEntities.Add( spawnedEntity );
 			return true;
 
@@ -175,6 +178,8 @@ public partial class Town : BaseNetworkable
 
 			spawnedEntity.Position = chosenPosition;
 			spawnedEntity.Rotation = chosenRotation;
+
+			spawnedEntity.Tags.Add( "GridBlocker" );
 
 			Town.TownEntities.Add( spawnedEntity );
 			return true;
@@ -227,6 +232,14 @@ public partial class Town : BaseNetworkable
 				
 			TownTrees.Add( spawnedTree );
 		}
+	}
+
+	public async static Task<bool> GenerateGrid()
+	{
+		var position = Goblintide.CurrentTown.Position;
+		var bounds = new BBox( Goblintide.CurrentTown.MinBounds + Vector3.Down * 999f, Goblintide.CurrentTown.MaxBounds + Vector3.Up * 999f );
+		Goblintide.CurrentTown.Grid = await GridAStar.Grid.Create( position, bounds, new Rotation(), widthClearance: 12f, heightClearance: 40f, worldOnly: false );
+		return true;
 	}
 
 	public static void PlaceTrees()
@@ -287,16 +300,19 @@ public partial class Town : BaseNetworkable
 	}
 
 	[Net] public double HousesGenerationProgress { get; set; } = 0d;
+	[Net] public double GridGenerationProgress { get; set; } = 0d;
+	[Net] public bool GridBlockersPlaced { get; set; } = false;
 	[Net] public double BigPropsGenerationProgress { get; set; } = 0d;
 	[Net] public double SmallPropsGenerationProgress { get; set; } = 0d;
 	[Net] public double NpcsGenerationProgress { get; set; } = 0d;
 
 	public static bool PlacingHouses => Goblintide.CurrentTown.HousesGenerationProgress < 1d && Goblintide.CurrentTown.BigPropsGenerationProgress == 0d && IsGenerating;
-	public static bool PlacingBigProps => Goblintide.CurrentTown.BigPropsGenerationProgress < 1d && Goblintide.CurrentTown.HousesGenerationProgress >= 1d && IsGenerating;
+	public static bool GeneratingGrid => Goblintide.CurrentTown.GridGenerationProgress < 1d && Goblintide.CurrentTown.HousesGenerationProgress >= 1d && IsGenerating;
+	public static bool PlacingBigProps => Goblintide.CurrentTown.BigPropsGenerationProgress < 1d && Goblintide.CurrentTown.GridGenerationProgress >= 1d && IsGenerating;
 	public static bool PlacingSmallProps => Goblintide.CurrentTown.SmallPropsGenerationProgress < 1d && Goblintide.CurrentTown.BigPropsGenerationProgress >= 1d && IsGenerating;
 	public static bool PlacingNpcs => Goblintide.CurrentTown.NpcsGenerationProgress < 1d && Goblintide.CurrentTown.SmallPropsGenerationProgress >= 1d && IsGenerating;
 
-	public static double GenerationProgress => (Goblintide.CurrentTown.HousesGenerationProgress + Goblintide.CurrentTown.BigPropsGenerationProgress + Goblintide.CurrentTown.SmallPropsGenerationProgress + Goblintide.CurrentTown.NpcsGenerationProgress) / 4d;
+	public static double GenerationProgress => (Goblintide.CurrentTown.HousesGenerationProgress + Goblintide.CurrentTown.GridGenerationProgress + Goblintide.CurrentTown.BigPropsGenerationProgress + Goblintide.CurrentTown.SmallPropsGenerationProgress + Goblintide.CurrentTown.NpcsGenerationProgress) / 5d;
 	public static string GenerationText => $"Placing {(PlacingHouses ? "Houses" : ( PlacingBigProps ? "Big Props" : ( PlacingSmallProps ? "Small Props" : "NPCs" ) ))}... [{Math.Ceiling( GenerationProgress * 100 )}%]";
 
 	public static bool IsGenerating => GenerationProgress < 1d;
@@ -316,6 +332,8 @@ public partial class Town : BaseNetworkable
 
 		currentCheck = -1;
 		Goblintide.CurrentTown.HousesGenerationProgress = 0d;
+		Goblintide.CurrentTown.GridGenerationProgress = 0d;
+		Goblintide.CurrentTown.GridBlockersPlaced = false;
 		Goblintide.CurrentTown.BigPropsGenerationProgress = 0d;
 		Goblintide.CurrentTown.SmallPropsGenerationProgress = 0d;
 		Goblintide.CurrentTown.NpcsGenerationProgress = 0d;
@@ -374,15 +392,29 @@ public partial class Town : BaseNetworkable
 						nextGenerate = Time.Delta / 2f;
 			}
 
-			if ( Goblintide.CurrentTown.BigPropsGenerationProgress < 1d && Goblintide.CurrentTown.HousesGenerationProgress >= 1d )
+			if ( Goblintide.CurrentTown.GridGenerationProgress < 1d && Goblintide.CurrentTown.HousesGenerationProgress >= 1d )
+			{
+				if ( Goblintide.CurrentTown.GridGenerationProgress <= 0d )
+				{
+					Goblintide.CurrentTown.GridGenerationProgress = 0.5d;
+
+					GameTask.RunInThreadAsync( async () =>
+					{
+						await GenerateGrid();
+						Goblintide.CurrentTown.GridGenerationProgress = 1d;
+					} );
+				}
+			}
+
+			if ( Goblintide.CurrentTown.BigPropsGenerationProgress < 1d && Goblintide.CurrentTown.GridGenerationProgress >= 1d )
 			{
 				Goblintide.CurrentTown.BigPropsGenerationProgress = Math.Clamp( Goblintide.CurrentTown.BigPropsGenerationProgress + 1d / (totalRows * totalRows), 0d, 1d );
 
 				if ( squaredDistance > townRadiusSquared ) continue;
 				if ( currentY * 50f < mainRoadSize && currentY * 50f > -mainRoadSize ) continue;
-				
+
 				if ( TryPlaceProp( PlaceableBigProps, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0.44f, 0.45f ) ) )
-						nextGenerate = Time.Delta / 2f;
+					nextGenerate = Time.Delta / 2f;
 			}
 
 			if ( Goblintide.CurrentTown.SmallPropsGenerationProgress < 1d && Goblintide.CurrentTown.BigPropsGenerationProgress >= 1d )
@@ -394,6 +426,15 @@ public partial class Town : BaseNetworkable
 
 				if ( TryPlaceProp( PlaceableSmallProps, townPosition + new Vector3( currentX * 50f, currentY * 50f ), new Vector2( 0.35f, 0.42f ) ) )
 					nextGenerate = Time.Delta / 2f;
+			}
+
+			if ( Goblintide.CurrentTown.SmallPropsGenerationProgress >= 1d )
+			{
+				if ( !Goblintide.CurrentTown.GridBlockersPlaced )
+				{
+					Goblintide.CurrentTown.Grid.CheckOccupancy( "GridBlocker" );
+					Goblintide.CurrentTown.GridBlockersPlaced = true;
+				}
 			}
 
 			if ( Goblintide.CurrentTown.NpcsGenerationProgress < 1d && Goblintide.CurrentTown.SmallPropsGenerationProgress >= 1d )
