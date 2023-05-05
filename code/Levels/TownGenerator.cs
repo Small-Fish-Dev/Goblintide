@@ -179,8 +179,6 @@ public partial class Town : BaseNetworkable
 			spawnedEntity.Position = chosenPosition;
 			spawnedEntity.Rotation = chosenRotation;
 
-			spawnedEntity.Tags.Add( "GridBlocker" );
-
 			Town.TownEntities.Add( spawnedEntity );
 			return true;
 
