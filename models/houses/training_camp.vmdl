@@ -32,13 +32,26 @@
 				children = 
 				[
 					{
-						_class = "PhysicsShapeBox"
+						_class = "PhysicsMeshFile"
+						name = "training_camp"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						origin = [ -5.888611, 0.168198, 56.630398 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 248.974426, 108.250336, 123.260796 ]
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "models/houses/dmx/mesh/training_camp.dmx"
+						import_scale = 1.0
+						maxMeshVertices = 0
+						qemError = 0.0
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
 					},
 				]
 			},
