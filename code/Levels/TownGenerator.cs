@@ -23,8 +23,8 @@ public partial class Town : BaseNetworkable
 	public TownType TownType => TownRadius >= 1200f ? ( TownRadius >= 2500f ? TownType.Town : TownType.Village ) : TownType.Camp;
 	public float ForestRadius => TownRadius + 1000f;
 	[Net] public Vector3 Position { get; set; } = Vector3.Zero;
-	public Vector3 MinBounds => Position - new Vector3( ForestRadius + 600f ).WithZ(0);
-	public Vector3 MaxBounds => Position + new Vector3( ForestRadius + 600f ).WithZ(0);
+	public Vector3 MinBounds => Position - new Vector3( ForestRadius ).WithZ(0);
+	public Vector3 MaxBounds => Position + new Vector3( ForestRadius ).WithZ(0);
 	public int Seed => TownSize.GetHashCode();
 	public Random RNG { get; set; }
 	public static List<Entity> TownEntities = new();
@@ -236,7 +236,7 @@ public partial class Town : BaseNetworkable
 	{
 		var position = Goblintide.CurrentTown.Position;
 		var bounds = new BBox( Goblintide.CurrentTown.MinBounds + Vector3.Down * 999f, Goblintide.CurrentTown.MaxBounds + Vector3.Up * 999f );
-		Goblintide.CurrentTown.Grid = await GridAStar.Grid.Create( position, bounds, new Rotation(), widthClearance: 12f, heightClearance: 40f, worldOnly: false );
+		Goblintide.CurrentTown.Grid = await GridAStar.Grid.Create( position, bounds, new Rotation(), widthClearance: 12f, heightClearance: 40f, save: false, cylinder: true, worldOnly: false );
 		return true;
 	}
 
