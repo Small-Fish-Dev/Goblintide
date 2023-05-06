@@ -32,13 +32,26 @@
 				children = 
 				[
 					{
-						_class = "PhysicsShapeBox"
+						_class = "PhysicsMeshFile"
+						name = "goblin_spawner"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						origin = [ 0.229515, -0.544678, 46.629131 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 114.875717, 122.628174, 112.995872 ]
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "models/houses/dmx/mesh/goblin_spawner.dmx"
+						import_scale = 1.0
+						maxMeshVertices = 0
+						qemError = 0.0
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
 					},
 				]
 			},
