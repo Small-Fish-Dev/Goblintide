@@ -36,13 +36,17 @@ public partial class VillageState : GameState
 		Goblintide.LoadSave( true, true );
 		Goblintide.Lord.Position = Goblintide.CurrentTown.Throne.Position + 50f;
 		Goblintide.Lord.HitPoints = Goblintide.Lord.MaxHitPoints;
-		Goblintide.GoblinArmyEnabled( true );
-		Goblintide.PlaceGoblinArmy( true );
-
-		foreach( var goblin in Goblintide.GoblinArmy )
+		GameTask.RunInThreadAsync( async () =>
 		{
-			goblin.BaseDiligency = 1;
-		}
+			await Town.GenerateGrid();
+			Goblintide.GoblinArmyEnabled( true );
+			Goblintide.PlaceGoblinArmy( true );
+
+			foreach ( var goblin in Goblintide.GoblinArmy )
+			{
+				goblin.BaseDiligency = 1;
+			}
+		} );
 
 		if ( Game.IsServer )
 		{

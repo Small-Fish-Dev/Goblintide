@@ -23,8 +23,8 @@ public partial class Town : BaseNetworkable
 	public TownType TownType => TownRadius >= 1200f ? ( TownRadius >= 2500f ? TownType.Town : TownType.Village ) : TownType.Camp;
 	public float ForestRadius => TownRadius + 1000f;
 	[Net] public Vector3 Position { get; set; } = Vector3.Zero;
-	public Vector3 MinBounds => Position - new Vector3( ForestRadius ).WithZ(0);
-	public Vector3 MaxBounds => Position + new Vector3( ForestRadius ).WithZ(0);
+	public Vector3 MinBounds => new Vector3( -ForestRadius ).WithZ(0);
+	public Vector3 MaxBounds => new Vector3( ForestRadius ).WithZ(0);
 	public int Seed => TownSize.GetHashCode();
 	public Random RNG { get; set; }
 	public static List<Entity> TownEntities = new();
@@ -96,6 +96,12 @@ public partial class Town : BaseNetworkable
 	~Town()
 	{
 		Event.Unregister( this );
+	}
+
+	[GameEvent.Tick.Server]
+	public void test()
+	{
+		DebugOverlay.Box( MinBounds, MaxBounds, Color.Red, Time.Delta, false );
 	}
 
 	public static float NoiseValue( float x = 0f, float y = 0f, float scale = 10f )
@@ -520,6 +526,10 @@ public partial class Town : BaseNetworkable
 		{
 			Goblintide.LoadVillageSize();
 			GenerateEmptyTown( (float)Goblintide.VillageSize, true, true );
+			GameTask.RunInThreadAsync( async () =>
+			{
+				await Town.GenerateGrid();
+			} );
 		}
 
 		Goblintide.GenerateSave( true );
