@@ -98,12 +98,6 @@ public partial class Town : BaseNetworkable
 		Event.Unregister( this );
 	}
 
-	[GameEvent.Tick.Server]
-	public void test()
-	{
-		DebugOverlay.Box( MinBounds, MaxBounds, Color.Red, Time.Delta, false );
-	}
-
 	public static float NoiseValue( float x = 0f, float y = 0f, float scale = 10f )
 	{
 		return Noise.Fbm( 2, Goblintide.CurrentTown.Seed / 100f + x / scale, Goblintide.CurrentTown.Seed / 100f + y / scale );
@@ -565,6 +559,7 @@ public partial class Town : BaseNetworkable
 
 	public void DeleteTown()
 	{
+		Event.Unregister( this );
 		foreach ( var entity in TownEntities )
 			entity.Delete();
 	}
