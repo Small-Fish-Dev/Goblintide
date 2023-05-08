@@ -32,26 +32,76 @@
 				children = 
 				[
 					{
-						_class = "PhysicsMeshFile"
-						name = "house_b"
+						_class = "PhysicsShapeBox"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						recenter_on_parent_bone = false
-						offset_origin = [ 0.0, 0.0, 0.0 ]
-						offset_angles = [ 0.0, 0.0, 0.0 ]
-						align_origin_x_type = "None"
-						align_origin_y_type = "None"
-						align_origin_z_type = "None"
-						filename = "models/houses/dmx/mesh/house_b.dmx"
-						import_scale = 1.0
-						maxMeshVertices = 0
-						qemError = 0.0
-						import_filter = 
-						{
-							exclude_by_default = false
-							exception_list = [  ]
-						}
+						origin = [ -0.145393, -124.183929, 70.023399 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 267.14679, 8.311033, 150.046799 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -0.145393, 131.815994, 70.023399 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 267.14679, 8.311033, 150.046799 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 128.665604, 3.994373, 70.023399 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 9.524741, 263.954224, 150.046799 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -128.572159, 114.689301, 70.023399 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 10.293266, 42.564331, 150.046799 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -128.572159, -46.738274, 70.023399 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 10.293266, 162.488892, 150.046799 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -128.572159, 3.994373, 119.11377 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 10.293266, 263.954224, 51.866062 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -70.995903, 2.673, 324.174011 ]
+						angles = [ 45.0, 0.0, 0.0 ]
+						dimensions = [ 10.293266, 299.696777, 206.500275 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 70.004097, 2.673, 324.174011 ]
+						angles = [ 45.0, 180.0, 0.0 ]
+						dimensions = [ 10.293266, 299.696777, 206.500275 ]
 					},
 				]
 			},

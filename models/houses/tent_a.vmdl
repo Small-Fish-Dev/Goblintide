@@ -32,26 +32,31 @@
 				children = 
 				[
 					{
-						_class = "PhysicsMeshFile"
-						name = "tent_a"
+						_class = "PhysicsShapeBox"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						recenter_on_parent_bone = false
-						offset_origin = [ 0.0, 0.0, 0.0 ]
-						offset_angles = [ 0.0, 0.0, 0.0 ]
-						align_origin_x_type = "None"
-						align_origin_y_type = "None"
-						align_origin_z_type = "None"
-						filename = "models/houses/dmx/mesh/tent_a.dmx"
-						import_scale = 1.0
-						maxMeshVertices = 0
-						qemError = 0.0
-						import_filter = 
-						{
-							exclude_by_default = false
-							exception_list = [  ]
-						}
+						origin = [ 0.554993, 39.888073, 59.369606 ]
+						angles = [ 0.0, 0.0, 32.0 ]
+						dimensions = [ 154.481049, 10.0, 146.939484 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 0.554993, -37.1119, 59.369598 ]
+						angles = [ 0.0, 180.0, 32.0 ]
+						dimensions = [ 154.481049, 10.0, 146.939484 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 66.0, 1.100712, 51.318901 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 10.0, 114.982018, 112.637726 ]
 					},
 				]
 			},

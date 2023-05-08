@@ -32,26 +32,58 @@
 				children = 
 				[
 					{
-						_class = "PhysicsMeshFile"
-						name = "goblin_spawner"
+						_class = "PhysicsShapeBox"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						recenter_on_parent_bone = false
-						offset_origin = [ 0.0, 0.0, 0.0 ]
-						offset_angles = [ 0.0, 0.0, 0.0 ]
-						align_origin_x_type = "None"
-						align_origin_y_type = "None"
-						align_origin_z_type = "None"
-						filename = "models/houses/dmx/mesh/goblin_spawner.dmx"
-						import_scale = 1.0
-						maxMeshVertices = 0
-						qemError = 0.0
-						import_filter = 
-						{
-							exclude_by_default = false
-							exception_list = [  ]
-						}
+						origin = [ 1.089595, -51.012772, 51.953178 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 106.886734, 4.129768, 113.906372 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 1.08959, 50.987202, 51.953201 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 106.886734, 4.129768, 113.906372 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 51.534977, 0.359539, 51.953201 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 5.995994, 105.385071, 113.906372 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -50.556805, -37.261505, 51.953201 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 5.182701, 30.14299, 113.906372 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -50.556805, 38.090611, 51.953201 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 5.182701, 29.922966, 113.906372 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -49.465, 0.359539, 92.946312 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 5.995994, 105.385071, 31.920162 ]
 					},
 				]
 			},
