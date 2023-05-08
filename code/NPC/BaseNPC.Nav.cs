@@ -1,52 +1,65 @@
 ﻿using Sandbox.Internal;
+using System.Collections.Immutable;
 
 namespace GoblinGame;
 
 public partial class BaseNPC
 {
-	public NavAgentHull Agent => NavAgentHull.Default;
+	internal ImmutableArray<GridAStar.Cell> currentPath { get; set; } = ImmutableArray<GridAStar.Cell>.Empty;
+	public int CurrentPathLength => currentPath.Length;
+	internal int currentPathIndex { get; set; } = -1; // -1 = Not set / Hasn't started
+	internal GridAStar.Cell currentPathCell => IsFollowingPath ? currentPath[currentPathIndex] : null;
+	internal GridAStar.Cell lastPathCell => currentPath.Length > 0 ? currentPath[^1] : null;
+	internal GridAStar.Cell targetPathCell { get; set; } = null;
+	internal GridAStar.Cell nextPathCell => IsFollowingPath ? currentPath[Math.Min( currentPathIndex + 1, currentPath.Length - 1 )] : null;
+	public bool IsFollowingPath => currentPathIndex >= 0 && currentPath.Length > 0;
+	public bool HasArrivedDestination { get; internal set; } = false;
+	public virtual float PathRetraceFrequency { get; set; } = 0.1f; // How many seconds before it checks if the path is being followed or the target position changed
+	internal TimeUntil lastRetraceCheck { get; set; } = 0f;
+	public GridAStar.Grid CurrentGrid => GridAStar.Grid.Main;
+	public GridAStar.Cell NearestCell => CurrentGrid?.GetCell( Position );
 
-	NavPath currentPath;
-	public Vector3 CurrentTargetPosition = 0;
-	int currentPathIndex { get; set; } = 0;
-	public bool IsFollowingPath { get; set; } = false;
-	NavPathSegment latestPathPoint => currentPath.Segments[currentPathIndex];
-	int currentPathCount => currentPath.Count - 1;
-	NavPathSegment nextPathPoint => currentPathIndex < currentPathCount ? currentPath.Segments[currentPathIndex + 1] : latestPathPoint;
-	TimeSince pathLastCalculated => currentPath.Age;
-	Line currentPathLine => new Line( latestPathPoint.Position, nextPathPoint.Position );
-	float distanceFromIdealPath => currentPathLine.SqrDistance( Position );
-
-	public virtual bool NavigateTo( Vector3 targetPosition )
+	public virtual async Task<bool> NavigateTo( GridAStar.Cell targetCell )
 	{
-		if ( !Game.IsServer ) return false;
+		if ( targetCell == null ) return false;
+		if ( targetCell == NearestCell ) return false;
+		if ( CurrentGrid == null ) return false;
 
-		var pathSettings = NavMesh.PathBuilder( Position )
-			.WithAgentHull( Agent )
-			.WithStartVelocity( Velocity )
-			.WithPartialPaths();
+		var computedPath = await CurrentGrid.ComputePathAsync( NearestCell, targetCell );
 
-		var pathBuilt = pathSettings.Build( targetPosition );
+		if ( computedPath == null || computedPath.Length < 1 ) return false;
 
-		if ( pathBuilt == null || pathBuilt.Segments.Count == 0 ) return false;
-
-		currentPath = pathBuilt;
+		currentPath = computedPath;
 		currentPathIndex = 0;
-		IsFollowingPath = true;
-		CurrentTargetPosition = targetPosition;
+		HasArrivedDestination = false;
+		targetPathCell = lastPathCell;
 
 		return true;
 	}
 
-	public virtual bool NavigateTo( BaseEntity target )
+	public virtual async Task<bool> NavigateTo( BaseEntity target )
 	{
+		if ( CurrentGrid == null ) return false;
+
 		var targetPosition = FindBestTargetPosition( target );
 
-		return NavigateTo( targetPosition );
+		return await NavigateTo( CurrentGrid.GetNearestCell( targetPosition, true, true ) );
 	}
 
-	public virtual void ComputeNavigation()
+	public async virtual void ComputeNavigation()
 	{
+		if ( CurrentGrid == null ) return;
+
+		if ( lastRetraceCheck )
+		{
+			if ( targetPathCell != lastPathCell ) // If the target cell is not the current navpath's last cell, retrace path
+				await NavigateTo( targetPathCell );
+
+			if ( IsFollowingPath && Position.DistanceSquared( currentPathCell.Position ) > (CurrentGrid.CellSize * 1.42f) * (CurrentGrid.CellSize * 1.42f) ) // Or if you strayed away from the path too far
+				await NavigateTo( targetPathCell );
+
+			lastRetraceCheck = PathRetraceFrequency;
+		}
 
 		if ( !IsFollowingPath )
 		{
@@ -54,18 +67,20 @@ public partial class BaseNPC
 			return;
 		}
 
-		if ( Position.DistanceSquared( nextPathPoint.Position ) <= 60f )
+		for ( int i = 0; i < currentPath.Length; i++ )
+		{
+			//currentPath[i].Draw( Color.White, Time.Delta );
+			//DebugOverlay.Text( i.ToString(), currentPath[i].Position, duration: Time.Delta );
+		}
+		Direction = (nextPathCell.Position - Position).Normal;
+
+		if ( Position.DistanceSquared( nextPathCell.Position ) <= (CurrentGrid.CellSize / 2 + CurrentGrid.StepSize) * (CurrentGrid.CellSize / 2 + CurrentGrid.StepSize) )
 			currentPathIndex++;
 
-		if ( distanceFromIdealPath >= 600f )
-			NavigateTo( CurrentTargetPosition );
-
-		Direction = (nextPathPoint.Position - Position).Normal;
-
-		if ( currentPathIndex >= currentPathCount )
+		if ( currentPathIndex >= currentPath.Length || currentPathCell == targetPathCell )
 		{
-			IsFollowingPath = false;
+			HasArrivedDestination = true;
+			currentPathIndex = -1;
 		}
-
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using GoblinGame.Props.Collectable;
 using Sandbox.UI;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace GoblinGame;
 
@@ -185,12 +186,13 @@ public partial class BaseNPC
 		return target.Position.WithZ(0).DistanceSquared( Position.WithZ(0) ) <= combinedDistanceSquared;
 	}
 
-	public void RecalculateTargetNav()
+	public async void RecalculateTargetNav()
 	{
+		if ( CurrentGrid == null ) return;
 		LastKnownTargetPosition = CurrentTarget.Position;
 		CurrentTargetBestPosition = FindBestTargetPosition( CurrentTarget, AttackRange / 2 );
 
-		NavigateTo( CurrentTargetBestPosition );
+		await NavigateTo( CurrentGrid.GetNearestCell( CurrentTargetBestPosition, true, true ) );
 	}
 
 	TimeUntil nextTargetSearch { get; set; } = 0f;
@@ -242,10 +244,14 @@ public partial class BaseNPC
 
 		if ( nextMove )
 		{
+			if ( CurrentGrid == null ) return;
 			nextMove = Game.Random.Float( 2, 4 );
 
 			var randomPositionAround = DefendingPosition + Vector3.Random.WithZ( 0 ) * DefendingPositionRange;
-			NavigateTo( randomPositionAround );
+			GameTask.RunInThreadAsync( () =>
+			{
+				NavigateTo( CurrentGrid.GetCell( randomPositionAround ) );
+			} );
 
 			if ( Game.Random.Float() <= 0.1f )
 				PlayLaughSound();
@@ -262,7 +268,7 @@ public partial class BaseNPC
 
 	public virtual void Steal( BaseCollectable collectable )
 	{
-		IsFollowingPath = false;
+		//IsFollowingPath = false;
 		Stealing = collectable;
 		Stealing.Locked = true;
 		Stealing.Position = Position + Vector3.Up * GetHeight();
@@ -281,8 +287,10 @@ public partial class BaseNPC
 		var bestEscapePosition = Goblintide.CurrentTown.Position + relativeTownPosition * Goblintide.CurrentTown.ForestRadius;
 
 		IsGoingToForest = true;
-
-		NavigateTo( bestEscapePosition );
+		GameTask.RunInThreadAsync( () =>
+		{
+			NavigateTo( CurrentGrid.GetCell( bestEscapePosition ) );
+		} );
 	}
 
 	public virtual void EquippingSubBehaviour()
@@ -400,7 +408,10 @@ public partial class BaseNPC
 				nextMove = Game.Random.Float( 0.5f, 1f );
 
 				var randomPositionAround = DefendingPosition + Vector3.Random.WithZ( 0 ) * DefendingPositionRange;
-				NavigateTo( randomPositionAround );
+				GameTask.RunInThreadAsync( () =>
+				{
+					NavigateTo( CurrentGrid.GetCell( randomPositionAround ) );
+				} );
 				PlayPanicSound();
 			}
 		}
