@@ -1,0 +1,51 @@
+{
+  "Title": "GoblinTide",
+  "Type": "game",
+  "Org": "fish",
+  "Ident": "goblintide_new",
+  "Schema": 1,
+  "IncludeSourceFiles": false,
+  "Resources": null,
+  "PackageReferences": [
+    "fish.grid_and_astar"
+  ],
+  "EditorReferences": null,
+  "IsWhitelistDisabled": false,
+  "Metadata": {
+    "MaxPlayers": 1,
+    "MinPlayers": 1,
+    "GameNetworkType": "Singleplayer",
+    "MapSelect": "Official",
+    "MapList": [
+      "overworld"
+    ],
+    "RankType": "None",
+    "PerMapRanking": false,
+    "LeaderboardType": "None",
+    "ProjectTemplate": null,
+    "CsProjName": "",
+    "Compiler": {
+      "RootNamespace": "GameJam",
+      "DefineConstants": "SANDBOX;ADDON;DEBUG",
+      "NoWarn": "1701;1702;1591;",
+      "References": []
+    },
+    "Physics": {
+      "SubSteps": 4,
+      "TimeScale": 1,
+      "Gravity": "0,0,-800",
+      "AirDensity": 1.2,
+      "SleepingEnabled": true,
+      "SimulationMode": "Continuous",
+      "PositionIterations": 2,
+      "VelocityIterations": 8,
+      "SoftBodyIterations": 1,
+      "SoftBodySubsteps": 1
+    },
+    "Summary": "Command a horde of goblins and pillage nearby villages.\n",
+    "Description": "Command a horde of goblins and pillage nearby villages, expand your army, become the scourge of the kingdom, and make the biggest gold pile! Instructions:\n\nEnergy regenerates over time and is used to travel through the map [R]\n\nDuring raids, you can point [M1] to order directly nearby goblins\n\nThe more gold, the smarter you become, use it to upgrade [Enter] and evolve.\n\nPlace [Tab] buildings and expand your camp, Spawners will passively create goblins, Housing will increase max goblin count,Training will allow them to level up away from danger, and Crafting will passively create weapons.\n\nIf you want to restart your progress, use the goblintide_reset command",
+    "Public": true,
+    "ReplaceTags": "goblin funny adventure",
+    "HttpAllowList": null
+  }
+}

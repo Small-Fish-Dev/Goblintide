@@ -1,0 +1,28 @@
+{
+  "publish": {
+    "Allowed": true,
+    "Enabled": false,
+    "ProjectConfig": {
+      "Title": "piece_20",
+      "Type": "model",
+      "Org": "fish",
+      "Ident": "piece_20",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "Resources": null,
+      "MenuResources": null,
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": null,
+      "EditorReferences": null,
+      "Metadata": {
+        "SingleAssetSource": "models/fence/fence/piece_20.vmdl_c"
+      }
+    }
+  },
+  "tags": [
+    "gib"
+  ]
+}
